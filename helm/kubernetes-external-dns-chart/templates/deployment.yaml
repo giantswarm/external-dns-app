@@ -1,0 +1,77 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.name }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    giantswarm.io/service-type: "managed"
+    app: {{ .Values.name }}
+  annotations:
+    prometheus.io/port: '{{ .Values.metricsPort }}'
+    prometheus.io/scrape: 'true'
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.name }}
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        giantswarm.io/service-type: "managed"
+        app: {{ .Values.name }}
+      annotations:
+        scheduler.alpha.kubernetes.io/critical-pod: ''
+    spec:
+      serviceAccountName: {{ .Values.name }}
+      securityContext:
+        runAsUser: {{ .Values.userID }}
+        runAsGroup: {{ .Values.groupID }}
+        fsGroup: {{ .Values.groupID }}
+      priorityClassName: giantswarm-critical
+      containers:
+      - name: {{ .Values.name }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: IfNotPresent
+        args:
+        {{- range .Values.sources }}
+        - --source={{ . }}
+        {{- end }}
+        - --provider={{ .Values.provider }}
+        {{- if eq .Values.provider "azure" }}
+        - --azure-config-file=/azure/config/azure.yaml
+        {{- end }}
+        - --domain-filter={{ .Values.domainFilter }}
+        - --metrics-address=:{{ .Values.metricsPort }}
+        - --namespace={{ .Values.namespace }}
+        - --registry=txt
+        - --txt-owner-id=giantswarm-io-external-dns
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: {{ .Values.metricsPort }}
+            scheme: HTTP
+        resources:
+{{ toYaml .Values.resources | indent 10 }}
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: {{ .Values.metricsPort }}
+            scheme: HTTP
+          initialDelaySeconds: 10
+          timeoutSeconds: 1
+      {{- if eq .Values.provider "azure" }}
+        volumeMounts:
+        - name: azure-config-file
+          mountPath: /azure/config
+          readOnly: true
+        - mountPath: /azure
+          name: azure-config-file-ownership
+      volumes:
+      - name: azure-config-file
+        hostPath:
+          path: /etc/kubernetes/config
+      - emptyDir: {}
+        name: azure-config-file-ownership
+      {{- end }}
