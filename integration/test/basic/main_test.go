@@ -22,6 +22,10 @@ const (
 	appName = "external-dns"
 )
 
+const (
+	envVarTarballURL = "E2E_TARBALL_URL"
+)
+
 var (
 	ba         *basicapp.BasicApp
 	helmClient *helmclient.Client
