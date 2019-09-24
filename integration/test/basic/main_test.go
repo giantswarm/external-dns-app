@@ -19,7 +19,7 @@ import (
 )
 
 const (
-	appName = "external-dns"
+	chartName = "external-dns"
 )
 
 const (
@@ -100,23 +100,24 @@ func init() {
 			App: basicapp.Chart{
 				// Use inmemory provider so chart can be installed in minikube.
 				ChartValues: "{ \"provider\": \"inmemory\", \"e2e\": true }",
+				Name:        chartName,
 				Namespace:   metav1.NamespaceSystem,
 				URL:         tarballURL,
 			},
 			ChartResources: basicapp.ChartResources{
 				Deployments: []basicapp.Deployment{
 					{
-						Name:      appName,
+						Name:      chartName,
 						Namespace: metav1.NamespaceSystem,
 						DeploymentLabels: map[string]string{
-							"app":                        appName,
+							"app":                        chartName,
 							"giantswarm.io/service-type": "managed",
 						},
 						MatchLabels: map[string]string{
-							"app": appName,
+							"app": chartName,
 						},
 						PodLabels: map[string]string{
-							"app":                        appName,
+							"app":                        chartName,
 							"giantswarm.io/service-type": "managed",
 						},
 					},
