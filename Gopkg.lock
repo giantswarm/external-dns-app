@@ -122,14 +122,6 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:2810bd14b69c6b38eddb5d6d34c2ee89ad9c8d67eb528794b12584202e7510ff"
-  name = "github.com/giantswarm/apprclient"
-  packages = ["."]
-  pruneopts = "UT"
-  revision = "4615b197120e48c20818898c04df0845b0bf15c9"
-
-[[projects]]
-  branch = "master"
   digest = "1:ab67fdefbc890c7880ffc2904048d7b9d14e29ebc716f8d637a17b16bb91d9e6"
   name = "github.com/giantswarm/backoff"
   packages = ["."]
@@ -150,14 +142,14 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:a8227c97ea1e82b49161d7b8ba409aba78d81b0745c529ce623b25592a6704e7"
+  digest = "1:18b8a435ca76c0495d656d582efbafd5f4d2794fe220f4ade2866295d7a2178b"
   name = "github.com/giantswarm/e2etests"
   packages = [
-    "managedservices",
-    "managedservices/legacyresource",
+    "basicapp",
+    "basicapp/legacyresource",
   ]
   pruneopts = "UT"
-  revision = "f024c8fd5a0d870d621bedb553d1591d851b935e"
+  revision = "71d00db6dc5d285af80f446395bfc8bcf2d0cf64"
 
 [[projects]]
   branch = "master"
@@ -885,15 +877,13 @@
   input-imports = [
     "github.com/Azure/go-autorest/autorest",
     "github.com/docker/distribution/reference",
-    "github.com/giantswarm/apprclient",
     "github.com/giantswarm/e2esetup/chart",
     "github.com/giantswarm/e2esetup/chart/env",
     "github.com/giantswarm/e2esetup/k8s",
-    "github.com/giantswarm/e2etests/managedservices",
+    "github.com/giantswarm/e2etests/basicapp",
     "github.com/giantswarm/helmclient",
     "github.com/giantswarm/k8sclient",
     "github.com/giantswarm/micrologger",
-    "github.com/spf13/afero",
     "k8s.io/api/core/v1",
     "k8s.io/apimachinery/pkg/apis/meta/v1",
     "k8s.io/apiserver/pkg/endpoints/request",

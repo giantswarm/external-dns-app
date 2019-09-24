@@ -8,53 +8,45 @@ import (
 	"os"
 	"testing"
 
-	"github.com/giantswarm/apprclient"
 	e2esetup "github.com/giantswarm/e2esetup/chart"
 	"github.com/giantswarm/e2esetup/chart/env"
 	"github.com/giantswarm/e2esetup/k8s"
-	"github.com/giantswarm/e2etests/managedservices"
+	"github.com/giantswarm/e2etests/basicapp"
 	"github.com/giantswarm/helmclient"
 	"github.com/giantswarm/k8sclient"
 	"github.com/giantswarm/micrologger"
-	"github.com/spf13/afero"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
 const (
-	testName = "basic"
+	chartName = "external-dns"
+)
 
-	appName   = "external-dns"
-	chartName = "kubernetes-external-dns"
+const (
+	envVarTarballURL = "E2E_TARBALL_URL"
 )
 
 var (
-	a          *apprclient.Client
+	ba         *basicapp.BasicApp
 	helmClient *helmclient.Client
 	k8sSetup   *k8s.Setup
 	l          micrologger.Logger
-	ms         *managedservices.ManagedServices
+	tarballURL string
 )
 
 func init() {
 	var err error
 
 	{
-		c := micrologger.Config{}
-		l, err = micrologger.New(c)
-		if err != nil {
-			panic(err.Error())
+		tarballURL = os.Getenv(envVarTarballURL)
+		if tarballURL == "" {
+			panic(fmt.Sprintf("env var '%s' must not be empty", envVarTarballURL))
 		}
 	}
 
 	{
-		c := apprclient.Config{
-			Fs:     afero.NewOsFs(),
-			Logger: l,
-
-			Address:      "https://quay.io",
-			Organization: "giantswarm",
-		}
-		a, err = apprclient.New(c)
+		c := micrologger.Config{}
+		l, err = micrologger.New(c)
 		if err != nil {
 			panic(err.Error())
 		}
@@ -100,42 +92,39 @@ func init() {
 	}
 
 	{
-		c := managedservices.Config{
-			ApprClient: a,
+		c := basicapp.Config{
 			Clients:    k8sClients,
 			HelmClient: helmClient,
 			Logger:     l,
 
-			ChartConfig: managedservices.ChartConfig{
-				ChannelName: fmt.Sprintf("%s-%s", env.CircleSHA(), testName),
-				ChartName:   chartName,
+			App: basicapp.Chart{
 				// Use inmemory provider so chart can be installed in minikube.
-				ChartValues:     "{ \"provider\": \"inmemory\", \"e2e\": true }",
-				Namespace:       metav1.NamespaceSystem,
-				RunReleaseTests: false,
+				ChartValues: "{ \"provider\": \"inmemory\", \"e2e\": true }",
+				Name:        chartName,
+				Namespace:   metav1.NamespaceSystem,
+				URL:         tarballURL,
 			},
-			ChartResources: managedservices.ChartResources{
-				Deployments: []managedservices.Deployment{
+			ChartResources: basicapp.ChartResources{
+				Deployments: []basicapp.Deployment{
 					{
-						Name:      appName,
+						Name:      chartName,
 						Namespace: metav1.NamespaceSystem,
 						DeploymentLabels: map[string]string{
-							"app":                        appName,
+							"app":                        chartName,
 							"giantswarm.io/service-type": "managed",
 						},
 						MatchLabels: map[string]string{
-							"app": appName,
+							"app": chartName,
 						},
 						PodLabels: map[string]string{
-							"app":                        appName,
+							"app":                        chartName,
 							"giantswarm.io/service-type": "managed",
 						},
-						Replicas: 1,
 					},
 				},
 			},
 		}
-		ms, err = managedservices.New(c)
+		ba, err = basicapp.New(c)
 		if err != nil {
 			panic(err.Error())
 		}
