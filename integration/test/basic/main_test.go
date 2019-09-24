@@ -27,10 +27,18 @@ var (
 	helmClient *helmclient.Client
 	k8sSetup   *k8s.Setup
 	l          micrologger.Logger
+	tarballURL string
 )
 
 func init() {
 	var err error
+
+	{
+		tarballURL = os.Getenv(envVarTarballURL)
+		if tarballURL == "" {
+			panic(fmt.Sprintf("env var '%s' must not be empty", envVarTarballURL))
+		}
+	}
 
 	{
 		c := micrologger.Config{}
@@ -87,9 +95,9 @@ func init() {
 
 			App: basicapp.Chart{
 				// Use inmemory provider so chart can be installed in minikube.
-				ChartValues:     "{ \"provider\": \"inmemory\", \"e2e\": true }",
-				Namespace:       metav1.NamespaceSystem,
-				RunReleaseTests: false,
+				ChartValues: "{ \"provider\": \"inmemory\", \"e2e\": true }",
+				Namespace:   metav1.NamespaceSystem,
+				URL:         tarballURL,
 			},
 			ChartResources: basicapp.ChartResources{
 				Deployments: []basicapp.Deployment{
