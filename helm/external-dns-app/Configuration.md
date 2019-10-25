@@ -1,6 +1,6 @@
 # external-dns
 
-This chart installs `external-dns` as managed applications. ExternalDNS synchronizes exposed Kubernetes Services and Ingresses with DNS providers.
+This chart installs `external-dns` as managed application. ExternalDNS synchronizes exposed Kubernetes Services and Ingresses with DNS providers.
 
 
 ## Configuration
