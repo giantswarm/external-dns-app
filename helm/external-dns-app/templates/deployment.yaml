@@ -22,7 +22,7 @@ spec:
         giantswarm.io/service-type: "managed"
         app: {{ .Values.name }}
       annotations:
-        {{- if eq .Values.provider "azure" }}
+        {{- if eq .Values.provider "aws" }}
         iam.amazonaws.com/role: {{ .Values.clusterID}}-Route53Manager-Role
         {{- end }}
         scheduler.alpha.kubernetes.io/critical-pod: ''
