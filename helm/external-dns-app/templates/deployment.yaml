@@ -22,6 +22,9 @@ spec:
         giantswarm.io/service-type: "managed"
         app: {{ .Values.name }}
       annotations:
+        {{- if eq .Values.provider "aws" }}
+        iam.amazonaws.com/role: {{ .Values.clusterID}}-Route53Manager-Role
+        {{- end }}
         scheduler.alpha.kubernetes.io/critical-pod: ''
     spec:
       serviceAccountName: {{ .Values.name }}
@@ -42,7 +45,7 @@ spec:
         {{- if eq .Values.provider "azure" }}
         - --azure-config-file=/azure/config/azure.yaml
         {{- end }}
-        - --domain-filter={{ .Values.domainFilter }}
+        - --domain-filter={{ .Values.baseDomain }}
         - --metrics-address=:{{ .Values.metricsPort }}
         - --namespace={{ .Values.namespace }}
         - --registry=txt
