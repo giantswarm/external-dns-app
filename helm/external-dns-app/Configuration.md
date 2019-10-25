@@ -1,0 +1,14 @@
+# external-dns
+
+This chart installs `external-dns` as managed applications. ExternalDNS synchronizes exposed Kubernetes Services and Ingresses with DNS providers.
+
+
+## Configuration
+
+The following table lists the configurable parameters of the external-dns chart, its dependencies and default values.
+
+Parameter | Description | Default
+--- | --- | ---
+`baseDomain` | Cluster base domain. `external-dns` applies only to `aws` privder | 'aws'
+`clusterID` | Cluster identifier. Applies only to Giant Swarm managed clusters | 'testid'
+`provider` | Provider identifier (`aws`/`azure`/`kvm`). `external-dns` applies only to `aws`/`azure` providers | 'azure'
