@@ -42,7 +42,7 @@ spec:
         {{- if eq .Values.provider "azure" }}
         - --azure-config-file=/azure/config/azure.yaml
         {{- end }}
-        - --domain-filter={{ .Values.domainFilter }}
+        - --domain-filter={{ .Values.baseDomain }}
         - --metrics-address=:{{ .Values.metricsPort }}
         - --namespace={{ .Values.namespace }}
         - --registry=txt

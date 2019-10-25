@@ -8,7 +8,12 @@ namespace: kube-system
 userID: 65534
 groupID: 65534
 
-domainFilter: gigantic.io
+baseDomain: gigantic.io
+# clusterID is dynamic environment value, calculated after cluster creation
+# applies only to Giant Swarm clusters
+clusterID: en2jo
+# provider is dynamic environment value, which comes from application catalog configuration
+# applies only to Giant Swarm clusters
 provider: azure
 
 sources:
