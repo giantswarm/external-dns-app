@@ -10,6 +10,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 ### Changed
 
 - Migrated to be deployed via an app CR not a chartconfig CR
+- Added support for AWS provider.
 
 ## v0.3.1
 
