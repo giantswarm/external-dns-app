@@ -40,7 +40,7 @@ spec:
         command:
         - /bin/sh
         - -c
-        - "while ! wget -qO- http://169.254.169.254/latest/meta-data/iam/security-credentials/ | grep {{ .Values.clusterID}}-Route53Manager-Role; do echo 'Waiting for iam-role to be available...'; sleep 5; done"
+        - counter=5; while ! wget -qO- http://169.254.169.254/latest/meta-data/iam/security-credentials/ | grep {{ .Values.clusterID}}-Route53Manager-Role; do echo 'Waiting for iam-role to be available...'; sleep 5; let "counter-=1"  ; if [ "$counter" -eq "0" ]; then exit 1; fi; done
       {{- end }}
       containers:
       - name: {{ .Values.name }}
