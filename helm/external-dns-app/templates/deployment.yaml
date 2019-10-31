@@ -33,9 +33,16 @@ spec:
         runAsGroup: {{ .Values.groupID }}
         fsGroup: {{ .Values.groupID }}
       priorityClassName: giantswarm-critical
+      initContainers:
+      - name: wait-for-iam-role
+        image: {{ .Values.image.registry }}/giantswarm/alpine:3.10
+        command:
+        - /bin/sh
+        - -c
+        - "while ! wget -O - http://169.254.169.254/latest/meta-data/iam/security-credentials/ > /dev/null | grep {{ .Values.clusterID}}-Route53Manager-Role; do echo 'Waiting for iam-role to be available...'; sleep 5; done"
       containers:
       - name: {{ .Values.name }}
-        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        image: "{{ .Values.image.registry }}/{{ .Values.image.name }}:{{ .Values.image.tag }}"
         imagePullPolicy: IfNotPresent
         args:
         {{- range .Values.sources }}
@@ -58,19 +65,10 @@ spec:
         resources:
 {{ toYaml .Values.resources | indent 10 }}
         livenessProbe:
-          {{- if eq .Values.provider "azure" }}
-          exec:                               
-            command:                      
-            - /bin/sh                            
-            - -c                                    
-            - "wget --output /tmp/result http://169.254.169.254/latest/meta-data/iam/security-credentials/
-              && cat /tmp/result | grep {{ .Values.clusterID}}-Route53Manager-Role && true"
-          {{- else }}
           httpGet:
             path: /healthz
             port: {{ .Values.metricsPort }}
             scheme: HTTP
-          {{- end }}
           initialDelaySeconds: 10
           timeoutSeconds: 1
       {{- if eq .Values.provider "azure" }}
