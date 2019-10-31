@@ -58,10 +58,19 @@ spec:
         resources:
 {{ toYaml .Values.resources | indent 10 }}
         livenessProbe:
+          {{- if eq .Values.provider "azure" }}
+          exec:                               
+            command:                      
+            - /bin/sh                            
+            - -c                                    
+            - "wget --output /tmp/result http://169.254.169.254/latest/meta-data/iam/security-credentials/
+              && cat /tmp/result | grep {{ .Values.clusterID}}-Route53Manager-Role && true"
+          {{- else }}
           httpGet:
             path: /healthz
             port: {{ .Values.metricsPort }}
             scheme: HTTP
+          {{- end }}
           initialDelaySeconds: 10
           timeoutSeconds: 1
       {{- if eq .Values.provider "azure" }}
