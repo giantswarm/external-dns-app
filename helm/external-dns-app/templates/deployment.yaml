@@ -78,7 +78,7 @@ spec:
         - --domain-filter={{ .Values.baseDomain }}
         {{- end }}
         - --metrics-address=:{{ .Values.metricsPort }}
-        - --namespace=kube-system
+        - --namespace={{ .Values.namespace }}
         - --registry=txt
         - --txt-owner-id=giantswarm-io-external-dns
         - --txt-prefix={{ .Values.clusterID }}
