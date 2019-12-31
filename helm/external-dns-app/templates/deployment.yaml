@@ -22,7 +22,7 @@ spec:
         giantswarm.io/service-type: "managed"
         app: {{ .Values.name }}
       annotations:
-        {{- if and (eq .Values.provider "aws") (eq .Values.route53.access "internal") }}
+        {{- if and (eq .Values.provider "aws") (eq .Values.aws.access "internal") }}
         iam.amazonaws.com/role: {{ .Values.clusterID}}-Route53Manager-Role
         {{- end }}
         scheduler.alpha.kubernetes.io/critical-pod: ''
@@ -33,7 +33,7 @@ spec:
         runAsGroup: {{ .Values.groupID }}
         fsGroup: {{ .Values.groupID }}
       priorityClassName: giantswarm-critical
-      {{- if and (eq .Values.provider "aws") (eq .Values.route53.access "internal") }}
+      {{- if and (eq .Values.provider "aws") (eq .Values.aws.access "internal") }}
       initContainers:
       - name: wait-for-iam-role
         image: {{ .Values.image.registry }}/giantswarm/alpine:3.10
@@ -47,21 +47,19 @@ spec:
         image: "{{ .Values.image.registry }}/{{ .Values.image.name }}:{{ .Values.image.tag }}"
         imagePullPolicy: IfNotPresent
         env:
-        {{- if eq .Values.route53.access "external" }}
+        {{- if eq .Values.aws.access "external" }}
         - name: AWS_ACCESS_KEY_ID
           valueFrom:
             secretKeyRef:
-              name: {{ .Values.route53.secret.name }}
-              namespace: {{ .Values.route53.secret.namespace }}
-              key: {{ .Values.route53.key }}.aws_access_key_id
+              name: {{ .Values.name }}-route53-credentials
+              key: aws_access_key_id
         - name: AWS_SECRET_ACCESS_KEY
           valueFrom:
             secretKeyRef:
-              name: {{ .Values.route53.secret.name }}
-              namespace: {{ .Values.route53.secret.namespace }}
-              key: {{ .Values.route53.key }}.aws_secret_access_key
+              name: {{ .Values.name }}-route53-credentials
+              key: aws_secret_access_key
         - name: AWS_DEFAULT_REGION
-          value: {{ .Values.route53.region }}
+          value: {{ .Values.aws.region }}
         {{- end }}
         args:
         {{- range .Values.sources }}
@@ -71,8 +69,8 @@ spec:
         {{- if eq .Values.provider "azure" }}
         - --azure-config-file=/azure/config/azure.yaml
         {{- end }}
-        {{- if eq .Values.route53.access "external" }}
-        - --domain-filter={{ .Values.route53.baseDomain }}
+        {{- if eq .Values.aws.access "external" }}
+        - --domain-filter={{ .Values.aws.baseDomain }}
         - --aws-zone-type=public
         {{- else }}
         - --domain-filter={{ .Values.baseDomain }}
