@@ -17,7 +17,6 @@ clusterID: en2jo
 provider: azure
 # aws/access describes route53 access type.
 # possible values: internal/external.
-# for external - secret+key/region should be specified.
 aws:
   access: internal
   baseDomain:
