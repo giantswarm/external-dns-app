@@ -98,7 +98,7 @@ func init() {
 
 			App: basicapp.Chart{
 				// Use inmemory provider so chart can be installed in minikube.
-				ChartValues: "{ \"provider\": \"inmemory\", \"e2e\": true }",
+				ChartValues: "{ \"provider\": \"inmemory\" }",
 				Name:        chartName,
 				Namespace:   metav1.NamespaceSystem,
 				URL:         tarballURL,
