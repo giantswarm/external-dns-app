@@ -53,16 +53,15 @@ required = [
   name = "github.com/giantswarm/k8sclient"
 
 [[constraint]]
+  name = "k8s.io/apimachinery"
+  version = "kubernetes-1.16.3"
+
+[[override]]
   name = "k8s.io/apiserver"
   version = "kubernetes-1.16.3"
 
-
 [[override]]
   name = "k8s.io/api"
-  version = "kubernetes-1.16.3"
-
-[[override]]
-  name = "k8s.io/apimachinery"
   version = "kubernetes-1.16.3"
 
 [[override]]
