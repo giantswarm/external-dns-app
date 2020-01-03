@@ -75,7 +75,7 @@ workflows:
       - build
 
       - architect/push-to-app-catalog:
-          ame: push-to-default-app-catalog
+          name: push-to-default-app-catalog
           app_catalog: "default-catalog"
           app_catalog_test: "default-test-catalog"
           chart: "external-dns-app"
