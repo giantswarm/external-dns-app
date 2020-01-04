@@ -12,3 +12,4 @@ Parameter | Description | Default
 `baseDomain` | Cluster base domain. `external-dns` applies only to `aws` privder | 'aws'
 `clusterID` | Cluster identifier. Applies only to Giant Swarm managed clusters | 'testid'
 `provider` | Provider identifier (`aws`/`azure`/`kvm`). `external-dns` applies only to `aws`/`azure` providers | 'azure'
+`aws.access` | Access type (`internal`/`external`). `internal` uses IAM role, `external` credentials for AWS sdk configuration | `internal`

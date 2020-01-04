@@ -15,6 +15,12 @@ clusterID: en2jo
 # provider is dynamic environment value, which comes from application catalog configuration
 # applies only to Giant Swarm clusters
 provider: azure
+# aws/access describes route53 access type.
+# possible values: internal/external.
+aws:
+  access: internal
+  baseDomain:
+  region:
 
 sources:
   - service
