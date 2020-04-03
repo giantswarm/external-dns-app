@@ -34,6 +34,7 @@ var (
 )
 
 func init() {
+	ctx := context.Background()
 	var err error
 
 	var latestRelease string
