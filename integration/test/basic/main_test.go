@@ -8,6 +8,7 @@ import (
 	"os"
 	"testing"
 
+	"github.com/giantswarm/appcatalog"
 	e2esetup "github.com/giantswarm/e2esetup/chart"
 	"github.com/giantswarm/e2esetup/chart/env"
 	"github.com/giantswarm/e2etests/basicapp"
@@ -114,14 +115,14 @@ func init() {
 			ChartResources: basicapp.ChartResources{
 				Deployments: []basicapp.Deployment{
 					{
-						Name:      chartName,
+						Name:      app,
 						Namespace: metav1.NamespaceSystem,
 						DeploymentLabels: map[string]string{
 							"app":                        app,
 							"giantswarm.io/service-type": "managed",
 						},
 						MatchLabels: map[string]string{
-							"app": chartName,
+							"app": app,
 						},
 						PodLabels: map[string]string{
 							"app":                        app,
