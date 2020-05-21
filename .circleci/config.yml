@@ -1,12 +1,13 @@
 version: 2.1
 orbs:
-  architect: giantswarm/architect@0.8.6
+  architect: giantswarm/architect@0.8.15
 
 workflows:
   version: 2
   build:
     jobs:
       - architect/push-to-app-catalog:
+          context: architect
           name: push-to-default-app-catalog
           app_catalog: "default-catalog"
           app_catalog_test: "default-test-catalog"
@@ -17,6 +18,7 @@ workflows:
               only: /^v.*/
 
       - architect/integration-test:
+          context: architect
           name: "basic-integration-test"
           test-dir: "integration/test/basic"
           filters:
