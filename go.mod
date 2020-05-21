@@ -1,6 +1,6 @@
 module github.com/giantswarm/external-dns-app
 
-go 1.13
+go 1.14
 
 require (
 	github.com/giantswarm/appcatalog v0.1.11
