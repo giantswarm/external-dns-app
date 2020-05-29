@@ -72,6 +72,7 @@ spec:
         {{- if eq .Values.aws.access "external" }}
         - --domain-filter={{ .Values.aws.baseDomain }}
         - --aws-zone-type=public
+        - --aws-prefer-cname
         {{- else }}
         - --domain-filter={{ .Values.baseDomain }}
         {{- end }}
