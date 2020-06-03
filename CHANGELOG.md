@@ -37,7 +37,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ### Added
 
-- Add AWS support (#5)
+- Add AWS support
 
 ## [v0.4.0]
 
