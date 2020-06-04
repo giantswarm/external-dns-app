@@ -8,6 +8,9 @@ metadata:
     app: {{ .Values.name }}
 rules:
 - apiGroups: [""]
+  resources: ["endpoints"]
+  verbs: ["get","watch","list"]
+- apiGroups: [""]
   resources: ["services"]
   verbs: ["get","watch","list"]
 - apiGroups: [""]
@@ -18,7 +21,7 @@ rules:
   verbs: ["get","watch","list"]
 - apiGroups: [""]
   resources: ["nodes"]
-  verbs: ["list"]
+  verbs: ["watch","list"]
 - apiGroups:
   - extensions
   resources:

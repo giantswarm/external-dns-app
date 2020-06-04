@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project's packages adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Changed
+
+- Upgrade upstream external-dns from v0.5.18 to v0.7.2.
+
 ## [v1.2.1] 2020-05-29
 
 ### Changed
@@ -58,6 +64,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 - Network policy that allows all egress traffic.
 - Network policy that allows accessing metrics on port `10254`.
 
+[Unreleased]: https://github.com/giantswarm/external-dns-app/compare/v1.2.1...master
 [v1.2.1]: https://github.com/giantswarm/external-dns-app/releases/tag/v1.2.1
 [v1.2.0]: https://github.com/giantswarm/external-dns-app/releases/tag/v1.2.0
 [v1.1.0]: https://github.com/giantswarm/external-dns-app/releases/tag/v1.1.0
