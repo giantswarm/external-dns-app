@@ -5,11 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project's packages adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## Unreleased
+## [v1.2.1] 2020-05-29
 
 ### Changed
 
-- Update Helm chart to fix errors from chart linter.
+- Prefer CNAMEs record sets for AWS SDK configuration with explicit credentials.
 
 ## [v1.2.0] 2020-02-04
 
@@ -33,6 +33,12 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - Added support for AWS provider.
 
+## [v0.4.1]
+
+### Added
+
+- Add AWS support
+
 ## [v0.4.0]
 
 ### Changed
@@ -45,7 +51,6 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - Change priority class to `system-cluster-critical`.
 
-
 ## v0.3.0
 
 ### Added
@@ -53,7 +58,9 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 - Network policy that allows all egress traffic.
 - Network policy that allows accessing metrics on port `10254`.
 
+[v1.2.1]: https://github.com/giantswarm/external-dns-app/releases/tag/v1.2.1
 [v1.2.0]: https://github.com/giantswarm/external-dns-app/releases/tag/v1.2.0
 [v1.1.0]: https://github.com/giantswarm/external-dns-app/releases/tag/v1.1.0
 [v1.0.0]: https://github.com/giantswarm/external-dns-app/releases/tag/v1.0.0
+[v0.4.1]: https://github.com/giantswarm/external-dns-app/releases/tag/v0.4.1
 [v0.4.0]: https://github.com/giantswarm/external-dns-app/releases/tag/v0.4.0
