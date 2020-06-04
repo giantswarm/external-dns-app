@@ -16,6 +16,8 @@ import (
 	"github.com/giantswarm/k8sclient"
 	"github.com/giantswarm/micrologger"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+
+	"github.com/giantswarm/external-dns-app/integration/templates"
 )
 
 const (
@@ -104,8 +106,7 @@ func init() {
 			Logger:     l,
 
 			App: basicapp.Chart{
-				// Use inmemory provider so chart can be installed in minikube.
-				ChartValues: "{ \"provider\": \"inmemory\" }",
+				ChartValues: templates.ExternalDNSValues,
 				Name:        app,
 				Namespace:   metav1.NamespaceSystem,
 				URL:         tarballURL,
