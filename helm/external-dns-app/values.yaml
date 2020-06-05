@@ -5,6 +5,8 @@
 name: external-dns
 namespace: kube-system
 
+e2e: false
+
 userID: 65534
 groupID: 65534
 

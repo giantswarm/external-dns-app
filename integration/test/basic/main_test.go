@@ -8,6 +8,7 @@ import (
 	"os"
 	"testing"
 
+	"github.com/giantswarm/appcatalog"
 	e2esetup "github.com/giantswarm/e2esetup/chart"
 	"github.com/giantswarm/e2esetup/chart/env"
 	"github.com/giantswarm/e2etests/basicapp"
@@ -15,14 +16,15 @@ import (
 	"github.com/giantswarm/k8sclient"
 	"github.com/giantswarm/micrologger"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+
+	"github.com/giantswarm/external-dns-app/integration/templates"
 )
 
 const (
-	chartName = "external-dns"
-)
-
-const (
-	envVarTarballURL = "E2E_TARBALL_URL"
+	app            = "external-dns"
+	appName        = "external-dns-app"
+	catalogURL     = "https://giantswarm.github.io/default-catalog"
+	testCatalogURL = "https://giantswarm.github.io/default-test-catalog"
 )
 
 var (
@@ -34,12 +36,22 @@ var (
 )
 
 func init() {
+	ctx := context.Background()
 	var err error
 
+	var latestRelease string
 	{
-		tarballURL = os.Getenv(envVarTarballURL)
-		if tarballURL == "" {
-			panic(fmt.Sprintf("env var '%s' must not be empty", envVarTarballURL))
+		latestRelease, err = appcatalog.GetLatestVersion(ctx, catalogURL, appName)
+		if err != nil {
+			panic(err.Error())
+		}
+	}
+
+	{
+		version := fmt.Sprintf("%s-%s", latestRelease, env.CircleSHA())
+		tarballURL, err = appcatalog.NewTarballURL(testCatalogURL, appName, version)
+		if err != nil {
+			panic(err.Error())
 		}
 	}
 
@@ -78,11 +90,8 @@ func init() {
 
 	{
 		c := helmclient.Config{
-			Logger:     l,
-			K8sClient:  k8sClients.K8sClient(),
-			RestConfig: k8sClients.RESTConfig(),
-
-			TillerNamespace: "giantswarm",
+			Logger:    l,
+			K8sClient: k8sClients,
 		}
 		helmClient, err = helmclient.New(c)
 		if err != nil {
@@ -97,26 +106,25 @@ func init() {
 			Logger:     l,
 
 			App: basicapp.Chart{
-				// Use inmemory provider so chart can be installed in minikube.
-				ChartValues: "{ \"provider\": \"inmemory\" }",
-				Name:        chartName,
+				ChartValues: templates.ExternalDNSValues,
+				Name:        app,
 				Namespace:   metav1.NamespaceSystem,
 				URL:         tarballURL,
 			},
 			ChartResources: basicapp.ChartResources{
 				Deployments: []basicapp.Deployment{
 					{
-						Name:      chartName,
+						Name:      app,
 						Namespace: metav1.NamespaceSystem,
 						DeploymentLabels: map[string]string{
-							"app":                        chartName,
+							"app":                        app,
 							"giantswarm.io/service-type": "managed",
 						},
 						MatchLabels: map[string]string{
-							"app": chartName,
+							"app": app,
 						},
 						PodLabels: map[string]string{
-							"app":                        chartName,
+							"app":                        app,
 							"giantswarm.io/service-type": "managed",
 						},
 					},
