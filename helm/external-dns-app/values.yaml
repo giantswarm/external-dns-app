@@ -34,7 +34,8 @@ metricsPort: 10254
 image:
   registry: quay.io
   name: giantswarm/external-dns
-  tag: v0.5.18
+  # When updating tag make sure to also keep appVersion in Chart.yaml in sync
+  tag: v0.7.2
 
 resources:
   limits:
