@@ -9,6 +9,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ### Changed
 
+## [v1.2.2] 2020-06-30
+
+### Changed
+
 - Upgrade upstream external-dns from v0.5.18 to v0.7.2.
 
 ## [v1.2.1] 2020-05-29
@@ -64,10 +68,11 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 - Network policy that allows all egress traffic.
 - Network policy that allows accessing metrics on port `10254`.
 
-[Unreleased]: https://github.com/giantswarm/external-dns-app/compare/v1.2.1...master
-[v1.2.1]: https://github.com/giantswarm/external-dns-app/releases/tag/v1.2.1
-[v1.2.0]: https://github.com/giantswarm/external-dns-app/releases/tag/v1.2.0
-[v1.1.0]: https://github.com/giantswarm/external-dns-app/releases/tag/v1.1.0
-[v1.0.0]: https://github.com/giantswarm/external-dns-app/releases/tag/v1.0.0
-[v0.4.1]: https://github.com/giantswarm/external-dns-app/releases/tag/v0.4.1
+[Unreleased]: https://github.com/giantswarm/external-dns-app/compare/v1.2.2...master
+[v1.2.2]: https://github.com/giantswarm/external-dns-app/compare/v1.2.1...v1.2.2
+[v1.2.1]: https://github.com/giantswarm/external-dns-app/compare/v1.2.0...v1.2.1
+[v1.2.0]: https://github.com/giantswarm/external-dns-app/compare/v1.1.0...v1.2.0
+[v1.1.0]: https://github.com/giantswarm/external-dns-app/compare/v1.0.0...v1.1.0
+[v1.0.0]: https://github.com/giantswarm/external-dns-app/compare/v0.4.1...v1.0.0
+[v0.4.1]: https://github.com/giantswarm/external-dns-app/compare/v0.4.0...v0.4.1
 [v0.4.0]: https://github.com/giantswarm/external-dns-app/releases/tag/v0.4.0
