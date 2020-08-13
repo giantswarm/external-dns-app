@@ -7,9 +7,12 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Added
+- Added monitoring and common labels.
+
 ### Changed
 
-- Upgrade architect-orb to 0.10.0
+- Upgrade architect-orb to 0.10.1
 
 ## [v1.2.2] 2020-06-30
 

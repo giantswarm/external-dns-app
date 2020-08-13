@@ -5,6 +5,8 @@
 name: external-dns
 namespace: kube-system
 
+serviceType: "managed"
+
 e2e: false
 
 userID: 65534
