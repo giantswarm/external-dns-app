@@ -127,17 +127,12 @@ func init() {
 						Namespace: metav1.NamespaceSystem,
 						DeploymentLabels: map[string]string{
 							"app":                          app,
-<<<<<<< HEAD
-							"app.kubernetes.io/managed-by": "Helm",
-							"giantswarm.io/service-type":   "managed",
-=======
 							"app.kubernetes.io/instance":   appName,
 							"app.kubernetes.io/managed-by": "Helm",
 							"app.kubernetes.io/name":       app,
 							"app.kubernetes.io/version":    "v0.7.2",
 							"giantswarm.io/service-type":   "managed",
 							"helm.sh/chart":                helmChartLabel,
->>>>>>> cbc2b07... Add common and monitoring labels
 						},
 						MatchLabels: map[string]string{
 							"app": app,
