@@ -117,9 +117,9 @@ func init() {
 						Name:      app,
 						Namespace: metav1.NamespaceSystem,
 						DeploymentLabels: map[string]string{
-							"app": app,
-							"app.kubernetes.io/managed-by", "Helm",
-							"giantswarm.io/service-type": "managed",
+							"app":                          app,
+							"app.kubernetes.io/managed-by": "Helm",
+							"giantswarm.io/service-type":   "managed",
 						},
 						MatchLabels: map[string]string{
 							"app": app,
