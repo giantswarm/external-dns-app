@@ -4,28 +4,27 @@ metadata:
   name: {{ .Values.name }}
   namespace: {{ .Values.namespace }}
   labels:
-    giantswarm.io/service-type: "managed"
-    app: {{ .Values.name }}
-  annotations:
-    prometheus.io/port: '{{ .Values.metricsPort }}'
-    prometheus.io/scrape: 'true'
+    {{- include "labels.common" . | nindent 4 }}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: {{ .Values.name }}
+      {{- include "labels.selector" . | nindent 6 }}
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        giantswarm.io/service-type: "managed"
-        app: {{ .Values.name }}
+        {{- include "labels.common" . | nindent 8 }}
+        giantswarm.io/monitoring: 'true'
       annotations:
         {{- if and (eq .Values.provider "aws") (eq .Values.aws.access "internal") }}
         iam.amazonaws.com/role: {{ .Values.clusterID}}-Route53Manager-Role
         {{- end }}
         scheduler.alpha.kubernetes.io/critical-pod: ''
+        prometheus.io/port: '{{ .Values.metricsPort }}'
+        prometheus.io/scrape: 'true'
+        giantswarm.io/monitoring-port: '{{ .Values.metricsPort }}'
     spec:
       serviceAccountName: {{ .Values.name }}
       securityContext:

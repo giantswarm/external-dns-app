@@ -33,6 +33,7 @@ var (
 	k8sSetup   *k8sclient.Setup
 	l          micrologger.Logger
 	tarballURL string
+	version    string
 )
 
 func init() {
@@ -48,7 +49,7 @@ func init() {
 	}
 
 	{
-		version := fmt.Sprintf("%s-%s", latestRelease, env.CircleSHA())
+		version = fmt.Sprintf("%s-%s", latestRelease, env.CircleSHA())
 		tarballURL, err = appcatalog.NewTarballURL(testCatalogURL, appName, version)
 		if err != nil {
 			panic(err.Error())
@@ -99,6 +100,14 @@ func init() {
 		}
 	}
 
+	var helmChartLabel string
+	{
+		helmChartLabel = fmt.Sprintf("%s-%s", appName, version)
+		if len(helmChartLabel) > 63 {
+			helmChartLabel = helmChartLabel[:63]
+		}
+	}
+
 	{
 		c := basicapp.Config{
 			Clients:    k8sClients,
@@ -107,7 +116,7 @@ func init() {
 
 			App: basicapp.Chart{
 				ChartValues: templates.ExternalDNSValues,
-				Name:        app,
+				Name:        appName,
 				Namespace:   metav1.NamespaceSystem,
 				URL:         tarballURL,
 			},
@@ -118,15 +127,25 @@ func init() {
 						Namespace: metav1.NamespaceSystem,
 						DeploymentLabels: map[string]string{
 							"app":                          app,
+							"app.kubernetes.io/instance":   appName,
 							"app.kubernetes.io/managed-by": "Helm",
+							"app.kubernetes.io/name":       app,
+							"app.kubernetes.io/version":    "v0.7.2",
 							"giantswarm.io/service-type":   "managed",
+							"helm.sh/chart":                helmChartLabel,
 						},
 						MatchLabels: map[string]string{
 							"app": app,
 						},
 						PodLabels: map[string]string{
-							"app":                        app,
-							"giantswarm.io/service-type": "managed",
+							"app":                          app,
+							"app.kubernetes.io/instance":   appName,
+							"app.kubernetes.io/managed-by": "Helm",
+							"app.kubernetes.io/name":       app,
+							"app.kubernetes.io/version":    "v0.7.2",
+							"giantswarm.io/service-type":   "managed",
+							"helm.sh/chart":                helmChartLabel,
+							"giantswarm.io/monitoring":     "true",
 						},
 					},
 				},
