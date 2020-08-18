@@ -16,25 +16,25 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 - Upgrade upstream external-dns from v0.7.2 to [v0.7.3](https://github.com/kubernetes-sigs/external-dns/releases/tag/v0.7.3).
 - Upgrade architect-orb to 0.10.1
 
-## [v1.2.2] 2020-06-30
+## [1.2.2] 2020-06-30
 
 ### Changed
 
 - Upgrade upstream external-dns from v0.5.18 to v0.7.2.
 
-## [v1.2.1] 2020-05-29
+## [1.2.1] 2020-05-29
 
 ### Changed
 
 - Prefer CNAMEs record sets for AWS SDK configuration with explicit credentials.
 
-## [v1.2.0] 2020-02-04
+## [1.2.0] 2020-02-04
 
 ### Changed
 
 - Updated external-dns app version to v0.5.18.
 
-## [v1.1.0]
+## [1.1.0]
 
 ### Added
 
@@ -44,42 +44,42 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - Remove CPU limits.
 
-## [v1.0.0]
+## [1.0.0]
 
 ### Changed
 
 - Added support for AWS provider.
 
-## [v0.4.1]
+## [0.4.1]
 
 ### Added
 
 - Add AWS support
 
-## [v0.4.0]
+## [0.4.0]
 
 ### Changed
 
 - Migrated to be deployed via an app CR not a chartconfig CR
 
-## v0.3.1
+## 0.3.1
 
 ### Changed
 
 - Change priority class to `system-cluster-critical`.
 
-## v0.3.0
+## 0.3.0
 
 ### Added
 
 - Network policy that allows all egress traffic.
 - Network policy that allows accessing metrics on port `10254`.
 
-[Unreleased]: https://github.com/giantswarm/external-dns-app/compare/v1.2.2...master
-[v1.2.2]: https://github.com/giantswarm/external-dns-app/compare/v1.2.1...v1.2.2
-[v1.2.1]: https://github.com/giantswarm/external-dns-app/compare/v1.2.0...v1.2.1
-[v1.2.0]: https://github.com/giantswarm/external-dns-app/compare/v1.1.0...v1.2.0
-[v1.1.0]: https://github.com/giantswarm/external-dns-app/compare/v1.0.0...v1.1.0
-[v1.0.0]: https://github.com/giantswarm/external-dns-app/compare/v0.4.1...v1.0.0
-[v0.4.1]: https://github.com/giantswarm/external-dns-app/compare/v0.4.0...v0.4.1
-[v0.4.0]: https://github.com/giantswarm/external-dns-app/releases/tag/v0.4.0
+[Unreleased]: https://github.com/giantswarm/external-dns-app/compare/v1.2.2...HEAD
+[1.2.2]: https://github.com/giantswarm/external-dns-app/compare/v1.2.1...v1.2.2
+[1.2.1]: https://github.com/giantswarm/external-dns-app/compare/v1.2.0...v1.2.1
+[1.2.0]: https://github.com/giantswarm/external-dns-app/compare/v1.1.0...v1.2.0
+[1.1.0]: https://github.com/giantswarm/external-dns-app/compare/v1.0.0...v1.1.0
+[1.0.0]: https://github.com/giantswarm/external-dns-app/compare/v0.4.1...v1.0.0
+[0.4.1]: https://github.com/giantswarm/external-dns-app/compare/v0.4.0...v0.4.1
+[0.4.0]: https://github.com/giantswarm/external-dns-app/releases/tag/v0.4.0
