@@ -14,7 +14,7 @@ spec:
   clusterIP: None
   ports:
   - name: metrics
-    port: {{ .Values.controller.metrics.service.servicePort }}
+    port: {{ .Values.metricsPort }}
     targetPort: metrics
   selector:
     {{- include "labels.selector" . | nindent 4 }}
