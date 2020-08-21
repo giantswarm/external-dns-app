@@ -9,7 +9,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ### Added
 
-- More Giant Swarm customr monitoring annotations.
+- More Giant Swarm custom monitoring annotations.
 - Explicitly exposed metrics container port.
 
 ### Changed
