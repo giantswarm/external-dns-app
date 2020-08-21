@@ -22,9 +22,11 @@ spec:
         iam.amazonaws.com/role: {{ .Values.clusterID}}-Route53Manager-Role
         {{- end }}
         scheduler.alpha.kubernetes.io/critical-pod: ''
+        giantswarm.io/monitoring: "true"
+        giantswarm.io/monitoring-path: /metrics
+        giantswarm.io/monitoring-port: '{{ .Values.metricsPort }}'
         prometheus.io/port: '{{ .Values.metricsPort }}'
         prometheus.io/scrape: 'true'
-        giantswarm.io/monitoring-port: '{{ .Values.metricsPort }}'
     spec:
       serviceAccountName: {{ .Values.name }}
       securityContext:
@@ -94,6 +96,10 @@ spec:
             scheme: HTTP
           initialDelaySeconds: 10
           timeoutSeconds: 1
+        ports:
+        - name: metrics
+          containerPort: {{ .Values.metricsPort }}
+          protocol: TCP
       {{- if eq .Values.provider "azure" }}
         volumeMounts:
         - name: azure-config-file

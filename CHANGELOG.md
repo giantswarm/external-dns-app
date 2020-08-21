@@ -7,6 +7,15 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Added
+
+- More Giant Swarm customr monitoring annotations.
+- Explicitly exposed metrics container port.
+
+### Changed
+
+- Use default external-dns metrics port 7979.
+
 ## [1.3.0] - 2020-08-18
 
 ### Added
