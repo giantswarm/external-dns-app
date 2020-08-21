@@ -31,7 +31,7 @@ sources:
   # Disable ingress source by default.
   # - ingress
 
-metricsPort: 10254
+metricsPort: 7979
 
 image:
   registry: quay.io

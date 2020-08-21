@@ -5,6 +5,7 @@ metadata:
   namespace: {{ .Values.namespace }}
   labels:
     {{- include "labels.common" . | nindent 4 }}
+    giantswarm.io/monitoring_basic_sli: "true"
 spec:
   replicas: 1
   selector:
@@ -16,15 +17,14 @@ spec:
     metadata:
       labels:
         {{- include "labels.common" . | nindent 8 }}
-        giantswarm.io/monitoring: 'true'
       annotations:
         {{- if and (eq .Values.provider "aws") (eq .Values.aws.access "internal") }}
         iam.amazonaws.com/role: {{ .Values.clusterID}}-Route53Manager-Role
         {{- end }}
         scheduler.alpha.kubernetes.io/critical-pod: ''
-        prometheus.io/port: '{{ .Values.metricsPort }}'
-        prometheus.io/scrape: 'true'
-        giantswarm.io/monitoring-port: '{{ .Values.metricsPort }}'
+        prometheus.io/path: /metrics
+        prometheus.io/port: "{{ .Values.metricsPort }}"
+        prometheus.io/scrape: "true"
     spec:
       serviceAccountName: {{ .Values.name }}
       securityContext:
@@ -94,6 +94,10 @@ spec:
             scheme: HTTP
           initialDelaySeconds: 10
           timeoutSeconds: 1
+        ports:
+        - name: metrics
+          containerPort: {{ .Values.metricsPort }}
+          protocol: TCP
       {{- if eq .Values.provider "azure" }}
         volumeMounts:
         - name: azure-config-file
