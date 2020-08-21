@@ -9,8 +9,9 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ### Added
 
+- Monitoring headless Service.
 - More Giant Swarm custom monitoring annotations.
-- Explicitly exposed metrics container port.
+- Explicitly expose metrics container port.
 
 ### Changed
 

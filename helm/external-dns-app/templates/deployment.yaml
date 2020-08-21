@@ -17,15 +17,12 @@ spec:
     metadata:
       labels:
         {{- include "labels.common" . | nindent 8 }}
-        giantswarm.io/monitoring: "true"
       annotations:
         {{- if and (eq .Values.provider "aws") (eq .Values.aws.access "internal") }}
         iam.amazonaws.com/role: {{ .Values.clusterID}}-Route53Manager-Role
         {{- end }}
         scheduler.alpha.kubernetes.io/critical-pod: ''
-        giantswarm.io/monitoring: "true"
-        giantswarm.io/monitoring-path: /metrics
-        giantswarm.io/monitoring-port: "{{ .Values.metricsPort }}"
+        prometheus.io/path: /metrics
         prometheus.io/port: "{{ .Values.metricsPort }}"
         prometheus.io/scrape: "true"
     spec:
