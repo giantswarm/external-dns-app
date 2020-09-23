@@ -1,7 +1,8 @@
 [![CircleCI](https://circleci.com/gh/giantswarm/external-dns-app.svg?style=svg)](https://circleci.com/gh/giantswarm/external-dns-app)
 
 # external-dns-app
-Helm chart for external-dns service running in guest clusters
+
+Helm chart for the [external-dns](https://github.com/kubernetes-sigs/external-dns) service running in guest clusters
 
 ## Installing the Chart
 
