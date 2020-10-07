@@ -42,7 +42,7 @@ func init() {
 
 	var latestRelease string
 	{
-		latestRelease, err = appcatalog.GetLatestVersion(ctx, catalogURL, appName)
+		latestRelease, err = appcatalog.GetLatestVersion(ctx, catalogURL, appName, "")
 		if err != nil {
 			panic(err.Error())
 		}
@@ -130,7 +130,7 @@ func init() {
 							"app.kubernetes.io/instance":         appName,
 							"app.kubernetes.io/managed-by":       "Helm",
 							"app.kubernetes.io/name":             app,
-							"app.kubernetes.io/version":          "v0.7.3",
+							"app.kubernetes.io/version":          "v0.7.4",
 							"giantswarm.io/service-type":         "managed",
 							"helm.sh/chart":                      helmChartLabel,
 							"giantswarm.io/monitoring_basic_sli": "true",
@@ -143,7 +143,7 @@ func init() {
 							"app.kubernetes.io/instance":   appName,
 							"app.kubernetes.io/managed-by": "Helm",
 							"app.kubernetes.io/name":       app,
-							"app.kubernetes.io/version":    "v0.7.3",
+							"app.kubernetes.io/version":    "v0.7.4",
 							"giantswarm.io/service-type":   "managed",
 							"helm.sh/chart":                helmChartLabel,
 						},
