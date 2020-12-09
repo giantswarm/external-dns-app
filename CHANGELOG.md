@@ -60,6 +60,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - Add support AWS SDK configuration with explicit credentials.
 
+## [1.0.1]
+
 ### Changed
 
 - Remove CPU limits.
@@ -102,7 +104,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 [1.2.2]: https://github.com/giantswarm/external-dns-app/compare/v1.2.1...v1.2.2
 [1.2.1]: https://github.com/giantswarm/external-dns-app/compare/v1.2.0...v1.2.1
 [1.2.0]: https://github.com/giantswarm/external-dns-app/compare/v1.1.0...v1.2.0
-[1.1.0]: https://github.com/giantswarm/external-dns-app/compare/v1.0.0...v1.1.0
+[1.1.0]: https://github.com/giantswarm/external-dns-app/compare/v1.0.1...v1.1.0
+[1.0.1]: https://github.com/giantswarm/external-dns-app/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/giantswarm/external-dns-app/compare/v0.4.1...v1.0.0
 [0.4.1]: https://github.com/giantswarm/external-dns-app/compare/v0.4.0...v0.4.1
 [0.4.0]: https://github.com/giantswarm/external-dns-app/releases/tag/v0.4.0
