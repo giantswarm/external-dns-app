@@ -1,6 +1,6 @@
 version: 2.1
 orbs:
-  architect: giantswarm/architect@0.17.0
+  architect: giantswarm/architect@1.1.1
 
 workflows:
   version: 2
@@ -8,6 +8,7 @@ workflows:
     jobs:
       - architect/push-to-app-catalog:
           context: architect
+          executor: "app-build-suite"
           name: push-to-default-app-catalog
           app_catalog: "default-catalog"
           app_catalog_test: "default-test-catalog"
