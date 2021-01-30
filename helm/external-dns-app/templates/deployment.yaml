@@ -32,9 +32,9 @@ spec:
     spec:
       serviceAccountName: {{ .Values.name }}
       securityContext:
-        runAsUser: {{ .Values.userID }}
-        runAsGroup: {{ .Values.groupID }}
-        fsGroup: {{ .Values.groupID }}
+        runAsUser: {{ .Values.securityContext.userID }}
+        runAsGroup: {{ .Values.securityContext.groupID }}
+        fsGroup: {{ .Values.securityContext.fsGroupID }}
       priorityClassName: giantswarm-critical
       {{- if and (eq .Values.provider "aws") (eq .Values.aws.access "internal") }}
       initContainers:
