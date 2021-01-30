@@ -24,3 +24,20 @@ Selector labels
 {{- define "labels.selector" -}}
 app: {{ .Values.name | quote }}
 {{- end -}}
+
+{{/*
+Create the list of domains to update
+*/}}
+{{- define "domain.list" -}}
+{{- if .Values.global.domainFilterList -}}
+{{- range .Values.global.domainFilterList }}
+{{ printf "- --domain-filter=%s" . }}
+{{- end }}
+{{- else }}
+{{- if eq .Values.aws.access "external" }}
+{{- printf "- --domain-filter=%s" .Values.aws.baseDomain }}
+{{- else }}
+{{- printf "- --domain-filter=%s" .Values.baseDomain }}
+{{- end }}
+{{- end }}
+{{- end }}

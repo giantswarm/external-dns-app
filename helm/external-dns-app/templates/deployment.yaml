@@ -71,13 +71,13 @@ spec:
         - --provider={{ .Values.provider }}
         {{- if eq .Values.provider "azure" }}
         - --azure-config-file=/azure/config/azure.yaml
-        {{- end }}
+        {{- end -}}
+        {{- if eq .Values.provider "aws" }}
         {{- if eq .Values.aws.access "external" }}
-        - --domain-filter={{ .Values.aws.baseDomain }}
         - --aws-zone-type=public
         - --aws-prefer-cname
-        {{- else }}
-        - --domain-filter={{ .Values.baseDomain }}
+        {{- end }}
+        {{- include "domain.list" . | nindent 8 }}
         {{- end }}
         - --metrics-address=:{{ .Values.metricsPort }}
         - --namespace={{ .Values.global.endpointNamespace }}

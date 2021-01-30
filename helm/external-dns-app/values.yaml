@@ -10,6 +10,15 @@ global:
   # The namespace to limit sources of endpoints to.
   endpointNamespace: kube-system
 
+  # global.domainFilterList
+  # One or more domains that this instance of external-dns will manage. If
+  # no domains are provided then the cluster baseDomain must be provided via
+  # either `baseDomain` or `aws.baseDomain` (depending on the Route53 access
+  # method used).
+  domainFilterList: []
+  # - foo.bar.com
+  # - baz.bar.com
+
 serviceType: "managed"
 
 securityContext:
