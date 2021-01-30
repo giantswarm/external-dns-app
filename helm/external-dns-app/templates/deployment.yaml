@@ -49,8 +49,8 @@ spec:
       - name: {{ .Values.name }}
         image: "{{ .Values.image.registry }}/{{ .Values.image.name }}:{{ .Values.image.tag }}"
         imagePullPolicy: IfNotPresent
-        env:
         {{- if eq .Values.aws.access "external" }}
+        env:
         - name: AWS_ACCESS_KEY_ID
           valueFrom:
             secretKeyRef:
