@@ -12,26 +12,24 @@ global:
 
 serviceType: "managed"
 
-e2e: false
+securityContext:
+  userID: 65534
+  groupID: 65534
+  fsGroupID: 65534
 
-userID: 65534
-groupID: 65534
-
-baseDomain: gigantic.io
-
-# clusterID is dynamic environment value, calculated after cluster creation
-# applies only to Giant Swarm clusters
-clusterID: en2jo
-
-# provider is dynamic environment value, which comes from application catalog configuration
-# applies only to Giant Swarm clusters
-provider: azure
-
-# aws/access describes route53 access type.
-# possible values: internal/external.
 aws:
+
+  # aws.access
+  # Route53 access type. Use 'internal' for all hosted zones, or 'external' for
+  # public zones only.
   access: internal
+
+  # aws.baseDomain
+  # If aws.access is 'external' then the domain to update must be set.
   baseDomain:
+
+  # aws.region
+  # If aws.access is 'external' then the AWS region must be set.
   region:
 
   # aws.iam
@@ -39,7 +37,7 @@ aws:
 
     # aws.iam.customRole
     # If set, allows a user-created role to be assumed. Role must have access to a
-    # policy which allows configuration of Route53 hostedzone(s).
+    # policy which allows configuration of Route53 hosted zone(s).
     # e.g. customRoleName: route53-manager-role
     customRoleName:
 
@@ -70,3 +68,17 @@ resources:
   requests:
     cpu: 50m
     memory: 50Mi
+
+# do not change any values below
+
+e2e: false
+
+baseDomain: gigantic.io
+
+# clusterID is dynamic environment value, calculated after cluster creation
+# applies only to Giant Swarm clusters
+clusterID: en2jo
+
+# provider is dynamic environment value, which comes from application catalog configuration
+# applies only to Giant Swarm clusters
+provider: azure
