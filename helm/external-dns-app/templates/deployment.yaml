@@ -24,6 +24,7 @@ spec:
         {{- else }}
         iam.amazonaws.com/role: {{ .Values.clusterID}}-Route53Manager-Role
         {{- end }}
+        {{- end }}
         scheduler.alpha.kubernetes.io/critical-pod: ''
         prometheus.io/path: /metrics
         prometheus.io/port: "{{ .Values.metricsPort }}"
