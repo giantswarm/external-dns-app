@@ -82,7 +82,11 @@ spec:
         - --namespace={{ .Values.namespace }}
         - --registry=txt
         - --txt-owner-id=giantswarm-io-external-dns
+        {{- if .Values.registry.txtPrefix }}
+        - --txt-prefix={{ .Values.registry.txtPrefix }}
+        {{- else }}
         - --txt-prefix={{ .Values.clusterID }}
+        {{- end }}
         readinessProbe:
           httpGet:
             path: /healthz

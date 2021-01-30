@@ -38,6 +38,14 @@ aws:
     # Name of the user-created role to assume.
     customRoleName:
 
+# registry
+registry:
+
+  # registry.txtPrefix
+  # String prefix applied to TXT registry records. See
+  # https://github.com/kubernetes-sigs/external-dns/blob/master/docs/proposal/registry.md
+  txtPrefix:
+
 sources:
   - service
   # Disable ingress source by default.
