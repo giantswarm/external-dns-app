@@ -19,6 +19,9 @@ spec:
         {{- include "labels.common" . | nindent 8 }}
       annotations:
         {{- if and (eq .Values.provider "aws") (eq .Values.aws.access "internal") }}
+        {{- if .Values.aws.iam.customRole }}
+        iam.amazonaws.com/role: {{ .Values.aws.iam.customRoleName }}
+        {{- else }}
         iam.amazonaws.com/role: {{ .Values.clusterID}}-Route53Manager-Role
         {{- end }}
         scheduler.alpha.kubernetes.io/critical-pod: ''

@@ -26,6 +26,18 @@ aws:
   baseDomain:
   region:
 
+  # aws.iam
+  iam:
+
+    # aws.iam.customRole
+    # If set to true, allows a user-created role to be assumed. Role must
+    # have access to a policy which allows configuration of Route53 hostedzone(s).
+    customRole: false
+
+    # aws.iam.customRoleName
+    # Name of the user-created role to assume.
+    customRoleName:
+
 sources:
   - service
   # Disable ingress source by default.
