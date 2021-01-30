@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.name }}
+  name: {{ .Release.Name }}
   namespace: {{ .Release.Namespace }}
   labels:
     {{- include "labels.common" . | nindent 4 }}
@@ -30,7 +30,7 @@ spec:
         prometheus.io/port: "{{ .Values.metricsPort }}"
         prometheus.io/scrape: "true"
     spec:
-      serviceAccountName: {{ .Values.name }}
+      serviceAccountName: {{ .Release.Name }}
       securityContext:
         runAsUser: {{ .Values.securityContext.userID }}
         runAsGroup: {{ .Values.securityContext.groupID }}
@@ -46,7 +46,7 @@ spec:
         - counter=5; while ! wget -qO- http://169.254.169.254/latest/meta-data/iam/security-credentials/ | grep {{ .Values.clusterID}}-Route53Manager-Role; do echo 'Waiting for iam-role to be available...'; sleep 5; let "counter-=1"  ; if [ "$counter" -eq "0" ]; then exit 1; fi; done
       {{- end }}
       containers:
-      - name: {{ .Values.name }}
+      - name: {{ .Release.Name }}
         image: "{{ .Values.image.registry }}/{{ .Values.image.name }}:{{ .Values.image.tag }}"
         imagePullPolicy: IfNotPresent
         {{- if eq .Values.aws.access "external" }}
@@ -54,12 +54,12 @@ spec:
         - name: AWS_ACCESS_KEY_ID
           valueFrom:
             secretKeyRef:
-              name: {{ .Values.name }}-route53-credentials
+              name: {{ .Release.Name }}-route53-credentials
               key: aws_access_key_id
         - name: AWS_SECRET_ACCESS_KEY
           valueFrom:
             secretKeyRef:
-              name: {{ .Values.name }}-route53-credentials
+              name: {{ .Release.Name }}-route53-credentials
               key: aws_secret_access_key
         - name: AWS_DEFAULT_REGION
           value: {{ .Values.aws.region }}
