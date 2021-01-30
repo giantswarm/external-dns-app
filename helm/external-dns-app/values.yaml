@@ -3,7 +3,12 @@
 # Declare variables to be passed into your templates.
 
 name: external-dns
-namespace: kube-system
+
+global:
+
+  # global.endpointNamespace
+  # The namespace to limit sources of endpoints to.
+  endpointNamespace: kube-system
 
 serviceType: "managed"
 

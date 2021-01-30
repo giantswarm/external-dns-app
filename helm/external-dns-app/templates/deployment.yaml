@@ -79,7 +79,7 @@ spec:
         - --domain-filter={{ .Values.baseDomain }}
         {{- end }}
         - --metrics-address=:{{ .Values.metricsPort }}
-        - --namespace={{ .Values.namespace }}
+        - --namespace={{ .Values.global.endpointNamespace }}
         - --registry=txt
         - --txt-owner-id=giantswarm-io-external-dns
         {{- if .Values.registry.txtPrefix }}
