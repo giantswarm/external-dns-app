@@ -17,7 +17,7 @@ import (
 )
 
 const (
-	app         = "external-dns"
+	app         = "external-dns-app"
 	appName     = "external-dns-app"
 	catalogName = "default-test"
 )
