@@ -35,12 +35,9 @@ aws:
   iam:
 
     # aws.iam.customRole
-    # If set to true, allows a user-created role to be assumed. Role must
-    # have access to a policy which allows configuration of Route53 hostedzone(s).
-    customRole: false
-
-    # aws.iam.customRoleName
-    # Name of the user-created role to assume.
+    # If set, allows a user-created role to be assumed. Role must have access to a
+    # policy which allows configuration of Route53 hostedzone(s).
+    # e.g. customRoleName: route53-manager-role
     customRoleName:
 
 # registry
