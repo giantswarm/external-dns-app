@@ -6,11 +6,6 @@ name: external-dns
 
 global:
 
-  # global.namespaceFilter
-  # The namespace to limit sources of endpoints to. If left blank, all
-  # namespaces will be used.
-  namespaceFilter: kube-system
-
   # global.domainFilterList
   # One or more domains that this instance of external-dns will manage. If
   # no domains are provided then the cluster baseDomain must be provided via
@@ -19,6 +14,23 @@ global:
   domainFilterList: []
   # - foo.bar.com
   # - baz.bar.com
+
+  image:
+
+    # global.image.registry
+    registry: quay.io
+
+    # global.image.name
+    name: giantswarm/external-dns
+
+    # global.image.tag
+    # When updating tag make sure to also keep appVersion in Chart.yaml in sync
+    tag: v0.7.6
+
+  # global.namespaceFilter
+  # The namespace to limit sources of endpoints to. If left blank, all
+  # namespaces will be used.
+  namespaceFilter: kube-system
 
 serviceType: "managed"
 
@@ -66,11 +78,6 @@ sources:
 
 metricsPort: 7979
 
-image:
-  registry: quay.io
-  name: giantswarm/external-dns
-  # When updating tag make sure to also keep appVersion in Chart.yaml in sync
-  tag: v0.7.6
 
 resources:
   limits:

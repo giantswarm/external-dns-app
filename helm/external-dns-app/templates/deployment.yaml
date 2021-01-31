@@ -39,7 +39,7 @@ spec:
       {{- if and (eq .Values.provider "aws") (eq .Values.aws.access "internal") }}
       initContainers:
       - name: wait-for-iam-role
-        image: {{ .Values.image.registry }}/giantswarm/alpine:3.12.0
+        image: {{ .Values.global.image.registry }}/giantswarm/alpine:3.12.0
         command:
         - /bin/sh
         - -c
@@ -47,7 +47,7 @@ spec:
       {{- end }}
       containers:
       - name: {{ .Release.Name }}
-        image: "{{ .Values.image.registry }}/{{ .Values.image.name }}:{{ .Values.image.tag }}"
+        image: "{{ .Values.global.image.registry }}/{{ .Values.global.image.name }}:{{ .Values.global.image.tag }}"
         imagePullPolicy: IfNotPresent
         {{- if eq .Values.aws.access "external" }}
         env:
