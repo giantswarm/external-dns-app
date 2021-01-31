@@ -4,41 +4,9 @@
 
 name: external-dns
 
-global:
-
-  # global.domainFilterList
-  # One or more domains that this instance of external-dns will manage. If
-  # no domains are provided then the cluster baseDomain must be provided via
-  # either `baseDomain` or `aws.baseDomain` (depending on the Route53 access
-  # method used).
-  domainFilterList: []
-  # - foo.bar.com
-  # - baz.bar.com
-
-  image:
-
-    # global.image.registry
-    registry: quay.io
-
-    # global.image.name
-    name: giantswarm/external-dns
-
-    # global.image.tag
-    # When updating tag make sure to also keep appVersion in Chart.yaml in sync
-    tag: v0.7.6
-
-  # global.namespaceFilter
-  # The namespace to limit sources of endpoints to. If left blank, all
-  # namespaces will be used.
-  namespaceFilter: kube-system
-
-serviceType: "managed"
-
-securityContext:
-  userID: 65534
-  groupID: 65534
-  fsGroupID: 65534
-
+# aws
+# Configuration options specific to external-dns when running in AWS
+# clusters.
 aws:
 
   # aws.access
@@ -55,38 +23,102 @@ aws:
   region:
 
   # aws.iam
+  # AWS IAM configuration.
   iam:
 
     # aws.iam.customRole
     # If set, allows a user-created role to be assumed. Role must have access to a
     # policy which allows configuration of Route53 hosted zone(s).
-    # e.g. customRoleName: route53-manager-role
+    # e.g. `customRoleName: route53-manager-role`
     customRoleName:
 
-# registry
-registry:
+global:
 
-  # registry.txtPrefix
-  # String prefix applied to TXT registry records. See
-  # https://github.com/kubernetes-sigs/external-dns/blob/master/docs/proposal/registry.md
-  txtPrefix:
+  # global.image
+  # Configuration options for images.
+  image:
 
-sources:
+    # global.image.registry
+    registry: quay.io
+
+    # global.image.name
+    name: giantswarm/external-dns
+
+    # global.image.tag
+    # When updating tag make sure to also keep appVersion in Chart.yaml in sync.
+    tag: v0.7.6
+
+  # global.metrics
+  # Metrics configuration options
+  metrics:
+
+    # global.metrics.port
+    # The port to serve metrics on.
+    port: 7979
+
+    # global.metrics.scrape
+    # Enable/disable scraping by Prometheus.
+    scrape: true
+
+  # global.resources
+  # Set pod resource limits and requests. This is passed as a YAML
+  # dictionary directly into the deployment manifest.
+  resources:
+    limits:
+      memory: 50Mi
+    requests:
+      cpu: 50m
+      memory: 50Mi
+
+  # global.securityContext
+  securityContext:
+
+    # global.securityContext.userID
+    userID: 65534
+
+    # global.securityContext.groupID
+    groupID: 65534
+
+    # global.securityContext.fsGroupID
+    fsGroupID: 65534
+
+# externalDNS
+# Configuration options for external-dns itself.
+externalDNS:
+
+  # externalDNS.domainFilterList
+  # One or more domains that this instance of external-dns will manage. If
+  # no domains are provided then the cluster baseDomain must be provided via
+  # either `baseDomain` or `aws.baseDomain` (depending on the Route53 access
+  # method used).
+  domainFilterList: []
+  # - foo.bar.com
+  # - baz.bar.com
+
+  # externalDNS.namespaceFilter
+  # The namespace to limit sources of endpoints to. If left blank, all
+  # namespaces will be used.
+  namespaceFilter: kube-system
+
+  # externalDNS.registry
+  # Configuration options relating to ownership of created records.
+  registry:
+
+    # externalDNS.registry.txtPrefix
+    # String prefix applied to TXT registry records. See
+    # https://github.com/kubernetes-sigs/external-dns/blob/master/docs/proposal/registry.md
+    txtPrefix:
+
+  # externalDNS.sources
+  # Resource types queried for endpoints.
+  sources:
   - service
   # Disable ingress source by default.
   # - ingress
 
-metricsPort: 7979
+## Do not change any values below; these are specific to Giant Swarm environments.
 
-
-resources:
-  limits:
-    memory: 50Mi
-  requests:
-    cpu: 50m
-    memory: 50Mi
-
-# do not change any values below
+serviceType: "managed"
 
 e2e: false
 
