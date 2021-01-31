@@ -80,7 +80,9 @@ spec:
         {{- include "domain.list" . | nindent 8 }}
         {{- end }}
         - --metrics-address=:{{ .Values.metricsPort }}
-        - --namespace={{ .Values.global.endpointNamespace }}
+        {{- if .Values.global.namespaceFilter }}
+        - --namespace={{ .Values.global.namespaceFilter }}
+        {{- end }}
         - --registry=txt
         - --txt-owner-id=giantswarm-io-external-dns
         {{- if .Values.registry.txtPrefix }}

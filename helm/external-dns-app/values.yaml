@@ -6,9 +6,10 @@ name: external-dns
 
 global:
 
-  # global.endpointNamespace
-  # The namespace to limit sources of endpoints to.
-  endpointNamespace: kube-system
+  # global.namespaceFilter
+  # The namespace to limit sources of endpoints to. If left blank, all
+  # namespaces will be used.
+  namespaceFilter: kube-system
 
   # global.domainFilterList
   # One or more domains that this instance of external-dns will manage. If
