@@ -98,6 +98,10 @@ externalDNS:
   # - foo.bar.com
   # - baz.bar.com
 
+  # externalDNS.interval
+  # Interval between synchronisations. Must be in duration format (e.g. `5m`)
+  interval:
+
   # externalDNS.namespaceFilter
   # The namespace to limit sources of endpoints to. If left blank, all
   # namespaces will be used.
