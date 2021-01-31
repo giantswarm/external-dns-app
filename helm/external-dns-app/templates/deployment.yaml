@@ -96,7 +96,7 @@ spec:
             port: {{ .Values.global.metrics.port }}
             scheme: HTTP
         resources:
-{{ toYaml .Values.resources | indent 10 }}
+{{ toYaml .Values.global.resources | indent 10 }}
         livenessProbe:
           httpGet:
             path: /healthz
