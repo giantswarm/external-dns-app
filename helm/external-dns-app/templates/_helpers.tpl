@@ -29,8 +29,8 @@ app: {{ .Release.Name | quote }}
 Create the list of domains to update
 */}}
 {{- define "domain.list" -}}
-{{- if .Values.global.domainFilterList -}}
-{{- range .Values.global.domainFilterList }}
+{{- if .Values.externalDNS.domainFilterList -}}
+{{- range .Values.externalDNS.domainFilterList }}
 {{ printf "- --domain-filter=%s" . }}
 {{- end }}
 {{- else }}
