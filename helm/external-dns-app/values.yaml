@@ -40,56 +40,6 @@ aws:
   # If aws.access is 'external' then the AWS region must be set.
   region:
 
-global:
-
-  # global.image
-  # Configuration options for images.
-  image:
-
-    # global.image.registry
-    registry: quay.io
-
-    # global.image.name
-    name: giantswarm/external-dns
-
-    # global.image.tag
-    # When updating tag make sure to also keep appVersion in Chart.yaml in sync.
-    tag: v0.7.6
-
-  # global.metrics
-  # Metrics configuration options
-  metrics:
-
-    # global.metrics.port
-    # The port to serve metrics on.
-    port: 7979
-
-    # global.metrics.scrape
-    # Enable/disable scraping by Prometheus.
-    scrape: true
-
-  # global.resources
-  # Set pod resource limits and requests. This is passed as a YAML
-  # dictionary directly into the deployment manifest.
-  resources:
-    limits:
-      memory: 50Mi
-    requests:
-      cpu: 50m
-      memory: 50Mi
-
-  # global.securityContext
-  securityContext:
-
-    # global.securityContext.userID
-    userID: 65534
-
-    # global.securityContext.groupID
-    groupID: 65534
-
-    # global.securityContext.fsGroupID
-    fsGroupID: 65534
-
 # externalDNS
 # Configuration options for external-dns itself.
 externalDNS:
@@ -127,6 +77,56 @@ externalDNS:
   - service
   # Disable ingress source by default.
   # - ingress
+
+global:
+
+  # global.image
+  # Configuration options for images.
+  image:
+
+    # global.image.name
+    name: giantswarm/external-dns
+
+    # global.image.registry
+    registry: quay.io
+
+    # global.image.tag
+    # When updating tag make sure to also keep appVersion in Chart.yaml in sync.
+    tag: v0.7.6
+
+  # global.metrics
+  # Metrics configuration options
+  metrics:
+
+    # global.metrics.port
+    # The port to serve metrics on.
+    port: 7979
+
+    # global.metrics.scrape
+    # Enable/disable scraping by Prometheus.
+    scrape: true
+
+  # global.resources
+  # Set pod resource limits and requests. This is passed as a YAML
+  # dictionary directly into the deployment manifest.
+  resources:
+    limits:
+      memory: 50Mi
+    requests:
+      cpu: 50m
+      memory: 50Mi
+
+  # global.securityContext
+  securityContext:
+
+    # global.securityContext.fsGroupID
+    fsGroupID: 65534
+
+    # global.securityContext.groupID
+    groupID: 65534
+
+    # global.securityContext.userID
+    userID: 65534
 
 ## Do not change any values below; these are specific to Giant Swarm environments.
 
