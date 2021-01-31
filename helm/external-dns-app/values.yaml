@@ -16,6 +16,11 @@ aws:
   # If aws.access is 'external' then the domain to update must be set.
   baseDomain:
 
+  # aws.batchChangeSize
+  # Maximum number of changes applied in each batch. If left blank then the
+  # default will be used.
+  batchChangeSize:
+
   # aws.iam
   # AWS IAM configuration.
   iam:
