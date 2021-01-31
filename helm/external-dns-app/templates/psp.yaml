@@ -35,5 +35,7 @@ spec:
   volumes:
   - 'configMap'
   - 'secret'
+  {{- if eq .Values.provider "azure" }}
   - 'emptyDir'
   - 'hostPath'
+  {{- end }}
