@@ -32,9 +32,9 @@ spec:
     spec:
       serviceAccountName: {{ .Release.Name }}
       securityContext:
-        runAsUser: {{ .Values.securityContext.userID }}
-        runAsGroup: {{ .Values.securityContext.groupID }}
-        fsGroup: {{ .Values.securityContext.fsGroupID }}
+        runAsUser: {{ .Values.global.securityContext.userID }}
+        runAsGroup: {{ .Values.global.securityContext.groupID }}
+        fsGroup: {{ .Values.global.securityContext.fsGroupID }}
       priorityClassName: giantswarm-critical
       {{- if and (eq .Values.provider "aws") (eq .Values.aws.access "internal") }}
       initContainers:
@@ -65,7 +65,7 @@ spec:
           value: {{ .Values.aws.region }}
         {{- end }}
         args:
-        {{- range .Values.sources }}
+        {{- range .Values.externalDNS.sources }}
         - --source={{ . }}
         {{- end }}
         - --provider={{ .Values.provider }}
@@ -79,34 +79,34 @@ spec:
         {{- end }}
         {{- include "domain.list" . | nindent 8 }}
         {{- end }}
-        - --metrics-address=:{{ .Values.metricsPort }}
-        {{- if .Values.global.namespaceFilter }}
-        - --namespace={{ .Values.global.namespaceFilter }}
+        - --metrics-address=:{{ .Values.global.metrics.port }}
+        {{- if .Values.externalDNS.namespaceFilter }}
+        - --namespace={{ .Values.externalDNS.namespaceFilter }}
         {{- end }}
         - --registry=txt
         - --txt-owner-id=giantswarm-io-external-dns
-        {{- if .Values.registry.txtPrefix }}
-        - --txt-prefix={{ .Values.registry.txtPrefix }}
+        {{- if .Values.externalDNS.registry.txtPrefix }}
+        - --txt-prefix={{ .Values.externalDNS.registry.txtPrefix }}
         {{- else }}
         - --txt-prefix={{ .Values.clusterID }}
         {{- end }}
         readinessProbe:
           httpGet:
             path: /healthz
-            port: {{ .Values.metricsPort }}
+            port: {{ .Values.global.metrics.port }}
             scheme: HTTP
         resources:
 {{ toYaml .Values.resources | indent 10 }}
         livenessProbe:
           httpGet:
             path: /healthz
-            port: {{ .Values.metricsPort }}
+            port: {{ .Values.global.metrics.port }}
             scheme: HTTP
           initialDelaySeconds: 10
           timeoutSeconds: 1
         ports:
         - name: metrics
-          containerPort: {{ .Values.metricsPort }}
+          containerPort: {{ .Values.global.metrics.port }}
           protocol: TCP
       {{- if eq .Values.provider "azure" }}
         volumeMounts:
