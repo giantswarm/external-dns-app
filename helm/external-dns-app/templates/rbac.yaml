@@ -22,7 +22,7 @@ rules:
   resources: ["nodes"]
   verbs: ["watch","list"]
 - apiGroups:
-  - extensions
+  - policy
   resources:
   - podsecuritypolicies
   resourceNames:
