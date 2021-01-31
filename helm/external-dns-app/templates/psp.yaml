@@ -5,7 +5,21 @@ metadata:
   labels:
     {{- include "labels.common" . | nindent 4 }}
 spec:
+  fsGroup:
+    rule: 'MustRunAs'
+    ranges:
+      - min: {{ .Values.global.securityContext.fsGroupID }}
+        max: {{ .Values.global.securityContext.fsGroupID }}
+  hostIPC: false
+  hostNetwork: false
+  hostPID: false
   privileged: false
+  readOnlyRootFilesystem: false
+  runAsGroup:
+    rule: 'MustRunAs'
+    ranges:
+      - min: {{ .Values.global.securityContext.groupID }}
+        max: {{ .Values.global.securityContext.groupID }}
   runAsUser:
     rule: 'MustRunAs'
     ranges:
@@ -18,22 +32,8 @@ spec:
     ranges:
       - min: 1
         max: 65535
-  runAsGroup:
-    rule: 'MustRunAs'
-    ranges:
-      - min: {{ .Values.global.securityContext.groupID }}
-        max: {{ .Values.global.securityContext.groupID }}
   volumes:
-  - 'secret'
   - 'configMap'
-  - 'hostPath'
+  - 'secret'
   - 'emptyDir'
-  hostPID: false
-  hostIPC: false
-  hostNetwork: false
-  fsGroup:
-    rule: 'MustRunAs'
-    ranges:
-      - min: {{ .Values.global.securityContext.fsGroupID }}
-        max: {{ .Values.global.securityContext.fsGroupID }}
-  readOnlyRootFilesystem: false
+  - 'hostPath'
