@@ -75,6 +75,8 @@ spec:
         {{- if eq .Values.provider "aws" }}
         {{- if eq .Values.aws.access "external" }}
         - --aws-zone-type=public
+        {{- end }}
+        {{- if .Values.aws.preferCNAME }}
         - --aws-prefer-cname
         {{- end }}
         {{- include "domain.list" . | nindent 8 }}
