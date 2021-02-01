@@ -15,6 +15,19 @@ aws:
   # can update public and private zones.
   access: internal
 
+  # aws.credentials
+  # Credentials used to authenticate against the AWS API - only required when
+  # aws.access is 'external'.
+  credentials:
+
+    # aws.credentials.awsAccessKeyID
+    # Access key ID for the AWS API.
+    awsAccessKeyID:
+
+    # aws.credentials.awsAccessSecretKey
+    # Access key secret for the AWS API.
+    awsAccessSecretKey:
+
   # aws.baseDomain
   # If aws.access is 'external' then the domain to update must be set.
   baseDomain:
