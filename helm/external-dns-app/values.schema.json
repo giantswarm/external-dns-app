@@ -38,6 +38,9 @@
                 },
                 "region": {
                     "type": ["null", "string"]
+                },
+                "zoneType": {
+                    "type": ["null", "string"]
                 }
             }
         },

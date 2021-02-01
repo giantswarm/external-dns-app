@@ -56,6 +56,13 @@ aws:
   # If aws.access is 'external' then the AWS region must be set.
   region:
 
+  # aws.zoneType
+  # Filters hosted zones to update based on type. Supported options: `public`,
+  # `private`. Leave blank to not filter based on zone type. If `aws.access` is
+  # set to `external` then the zone type is automatically set to `public` and
+  # cannot be changed.
+  zoneType:
+
 # externalDNS
 # Configuration options for external-dns itself.
 externalDNS:

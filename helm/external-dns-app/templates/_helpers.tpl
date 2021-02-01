@@ -41,3 +41,16 @@ Create the list of domains to update
 {{- end }}
 {{- end }}
 {{- end }}
+
+{{/*
+Set the zone type when running on AWS
+*/}}
+{{- define "zone.type" -}}
+{{- if eq .Values.aws.access "external" }}
+{{ printf "- --aws-zone-type=%s" "public" }}
+{{- else }}
+{{- if .Values.aws.zoneType }}
+{{ printf "- --aws-zone-type=%s" .Values.aws.zoneType }}
+{{- end }}
+{{- end }}
+{{- end }}

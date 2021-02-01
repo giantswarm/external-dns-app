@@ -25,6 +25,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
     - Allows the user to provide the list of domains for external-dns to manage.
     - Allows configuration of batch size.
     - Allows configuration of CNAME instead of ALIAS records.
+    - Allows configuration of the AWS zone type to update.
 
 ## [1.6.0] - 2021-01-27
 
