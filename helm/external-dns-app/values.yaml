@@ -8,8 +8,11 @@
 aws:
 
   # aws.access
-  # Route53 access type. Use 'internal' for all hosted zones, or 'external' for
-  # public zones only.
+  # Route53 access type. Use 'internal' to utilise in-cluster AWS authentication
+  # via KIAM, or 'external' to access the AWS API via the public endpoints. When
+  # using external access, you must also provide the AWS access credentials below.
+  # Note that external access can only update public hosted zones, whereas internal
+  # can update public and private zones.
   access: internal
 
   # aws.baseDomain
