@@ -1,4 +1,4 @@
-# Changelog
+oel# Changelog
 
 All notable changes to this project will be documented in this file.
 
@@ -6,6 +6,24 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project's packages adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+### Changed
+
+- Reworked the App to prepare it for customer use. ([#49](https://github.com/giantswarm/external-dns-app/pull/49))
+  - General:
+    - Pushes the app to the playground catalog.
+    - Uses Helm release namespace.
+    - Uses the release name for resource naming to avoid conflicts.
+    - Added a values schema to catch incorrect values.
+    - Generally makes the chart easier to use for customers (documented values file).
+  - external-dns options:
+    - Allows customisation of the txt registry prefix.
+    - Allows configuration of synchronisation interval.
+  - AWS-specifc:
+    - Allows the user to provide anAWS IAM role to use.
+    - Allows the user to provide the list of domains for external-dns to manage.
+    - Allows configuration of batch size on AWS.
+    - Allows configuration of CNAME instead of ALIAS records on AWS.
 
 ## [1.6.0] - 2021-01-27
 
