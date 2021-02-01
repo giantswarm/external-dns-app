@@ -9,12 +9,24 @@ workflows:
       - architect/push-to-app-catalog:
           context: architect
           executor: "app-build-suite"
-          name: push-to-default-app-catalog
+          name: 'package and push to default catalog'
           app_catalog: "default-catalog"
           app_catalog_test: "default-test-catalog"
           chart: "external-dns-app"
           filters:
             # Trigger the job also on git tag.
+            tags:
+              only: /^v.*/
+
+      - architect/push-to-app-catalog:
+          context: architect
+          executor: "app-build-suite"
+          name: "package and push to playground catalog"
+          app_catalog: "giantswarm-playground-catalog"
+          app_catalog_test: "giantswarm-playground-test-catalog"
+          chart: "external-dns-app"
+          # Trigger job on git tag.
+          filters:
             tags:
               only: /^v.*/
 
