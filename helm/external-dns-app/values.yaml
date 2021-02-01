@@ -60,6 +60,12 @@ aws:
 # Configuration options for external-dns itself.
 externalDNS:
 
+  # externalDNS.annotationFilter
+  # Annotation to filter objects to reconcile. Use in conjunction with
+  # `externalDNS.sources` to limit futher. This must be provided when running multiple
+  # instances of external-dns.
+  annotationFilter: "giantswarm.io/external-dns=managed"
+
   # externalDNS.domainFilterList
   # One or more domains that this instance of external-dns will manage. If
   # no domains are provided then the cluster baseDomain must be provided via

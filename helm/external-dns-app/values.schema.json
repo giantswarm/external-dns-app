@@ -53,6 +53,9 @@
         "externalDNS": {
             "type": "object",
             "properties": {
+                "annotationFilter": {
+                    "type": "string"
+                },
                 "domainFilterList": {
                     "type": "array"
                 },

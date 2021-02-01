@@ -19,6 +19,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
   - external-dns options:
     - Allows customisation of the txt registry prefix.
     - Allows configuration of synchronisation interval.
+    - Filter resources to reconcile via annotations.
   - AWS-specifc:
     - Allows the user to provide an IAM role to use.
     - Allows the user to provide the list of domains for external-dns to manage.
