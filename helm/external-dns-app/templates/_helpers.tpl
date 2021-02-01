@@ -54,3 +54,16 @@ Set the zone type when running on AWS
 {{- end }}
 {{- end }}
 {{- end }}
+
+{{/*
+Set the role name for KIAM
+*/}}
+{{- define "aws.iam.role" -}}
+{{- if .Values.aws.iam.customRoleName }}
+{{- printf "%s" .Values.aws.iam.customRoleName }}
+{{- else }}
+{{- if eq .Values.aws.access "internal" }}
+{{- printf "%s-Route53Manager-Role" .Values.clusterID }}
+{{- end }}
+{{- end }}
+{{- end }}
