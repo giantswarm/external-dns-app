@@ -1,4 +1,4 @@
-oel# Changelog
+# Changelog
 
 All notable changes to this project will be documented in this file.
 
@@ -15,15 +15,15 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
     - Uses Helm release namespace.
     - Uses the release name for resource naming to avoid conflicts.
     - Added a values schema to catch incorrect values.
-    - Generally makes the chart easier to use for customers (documented values file).
+    - Generally makes the chart easier to use (fully documented values file).
   - external-dns options:
     - Allows customisation of the txt registry prefix.
     - Allows configuration of synchronisation interval.
   - AWS-specifc:
-    - Allows the user to provide anAWS IAM role to use.
+    - Allows the user to provide an IAM role to use.
     - Allows the user to provide the list of domains for external-dns to manage.
-    - Allows configuration of batch size on AWS.
-    - Allows configuration of CNAME instead of ALIAS records on AWS.
+    - Allows configuration of batch size.
+    - Allows configuration of CNAME instead of ALIAS records.
 
 ## [1.6.0] - 2021-01-27
 
