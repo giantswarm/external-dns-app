@@ -11,7 +11,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - Reworked the App to prepare it for customer use. ([#49](https://github.com/giantswarm/external-dns-app/pull/49))
   - General:
-    - Pushes the app to the playground catalog.
+    - Pushes the app to the giantswarm app catalog.
     - Uses Helm release namespace.
     - Uses the release name for resource naming to avoid conflicts.
     - Added a values schema to catch incorrect values.
