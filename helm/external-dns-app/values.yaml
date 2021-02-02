@@ -160,7 +160,7 @@ global:
 # provider
 # Identifies the cloudprovider. Currently supported: `aws` and `azure`. This *must*
 # be set.
-provider: changeme
+provider:
 
 
 ## Do not change any values below; these are specific to Giant Swarm environments.
