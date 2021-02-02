@@ -2,3 +2,4 @@ replace-chart-version-with-git: true
 generate-metadata: true
 chart-dir: ./helm/external-dns-app
 destination: ./build
+app-tests-app-config-file: ./ci/test.yaml
