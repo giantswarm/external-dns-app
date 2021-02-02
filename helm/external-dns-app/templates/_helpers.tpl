@@ -67,3 +67,40 @@ Set the role name for KIAM
 {{- end }}
 {{- end }}
 {{- end }}
+
+{{/*
+Validate certain values and fail if they are incorrect
+*/}}
+
+{{/* Compile failure message. This function is called
+in NOTES.txt */}}
+{{- define "externalDNS.validateValues" -}}
+{{- $messages := list -}}
+{{- $messages := append $messages (include "validateValues.provider" .) -}}
+{{- $messages := append $messages (include "validateValues.zoneType" .) -}}
+{{- $messages := without $messages "" -}}
+{{- $message := join "\n" $messages -}}
+
+{{/* Print failure message(s) */}}
+{{- if $message -}}
+{{-   printf "\n\nVALUES VALIDATION:\n\n%s" $message | fail -}}
+{{- end -}}
+{{- end -}}
+
+{{/* Validate that the provider makes sense */}}
+{{- define "validateValues.provider" -}}
+{{- if and (ne .Values.provider "aws") (ne .Values.provider "azure") -}}
+external-dns: provider
+    Incorrect value provided. Valid values are either 'aws' or 'azure'.
+{{- end -}}
+{{- end -}}
+
+{{/* Ensure hosted zone type makes sense */}}
+{{- define "validateValues.zoneType" -}}
+{{- if .Values.aws.zoneType -}}
+{{- if and (ne .Values.aws.zoneType "public") (ne .Values.aws.zoneType "private") -}}
+external-dns: aws.zoneType
+    AWS hosted zone type must be either 'public' or 'private'.
+{{- end -}}
+{{- end -}}
+{{- end -}}
