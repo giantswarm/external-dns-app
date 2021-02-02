@@ -159,8 +159,9 @@ global:
 
 # provider
 # Identifies the cloudprovider. Currently supported: `aws` and `azure`. This *must*
-# be set.
-provider:
+# be set. If this is installed as a default app from the default-catalog then this
+# value is set dynamically and will be overridden.
+provider: CHANGEME
 
 
 ## Do not change any values below; these are specific to Giant Swarm environments.
