@@ -166,12 +166,22 @@ provider: CHANGEME
 
 ## Do not change any values below; these are specific to Giant Swarm environments.
 
+# serviceType:
+# Resources will be annotated with this value. Specific to Giant Swarm clusters.
 serviceType: "managed"
 
+# e2e
+# Is the app running in CI.
 e2e: false
 
+# baseDomain
+# The base domain of the cluster. This is only used if this chart is installed as
+# a default app from the default-catalog. It is dynamically set and will be
+# overridden. Specific to Giant Swarm clusters.
 baseDomain: gigantic.io
 
-# clusterID is dynamic environment value, calculated after cluster creation
-# applies only to Giant Swarm clusters
+# clusterID
+# The cluster's ID. This is only used if this chart is installed as a default app
+# from the default-catalog. It is dynamically set and will be overridden. Specific
+# to Giant Swarm clusters.
 clusterID: en2jo
