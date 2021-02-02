@@ -87,9 +87,14 @@ in NOTES.txt */}}
 {{- end -}}
 {{- end -}}
 
-{{/* Validate that the provider makes sense */}}
+{{/*
+Validate that the provider makes sense
+
+'inmemory' is only used when running integration tests, so we
+don't expose that value to the user in the error message.
+*/}}
 {{- define "validateValues.provider" -}}
-{{- if and (ne .Values.provider "aws") (ne .Values.provider "azure") -}}
+{{- if and (ne .Values.provider "aws") (ne .Values.provider "azure") (ne .Values.provider "inmemory") -}}
 external-dns: provider
     Incorrect value provided. Valid values are either 'aws' or 'azure'.
 {{- end -}}
