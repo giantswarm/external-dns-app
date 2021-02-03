@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [2.0.1] - 2021-02-03
+
 ### Changed
 
 - Only template Secret if both required values are present in `values.yaml`. ([#53](https://github.com/giantswarm/external-dns-app/pull/53))
@@ -129,7 +131,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 - Network policy that allows all egress traffic.
 - Network policy that allows accessing metrics on port `10254`.
 
-[Unreleased]: https://github.com/giantswarm/external-dns-app/compare/v2.0.0...HEAD
+[Unreleased]: https://github.com/giantswarm/external-dns-app/compare/v2.0.1...HEAD
+[2.0.1]: https://github.com/giantswarm/external-dns-app/compare/v2.0.0...v2.0.1
 [2.0.0]: https://github.com/giantswarm/external-dns-app/compare/v1.6.0...v2.0.0
 [1.6.0]: https://github.com/giantswarm/external-dns-app/compare/v1.5.0...v1.6.0
 [1.5.0]: https://github.com/giantswarm/external-dns-app/compare/v1.4.0...v1.5.0
