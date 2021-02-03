@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Values.name }}-monitoring
-  namespace: {{ .Values.namespace }}
+  name: {{ .Release.Name }}-monitoring
+  namespace: {{ .Release.Namespace }}
   annotations:
     giantswarm.io/monitoring: "true"
     giantswarm.io/monitoring-path: /metrics
-    giantswarm.io/monitoring-port: {{ .Values.metricsPort | quote }}
+    giantswarm.io/monitoring-port: {{ .Values.global.metrics.port | quote }}
   labels:
     {{- include "labels.common" . | nindent 4 }}
     giantswarm.io/monitoring: "true"
@@ -14,7 +14,7 @@ spec:
   clusterIP: None
   ports:
   - name: metrics
-    port: {{ .Values.metricsPort }}
+    port: {{ .Values.global.metrics.port }}
     targetPort: metrics
   selector:
     {{- include "labels.selector" . | nindent 4 }}

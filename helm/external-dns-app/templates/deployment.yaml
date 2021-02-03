@@ -1,8 +1,8 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.name }}
-  namespace: {{ .Values.namespace }}
+  name: {{ .Release.Name }}
+  namespace: {{ .Release.Namespace }}
   labels:
     {{- include "labels.common" . | nindent 4 }}
     giantswarm.io/monitoring_basic_sli: "true"
@@ -19,84 +19,99 @@ spec:
         {{- include "labels.common" . | nindent 8 }}
       annotations:
         {{- if and (eq .Values.provider "aws") (eq .Values.aws.access "internal") }}
-        iam.amazonaws.com/role: {{ .Values.clusterID}}-Route53Manager-Role
+        iam.amazonaws.com/role: {{ template "aws.iam.role" . }}
         {{- end }}
         scheduler.alpha.kubernetes.io/critical-pod: ''
         prometheus.io/path: /metrics
-        prometheus.io/port: "{{ .Values.metricsPort }}"
-        prometheus.io/scrape: "true"
+        prometheus.io/port: "{{ .Values.global.metrics.port }}"
+        prometheus.io/scrape: "{{ .Values.global.metrics.scrape }}"
     spec:
-      serviceAccountName: {{ .Values.name }}
+      serviceAccountName: {{ .Release.Name }}
       securityContext:
-        runAsUser: {{ .Values.userID }}
-        runAsGroup: {{ .Values.groupID }}
-        fsGroup: {{ .Values.groupID }}
+        runAsUser: {{ .Values.global.securityContext.userID }}
+        runAsGroup: {{ .Values.global.securityContext.groupID }}
+        fsGroup: {{ .Values.global.securityContext.fsGroupID }}
       priorityClassName: giantswarm-critical
       {{- if and (eq .Values.provider "aws") (eq .Values.aws.access "internal") }}
       initContainers:
       - name: wait-for-iam-role
-        image: {{ .Values.image.registry }}/giantswarm/alpine:3.12.0
+        image: {{ .Values.global.image.registry }}/giantswarm/alpine:3.12.0
         command:
         - /bin/sh
         - -c
-        - counter=5; while ! wget -qO- http://169.254.169.254/latest/meta-data/iam/security-credentials/ | grep {{ .Values.clusterID}}-Route53Manager-Role; do echo 'Waiting for iam-role to be available...'; sleep 5; let "counter-=1"  ; if [ "$counter" -eq "0" ]; then exit 1; fi; done
+        - counter=5; while ! wget -qO- http://169.254.169.254/latest/meta-data/iam/security-credentials/ | grep {{ template "aws.iam.role" . }}; do echo 'Waiting for iam-role to be available...'; sleep 5; let "counter-=1"  ; if [ "$counter" -eq "0" ]; then exit 1; fi; done
       {{- end }}
       containers:
-      - name: {{ .Values.name }}
-        image: "{{ .Values.image.registry }}/{{ .Values.image.name }}:{{ .Values.image.tag }}"
+      - name: {{ .Release.Name }}
+        image: "{{ .Values.global.image.registry }}/{{ .Values.global.image.name }}:{{ .Values.global.image.tag }}"
         imagePullPolicy: IfNotPresent
-        env:
         {{- if eq .Values.aws.access "external" }}
+        env:
         - name: AWS_ACCESS_KEY_ID
           valueFrom:
             secretKeyRef:
-              name: {{ .Values.name }}-route53-credentials
+              name: {{ .Release.Name }}-route53-credentials
               key: aws_access_key_id
         - name: AWS_SECRET_ACCESS_KEY
           valueFrom:
             secretKeyRef:
-              name: {{ .Values.name }}-route53-credentials
+              name: {{ .Release.Name }}-route53-credentials
               key: aws_secret_access_key
         - name: AWS_DEFAULT_REGION
           value: {{ .Values.aws.region }}
         {{- end }}
         args:
-        {{- range .Values.sources }}
+        {{- range .Values.externalDNS.sources }}
         - --source={{ . }}
+        {{- end }}
+        {{- if .Values.externalDNS.annotationFilter }}
+        - --annotation-filter={{ .Values.externalDNS.annotationFilter }}
+        {{- end }}
+        {{- if .Values.externalDNS.interval }}
+        - --interval={{ .Values.externalDNS.interval }}
         {{- end }}
         - --provider={{ .Values.provider }}
         {{- if eq .Values.provider "azure" }}
         - --azure-config-file=/azure/config/azure.yaml
-        {{- end }}
-        {{- if eq .Values.aws.access "external" }}
-        - --domain-filter={{ .Values.aws.baseDomain }}
-        - --aws-zone-type=public
+        {{- end -}}
+        {{- if eq .Values.provider "aws" }}
+        {{- include "zone.type" . | nindent 8 }}
+        {{- if .Values.aws.preferCNAME }}
         - --aws-prefer-cname
-        {{- else }}
-        - --domain-filter={{ .Values.baseDomain }}
         {{- end }}
-        - --metrics-address=:{{ .Values.metricsPort }}
-        - --namespace={{ .Values.namespace }}
+        {{- if .Values.aws.batchChangeSize }}
+        - --aws-batch-change-size={{ .Values.aws.batchChangeSize }}
+        {{- end }}
+        {{- include "domain.list" . | nindent 8 }}
+        {{- end }}
+        - --metrics-address=:{{ .Values.global.metrics.port }}
+        {{- if .Values.externalDNS.namespaceFilter }}
+        - --namespace={{ .Values.externalDNS.namespaceFilter }}
+        {{- end }}
         - --registry=txt
         - --txt-owner-id=giantswarm-io-external-dns
+        {{- if .Values.externalDNS.registry.txtPrefix }}
+        - --txt-prefix={{ .Values.externalDNS.registry.txtPrefix }}
+        {{- else }}
         - --txt-prefix={{ .Values.clusterID }}
+        {{- end }}
         readinessProbe:
           httpGet:
             path: /healthz
-            port: {{ .Values.metricsPort }}
+            port: {{ .Values.global.metrics.port }}
             scheme: HTTP
         resources:
-{{ toYaml .Values.resources | indent 10 }}
+{{ toYaml .Values.global.resources | indent 10 }}
         livenessProbe:
           httpGet:
             path: /healthz
-            port: {{ .Values.metricsPort }}
+            port: {{ .Values.global.metrics.port }}
             scheme: HTTP
           initialDelaySeconds: 10
           timeoutSeconds: 1
         ports:
         - name: metrics
-          containerPort: {{ .Values.metricsPort }}
+          containerPort: {{ .Values.global.metrics.port }}
           protocol: TCP
       {{- if eq .Values.provider "azure" }}
         volumeMounts:

@@ -1,0 +1,162 @@
+{
+    "$schema": "http://json-schema.org/schema#",
+    "type": "object",
+    "properties": {
+        "aws": {
+            "type": "object",
+            "properties": {
+                "access": {
+                    "type": "string"
+                },
+                "baseDomain": {
+                    "type": ["null", "string"]
+                },
+                "batchChangeSize": {
+                    "type": ["null", "integer"]
+                },
+                "credentials": {
+                    "type": "object",
+                    "properties": {
+                        "awsAccessKeyID": {
+                            "type": ["null", "string"]
+                        },
+                        "awsAccessSecretKey": {
+                            "type": ["null", "string"]
+                        }
+                    }
+                },
+                "iam": {
+                    "type": "object",
+                    "properties": {
+                        "customRoleName": {
+                            "type": ["null", "string"]
+                        }
+                    }
+                },
+                "preferCNAME": {
+                    "type": "boolean"
+                },
+                "region": {
+                    "type": ["null", "string"]
+                },
+                "zoneType": {
+                    "type": ["null", "string"]
+                }
+            }
+        },
+        "baseDomain": {
+            "type": "string"
+        },
+        "clusterID": {
+            "type": "string"
+        },
+        "e2e": {
+            "type": "boolean"
+        },
+        "externalDNS": {
+            "type": "object",
+            "properties": {
+                "annotationFilter": {
+                    "type": "string"
+                },
+                "domainFilterList": {
+                    "type": "array"
+                },
+                "interval": {
+                    "type": ["null", "string"]
+                },
+                "namespaceFilter": {
+                    "type": "string"
+                },
+                "registry": {
+                    "type": "object",
+                    "properties": {
+                        "txtPrefix": {
+                            "type": ["null", "string"]
+                        }
+                    }
+                },
+                "sources": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "global": {
+            "type": "object",
+            "properties": {
+                "image": {
+                    "type": "object",
+                    "properties": {
+                        "name": {
+                            "type": "string"
+                        },
+                        "registry": {
+                            "type": "string"
+                        },
+                        "tag": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "metrics": {
+                    "type": "object",
+                    "properties": {
+                        "port": {
+                            "type": "integer"
+                        },
+                        "scrape": {
+                            "type": "boolean"
+                        }
+                    }
+                },
+                "resources": {
+                    "type": "object",
+                    "properties": {
+                        "limits": {
+                            "type": "object",
+                            "properties": {
+                                "memory": {
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "requests": {
+                            "type": "object",
+                            "properties": {
+                                "cpu": {
+                                    "type": "string"
+                                },
+                                "memory": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                },
+                "securityContext": {
+                    "type": "object",
+                    "properties": {
+                        "fsGroupID": {
+                            "type": "integer"
+                        },
+                        "groupID": {
+                            "type": "integer"
+                        },
+                        "userID": {
+                            "type": "integer"
+                        }
+                    }
+                }
+            }
+        },
+        "provider": {
+            "type": "string"
+        },
+        "serviceType": {
+            "type": "string"
+        }
+    }
+}

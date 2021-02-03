@@ -1,6 +1,12 @@
 apiVersion: v1
 appVersion: v0.7.6
-description: A Helm chart for the external-dns
+description: Configure external DNS servers for Kubernetes Ingresses and Services
+engine: gotpl
 home: https://github.com/giantswarm/external-dns-app
 name: external-dns-app
+sources:
+- https://github.com/kubernetes-sigs/external-dns
+annotations:
+    application.giantswarm.io/values-schema: https://raw.githubusercontent.com/giantswarm/external-dns-app/v[[ .Version ]]/helm/external-dns-app/values.schema.json
+    application.giantswarm.io/readme: https://raw.githubusercontent.com/giantswarm/external-dns-app/v[[ .Version ]]/README.md
 version: [[ .Version ]]

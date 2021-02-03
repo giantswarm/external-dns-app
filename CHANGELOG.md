@@ -7,6 +7,26 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Reworked the App to prepare it for customer use. ([#49](https://github.com/giantswarm/external-dns-app/pull/49))
+  - General:
+    - Pushes the app to the giantswarm app catalog.
+    - Uses Helm release namespace.
+    - Uses the release name for resource naming to avoid conflicts.
+    - Added a values schema to catch incorrect values.
+    - Generally makes the chart easier to use (fully documented values file).
+  - external-dns options:
+    - Allows customisation of the txt registry prefix.
+    - Allows configuration of synchronisation interval.
+    - Filter resources to reconcile via annotations.
+  - AWS-specifc:
+    - Allows the user to provide an IAM role to use.
+    - Allows the user to provide the list of domains for external-dns to manage.
+    - Allows configuration of batch size.
+    - Allows configuration of CNAME instead of ALIAS records.
+    - Allows configuration of the AWS zone type to update.
+
 ## [1.6.0] - 2021-01-27
 
 ### Changed

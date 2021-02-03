@@ -1,13 +1,30 @@
 apiVersion: policy/v1beta1
 kind: PodSecurityPolicy
 metadata:
-  name: {{ .Values.name }}
+  name: {{ .Release.Name }}
   labels:
     {{- include "labels.common" . | nindent 4 }}
 spec:
+  fsGroup:
+    rule: 'MustRunAs'
+    ranges:
+      - min: {{ .Values.global.securityContext.fsGroupID }}
+        max: {{ .Values.global.securityContext.fsGroupID }}
+  hostIPC: false
+  hostNetwork: false
+  hostPID: false
   privileged: false
+  readOnlyRootFilesystem: false
+  runAsGroup:
+    rule: 'MustRunAs'
+    ranges:
+      - min: {{ .Values.global.securityContext.groupID }}
+        max: {{ .Values.global.securityContext.groupID }}
   runAsUser:
-    rule: MustRunAsNonRoot
+    rule: 'MustRunAs'
+    ranges:
+      - min: {{ .Values.global.securityContext.userID }}
+        max: {{ .Values.global.securityContext.userID }}
   seLinux:
     rule: RunAsAny
   supplementalGroups:
@@ -15,22 +32,10 @@ spec:
     ranges:
       - min: 1
         max: 65535
-  fsGroup:
-    rule: 'MustRunAs'
-    ranges:
-      - min: 1
-        max: 65535
   volumes:
-  - 'secret'
   - 'configMap'
-  - 'hostPath'
+  - 'secret'
+  {{- if eq .Values.provider "azure" }}
   - 'emptyDir'
-  hostPID: false
-  hostIPC: false
-  hostNetwork: false
-  fsGroup:
-    rule: 'MustRunAs'
-    ranges:
-      - min: 1
-        max: 65535
-  readOnlyRootFilesystem: false
+  - 'hostPath'
+  {{- end }}

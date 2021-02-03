@@ -2,46 +2,186 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-name: external-dns
-namespace: kube-system
-
-serviceType: "managed"
-
-e2e: false
-
-userID: 65534
-groupID: 65534
-
-baseDomain: gigantic.io
-# clusterID is dynamic environment value, calculated after cluster creation
-# applies only to Giant Swarm clusters
-clusterID: en2jo
-# provider is dynamic environment value, which comes from application catalog configuration
-# applies only to Giant Swarm clusters
-provider: azure
-# aws/access describes route53 access type.
-# possible values: internal/external.
+# aws
+# Configuration options specific to external-dns when running in AWS
+# clusters.
 aws:
+
+  # aws.access
+  # Route53 access type. Use 'internal' to utilise in-cluster AWS authentication
+  # via KIAM, or 'external' to access the AWS API via the public endpoints. When
+  # using external access, you must also provide the AWS access credentials below.
+  # Note that external access can only update public hosted zones, whereas internal
+  # can update public and private zones.
   access: internal
+
+  # aws.credentials
+  # Credentials used to authenticate against the AWS API - only required when
+  # aws.access is 'external'.
+  credentials:
+
+    # aws.credentials.awsAccessKeyID
+    # Access key ID for the AWS API.
+    awsAccessKeyID:
+
+    # aws.credentials.awsAccessSecretKey
+    # Access key secret for the AWS API.
+    awsAccessSecretKey:
+
+  # aws.baseDomain
+  # If aws.access is 'external' then the domain to update must be set.
   baseDomain:
+
+  # aws.batchChangeSize
+  # Maximum number of changes applied in each batch. If left blank then the
+  # default will be used.
+  batchChangeSize:
+
+  # aws.iam
+  # AWS IAM configuration.
+  iam:
+
+    # aws.iam.customRole
+    # If set, allows a user-created role to be assumed. Role must have access to a
+    # policy which allows configuration of Route53 hosted zone(s).
+    # e.g. `customRoleName: route53-manager-role`
+    customRoleName:
+
+  # aws.preferCNAME
+  # Create CNAME records instead of ALIAS. Should be set to true when aws.access
+  # is `external`.
+  preferCNAME: false
+
+  # aws.region
+  # If aws.access is 'external' then the AWS region must be set.
   region:
 
-sources:
+  # aws.zoneType
+  # Filters hosted zones to update based on type. Supported options: `public`,
+  # `private`. Leave blank to not filter based on zone type. If `aws.access` is
+  # set to `external` then the zone type is automatically set to `public` and
+  # cannot be changed.
+  zoneType:
+
+# externalDNS
+# Configuration options for external-dns itself.
+externalDNS:
+
+  # externalDNS.annotationFilter
+  # Annotation to filter objects to reconcile. Use in conjunction with
+  # `externalDNS.sources` to limit futher. This must be provided when running multiple
+  # instances of external-dns.
+  annotationFilter: "giantswarm.io/external-dns=managed"
+
+  # externalDNS.domainFilterList
+  # One or more domains that this instance of external-dns will manage. If
+  # no domains are provided then the cluster baseDomain must be provided via
+  # either `baseDomain` or `aws.baseDomain` (depending on the Route53 access
+  # method used).
+  domainFilterList: []
+  # - foo.bar.com
+  # - baz.bar.com
+
+  # externalDNS.interval
+  # Interval between synchronisations. Must be in duration format (e.g. `5m`)
+  interval:
+
+  # externalDNS.namespaceFilter
+  # The namespace to limit sources of endpoints to. If left blank, all
+  # namespaces will be used.
+  namespaceFilter: kube-system
+
+  # externalDNS.registry
+  # Configuration options relating to ownership of created records.
+  registry:
+
+    # externalDNS.registry.txtPrefix
+    # String prefix applied to TXT registry records. See
+    # https://github.com/kubernetes-sigs/external-dns/blob/master/docs/proposal/registry.md
+    txtPrefix:
+
+  # externalDNS.sources
+  # Resource types queried for endpoints.
+  sources:
   - service
   # Disable ingress source by default.
   # - ingress
 
-metricsPort: 7979
+global:
 
-image:
-  registry: quay.io
-  name: giantswarm/external-dns
-  # When updating tag make sure to also keep appVersion in Chart.yaml in sync
-  tag: v0.7.6
+  # global.image
+  # Configuration options for images.
+  image:
 
-resources:
-  limits:
-    memory: 50Mi
-  requests:
-    cpu: 50m
-    memory: 50Mi
+    # global.image.name
+    name: giantswarm/external-dns
+
+    # global.image.registry
+    registry: quay.io
+
+    # global.image.tag
+    # When updating tag make sure to also keep appVersion in Chart.yaml in sync.
+    tag: v0.7.6
+
+  # global.metrics
+  # Metrics configuration options
+  metrics:
+
+    # global.metrics.port
+    # The port to serve metrics on.
+    port: 7979
+
+    # global.metrics.scrape
+    # Enable/disable scraping by Prometheus.
+    scrape: true
+
+  # global.resources
+  # Set pod resource limits and requests. This is passed as a YAML
+  # dictionary directly into the deployment manifest.
+  resources:
+    limits:
+      memory: 50Mi
+    requests:
+      cpu: 50m
+      memory: 50Mi
+
+  # global.securityContext
+  securityContext:
+
+    # global.securityContext.fsGroupID
+    fsGroupID: 65534
+
+    # global.securityContext.groupID
+    groupID: 65534
+
+    # global.securityContext.userID
+    userID: 65534
+
+# provider
+# Identifies the cloudprovider. Currently supported: `aws` and `azure`. This *must*
+# be set. If this is installed as a default app from the default-catalog then this
+# value is set dynamically and will be overridden.
+provider: CHANGEME
+
+
+## Do not change any values below; these are specific to Giant Swarm environments.
+
+# serviceType:
+# Resources will be annotated with this value. Specific to Giant Swarm clusters.
+serviceType: "managed"
+
+# e2e
+# Is the app running in CI.
+e2e: false
+
+# baseDomain
+# The base domain of the cluster. This is only used if this chart is installed as
+# a default app from the default-catalog. It is dynamically set and will be
+# overridden. Specific to Giant Swarm clusters.
+baseDomain: gigantic.io
+
+# clusterID
+# The cluster's ID. This is only used if this chart is installed as a default app
+# from the default-catalog. It is dynamically set and will be overridden. Specific
+# to Giant Swarm clusters.
+clusterID: en2jo
