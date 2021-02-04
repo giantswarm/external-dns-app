@@ -14,17 +14,6 @@
                 "batchChangeSize": {
                     "type": ["null", "integer"]
                 },
-                "credentials": {
-                    "type": "object",
-                    "properties": {
-                        "awsAccessKeyID": {
-                            "type": ["null", "string"]
-                        },
-                        "awsAccessSecretKey": {
-                            "type": ["null", "string"]
-                        }
-                    }
-                },
                 "iam": {
                     "type": "object",
                     "properties": {
@@ -58,6 +47,13 @@
             "properties": {
                 "annotationFilter": {
                     "type": "string"
+                },
+                },
+                "aws_access_key_id": {
+                    "type": ["null", "string"]
+                },
+                "aws_secret_access_key": {
+                    "type": ["null", "string"]
                 },
                 "domainFilterList": {
                     "type": "array"
