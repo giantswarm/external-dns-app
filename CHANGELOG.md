@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [2.0.2] - 2021-02-04
+
 ### Fixed
 
 - Revert location of AWS API credentials in `values.yaml`. ([#57](https://github.com/giantswarm/external-dns-app/pull/57))
@@ -135,7 +137,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 - Network policy that allows all egress traffic.
 - Network policy that allows accessing metrics on port `10254`.
 
-[Unreleased]: https://github.com/giantswarm/external-dns-app/compare/v2.0.1...HEAD
+[Unreleased]: https://github.com/giantswarm/external-dns-app/compare/v2.0.2...HEAD
+[2.0.2]: https://github.com/giantswarm/external-dns-app/compare/v2.0.1...v2.0.2
 [2.0.1]: https://github.com/giantswarm/external-dns-app/compare/v2.0.0...v2.0.1
 [2.0.0]: https://github.com/giantswarm/external-dns-app/compare/v1.6.0...v2.0.0
 [1.6.0]: https://github.com/giantswarm/external-dns-app/compare/v1.5.0...v1.6.0
