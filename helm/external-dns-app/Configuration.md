@@ -9,13 +9,13 @@ and are are optional unless otherwise stated.
 | aws.access                         | string | `"internal"` | Authenticate via KIAM or credentials **(required)** |
 | aws.baseDomain                     | string | `nil`        | Base domain of the cluster |
 | aws.batchChangeSize                | int    | `nil`        | How many records to synchronise in a batch |
-| aws.credentials.awsAccessKeyID     | string | `nil`        | Access key (required when aws.access is 'external') |
-| aws.credentials.awsAccessSecretKey | string | `nil`        | Secret key (required when aws.access is 'external') |
 | aws.iam.customRoleName             | string | `nil`        | Custom IAM role for KIAM to assume |
 | aws.preferCNAME                    | bool   | `false`      | Prefer CNAME records over ALIAS |
 | aws.region                         | string | `nil`        | Region (required when aws.access is 'external') |
 | aws.zoneType                       | string | `nil`        | Hosted zone types to update |
 | externalDNS.annotationFilter       | string | `"giantswarm.io/external-dns=managed"` | Only reconcile Service/Ingress with this annotation |
+| externalDNS.aws_access_key_id      | string | `nil`        | Access key (required when aws.access is 'external') |
+| externalDNS.aws_secret_access_key  | string | `nil`        | Secret key (required when aws.access is 'external') |
 | externalDNS.domainFilterList       | list   | `[]`         | List of domains to update |
 | externalDNS.interval               | string | `nil`        | Synchronisation interval |
 | externalDNS.namespaceFilter        | string | `"kube-system"` | Filter namespace to watch endpoints in |

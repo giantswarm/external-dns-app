@@ -15,19 +15,6 @@ aws:
   # can update public and private zones.
   access: internal
 
-  # aws.credentials
-  # Credentials used to authenticate against the AWS API - only required when
-  # aws.access is 'external'.
-  credentials:
-
-    # aws.credentials.awsAccessKeyID
-    # Access key ID for the AWS API.
-    awsAccessKeyID:
-
-    # aws.credentials.awsAccessSecretKey
-    # Access key secret for the AWS API.
-    awsAccessSecretKey:
-
   # aws.baseDomain
   # If aws.access is 'external' then the domain to update must be set.
   baseDomain:
@@ -72,6 +59,14 @@ externalDNS:
   # `externalDNS.sources` to limit futher. This must be provided when running multiple
   # instances of external-dns.
   annotationFilter: "giantswarm.io/external-dns=managed"
+
+  # externalDNS.aws_access_key_id
+  # Access key ID for the AWS API. Only required when aws.access is 'external'.
+  aws_access_key_id:
+
+  # externalDNS.aws_secret_access_key
+  # Access key secret for the AWS API. Only required when aws.access is 'external'.
+  aws_secret_access_key:
 
   # externalDNS.domainFilterList
   # One or more domains that this instance of external-dns will manage. If
