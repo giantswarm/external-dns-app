@@ -48,7 +48,6 @@
                 "annotationFilter": {
                     "type": "string"
                 },
-                },
                 "aws_access_key_id": {
                     "type": ["null", "string"]
                 },
