@@ -77,6 +77,10 @@ externalDNS:
   # - foo.bar.com
   # - baz.bar.com
 
+  # externalDNS.dryRun
+  # Dry run logs what action external-dns would have taken, but doesn't apply them.
+  dryRun: false
+
   # externalDNS.interval
   # Interval between synchronisations. Must be in duration format (e.g. `5m`)
   interval:

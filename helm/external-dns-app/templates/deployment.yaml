@@ -61,6 +61,9 @@ spec:
           value: {{ .Values.aws.region }}
         {{- end }}
         args:
+        {{- if .Values.externalDNS.dryRun }}
+        - --dry-run=true
+        {{- end }}
         {{- range .Values.externalDNS.sources }}
         - --source={{ . }}
         {{- end }}
