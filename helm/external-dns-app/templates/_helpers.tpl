@@ -69,6 +69,20 @@ Set the role name for KIAM
 {{- end }}
 
 {{/*
+Set the txt owner ID.
+*/}}
+{{- define "txt.owner.id" -}}
+{{- if .Values.NetExporter -}}
+{{/* if this value is present then the app was installed
+from the default catalog and is therefore a default app */}}
+{{- print "giantswarm-io-external-dns" }}
+{{- else -}}
+{{/* the customer must provide their own */}}
+{{- printf "%s" .Values.externalDNS.registry.txtOwnerID }}
+{{- end -}}
+{{- end -}}
+
+{{/*
 Validate certain values and fail if they are incorrect
 */}}
 

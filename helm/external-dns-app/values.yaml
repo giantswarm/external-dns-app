@@ -94,6 +94,11 @@ externalDNS:
   # Configuration options relating to ownership of created records.
   registry:
 
+    # externalDNS.registry.txtOwnerID
+    # String to identify this instance of external-dns and the records it owns. See
+    # https://github.com/kubernetes-sigs/external-dns/blob/master/docs/proposal/registry.md
+    txtOwnerID: managed-external-dns
+
     # externalDNS.registry.txtPrefix
     # String prefix applied to TXT registry records. See
     # https://github.com/kubernetes-sigs/external-dns/blob/master/docs/proposal/registry.md
