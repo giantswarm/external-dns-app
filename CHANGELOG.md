@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [2.1.0] - 2021-02-05
+
 ### Added
 
 - Allow the sync policy to be configured. ([#60](https://github.com/giantswarm/external-dns-app/pull/60))
@@ -148,7 +150,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 - Network policy that allows all egress traffic.
 - Network policy that allows accessing metrics on port `10254`.
 
-[Unreleased]: https://github.com/giantswarm/external-dns-app/compare/v2.0.2...HEAD
+[Unreleased]: https://github.com/giantswarm/external-dns-app/compare/v2.1.0...HEAD
+[2.1.0]: https://github.com/giantswarm/external-dns-app/compare/v2.0.2...v2.1.0
 [2.0.2]: https://github.com/giantswarm/external-dns-app/compare/v2.0.1...v2.0.2
 [2.0.1]: https://github.com/giantswarm/external-dns-app/compare/v2.0.0...v2.0.1
 [2.0.0]: https://github.com/giantswarm/external-dns-app/compare/v1.6.0...v2.0.0
