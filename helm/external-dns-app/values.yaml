@@ -58,7 +58,7 @@ externalDNS:
   # Annotation to filter objects to reconcile. Use in conjunction with
   # `externalDNS.sources` to limit futher. This must be provided when running multiple
   # instances of external-dns.
-  annotationFilter: "giantswarm.io/external-dns=managed"
+  annotationFilter: "external-dns/managed-app=true"
 
   # externalDNS.aws_access_key_id
   # Access key ID for the AWS API. Only required when aws.access is 'external'.
@@ -77,6 +77,10 @@ externalDNS:
   # - foo.bar.com
   # - baz.bar.com
 
+  # externalDNS.dryRun
+  # Dry run logs what action external-dns would have taken, but doesn't apply them.
+  dryRun: false
+
   # externalDNS.interval
   # Interval between synchronisations. Must be in duration format (e.g. `5m`)
   interval:
@@ -86,14 +90,23 @@ externalDNS:
   # namespaces will be used.
   namespaceFilter: kube-system
 
+  # externalDNS.policy
+  # Syncing policy between sources and providers.
+  policy: sync
+
   # externalDNS.registry
   # Configuration options relating to ownership of created records.
   registry:
 
+    # externalDNS.registry.txtOwnerID
+    # String to identify this instance of external-dns and the records it owns. See
+    # https://github.com/kubernetes-sigs/external-dns/blob/master/docs/proposal/registry.md
+    txtOwnerID: managed-external-dns
+
     # externalDNS.registry.txtPrefix
     # String prefix applied to TXT registry records. See
     # https://github.com/kubernetes-sigs/external-dns/blob/master/docs/proposal/registry.md
-    txtPrefix:
+    txtPrefix: extdns
 
   # externalDNS.sources
   # Resource types queried for endpoints.

@@ -1,1 +1,6 @@
+{{- if .Values.externalDNS.dryRun }}
+INFO: external-dns is in dry-run mode; changes
+      will be logged but _not_ applied.
+{{- end }}
+
 {{- include "externalDNS.validateValues" . }}

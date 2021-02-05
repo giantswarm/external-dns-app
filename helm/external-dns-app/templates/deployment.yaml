@@ -61,12 +61,14 @@ spec:
           value: {{ .Values.aws.region }}
         {{- end }}
         args:
+        {{- if .Values.externalDNS.dryRun }}
+        - --dry-run=true
+        {{- end }}
         {{- range .Values.externalDNS.sources }}
         - --source={{ . }}
         {{- end }}
-        {{- if .Values.externalDNS.annotationFilter }}
-        - --annotation-filter={{ .Values.externalDNS.annotationFilter }}
-        {{- end }}
+        - --policy={{ .Values.externalDNS.policy }}
+        - --annotation-filter={{- template "annotation.filter" . }}
         {{- if .Values.externalDNS.interval }}
         - --interval={{ .Values.externalDNS.interval }}
         {{- end }}
@@ -89,12 +91,8 @@ spec:
         - --namespace={{ .Values.externalDNS.namespaceFilter }}
         {{- end }}
         - --registry=txt
-        - --txt-owner-id=giantswarm-io-external-dns
-        {{- if .Values.externalDNS.registry.txtPrefix }}
-        - --txt-prefix={{ .Values.externalDNS.registry.txtPrefix }}
-        {{- else }}
-        - --txt-prefix={{ .Values.clusterID }}
-        {{- end }}
+        - --txt-owner-id={{- template "txt.owner.id" . }}
+        - --txt-prefix={{- template "txt.prefix" . }}
         readinessProbe:
           httpGet:
             path: /healthz
