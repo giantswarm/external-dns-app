@@ -67,6 +67,7 @@ spec:
         {{- range .Values.externalDNS.sources }}
         - --source={{ . }}
         {{- end }}
+        - --policy={{ .Values.externalDNS.policy }}
         {{- if .Values.externalDNS.annotationFilter }}
         - --annotation-filter={{ .Values.externalDNS.annotationFilter }}
         {{- end }}

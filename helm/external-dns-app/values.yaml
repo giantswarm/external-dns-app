@@ -90,6 +90,10 @@ externalDNS:
   # namespaces will be used.
   namespaceFilter: kube-system
 
+  # externalDNS.policy
+  # Syncing policy between sources and providers.
+  policy: sync
+
   # externalDNS.registry
   # Configuration options relating to ownership of created records.
   registry:
