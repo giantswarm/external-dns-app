@@ -57,17 +57,26 @@
                 "domainFilterList": {
                     "type": "array"
                 },
+                "dryRun": {
+                    "type": "boolean"
+                },
                 "interval": {
                     "type": ["null", "string"]
                 },
                 "namespaceFilter": {
                     "type": "string"
                 },
+                "policy": {
+                    "type": "string"
+                },
                 "registry": {
                     "type": "object",
                     "properties": {
+                        "txtOwnerID": {
+                            "type": "string"
+                        },
                         "txtPrefix": {
-                            "type": ["null", "string"]
+                            "type": "string"
                         }
                     }
                 },
