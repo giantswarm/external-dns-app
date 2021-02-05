@@ -94,12 +94,7 @@ spec:
         {{- end }}
         - --registry=txt
         - --txt-owner-id={{- template "txt.owner.id" . }}
-        {{- if .Values.externalDNS.registry.txtPrefix }}
-        - --txt-prefix={{ .Values.externalDNS.registry.txtPrefix }}
-        {{- else }}
-        - --txt-prefix={{ .Values.clusterID }}
-        {{- end }}
-
+        - --txt-prefix={{- template "txt.prefix" . }}
         readinessProbe:
           httpGet:
             path: /healthz

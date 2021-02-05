@@ -106,7 +106,7 @@ externalDNS:
     # externalDNS.registry.txtPrefix
     # String prefix applied to TXT registry records. See
     # https://github.com/kubernetes-sigs/external-dns/blob/master/docs/proposal/registry.md
-    txtPrefix:
+    txtPrefix: extdns
 
   # externalDNS.sources
   # Resource types queried for endpoints.
