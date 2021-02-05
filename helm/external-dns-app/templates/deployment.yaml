@@ -68,9 +68,7 @@ spec:
         - --source={{ . }}
         {{- end }}
         - --policy={{ .Values.externalDNS.policy }}
-        {{- if .Values.externalDNS.annotationFilter }}
-        - --annotation-filter={{ .Values.externalDNS.annotationFilter }}
-        {{- end }}
+        - --annotation-filter={{- template "annotation.filter" . }}
         {{- if .Values.externalDNS.interval }}
         - --interval={{ .Values.externalDNS.interval }}
         {{- end }}

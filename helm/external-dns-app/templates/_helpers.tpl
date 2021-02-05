@@ -69,6 +69,20 @@ Set the role name for KIAM
 {{- end }}
 
 {{/*
+Set the annotation filter.
+*/}}
+{{- define "annotation.filter" -}}
+{{- if .Values.NetExporter -}}
+{{/* if this value is present then the app was installed
+from the default catalog and is therefore a default app */}}
+{{- print "giantswarm.io/external-dns=managed" }}
+{{- else -}}
+{{/* the customer must provide their own */}}
+{{- printf "%s" .Values.externalDNS.annotationFilter }}
+{{- end -}}
+{{- end -}}
+
+{{/*
 Set the txt owner ID.
 */}}
 {{- define "txt.owner.id" -}}

@@ -58,7 +58,7 @@ externalDNS:
   # Annotation to filter objects to reconcile. Use in conjunction with
   # `externalDNS.sources` to limit futher. This must be provided when running multiple
   # instances of external-dns.
-  annotationFilter: "giantswarm.io/external-dns=managed"
+  annotationFilter: "external-dns/managed-app=true"
 
   # externalDNS.aws_access_key_id
   # Access key ID for the AWS API. Only required when aws.access is 'external'.
