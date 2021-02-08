@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Fixed
+
+- Ensure CNAMEs are always used when AWS access is external. ([#62](https://github.com/giantswarm/external-dns-app/pull/62))
+
 ## [2.1.0] - 2021-02-05
 
 ### Added
