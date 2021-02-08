@@ -78,7 +78,7 @@ spec:
         {{- end -}}
         {{- if eq .Values.provider "aws" }}
         {{- include "zone.type" . | nindent 8 }}
-        {{- if .Values.aws.preferCNAME }}
+        {{- if or .Values.aws.preferCNAME (eq .Values.aws.access "external") }}
         - --aws-prefer-cname
         {{- end }}
         {{- if .Values.aws.batchChangeSize }}

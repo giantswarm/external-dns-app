@@ -35,7 +35,7 @@ aws:
     customRoleName:
 
   # aws.preferCNAME
-  # Create CNAME records instead of ALIAS. Should be set to true when aws.access
+  # Create CNAME records instead of ALIAS. Will always be set to true when aws.access
   # is `external`.
   preferCNAME: false
 
