@@ -20,11 +20,11 @@ Customers using Giant Swarm clusters on AWS or Azure.
 
 ## Installing
 
-There are 3 ways to install this app onto a tenant cluster:
+There are 3 ways to install this app onto a workload cluster:
 
 1. [Using our web interface](https://docs.giantswarm.io/reference/web-interface/app-catalog/)
 2. [Using our API](https://docs.giantswarm.io/api/#operation/createClusterAppV5)
-3. Directly creating the App custom resource on the Control Plane
+3. Directly creating the App custom resource on the Management Cluster
 
 ## Configuring
 
@@ -64,7 +64,7 @@ See our [full reference page on how to configure applications](https://docs.gian
 
 ## Compatibility
 
-This app has been tested to work with the following tenant cluster release versions:
+This app has been tested to work with the following workload cluster release versions:
 
 * AWS `v13.0.0`
 
@@ -73,7 +73,7 @@ This app has been tested to work with the following tenant cluster release versi
 Some apps have restrictions on how they can be deployed.
 Not following these limitations will most likely result in a broken deployment.
 
-* Requires [nginx-ingress-controller-app v1.14.0](https://github.com/giantswarm/nginx-ingress-controller-app/blob/master/CHANGELOG.md#1140---2021-02-23) or greater to work (due to the need for the filtering annotation).
+* External DNS v2.0.0+ requires [nginx-ingress-controller-app v1.14.0](https://github.com/giantswarm/nginx-ingress-controller-app/blob/master/CHANGELOG.md#1140---2021-02-23) or greater to work (due to the need for the filtering annotation).
    * If you do not (or cannot) upgrade `nginx-ingress-controller-app` to `v1.14.0`,
 you can work around this by running the following command to ensure the default
 `external-dns` continues to reconcile the relevant Service:
