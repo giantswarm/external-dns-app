@@ -73,7 +73,7 @@ This app has been tested to work with the following tenant cluster release versi
 Some apps have restrictions on how they can be deployed.
 Not following these limitations will most likely result in a broken deployment.
 
-* Requires [nginx-ingress-controller-app v1.14.0](https://github.com/giantswarm/nginx-ingress-controller-app/blob/master/CHANGELOG.md#1140---2021-02-23) or greater to work (due to the need for the filtering annotation).
+* External DNS v2.0.0+ requires [nginx-ingress-controller-app v1.14.0](https://github.com/giantswarm/nginx-ingress-controller-app/blob/master/CHANGELOG.md#1140---2021-02-23) or greater to work (due to the need for the filtering annotation).
    * If you do not (or cannot) upgrade `nginx-ingress-controller-app` to `v1.14.0`,
 you can work around this by running the following command to ensure the default
 `external-dns` continues to reconcile the relevant Service:
