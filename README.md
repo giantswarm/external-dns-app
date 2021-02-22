@@ -20,11 +20,11 @@ Customers using Giant Swarm clusters on AWS or Azure.
 
 ## Installing
 
-There are 3 ways to install this app onto a tenant cluster:
+There are 3 ways to install this app onto a workload cluster:
 
 1. [Using our web interface](https://docs.giantswarm.io/reference/web-interface/app-catalog/)
 2. [Using our API](https://docs.giantswarm.io/api/#operation/createClusterAppV5)
-3. Directly creating the App custom resource on the Control Plane
+3. Directly creating the App custom resource on the Management Cluster
 
 ## Configuring
 
@@ -64,7 +64,7 @@ See our [full reference page on how to configure applications](https://docs.gian
 
 ## Compatibility
 
-This app has been tested to work with the following tenant cluster release versions:
+This app has been tested to work with the following workload cluster release versions:
 
 * AWS `v13.0.0`
 
