@@ -4,7 +4,6 @@ metadata:
   name: {{ .Release.Name }}-monitoring
   namespace: {{ .Release.Namespace }}
   annotations:
-    giantswarm.io/monitoring: "true"
     giantswarm.io/monitoring-path: /metrics
     giantswarm.io/monitoring-port: {{ .Values.global.metrics.port | quote }}
   labels:
