@@ -136,7 +136,7 @@ Validate that the provider makes sense
 don't expose that value to the user in the error message.
 */}}
 {{- define "validateValues.provider" -}}
-{{- if and (ne .Values.provider "aws") (ne .Values.provider "azure") (ne .Values.provider "inmemory") -}}
+{{- if and (ne .Values.provider "aws") (ne .Values.provider "azure") (ne .Values.provider "vmware") (ne .Values.provider "inmemory") -}}
 external-dns: provider
     Incorrect value provided. Valid values are either 'aws' or 'azure'.
 {{- end -}}
