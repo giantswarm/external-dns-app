@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Added
+
+- Add crd source if the provider is vmware. ([#72](https://github.com/giantswarm/external-dns-app/pull/72))
+
 ## [2.1.1] - 2021-02-08
 
 ### Fixed

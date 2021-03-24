@@ -67,6 +67,9 @@ spec:
         {{- range .Values.externalDNS.sources }}
         - --source={{ . }}
         {{- end }}
+        {{- if eq .Values.provider "vmware" }}
+        - --source=crd
+        {{- end }}
         - --policy={{ .Values.externalDNS.policy }}
         - --annotation-filter={{- template "annotation.filter" . }}
         {{- if .Values.externalDNS.interval }}
