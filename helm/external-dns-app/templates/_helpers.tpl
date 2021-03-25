@@ -111,6 +111,16 @@ from the default catalog and is therefore a default app */}}
 {{- end -}}
 
 {{/*
+Set the provider type (VMWare clusters use Route53 for DNS). Ternary
+function returns `aws` if provider is vmware; otherwise it returns
+the value of .Values.provider.
+*/}}
+{{- define "dnsProvider.name" -}}
+{{ $dnsProvider :=  ternary "aws" .Values.provider (eq .Values.provider "vmware")}}
+{{ printf "- --provider=%s" $dnsProvider }}
+{{- end }}
+
+{{/*
 Validate certain values and fail if they are incorrect
 */}}
 
