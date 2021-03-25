@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [2.2.1] - 2021-03-25
+
 ### Fixed
 
 - Adds additional options required for vmware installations. ([#74](https://github.com/giantswarm/external-dns-app/pull/74))
@@ -166,7 +168,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 - Network policy that allows all egress traffic.
 - Network policy that allows accessing metrics on port `10254`.
 
-[Unreleased]: https://github.com/giantswarm/external-dns-app/compare/v2.2.0...HEAD
+[Unreleased]: https://github.com/giantswarm/external-dns-app/compare/v2.2.1...HEAD
+[2.2.1]: https://github.com/giantswarm/external-dns-app/compare/v2.2.0...v2.2.1
 [2.2.0]: https://github.com/giantswarm/external-dns-app/compare/v2.1.1...v2.2.0
 [2.1.1]: https://github.com/giantswarm/external-dns-app/compare/v2.1.0...v2.1.1
 [2.1.0]: https://github.com/giantswarm/external-dns-app/compare/v2.0.2...v2.1.0
