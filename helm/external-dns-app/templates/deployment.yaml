@@ -75,7 +75,7 @@ spec:
         {{- if .Values.externalDNS.interval }}
         - --interval={{ .Values.externalDNS.interval }}
         {{- end }}
-        - --provider={{ .Values.provider }}
+        {{- include "dnsProvider.name" . | nindent 8 }}
         {{- if eq .Values.provider "azure" }}
         - --azure-config-file=/azure/config/azure.yaml
         {{- end -}}

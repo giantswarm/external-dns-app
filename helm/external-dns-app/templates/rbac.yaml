@@ -29,6 +29,22 @@ rules:
   - {{ .Release.Name }}
   verbs:
   - use
+{{- if eq .Values.provider "vmware" }}
+- apiGroups:
+  - externaldns.k8s.io
+  resources:
+  - dnsendpoints/status
+  verbs:
+  - update
+- apiGroups:
+  - externaldns.k8s.io
+  resources:
+  - dnsendpoints
+  verbs:
+  - get
+  - watch
+  - list
+{{- end }}
 ---
 kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1

@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Fixed
+
+- Adds additional options required for vmware installations. ([#74](https://github.com/giantswarm/external-dns-app/pull/74))
+
 ## [2.2.0] - 2021-03-24
 
 ### Added
