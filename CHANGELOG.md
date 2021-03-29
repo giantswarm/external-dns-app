@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Use /etc/kubernetes/azure.json as cloud config file when deployed on azure to comply with CAPI.
+
 ## [2.2.2] - 2021-03-26
 
 ### Changed

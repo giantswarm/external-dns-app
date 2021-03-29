@@ -77,7 +77,7 @@ spec:
         {{- end }}
         {{- include "dnsProvider.name" . | nindent 8 }}
         {{- if eq .Values.provider "azure" }}
-        - --azure-config-file=/azure/config/azure.yaml
+        - --azure-config-file=/azure/config/azure.json
         {{- end -}}
         {{- if eq .Values.provider "aws" }}
         {{- include "zone.type" . | nindent 8 }}
@@ -117,14 +117,15 @@ spec:
       {{- if eq .Values.provider "azure" }}
         volumeMounts:
         - name: azure-config-file
-          mountPath: /azure/config
+          mountPath: /azure/config/azure.json
+          subPath: azure.json
           readOnly: true
         - mountPath: /azure
           name: azure-config-file-ownership
       volumes:
       - name: azure-config-file
         hostPath:
-          path: /etc/kubernetes/config
+          path: /etc/kubernetes
       - emptyDir: {}
         name: azure-config-file-ownership
       {{- end }}
