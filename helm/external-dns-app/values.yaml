@@ -125,7 +125,7 @@ global:
     name: giantswarm/external-dns
 
     # global.image.registry
-    registry: quay.io
+    registry: docker.io
 
     # global.image.tag
     # When updating tag make sure to also keep appVersion in Chart.yaml in sync.
