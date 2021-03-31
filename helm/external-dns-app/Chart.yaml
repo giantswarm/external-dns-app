@@ -10,4 +10,4 @@ sources:
 annotations:
     application.giantswarm.io/values-schema: https://raw.githubusercontent.com/giantswarm/external-dns-app/v[[ .Version ]]/helm/external-dns-app/values.schema.json
     application.giantswarm.io/readme: https://raw.githubusercontent.com/giantswarm/external-dns-app/v[[ .Version ]]/README.md
-version: [[ .Version ]]
+version: 2.2.1

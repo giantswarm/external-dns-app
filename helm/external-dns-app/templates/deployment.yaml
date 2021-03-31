@@ -42,6 +42,18 @@ spec:
         - counter=5; while ! wget -qO- http://169.254.169.254/latest/meta-data/iam/security-credentials/ | grep {{ template "aws.iam.role" . }}; do echo 'Waiting for iam-role to be available...'; sleep 5; let "counter-=1"  ; if [ "$counter" -eq "0" ]; then exit 1; fi; done
       {{- end }}
       containers:
+      {{- if and (eq .Values.provider "aws") (eq .Values.aws.access "internal") }}
+      - name: "{{ .Release.Name }}-check-iam"
+        image: {{ .Values.global.image.registry }}/giantswarm/alpine:3.12.0
+        command:
+        - /bin/sh
+        - -c
+        - while wget -qO- http://169.254.169.254/latest/meta-data/iam/security-credentials/ | grep -q {{ template "aws.iam.role" . }} ; do sleep 30 ; done && exit 1
+        securityContext:
+          readOnlyRootFilesystem: true
+        resources:
+{{ toYaml .Values.global.resources | indent 10 }}
+      {{- end }}
       - name: {{ .Release.Name }}
         image: "{{ .Values.global.image.registry }}/{{ .Values.global.image.name }}:{{ .Values.global.image.tag }}"
         imagePullPolicy: IfNotPresent
@@ -96,6 +108,8 @@ spec:
         - --registry=txt
         - --txt-owner-id={{- template "txt.owner.id" . }}
         - --txt-prefix={{- template "txt.prefix" . }}
+        securityContext:
+          readOnlyRootFilesystem: true
         readinessProbe:
           httpGet:
             path: /healthz
