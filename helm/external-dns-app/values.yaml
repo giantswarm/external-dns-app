@@ -148,7 +148,6 @@ global:
   # dictionary directly into the deployment manifest.
   resources:
     limits:
-      cpu: 100m
       memory: 50Mi
     requests:
       cpu: 50m
@@ -170,7 +169,7 @@ global:
 # Identifies the cloudprovider. Currently supported: `aws` and `azure`. This *must*
 # be set. If this is installed as a default app from the default-catalog then this
 # value is set dynamically and will be overridden.
-provider: inmemory
+provider: CHANGEME
 
 
 ## Do not change any values below; these are specific to Giant Swarm environments.
