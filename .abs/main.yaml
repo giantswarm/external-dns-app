@@ -4,4 +4,4 @@ chart-dir: ./helm/external-dns-app
 destination: ./build
 skip-steps: test_all
 # CI overwrites this, check .circleci/config.yaml
-catalog-base-url: https://giantswarm.github.com/default-catalog/
+catalog-base-url: https://giantswarm.github.io/default-catalog/
