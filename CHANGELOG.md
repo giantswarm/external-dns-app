@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [2.3.1] - 2021-05-20
+
 ### Changed
 
 - Increase memory limit to 100Mi since we ran into out of memory problems. This will make the app more stable.
@@ -188,7 +190,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 - Network policy that allows all egress traffic.
 - Network policy that allows accessing metrics on port `10254`.
 
-[Unreleased]: https://github.com/giantswarm/external-dns-app/compare/v2.3.0...HEAD
+[Unreleased]: https://github.com/giantswarm/external-dns-app/compare/v2.3.1...HEAD
+[2.3.1]: https://github.com/giantswarm/external-dns-app/compare/v2.3.0...v2.3.1
 [2.3.0]: https://github.com/giantswarm/external-dns-app/compare/v2.2.2...v2.3.0
 [2.2.2]: https://github.com/giantswarm/external-dns-app/compare/v2.2.1...v2.2.2
 [2.2.1]: https://github.com/giantswarm/external-dns-app/compare/v2.2.0...v2.2.1
