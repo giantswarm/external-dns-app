@@ -148,10 +148,10 @@ global:
   # dictionary directly into the deployment manifest.
   resources:
     limits:
-      memory: 50Mi
+      memory: 100Mi
     requests:
       cpu: 50m
-      memory: 50Mi
+      memory: 100Mi
 
   # global.securityContext
   securityContext:

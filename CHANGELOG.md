@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Increase memory limit to 100Mi since we ran into out of memory problems. This will make the app more stable.
+
 ## [2.3.0] - 2021-04-06
 
 ### Changed
