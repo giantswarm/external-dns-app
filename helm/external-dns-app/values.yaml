@@ -90,6 +90,11 @@ externalDNS:
   # namespaces will be used.
   namespaceFilter: kube-system
 
+  # externalDNS.minEventSyncInterval
+  # The minimum interval between two consecutive synchronizations triggered from
+  # kubernetes events in duration format (default: 5s)
+  minEventSyncInterval: 10s
+
   # externalDNS.policy
   # Syncing policy between sources and providers.
   policy: sync

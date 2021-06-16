@@ -66,6 +66,9 @@
                 "namespaceFilter": {
                     "type": "string"
                 },
+                "minEventSyncInterval": {
+                    "type": "string"
+                },
                 "policy": {
                     "type": "string"
                 },
