@@ -10,7 +10,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 ### Changed
 
 - Upgrade upstream external-dns from v0.7.6 to [v0.8.0](https://github.com/kubernetes-sigs/external-dns/releases/tag/v0.8.0).
-- Allow to configure the minimum interval between two consecutive synchronizations triggered from kubernetes events though `externalDNS.minEventSyncInterval`.
+- Allow to configure the minimum interval between two consecutive synchronizations triggered from kubernetes events through `externalDNS.minEventSyncInterval`.
 
 ## [2.3.1] - 2021-05-20
 
