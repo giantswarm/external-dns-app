@@ -106,7 +106,7 @@ spec:
         - --namespace={{ .Values.externalDNS.namespaceFilter }}
         {{- end }}
         {{- if .Values.externalDNS.minEventSyncInterval }}
-        --min-event-sync-interval={{ .Values.externalDNS.minEventSyncInterval }}
+        - --min-event-sync-interval={{ .Values.externalDNS.minEventSyncInterval }}
         {{- end }}
         - --registry=txt
         - --txt-owner-id={{- template "txt.owner.id" . }}
