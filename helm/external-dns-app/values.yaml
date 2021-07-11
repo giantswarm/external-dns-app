@@ -158,6 +158,9 @@ global:
       cpu: 50m
       memory: 100Mi
 
+  verticalPodAutoscaler:
+    enabled: false
+
   # global.securityContext
   securityContext:
 
