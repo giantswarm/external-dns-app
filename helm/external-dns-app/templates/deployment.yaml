@@ -25,6 +25,7 @@ spec:
         prometheus.io/path: /metrics
         prometheus.io/port: "{{ .Values.global.metrics.port }}"
         prometheus.io/scrape: "{{ .Values.global.metrics.scrape }}"
+        kubectl.kubernetes.io/default-logs-container: "{{ .Release.Name }}"
     spec:
       serviceAccountName: {{ .Release.Name }}
       securityContext:
