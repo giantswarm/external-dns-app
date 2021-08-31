@@ -49,11 +49,11 @@ spec:
           - /bin/sh
           - -c
           # GS clusters have the cloud config file in /etc/kubernetes/config/azure.yaml and we can use it as-is so we just copy it to the desired position.
+          # CAPZ clusters use a JSON file so we convert it to yaml and save it to the desired position.
           - if [ -f /etc/kubernetes/config/azure.yaml ]; \
             then \
             cp /etc/kubernetes/config/azure.yaml /config/azure.yaml; \
             else \
-          # CAPZ clusters use a JSON file so we convert it to yaml and save it to the desired position.
             cat /etc/kubernetes/azure.json | python3 -c 'import sys, yaml, json; print(yaml.dump(json.loads(sys.stdin.read())))' > /config/azure.yaml; \
             fi
         volumeMounts:
