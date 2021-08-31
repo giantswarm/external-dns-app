@@ -33,14 +33,28 @@ spec:
         runAsGroup: {{ .Values.global.securityContext.groupID }}
         fsGroup: {{ .Values.global.securityContext.fsGroupID }}
       priorityClassName: giantswarm-critical
-      {{- if and (eq .Values.provider "aws") (eq .Values.aws.access "internal") }}
       initContainers:
+      {{- if and (eq .Values.provider "aws") (eq .Values.aws.access "internal") }}
       - name: wait-for-iam-role
         image: {{ .Values.global.image.registry }}/giantswarm/alpine:3.12.0
         command:
         - /bin/sh
         - -c
         - counter=5; while ! wget -qO- http://169.254.169.254/latest/meta-data/iam/security-credentials/ | grep {{ template "aws.iam.role" . }}; do echo 'Waiting for iam-role to be available...'; sleep 5; let "counter-=1"  ; if [ "$counter" -eq "0" ]; then exit 1; fi; done
+      {{- end }}
+      {{- if eq .Values.provider "azure" }}
+      - name: copy-azure-config-file
+        image: {{ .Values.global.image.registry }}/giantswarm/alpine:3.12.0
+        command:
+          - /bin/sh
+          - -c
+          - if [ -f /etc/kubernetes/config/azure.yaml ]; then cp /etc/kubernetes/config/azure.yaml /config/azure.yaml; else cat /etc/kubernetes/azure.json | python3 -c 'import sys, yaml, json; print(yaml.dump(json.loads(sys.stdin.read())))' > /config/azure.yaml; fi
+        volumeMounts:
+          - mountPath: /etc/kubernetes
+            name: etc-kubernetes
+            readOnly: true
+          - mountPath: /config
+            name: config
       {{- end }}
       containers:
       {{- if and (eq .Values.provider "aws") (eq .Values.aws.access "internal") }}
@@ -90,7 +104,7 @@ spec:
         {{- end }}
         {{- include "dnsProvider.name" . | nindent 8 }}
         {{- if eq .Values.provider "azure" }}
-        - --azure-config-file=/azure/config/azure.yaml
+        - --azure-config-file=/config/azure.yaml
         {{- end -}}
         {{- if eq .Values.provider "aws" }}
         {{- include "zone.type" . | nindent 8 }}
@@ -134,15 +148,13 @@ spec:
           protocol: TCP
       {{- if eq .Values.provider "azure" }}
         volumeMounts:
-        - name: azure-config-file
-          mountPath: /azure/config
+        - name: config
+          mountPath: /config
           readOnly: true
-        - mountPath: /azure
-          name: azure-config-file-ownership
       volumes:
-      - name: azure-config-file
+      - name: config
+        emptyDir: {}
+      - name: etc-kubernetes
         hostPath:
-          path: /etc/kubernetes/config
-      - emptyDir: {}
-        name: azure-config-file-ownership
+          path: /etc/kubernetes
       {{- end }}
