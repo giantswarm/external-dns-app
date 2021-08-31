@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Added
+
+- Add support for CAPZ clusters by detecting the Azure configuration file location.
+
 ## [2.5.0] - 2021-08-18
 
 ### Changed
