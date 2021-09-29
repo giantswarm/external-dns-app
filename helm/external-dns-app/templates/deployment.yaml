@@ -96,7 +96,7 @@ spec:
         {{- end }}
         args:
         {{- if .Values.externalDNS.dryRun }}
-        - --dry-run=true
+        - --dry-run
         {{- end }}
         {{- range .Values.externalDNS.sources }}
         - --source={{ . }}
