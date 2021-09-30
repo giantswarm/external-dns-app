@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Fixed
+
+- Fix dry-run option.
+
 ## [2.6.0] - 2021-08-31
 
 ### Added
