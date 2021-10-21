@@ -11,7 +11,7 @@ updates:
       time: "04:00"
     open-pull-requests-limit: 10
     reviewers:
-      - giantswarm/app-squad-external-dns
+      - giantswarm/team-cabbage
     ignore:
       - dependency-name: zricethezav/gitleaks-action
   - package-ecosystem: gomod
@@ -21,7 +21,7 @@ updates:
       time: "04:00"
     open-pull-requests-limit: 10
     reviewers:
-      - giantswarm/app-squad-external-dns
+      - giantswarm/team-cabbage
     ignore:
       - dependency-name: k8s.io/*
         versions:
@@ -33,4 +33,4 @@ updates:
       time: "04:00"
     open-pull-requests-limit: 10
     reviewers:
-      - giantswarm/app-squad-external-dns
+      - giantswarm/team-cabbage
