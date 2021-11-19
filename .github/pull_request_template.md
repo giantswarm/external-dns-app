@@ -59,4 +59,3 @@ For testing upgrades:
 
 - [ ] Fresh install works
 - [ ] Upgrade works
-

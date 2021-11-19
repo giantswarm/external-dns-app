@@ -40,4 +40,3 @@ workflows:
                 - master
           requires:
             - "package and push to default catalog"
-
