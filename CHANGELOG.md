@@ -11,6 +11,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - Upgrade upstream external-dns from v0.9.0 to [v0.10.1](https://github.com/kubernetes-sigs/external-dns/releases/tag/v0.10.1). The new release brings a lot of smaller improvements and bug fixes.
 
+### Fixed
+
+- Fix dry-run option.
+
 ## [2.6.1] - 2021-10-15
 
 ### Changed
