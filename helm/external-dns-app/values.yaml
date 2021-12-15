@@ -134,7 +134,7 @@ global:
 
     # global.image.tag
     # When updating tag make sure to also keep appVersion in Chart.yaml in sync.
-    tag: v0.10.1
+    tag: v0.10.2
 
   # global.metrics
   # Metrics configuration options
