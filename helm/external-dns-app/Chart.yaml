@@ -1,13 +1,12 @@
 apiVersion: v1
-appVersion: v0.9.0
+appVersion: v0.10.2
 description: Configure external DNS servers for Kubernetes Ingresses and Services
-engine: gotpl
 home: https://github.com/giantswarm/external-dns-app
 icon: https://s.giantswarm.io/app-icons/external-dns/1/dark.png
 name: external-dns-app
 sources:
 - https://github.com/kubernetes-sigs/external-dns
 annotations:
-    application.giantswarm.io/values-schema: https://raw.githubusercontent.com/giantswarm/external-dns-app/v[[ .Version ]]/helm/external-dns-app/values.schema.json
-    application.giantswarm.io/readme: https://raw.githubusercontent.com/giantswarm/external-dns-app/v[[ .Version ]]/README.md
-version: 2.5.0
+  application.giantswarm.io/team: team-cabbage
+version: 2.7.0
+kubeVersion: ">=1.19.0-0"
