@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [2.7.0] - 2021-12-16
+
 ### Changed
 
 - Upgrade upstream external-dns from v0.9.0 to [v0.10.2](https://github.com/kubernetes-sigs/external-dns/releases/tag/v0.10.2). The new release brings a lot of smaller improvements and bug fixes.
@@ -224,7 +226,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 - Network policy that allows all egress traffic.
 - Network policy that allows accessing metrics on port `10254`.
 
-[Unreleased]: https://github.com/giantswarm/external-dns-app/compare/v2.6.1...HEAD
+[Unreleased]: https://github.com/giantswarm/external-dns-app/compare/v2.7.0...HEAD
+[2.7.0]: https://github.com/giantswarm/external-dns-app/compare/v2.6.1...v2.7.0
 [2.6.1]: https://github.com/giantswarm/external-dns-app/compare/v2.6.0...v2.6.1
 [2.6.0]: https://github.com/giantswarm/external-dns-app/compare/v2.5.0...v2.6.0
 [2.5.0]: https://github.com/giantswarm/external-dns-app/compare/v2.4.0...v2.5.0
