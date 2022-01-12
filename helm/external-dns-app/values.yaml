@@ -120,6 +120,10 @@ externalDNS:
   # Disable ingress source by default.
   # - ingress
 
+  # externalDNS.extraArgs
+  # Allows to specify additional arguments to the external-dns deployment.
+  extraArgs: []
+
 global:
 
   # global.image

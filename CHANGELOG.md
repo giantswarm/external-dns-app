@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Add ability to specify extra arguments to the external-dns deployment through `externalDNS.extraArgs`.
+
 ## [2.7.0] - 2021-12-16
 
 ### Changed

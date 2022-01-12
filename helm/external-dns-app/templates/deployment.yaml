@@ -133,6 +133,9 @@ spec:
         - --registry=txt
         - --txt-owner-id={{- template "txt.owner.id" . }}
         - --txt-prefix={{- template "txt.prefix" . }}
+      {{- range .Values.externalDNS.extraArgs }}
+        - {{ . }}
+      {{- end }}
         securityContext:
           readOnlyRootFilesystem: true
         readinessProbe:

@@ -60,6 +60,10 @@
                 "dryRun": {
                     "type": "boolean"
                 },
+                "extraArgs": {
+                    "type": "array",
+                    "items": { "type": "string" }
+                },
                 "interval": {
                     "type": ["null", "string"]
                 },
