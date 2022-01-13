@@ -37,8 +37,8 @@ This is an example of a values file you could upload using our web interface. It
 
 - The cloudprovider is AWS.
 - API access is internal and therefore authentication is provided by KIAM.
-- Only public Hosted Zones should be updated.
 - Only Ingress resources in the namespace `web-app` should be reconciled.
+- Only Hosted Zone `Z262CGXUQ3M97` will be modified.
 
 ```yaml
 # values.yaml
@@ -56,6 +56,8 @@ externalDNS:
     txtPrefix: 'webapp'
   sources:
     - ingress
+  extraArgs:
+    - "--zone-id-filter=Z262CGXUQ3M97"
 
 provider: aws
 ```
