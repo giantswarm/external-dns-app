@@ -58,7 +58,7 @@ externalDNS:
   sources:
     - ingress
   extraArgs:
-    - "--zone-id-filter: Z262CGXUQ3M97"
+    - "--zone-id-filter=Z262CGXUQ3M97"
 
 provider: aws
 ```
