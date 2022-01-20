@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "adac50f656014e5ea0366e335ea9d9529ad8ec246c87fe8a27c81be170c63f4d"
+            "sha256": "55293ec1cf25df90eaad201aa92f9d0c92e8fc18a0b297cf86d239d8fe2f8f0f"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -112,11 +112,11 @@
         },
         "pytest-helm-charts": {
             "hashes": [
-                "sha256:13972a00a9705bda2e9923e641528f76470cfd3abade54290060bef9cb7d3d66",
-                "sha256:a94451c08f7f85525e6089ec23fccf11c324468d32cf3a3a1e59a6a0927a5501"
+                "sha256:19aada4e426b927f1a91ec0c811c079f2363cff21cf9f1674e6fda8a31dd84f8",
+                "sha256:c7099df7b413416c216763b0fa904ec155b7ea07d9f7e2fe27e949ae6f1c3bea"
             ],
             "index": "pypi",
-            "version": "==0.6.0"
+            "version": "==0.7.0b2"
         },
         "pytest-rerunfailures": {
             "hashes": [
@@ -186,7 +186,7 @@
                 "sha256:000ca7f471a233c2251c6c7023ee85305721bfdf18621ebff4fd17a8653427ed",
                 "sha256:0e7c33d9a63e7ddfcb86780aac87befc2fbddf46c58dbb487e0855f7ceec283c"
             ],
-            "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4' and python_version < '4'",
+            "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4' and python_version < '4.0'",
             "version": "==1.26.8"
         },
         "wrapt": {
