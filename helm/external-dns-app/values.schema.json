@@ -11,6 +11,9 @@
                 "baseDomain": {
                     "type": ["null", "string"]
                 },
+                "batchChangeInterval": {
+                    "type": ["null", "string"]
+                },
                 "batchChangeSize": {
                     "type": ["null", "integer"]
                 },
@@ -29,6 +32,9 @@
                     "type": ["null", "string"]
                 },
                 "zoneType": {
+                    "type": ["null", "string"]
+                },
+                "zonesCacheDuration": {
                     "type": ["null", "string"]
                 }
             }
@@ -55,7 +61,7 @@
                     "type": ["null", "string"]
                 },
                 "domainFilterList": {
-                    "type": "array"
+                    "type": ["null", "array"]
                 },
                 "dryRun": {
                     "type": "boolean"
@@ -67,11 +73,11 @@
                 "interval": {
                     "type": ["null", "string"]
                 },
-                "namespaceFilter": {
-                    "type": "string"
-                },
                 "minEventSyncInterval": {
-                    "type": "string"
+                    "type": ["null", "string"]
+                },
+                "namespaceFilter": {
+                    "type": ["null", "string"]
                 },
                 "policy": {
                     "type": "string"

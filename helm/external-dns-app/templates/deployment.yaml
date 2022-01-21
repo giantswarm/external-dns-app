@@ -79,7 +79,7 @@ spec:
       - name: {{ .Release.Name }}
         image: "{{ .Values.global.image.registry }}/{{ .Values.global.image.name }}:{{ .Values.global.image.tag }}"
         imagePullPolicy: IfNotPresent
-        {{- if eq .Values.aws.access "external" }}
+        {{- if and (or (eq .Values.provider "aws") (eq .Values.provider "vmware")) .Values.externalDNS.aws_access_key_id .Values.externalDNS.aws_secret_access_key }}
         env:
         - name: AWS_ACCESS_KEY_ID
           valueFrom:
@@ -91,8 +91,10 @@ spec:
             secretKeyRef:
               name: {{ .Release.Name }}-route53-credentials
               key: aws_secret_access_key
+        {{- with .Values.aws.region }}
         - name: AWS_DEFAULT_REGION
-          value: {{ .Values.aws.region }}
+          value: {{ . }}
+        {{- end }}
         {{- end }}
         args:
         {{- if .Values.externalDNS.dryRun }}
@@ -101,28 +103,12 @@ spec:
         {{- range .Values.externalDNS.sources }}
         - --source={{ . }}
         {{- end }}
-        {{- if eq .Values.provider "vmware" }}
-        - --source=crd
-        {{- end }}
         - --policy={{ .Values.externalDNS.policy }}
         - --annotation-filter={{- template "annotation.filter" . }}
         {{- if .Values.externalDNS.interval }}
         - --interval={{ .Values.externalDNS.interval }}
         {{- end }}
-        {{- include "dnsProvider.name" . | nindent 8 }}
-        {{- if eq .Values.provider "azure" }}
-        - --azure-config-file=/config/azure.yaml
-        {{- end -}}
-        {{- if eq .Values.provider "aws" }}
-        {{- include "zone.type" . | nindent 8 }}
-        {{- if or .Values.aws.preferCNAME (eq .Values.aws.access "external") }}
-        - --aws-prefer-cname
-        {{- end }}
-        {{- if .Values.aws.batchChangeSize }}
-        - --aws-batch-change-size={{ .Values.aws.batchChangeSize }}
-        {{- end }}
-        {{- include "domain.list" . | nindent 8 }}
-        {{- end }}
+        {{- include "dnsProvider.flags" . | nindent 8 }}
         - --metrics-address=:{{ .Values.global.metrics.port }}
         {{- if .Values.externalDNS.namespaceFilter }}
         - --namespace={{ .Values.externalDNS.namespaceFilter }}

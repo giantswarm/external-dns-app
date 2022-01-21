@@ -7,6 +7,25 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+This release contains some changes to mitigate rate limiting on AWS clusters. Please take note of the default
+values of values `aws.batchChangeInterval`, `aws.zonesCacheDuration`, `externalDNS.interval`
+and `externalDNS.minEventSyncInterval`.
+
+If you already specify `--aws-batch-change-interval` or `--aws-zones-cache-duration`, please migrate to the new values `aws.batchChangeInterval` and `aws.zonesCacheDuration`.
+
+### Added
+
+- Allow to set `--aws-batch-change-interval` through `aws.batchChangeInterval` value. Default `10s`.
+- Allow to set `--aws-zones-cache-duration` through `aws.zonesCacheDuration` value. Default `3h`.
+
+### Changed
+
+- Set default `externalDNS.interval` to `5m`.
+- Set default `externalDNS.minEventSyncInterval` to `30s`.
+- Allow setting Route53 credentials (`externalDNS.aws_access_key_id` and `externalDNS.aws_secret_access_key`) indepentent from `aws.access` value.
+- Allow setting the AWS default region (`aws.region`) indepentent from `aws.access` value.
+- Allow to omit the `--domain-filter` flag completely by setting `externalDNS.domainFilterList` to `null`.
+
 ## [2.8.0] - 2022-01-12
 
 ### Changed
