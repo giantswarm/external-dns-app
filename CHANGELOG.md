@@ -7,8 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
-This release contains some changes to mitigate rate limiting on AWS clusters. Please take note of the default
-values of values `aws.batchChangeInterval`, `aws.zonesCacheDuration`, `externalDNS.interval`
+This release contains some changes to mitigate rate limiting on AWS clusters. Please take note of the defaults
+for values `aws.batchChangeInterval`, `aws.zonesCacheDuration`, `externalDNS.interval`
 and `externalDNS.minEventSyncInterval`.
 
 If you already specify `--aws-batch-change-interval` or `--aws-zones-cache-duration`, please migrate to the new values `aws.batchChangeInterval` and `aws.zonesCacheDuration`.
