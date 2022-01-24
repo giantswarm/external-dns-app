@@ -24,6 +24,16 @@ aws:
   # default will be used.
   batchChangeSize:
 
+  # aws.batchChangeInterval
+  # Set interval between batch changes. If left blank then the default will
+  # be used.
+  batchChangeInterval: 10s
+
+  # aws.zonesCacheDuration
+  # Set the zones list cache TTL. If left blank then the default will
+  # be used.
+  zonesCacheDuration: 3h
+
   # aws.iam
   # AWS IAM configuration.
   iam:
@@ -73,6 +83,8 @@ externalDNS:
   # no domains are provided then the cluster baseDomain must be provided via
   # either `baseDomain` or `aws.baseDomain` (depending on the Route53 access
   # method used).
+  # By explicitly setting externalDNS.domainFilterList to null, the --domain-filter
+  # flag will be completely omitted. Otherwise leave this as empty array ([])
   domainFilterList: []
   # - foo.bar.com
   # - baz.bar.com
@@ -83,7 +95,7 @@ externalDNS:
 
   # externalDNS.interval
   # Interval between synchronisations. Must be in duration format (e.g. `5m`)
-  interval:
+  interval: 5m
 
   # externalDNS.namespaceFilter
   # The namespace to limit sources of endpoints to. If left blank, all
@@ -93,7 +105,7 @@ externalDNS:
   # externalDNS.minEventSyncInterval
   # The minimum interval between two consecutive synchronizations triggered from
   # kubernetes events in duration format (default: 5s)
-  minEventSyncInterval: 10s
+  minEventSyncInterval: 30s
 
   # externalDNS.policy
   # Syncing policy between sources and providers.
