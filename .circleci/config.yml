@@ -45,7 +45,7 @@ workflows:
 
       - architect/run-tests-with-ats:
           name: execute chart tests
-          app-test-suite_container_tag: "0.2.3-beta.1-0e9d820873a1701cb8a7d8796614fafb00ac0771"
+          app-test-suite_container_tag: "0.2.3-beta.1-6743792e7dfbb3def8e81ddc080bd3a8f27e07a5"
           filters:
             # Do not trigger the job on merge to master.
             branches:
@@ -56,7 +56,7 @@ workflows:
 
       - architect/run-tests-with-ats:
           name: execute chart tests on 1.22
-          app-test-suite_container_tag: "0.2.3-beta.1-0e9d820873a1701cb8a7d8796614fafb00ac0771"
+          app-test-suite_container_tag: "0.2.3-beta.1-6743792e7dfbb3def8e81ddc080bd3a8f27e07a5"
           additional_app-test-suite_flags: "--kind-cluster-image-override=kindest/node:v1.22.4@sha256:ca3587e6e545a96c07bf82e2c46503d9ef86fc704f44c17577fca7bcabf5f978"
           filters:
             # Do not trigger the job on merge to master.
@@ -69,7 +69,7 @@ workflows:
 
       - architect/run-tests-with-ats:
           name: execute chart tests on 1.23
-          app-test-suite_container_tag: "0.2.3-beta.1-0e9d820873a1701cb8a7d8796614fafb00ac0771"
+          app-test-suite_container_tag: "0.2.3-beta.1-6743792e7dfbb3def8e81ddc080bd3a8f27e07a5"
           additional_app-test-suite_flags: "--kind-cluster-image-override=kindest/node:v1.23.1@sha256:355a1e3b7b0fe315c896f63a73847c554aac8fb8615c6bf47f1ca303009e9a2d"
           filters:
             # Do not trigger the job on merge to master.
