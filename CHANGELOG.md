@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Allow setting the AWS default region (`aws.region`) indepentent from any other value.
+
 ## [2.9.0] - 2022-01-24
 
 This release contains some changes to mitigate rate limiting on AWS clusters. Please take note of the defaults
