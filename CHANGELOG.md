@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Added
+
+- Add team ownership label.
+
 ## [2.9.1] - 2022-02-03
 
 ### Changed
