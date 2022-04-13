@@ -11,6 +11,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - Add team ownership label.
 
+### Changed
+
+- Upgrade upstream external-dns image from [v0.10.2](https://github.com/kubernetes-sigs/external-dns/releases/tag/v0.10.2) to [v0.11.0](https://github.com/kubernetes-sigs/external-dns/releases/tag/v0.11.0).
+
 ## [2.9.1] - 2022-02-03
 
 ### Changed
