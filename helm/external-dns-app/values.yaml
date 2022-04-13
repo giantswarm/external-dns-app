@@ -66,7 +66,7 @@ externalDNS:
 
   # externalDNS.annotationFilter
   # Annotation to filter objects to reconcile. Use in conjunction with
-  # `externalDNS.sources` to limit futher. This must be provided when running multiple
+  # `externalDNS.sources` to limit further. This must be provided when running multiple
   # instances of external-dns.
   annotationFilter: "giantswarm.io/external-dns=managed"
 
@@ -187,7 +187,7 @@ global:
     userID: 65534
 
 # provider
-# Identifies the cloudprovider. Currently supported: `aws` and `azure`. This *must*
+# Identifies the cloud provider. Currently supported: `aws` and `azure`. This *must*
 # be set. If this is installed as a default app from the default-catalog then this
 # value is set dynamically and will be overridden.
 provider: CHANGEME
