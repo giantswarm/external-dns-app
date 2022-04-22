@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Always set domain filters defined in `externalDNS.domainFilterList`, not only on AWS.
+
 ## [2.10.0] - 2022-04-20
 
 ### Added

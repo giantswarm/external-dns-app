@@ -97,6 +97,9 @@ spec:
           value: {{ . }}
         {{- end }}
         args:
+        {{- range .Values.externalDNS.domainFilterList }}
+        - --domain-filter={{ . }}
+        {{- end }}
         {{- if .Values.externalDNS.dryRun }}
         - --dry-run
         {{- end }}

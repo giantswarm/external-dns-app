@@ -27,23 +27,6 @@ app: {{ .Release.Name | quote }}
 {{- end -}}
 
 {{/*
-Create the list of domains to update
-*/}}
-{{- define "domain.list" }}
-{{- if not (eq (kindOf .Values.externalDNS.domainFilterList) "invalid") }}
-{{- if eq .Values.aws.access "external" }}
-{{- printf "- --domain-filter=%s\n" .Values.aws.baseDomain }}
-{{/* kindOf nil == "invalid" */}}
-{{- else }}
-{{- printf "- --domain-filter=%s\n" .Values.baseDomain }}
-{{- end }}
-{{- range .Values.externalDNS.domainFilterList }}
-{{ printf "- --domain-filter=%s\n" . }}
-{{- end }}
-{{- end }}
-{{- end }}
-
-{{/*
 Set the zone type when running on AWS
 */}}
 {{- define "zone.type" -}}
@@ -131,7 +114,11 @@ the value of .Values.provider.
 {{- if .Values.aws.batchChangeInterval }}
 - --aws-batch-change-interval={{ .Values.aws.batchChangeInterval }}
 {{- end }}
-{{ include "domain.list" . }}
+{{- if eq .Values.aws.access "external" }}
+{{- printf "- --domain-filter=%s\n" .Values.aws.baseDomain }}
+{{- else }}
+{{- printf "- --domain-filter=%s\n" .Values.baseDomain }}
+{{- end }}
 {{- end }}
 
 {{- if eq .Values.provider "vmware" }}
