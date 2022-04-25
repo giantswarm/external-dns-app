@@ -5,7 +5,7 @@ metadata:
   name: {{ .Release.Name }}-crd
   annotations:
     {{- include "annotations.crd" . | nindent 4 }}
-    helm.sh/hook-weight: "-5"
+    helm.sh/hook-weight: "-6"
   labels:
     {{- include "labels.common" . | nindent 4 }}
     app.kubernetes.io/component: crd
