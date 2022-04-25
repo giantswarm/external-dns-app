@@ -16,6 +16,7 @@ rules:
   - customresourcedefinitions
   verbs:
   - create
+  - patch
 - apiGroups:
   - policy
   resources:
