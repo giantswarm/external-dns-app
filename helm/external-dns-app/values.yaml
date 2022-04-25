@@ -136,6 +136,41 @@ externalDNS:
   # Allows to specify additional arguments to the external-dns deployment.
   extraArgs: []
 
+# crd
+# Configuration options for CRDs.
+crd:
+
+  # crd.backoffLimit
+  # setting this higher means the CRD creation is less likely to be marked
+  # as failed.
+  backoffLimit: 10
+
+  # crd.image
+  image:
+
+    # crd.image.pullPolicy
+    pullPolicy: IfNotPresent
+
+  # crd.install
+  # CRDs are installed by default. If this is disabled then CRDs must
+  # be managed by another method.
+  install: true
+
+  # crd.resources
+  resources:
+
+    # crd.resources.requests
+    # Minimum resources requested for the job.
+    requests:
+      cpu: 100m
+      memory: 256Mi
+
+    # crd.resources.limits
+    # Maximum resources available for the job.
+    limits:
+      cpu: 500m
+      memory: 512Mi
+
 global:
 
   # global.image
