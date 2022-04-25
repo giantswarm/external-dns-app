@@ -1,0 +1,35 @@
+{{- if .Values.crd.install }}
+apiVersion: policy/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  name: {{ .Release.Name }}-crd
+  annotations:
+    {{- include "annotations.crd" . | nindent 4 }}
+    helm.sh/hook-weight: "-5"
+  labels:
+    {{- include "labels.common" . | nindent 4 }}
+    app.kubernetes.io/component: crd
+spec:
+  privileged: false
+  runAsUser:
+    rule: MustRunAsNonRoot
+  seLinux:
+    rule: RunAsAny
+  supplementalGroups:
+    rule: MustRunAs
+    ranges:
+    - min: 1
+      max: 65535
+  volumes:
+  - configMap
+  - secret
+  hostPID: false
+  hostIPC: false
+  hostNetwork: false
+  fsGroup:
+    rule: MustRunAs
+    ranges:
+    - min: 1
+      max: 65535
+  readOnlyRootFilesystem: false
+{{- end }}
