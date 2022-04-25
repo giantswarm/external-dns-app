@@ -26,6 +26,8 @@ spec:
         effect: NoSchedule
       containers:
       - name: kubectl
+        securityContext:
+          readOnlyRootFilesystem: true
         image: {{ .Values.global.image.registry }}/giantswarm/docker-kubectl:1.23.3
         command:
         - sh
