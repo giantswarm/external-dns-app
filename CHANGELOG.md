@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Added
+
+- Add support for `DNSEndpoint` CRDs. See README for further information.
+
 ## [2.10.0] - 2022-04-20
 
 ### Added

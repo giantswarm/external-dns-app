@@ -35,7 +35,7 @@ document. See also the [default `values.yaml`](helm/external-dns-app/values.yaml
 
 This is an example of a values file you could upload using our web interface. It assumes:
 
-- The cloudprovider is AWS.
+- The cloud provider is AWS.
 - API access is internal and therefore authentication is provided by KIAM.
 - Only Ingress resources in the namespace `web-app` should be reconciled.
 - Only Hosted Zone `Z262CGXUQ3M97` will be modified.
@@ -50,16 +50,46 @@ aws:
 externalDNS:
   annotationFilter: "mydomain.com/external-dns=owned"
   domainFilterList:
-    - web-app.mydomain.com
+  - web-app.mydomain.com
   namespaceFilter: 'web-app'
   registry:
     txtPrefix: 'webapp'
   sources:
-    - ingress
+  - ingress
   extraArgs:
-    - "--zone-id-filter=Z262CGXUQ3M97"
+  - "--zone-id-filter=Z262CGXUQ3M97"
 
 provider: aws
+```
+
+Additionally to the above example, `external-dns` can also be configured to synchronize `DNSEndpoint` custom resources:
+
+```yaml
+# values.yaml
+...
+externalDNS:
+  sources:
+  - crd
+...
+```
+
+Here is an example `DNSEndpoint` resource:
+
+```yaml
+apiVersion: externaldns.k8s.io/v1alpha1
+kind: DNSEndpoint
+metadata:
+  name: my-record
+  namespace: web-app
+  annotations:
+    mydomain.com/external-dns: owned
+spec:
+  endpoints:
+  - dnsName: www.mydomain.com
+    recordTTL: 60
+    recordType: A
+    targets:
+    - 1.2.3.4
 ```
 
 See our [full reference page on how to configure applications](https://docs.giantswarm.io/reference/app-configuration/) for more details.
