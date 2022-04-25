@@ -2,14 +2,14 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ .Release.Name }}-crd
+  name: {{ .Release.Name }}-crd-install
   namespace: {{ .Release.Namespace }}
   annotations:
     {{- include "annotations.crd" . | nindent 4 }}
     helm.sh/hook-weight: "-5"
   labels:
     {{- include "labels.common" . | nindent 4 }}
-    app.kubernetes.io/component: crd
+    app.kubernetes.io/component: crd-install
 data:
   dnsendpoints.yaml: |
 {{ tpl ( .Files.Get "files/dnsendpoints.yaml" ) . | indent 4 }}
