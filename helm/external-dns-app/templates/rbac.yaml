@@ -27,21 +27,6 @@ rules:
   - watch
   - list
 - apiGroups:
-  - policy
-  resources:
-  - podsecuritypolicies
-  resourceNames:
-  - {{ .Release.Name }}
-  verbs:
-  - use
-{{- if eq .Values.provider "vmware" }}
-- apiGroups:
-  - externaldns.k8s.io
-  resources:
-  - dnsendpoints/status
-  verbs:
-  - update
-- apiGroups:
   - externaldns.k8s.io
   resources:
   - dnsendpoints
@@ -49,7 +34,20 @@ rules:
   - get
   - watch
   - list
-{{- end }}
+- apiGroups:
+  - externaldns.k8s.io
+  resources:
+  - dnsendpoints/status
+  verbs:
+  - update
+- apiGroups:
+  - policy
+  resources:
+  - podsecuritypolicies
+  resourceNames:
+  - {{ .Release.Name }}
+  verbs:
+  - use
 ---
 kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
