@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [2.11.0] - 2022-05-10
+
 ### Added
 
 - Add support for `DNSEndpoint` CRs. See README for further information.
@@ -273,7 +275,8 @@ If you already specify `--aws-batch-change-interval` or `--aws-zones-cache-durat
 - Network policy that allows all egress traffic.
 - Network policy that allows accessing metrics on port `10254`.
 
-[Unreleased]: https://github.com/giantswarm/external-dns-app/compare/v2.10.0...HEAD
+[Unreleased]: https://github.com/giantswarm/external-dns-app/compare/v2.11.0...HEAD
+[2.11.0]: https://github.com/giantswarm/external-dns-app/compare/v2.10.0...v2.11.0
 [2.10.0]: https://github.com/giantswarm/external-dns-app/compare/v2.9.1...v2.10.0
 [2.9.1]: https://github.com/giantswarm/external-dns-app/compare/v2.9.0...v2.9.1
 [2.9.0]: https://github.com/giantswarm/external-dns-app/compare/v2.8.0...v2.9.0
