@@ -7,12 +7,15 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Added
+
+- Add support for Google Cloud `gcp` provider.
+
 ## [2.11.0] - 2022-05-10
 
 ### Added
 
 - Add support for `DNSEndpoint` CRs. See README for further information.
-- Add support for Google Cloud `gcp` provider.
 
 ## [2.10.0] - 2022-04-20
 
