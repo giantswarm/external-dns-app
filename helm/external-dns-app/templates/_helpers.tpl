@@ -125,8 +125,13 @@ function returns `aws` if provider is vmware; otherwise it returns
 the value of .Values.provider.
 */}}
 {{- define "dnsProvider.flags" -}}
-{{- $dnsProvider := ternary "aws" .Values.provider (eq .Values.provider "vmware") -}}
-{{ printf "- --provider=%s" $dnsProvider }}
+{{- $dnsProvider := .Values.provider -}}
+{{- if eq .Values.provider "vmware" }}
+{{- $dnsProvider = "aws" -}}
+{{- else if eq .Values.provider "gcp" }}
+{{- $dnsProvider = "google" -}}
+{{- end }}
+{{- printf "- --provider=%s" $dnsProvider }}
 
 {{- if eq $dnsProvider "aws" }}
 {{ include "zone.type" . }}
@@ -178,9 +183,9 @@ Validate that the provider makes sense
 don't expose that value to the user in the error message.
 */}}
 {{- define "validateValues.provider" -}}
-{{- if and (ne .Values.provider "aws") (ne .Values.provider "azure") (ne .Values.provider "vmware") (ne .Values.provider "inmemory") -}}
+{{- if and (ne .Values.provider "aws") (ne .Values.provider "azure") (ne .Values.provider "gcp") (ne .Values.provider "vmware") (ne .Values.provider "inmemory") -}}
 external-dns: provider
-    Incorrect value provided. Valid values are either 'aws', 'azure' or 'vmware'.
+    Incorrect value provided. Valid values are either 'aws', 'azure', 'gcp' or 'vmware'.
 {{- end -}}
 {{- end -}}
 
