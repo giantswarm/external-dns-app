@@ -15,6 +15,10 @@ aws:
   # can update public and private zones.
   access: internal
 
+  # aws.accountID
+  # AWS account ID to assume role via IRSA.
+  accountID: ""
+
   # aws.baseDomain
   # If aws.access is 'external' then the domain to update must be set.
   baseDomain:
@@ -28,6 +32,10 @@ aws:
   # Set interval between batch changes. If left blank then the default will
   # be used.
   batchChangeInterval: 10s
+
+  # aws.irsa
+  # Set to true to use IRSA to authenticate with AWS.
+  irsa: true
 
   # aws.zonesCacheDuration
   # Set the zones list cache TTL. If left blank then the default will
@@ -248,4 +256,4 @@ baseDomain: gigantic.io
 # The cluster's ID. This is only used if this chart is installed as a default app
 # from the default-catalog. It is dynamically set and will be overridden. Specific
 # to Giant Swarm clusters.
-clusterID: en2jo
+clusterID: e2jo
