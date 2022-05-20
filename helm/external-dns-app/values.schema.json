@@ -29,7 +29,7 @@
                     }
                 },
                 "irsa": {
-                    "type": "boolean"
+                    "type": "string"
                 },
                 "preferCNAME": {
                     "type": "boolean"

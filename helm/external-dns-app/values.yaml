@@ -35,7 +35,7 @@ aws:
 
   # aws.irsa
   # Set to true to use IRSA to authenticate with AWS.
-  irsa: true
+  irsa: "false"
 
   # aws.zonesCacheDuration
   # Set the zones list cache TTL. If left blank then the default will
