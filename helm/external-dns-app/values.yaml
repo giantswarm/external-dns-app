@@ -16,7 +16,7 @@ aws:
   access: internal
 
   # aws.accountID
-  # AWS account ID is used to assume role via IAM roles for service accounts.
+  # AWS account ID is used to assume role via IRSA (IAM roles for service accounts).
   # It is dynamically set and will be overridden.
   accountID: ""
 
