@@ -256,4 +256,4 @@ baseDomain: gigantic.io
 # The cluster's ID. This is only used if this chart is installed as a default app
 # from the default-catalog. It is dynamically set and will be overridden. Specific
 # to Giant Swarm clusters.
-clusterID: e2jo
+clusterID: en2jo
