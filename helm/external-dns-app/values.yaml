@@ -16,7 +16,8 @@ aws:
   access: internal
 
   # aws.accountID
-  # AWS account ID to assume role via IRSA.
+  # AWS account ID is used to assume role via IAM roles for service accounts.
+  # It is dynamically set and will be overridden.
   accountID: ""
 
   # aws.baseDomain
@@ -34,7 +35,8 @@ aws:
   batchChangeInterval: 10s
 
   # aws.irsa
-  # Set to true to use IRSA to authenticate with AWS.
+  # Set to true when IAM roles for service accounts is enabled.
+  # It is dynamically set and will be overridden.
   irsa: "false"
 
   # aws.zonesCacheDuration
