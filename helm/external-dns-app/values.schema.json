@@ -8,6 +8,9 @@
                 "access": {
                     "type": "string"
                 },
+                "accountID": {
+                    "type": "string"
+                },
                 "baseDomain": {
                     "type": ["null", "string"]
                 },
@@ -24,6 +27,9 @@
                             "type": ["null", "string"]
                         }
                     }
+                },
+                "irsa": {
+                    "type": "string"
                 },
                 "preferCNAME": {
                     "type": "boolean"

@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Added
+
+- Support IRSA (IAM Roles for Service Accounts) for `aws` provider.
+
 ## [2.12.0] - 2022-05-13
 
 ### Added
