@@ -1,0 +1,21 @@
+{{ if .Capabilities.APIVersions.Has "autoscaling.k8s.io/v1" }}
+apiVersion: autoscaling.k8s.io/v1
+kind: VerticalPodAutoscaler
+metadata:
+  name: {{ .Release.Name }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "labels.common" . | nindent 4 }}
+spec:
+  resourcePolicy:
+    containerPolicies:
+    - containerName: {{ .Release.Name }}
+      controlledValues: RequestsAndLimits
+      mode: Auto
+  targetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name:  {{ .Release.Name }}
+  updatePolicy:
+    updateMode: Auto
+{{ end }}
