@@ -7,6 +7,14 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+- Update test dependencies and py-helm-charts version to [0.7.0](https://github.com/giantswarm/pytest-helm-charts/blob/master/CHANGELOG.md) ([#173](https://github.com/giantswarm/external-dns-app/pull/173))
+
+## [2.14.0] - 2022-05-31
+
+### Added
+
+- VerticalPodAutoscaler for automatically setting requests and limits depending on usage. Fixes OOM kills on huge clusters.
+
 ## [2.13.0] - 2022-05-25
 
 ### Added
@@ -287,7 +295,8 @@ If you already specify `--aws-batch-change-interval` or `--aws-zones-cache-durat
 - Network policy that allows all egress traffic.
 - Network policy that allows accessing metrics on port `10254`.
 
-[Unreleased]: https://github.com/giantswarm/external-dns-app/compare/v2.13.0...HEAD
+[Unreleased]: https://github.com/giantswarm/external-dns-app/compare/v2.14.0...HEAD
+[2.14.0]: https://github.com/giantswarm/external-dns-app/compare/v2.13.0...v2.14.0
 [2.13.0]: https://github.com/giantswarm/external-dns-app/compare/v2.12.0...v2.13.0
 [2.12.0]: https://github.com/giantswarm/external-dns-app/compare/v2.11.0...v2.12.0
 [2.11.0]: https://github.com/giantswarm/external-dns-app/compare/v2.10.0...v2.11.0
