@@ -5,8 +5,8 @@ home: https://github.com/giantswarm/external-dns-app
 icon: https://s.giantswarm.io/app-icons/external-dns/1/dark.png
 name: external-dns-app
 sources:
-- https://github.com/kubernetes-sigs/external-dns
+  - https://github.com/kubernetes-sigs/external-dns
 annotations:
   application.giantswarm.io/team: team-cabbage
-version: 2.14.0
+version: 2.15.1
 kubeVersion: ">=1.19.0-0"
