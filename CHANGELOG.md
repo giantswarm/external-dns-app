@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Update alpine image to v3.15.5 ([#178](https://github.com/giantswarm/external-dns-app/pull/178))
+
 ## [2.15.0] - 2022-07-01
 
 ### Changed
