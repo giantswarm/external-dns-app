@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [2.15.1] - 2022-08-02
+
 ### Changed
 
 - Update alpine image to v3.15.5 ([#178](https://github.com/giantswarm/external-dns-app/pull/178))
@@ -310,7 +312,8 @@ If you already specify `--aws-batch-change-interval` or `--aws-zones-cache-durat
 - Network policy that allows all egress traffic.
 - Network policy that allows accessing metrics on port `10254`.
 
-[Unreleased]: https://github.com/giantswarm/external-dns-app/compare/v2.15.0...HEAD
+[Unreleased]: https://github.com/giantswarm/external-dns-app/compare/v2.15.1...HEAD
+[2.15.1]: https://github.com/giantswarm/external-dns-app/compare/v2.15.0...v2.15.1
 [2.15.0]: https://github.com/giantswarm/external-dns-app/compare/v2.14.0...v2.15.0
 [2.14.0]: https://github.com/giantswarm/external-dns-app/compare/v2.13.0...v2.14.0
 [2.13.0]: https://github.com/giantswarm/external-dns-app/compare/v2.12.0...v2.13.0
