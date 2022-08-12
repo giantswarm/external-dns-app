@@ -17,6 +17,9 @@ spec:
     metadata:
       labels:
         {{- include "labels.common" . | nindent 8 }}
+      {{- if and (eq .Values.provider "gcp") (.Values.gcpProject) }}
+      giantswarm.io/gcp-workload-identity: enabled
+      {{- end }}
       annotations:
         {{- if and (eq .Values.provider "aws") (eq .Values.aws.access "internal") ( eq .Values.aws.irsa "false") }}
         iam.amazonaws.com/role: {{ template "aws.iam.role" . }}
