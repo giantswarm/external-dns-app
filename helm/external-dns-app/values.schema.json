@@ -12,19 +12,19 @@
                     "type": "string"
                 },
                 "baseDomain": {
-                    "type": "null"
+                    "type": ["null", "string"]
                 },
                 "batchChangeInterval": {
-                    "type": "string"
+                    "type": ["null", "string"]
                 },
                 "batchChangeSize": {
-                    "type": "null"
+                    "type": ["null", "integer"]
                 },
                 "iam": {
                     "type": "object",
                     "properties": {
                         "customRoleName": {
-                            "type": "null"
+                            "type": ["null", "string"]
                         }
                     }
                 },
@@ -35,13 +35,13 @@
                     "type": "boolean"
                 },
                 "region": {
-                    "type": "null"
+                    "type": ["null", "string"]
                 },
                 "zoneType": {
-                    "type": "null"
+                    "type": ["null", "string"]
                 },
                 "zonesCacheDuration": {
-                    "type": "string"
+                    "type": ["null", "string"]
                 }
             }
         },
@@ -50,52 +50,6 @@
         },
         "clusterID": {
             "type": "string"
-        },
-        "crd": {
-            "type": "object",
-            "properties": {
-                "backoffLimit": {
-                    "type": "integer"
-                },
-                "image": {
-                    "type": "object",
-                    "properties": {
-                        "pullPolicy": {
-                            "type": "string"
-                        }
-                    }
-                },
-                "install": {
-                    "type": "boolean"
-                },
-                "resources": {
-                    "type": "object",
-                    "properties": {
-                        "limits": {
-                            "type": "object",
-                            "properties": {
-                                "cpu": {
-                                    "type": "string"
-                                },
-                                "memory": {
-                                    "type": "string"
-                                }
-                            }
-                        },
-                        "requests": {
-                            "type": "object",
-                            "properties": {
-                                "cpu": {
-                                    "type": "string"
-                                },
-                                "memory": {
-                                    "type": "string"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
         },
         "e2e": {
             "type": "boolean"
@@ -107,28 +61,29 @@
                     "type": "string"
                 },
                 "aws_access_key_id": {
-                    "type": "null"
+                    "type": ["null", "string"]
                 },
                 "aws_secret_access_key": {
-                    "type": "null"
+                    "type": ["null", "string"]
                 },
                 "domainFilterList": {
-                    "type": "array"
+                    "type": ["null", "array"]
                 },
                 "dryRun": {
                     "type": "boolean"
                 },
                 "extraArgs": {
-                    "type": "array"
+                    "type": "array",
+                    "items": { "type": "string" }
                 },
                 "interval": {
-                    "type": "string"
+                    "type": ["null", "string"]
                 },
                 "minEventSyncInterval": {
-                    "type": "string"
+                    "type": ["null", "string"]
                 },
                 "namespaceFilter": {
-                    "type": "string"
+                    "type": ["null", "string"]
                 },
                 "policy": {
                     "type": "string"
@@ -154,6 +109,52 @@
         },
         "gcpProject": {
             "type": "string"
+        },
+        "crd": {
+            "type": "object",
+            "properties": {
+                "backoffLimit": {
+                    "type": "integer"
+                },
+                "image": {
+                    "type": "object",
+                    "properties": {
+                        "pullPolicy": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "install": {
+                    "type": "boolean"
+                },
+                "resources": {
+                    "type": "object",
+                    "properties": {
+                        "requests": {
+                            "type": "object",
+                            "properties": {
+                                "cpu": {
+                                    "type": ["string", "integer"]
+                                },
+                                "memory": {
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "limits": {
+                            "type": "object",
+                            "properties": {
+                                "cpu": {
+                                    "type": ["string", "integer"]
+                                },
+                                "memory": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         },
         "global": {
             "type": "object",
