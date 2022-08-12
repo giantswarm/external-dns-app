@@ -70,6 +70,10 @@ aws:
   # cannot be changed.
   zoneType:
 
+# gcpProject
+# Used when provider is gcp so the app uses workload identity for authentication.
+gcpProject: ""
+
 # externalDNS
 # Configuration options for external-dns itself.
 externalDNS:
