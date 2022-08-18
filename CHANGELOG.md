@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Update all container image versions ([#182](https://github.com/giantswarm/external-dns-app/pull/182))
+
 ## [2.15.1] - 2022-08-02
 
 ### Changed
