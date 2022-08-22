@@ -70,13 +70,13 @@ aws:
   # cannot be changed.
   zoneType:
 
-# gcpServiceAccountID
+# gcpServiceAccount
 # The GCP Service Account ID to use when running on gcp, using workload identity for authentication.
-gcpServiceAccountID: ""
+gcpServiceAccount: ""
 
-# gcpWorkloadIdentityPool
+# gcpWorkloadIdentityPoolID
 # The workload identity pool ID for the cluster where the app will run. It's of the form '$gcpProject.svc.id.goog'.
-gcpWorkloadIdentityPool: ""
+gcpWorkloadIdentityPoolID: ""
 
 # gcpIdentityProvider
 # The workload identity identity provider for the cluster where the app will run.

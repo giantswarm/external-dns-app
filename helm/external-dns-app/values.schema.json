@@ -107,10 +107,10 @@
                 }
             }
         },
-        "gcpServiceAccountID": {
+        "gcpServiceAccount": {
             "type": "string"
         },
-        "gcpWorkloadIdentityPool": {
+        "gcpWorkloadIdentityPoolID": {
             "type": "string"
         },
         "gcpIdentityProvider": {
