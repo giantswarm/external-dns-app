@@ -107,7 +107,13 @@
                 }
             }
         },
-        "gcpProject": {
+        "gcpServiceAccountID": {
+            "type": "string"
+        },
+        "gcpWorkloadIdentityPool": {
+            "type": "string"
+        },
+        "gcpIdentityProvider": {
             "type": "string"
         },
         "crd": {

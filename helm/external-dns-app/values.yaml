@@ -70,9 +70,17 @@ aws:
   # cannot be changed.
   zoneType:
 
-# gcpProject
-# Used when provider is gcp so the app uses workload identity for authentication.
-gcpProject: ""
+# gcpServiceAccountID
+# The GCP Service Account ID to use when running on gcp, using workload identity for authentication.
+gcpServiceAccountID: ""
+
+# gcpWorkloadIdentityPool
+# The workload identity pool ID for the cluster where the app will run. It's of the form '$gcpProject.svc.id.goog'.
+gcpWorkloadIdentityPool: ""
+
+# gcpIdentityProvider
+# The workload identity identity provider for the cluster where the app will run.
+gcpIdentityProvider: ""
 
 # externalDNS
 # Configuration options for external-dns itself.
