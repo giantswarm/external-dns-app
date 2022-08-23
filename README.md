@@ -110,17 +110,17 @@ This app has been tested to work with the following workload cluster release ver
 * AWS `v13.0.0`
 * Azure `v16.0.2`
 
-Furthermore, it requires a Kubernetes version of `>= v1.19.0-0`.
-
 ## Limitations
 
 Some apps have restrictions on how they can be deployed.
 Not following these limitations will most likely result in a broken deployment.
 
-* External DNS v2.0.0+ requires [nginx-ingress-controller-app v1.14.0](https://github.com/giantswarm/nginx-ingress-controller-app/blob/master/CHANGELOG.md#1140---2021-02-23) or greater to work (due to the need for the filtering annotation).
-   * If you do not (or cannot) upgrade `nginx-ingress-controller-app` to `v1.14.0`,
-you can work around this by running the following command to ensure the default
-`external-dns` continues to reconcile the relevant Service:
+External DNS v2.0.0+ requires
+* Kubernetes version `1.19.0-0` or greater
+* [nginx-ingress-controller-app v1.14.0](https://github.com/giantswarm/nginx-ingress-controller-app/blob/master/CHANGELOG.md#1140---2021-02-23) or greater to work (due to the need for the filtering annotation).
+  * If you do not (or cannot) upgrade `nginx-ingress-controller-app` to `v1.14.0`,
+    you can work around this by running the following command to ensure the default
+    `external-dns` continues to reconcile the relevant Service:
 
 ```bash
 kubectl -n kube-system annotate service nginx-ingress-controller-app "giantswarm.io/external-dns=managed"
