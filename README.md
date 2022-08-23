@@ -3,7 +3,7 @@
 # external-dns-app chart
 
 Helm chart for the [external-dns](https://github.com/kubernetes-sigs/external-dns) service running in Workload
-Clusters. This chart is used to deploy both as a default app (only required on AWS), and as a Managed App.
+Clusters. This chart is used to deploy both as a default app (AWS and Azure) and as a Managed App.
 It can be installed multiple times in the same Workload Cluster.
 
 **What is this App?**
@@ -12,7 +12,7 @@ It can be installed multiple times in the same Workload Cluster.
 
 **Why did we add it?**
 
-The App is already used as a default App in AWS clusters to provide DNS records for [nginx-ingress-controller-app](https://github.com/giantswarm/nginx-ingress-controller-app).
+The App is already used as a default App in AWS and Azure clusters to provide DNS records for [nginx-ingress-controller-app](https://github.com/giantswarm/nginx-ingress-controller-app).
 
 **Who can use it?**
 
