@@ -18,6 +18,15 @@ The App is already used as a default App in AWS and Azure clusters to provide DN
 
 Customers using Giant Swarm clusters on AWS or Azure.
 
+---
+
+## Index
+- [Installing](#installing)
+- [Configuring](#configuring)
+- [Compatibility](#compatibility)
+- [Limitations](#limitations)
+- [Release Process](#release-process)
+
 ## Installing
 
 There are 3 ways to install this app onto a workload cluster:
