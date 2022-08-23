@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- edited README.md ([#184](https://github.com/giantswarm/external-dns-app/pull/184))
+
 ## [2.15.2] - 2022-08-22
 
 ### Changed
