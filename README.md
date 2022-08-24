@@ -37,8 +37,8 @@ There are 3 ways to install this app onto a workload cluster:
 
 ## Configuring
 
-Configuration options are documented in the [Configuration.md](helm/external-dns-app/Configuration.md)
-document. See also the [default `values.yaml`](helm/external-dns-app/values.yaml)
+Configuration options are documented in the [Configuration.md](https://github.com/giantswarm/external-dns-app/blob/master/helm/external-dns-app/Configuration.md)
+document. See also the [default `values.yaml`](https://github.com/giantswarm/external-dns-app/blob/master/helm/external-dns-app/values.yaml)
 
 ### values.yaml
 
@@ -117,7 +117,7 @@ Not following these limitations will most likely result in a broken deployment.
 
 External DNS v2.0.0+ requires
 * Kubernetes version `1.19.0-0` or greater
-* [nginx-ingress-controller-app v1.14.0](https://github.com/giantswarm/nginx-ingress-controller-app/blob/master/CHANGELOG.md#1140---2021-02-23) or greater to work (due to the need for the filtering annotation).
+* [nginx-ingress-controller-app v1.14.0](https://github.com/giantswarm/nginx-ingress-controller-app/blob/master/CHANGELOG.md#1140---2021-02-03) or greater to work (due to the need for the filtering annotation).
   * If you do not (or cannot) upgrade `nginx-ingress-controller-app` to `v1.14.0`,
     you can work around this by running the following command to ensure the default
     `external-dns` continues to reconcile the relevant Service:
