@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Added
+
+- Add support for `capa` provider.
+
 ## [2.15.2] - 2022-08-22
 
 ### Changed
