@@ -128,6 +128,8 @@ the value of .Values.provider.
 {{- $dnsProvider := .Values.provider -}}
 {{- if eq .Values.provider "vmware" }}
 {{- $dnsProvider = "aws" -}}
+{{- else if eq .Values.provider "capa" }}
+{{- $dnsProvider = "aws" -}}
 {{- else if eq .Values.provider "gcp" }}
 {{- $dnsProvider = "google" -}}
 {{- end }}
@@ -183,9 +185,9 @@ Validate that the provider makes sense
 don't expose that value to the user in the error message.
 */}}
 {{- define "validateValues.provider" -}}
-{{- if and (ne .Values.provider "aws") (ne .Values.provider "azure") (ne .Values.provider "gcp") (ne .Values.provider "vmware") (ne .Values.provider "inmemory") -}}
+{{- if and (ne .Values.provider "aws") (ne .Values.provider "azure") (ne .Values.provider "capa") (ne .Values.provider "gcp") (ne .Values.provider "vmware") (ne .Values.provider "inmemory") -}}
 external-dns: provider
-    Incorrect value provided. Valid values are either 'aws', 'azure', 'gcp' or 'vmware'.
+    Incorrect value provided. Valid values are either 'aws', 'azure', 'capa', 'gcp' or 'vmware'.
 {{- end -}}
 {{- end -}}
 
