@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [2.15.4] - 2022-09-14
+
 ### Changed
 
 - Adjust manifest to behave properly with `capa` provider.
@@ -328,7 +330,8 @@ If you already specify `--aws-batch-change-interval` or `--aws-zones-cache-durat
 - Network policy that allows all egress traffic.
 - Network policy that allows accessing metrics on port `10254`.
 
-[Unreleased]: https://github.com/giantswarm/external-dns-app/compare/v2.15.3...HEAD
+[Unreleased]: https://github.com/giantswarm/external-dns-app/compare/v2.15.4...HEAD
+[2.15.4]: https://github.com/giantswarm/external-dns-app/compare/v2.15.3...v2.15.4
 [2.15.3]: https://github.com/giantswarm/external-dns-app/compare/v2.15.2...v2.15.3
 [2.15.2]: https://github.com/giantswarm/external-dns-app/compare/v2.15.1...v2.15.2
 [2.15.1]: https://github.com/giantswarm/external-dns-app/compare/v2.15.0...v2.15.1
