@@ -18,7 +18,7 @@ spec:
       labels:
         {{- include "labels.common" . | nindent 8 }}
       annotations:
-        {{- if and (eq .Values.provider "aws") (eq .Values.aws.access "internal") ( eq .Values.aws.irsa "false") }}
+        {{- if and (or (eq .Values.provider "aws") (eq .Values.provider "capa")) (eq .Values.aws.access "internal") ( eq .Values.aws.irsa "false") }}
         iam.amazonaws.com/role: {{ template "aws.iam.role" . }}
         {{- end }}
         scheduler.alpha.kubernetes.io/critical-pod: ''
@@ -34,7 +34,7 @@ spec:
         fsGroup: {{ .Values.global.securityContext.fsGroupID }}
       priorityClassName: giantswarm-critical
       initContainers:
-      {{- if and (eq .Values.provider "aws") (eq .Values.aws.access "internal") ( eq .Values.aws.irsa "false") }}
+      {{- if and (or (eq .Values.provider "aws") (eq .Values.provider "capa")) (eq .Values.aws.access "internal") ( eq .Values.aws.irsa "false") }}
       - name: wait-for-iam-role
         image: {{ .Values.global.image.registry }}/giantswarm/alpine:3.16.2
         command:
@@ -64,7 +64,7 @@ spec:
             name: config
       {{- end }}
       containers:
-      {{- if and (eq .Values.provider "aws") (eq .Values.aws.access "internal") ( eq .Values.aws.irsa "false") }}
+      {{- if and (or (eq .Values.provider "aws") (eq .Values.provider "capa")) (eq .Values.aws.access "internal") ( eq .Values.aws.irsa "false") }}
       - name: "{{ .Release.Name }}-check-iam"
         image: {{ .Values.global.image.registry }}/giantswarm/alpine:3.16.2
         command:
@@ -80,7 +80,7 @@ spec:
         image: "{{ .Values.global.image.registry }}/{{ .Values.global.image.name }}:{{ .Values.global.image.tag }}"
         imagePullPolicy: IfNotPresent
         env:
-        {{- if and (or (eq .Values.provider "aws") (eq .Values.provider "vmware")) .Values.externalDNS.aws_access_key_id .Values.externalDNS.aws_secret_access_key }}
+        {{- if and (or (eq .Values.provider "aws") (eq .Values.provider "vmware") ) .Values.externalDNS.aws_access_key_id .Values.externalDNS.aws_secret_access_key }}
         - name: AWS_ACCESS_KEY_ID
           valueFrom:
             secretKeyRef:
