@@ -21,7 +21,7 @@ spec:
         giantswarm.io/gcp-workload-identity: enabled
         {{- end }}
       annotations:
-        {{- if and (eq .Values.provider "aws") (eq .Values.aws.access "internal") ( eq .Values.aws.irsa "false") }}
+        {{- if and (or (eq .Values.provider "aws") (eq .Values.provider "capa")) (eq .Values.aws.access "internal") ( eq .Values.aws.irsa "false") }}
         iam.amazonaws.com/role: {{ template "aws.iam.role" . }}
         {{- end }}
         scheduler.alpha.kubernetes.io/critical-pod: ''
@@ -37,7 +37,7 @@ spec:
         fsGroup: {{ .Values.global.securityContext.fsGroupID }}
       priorityClassName: giantswarm-critical
       initContainers:
-      {{- if and (eq .Values.provider "aws") (eq .Values.aws.access "internal") ( eq .Values.aws.irsa "false") }}
+      {{- if and (or (eq .Values.provider "aws") (eq .Values.provider "capa")) (eq .Values.aws.access "internal") ( eq .Values.aws.irsa "false") }}
       - name: wait-for-iam-role
         image: {{ .Values.global.image.registry }}/giantswarm/alpine:3.16.2
         command:
@@ -67,7 +67,7 @@ spec:
             name: config
       {{- end }}
       containers:
-      {{- if and (eq .Values.provider "aws") (eq .Values.aws.access "internal") ( eq .Values.aws.irsa "false") }}
+      {{- if and (or (eq .Values.provider "aws") (eq .Values.provider "capa")) (eq .Values.aws.access "internal") ( eq .Values.aws.irsa "false") }}
       - name: "{{ .Release.Name }}-check-iam"
         image: {{ .Values.global.image.registry }}/giantswarm/alpine:3.16.2
         command:

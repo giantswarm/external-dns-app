@@ -3,7 +3,7 @@
 # external-dns-app chart
 
 Helm chart for the [external-dns](https://github.com/kubernetes-sigs/external-dns) service running in Workload
-Clusters. This chart is used to deploy both as a default app (only required on AWS), and as a Managed App.
+Clusters. This chart is used to deploy both as a default app and as a Managed App.
 It can be installed multiple times in the same Workload Cluster.
 
 **What is this App?**
@@ -12,11 +12,20 @@ It can be installed multiple times in the same Workload Cluster.
 
 **Why did we add it?**
 
-The App is already used as a default App in AWS clusters to provide DNS records for [nginx-ingress-controller-app](https://github.com/giantswarm/nginx-ingress-controller-app).
+The App is already used as a default App in most clusters (except on-prem) to provide DNS records for [nginx-ingress-controller-app](https://github.com/giantswarm/nginx-ingress-controller-app).
 
 **Who can use it?**
 
 Customers using Giant Swarm clusters on AWS or Azure.
+
+---
+
+## Index
+- [Installing](#installing)
+- [Configuring](#configuring)
+- [Compatibility](#compatibility)
+- [Limitations](#limitations)
+- [Release Process](#release-process)
 
 ## Installing
 
@@ -28,8 +37,8 @@ There are 3 ways to install this app onto a workload cluster:
 
 ## Configuring
 
-Configuration options are documented in the [Configuration.md](helm/external-dns-app/Configuration.md)
-document. See also the [default `values.yaml`](helm/external-dns-app/values.yaml)
+Configuration options are documented in the [Configuration.md](https://github.com/giantswarm/external-dns-app/blob/master/helm/external-dns-app/Configuration.md)
+document. See also the [default `values.yaml`](https://github.com/giantswarm/external-dns-app/blob/master/helm/external-dns-app/values.yaml)
 
 ### values.yaml
 
@@ -99,16 +108,19 @@ See our [full reference page on how to configure applications](https://docs.gian
 This app has been tested to work with the following workload cluster release versions:
 
 * AWS `v13.0.0`
+* Azure `v16.0.2`
 
 ## Limitations
 
 Some apps have restrictions on how they can be deployed.
 Not following these limitations will most likely result in a broken deployment.
 
-* External DNS v2.0.0+ requires [nginx-ingress-controller-app v1.14.0](https://github.com/giantswarm/nginx-ingress-controller-app/blob/master/CHANGELOG.md#1140---2021-02-23) or greater to work (due to the need for the filtering annotation).
-   * If you do not (or cannot) upgrade `nginx-ingress-controller-app` to `v1.14.0`,
-you can work around this by running the following command to ensure the default
-`external-dns` continues to reconcile the relevant Service:
+External DNS v2.0.0+ requires
+* Kubernetes version `1.19.0-0` or greater
+* [nginx-ingress-controller-app v1.14.0](https://github.com/giantswarm/nginx-ingress-controller-app/blob/master/CHANGELOG.md#1140---2021-02-03) or greater to work (due to the need for the filtering annotation).
+  * If you do not (or cannot) upgrade `nginx-ingress-controller-app` to `v1.14.0`,
+    you can work around this by running the following command to ensure the default
+    `external-dns` continues to reconcile the relevant Service:
 
 ```bash
 kubectl -n kube-system annotate service nginx-ingress-controller-app "giantswarm.io/external-dns=managed"
