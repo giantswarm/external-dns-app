@@ -8,7 +8,7 @@ It can be installed multiple times in the same Workload Cluster.
 
 **What is this App?**
 
-`external-dns` configures external DNS servers (AWS Route53, Azure DNS) for Kubernetes Ingresses and Service.
+`external-dns` makes Kubernetes resources discoverable via external DNS servers. It dynamically configures external DNS providers ([AWS Route 53](https://aws.amazon.com/route53/), [Azure DNS](https://learn.microsoft.com/en-us/azure/dns/)) for Kubernetes Ingresses, Services etc.
 
 **Why did we add it?**
 
@@ -26,6 +26,7 @@ Customers using Giant Swarm clusters on AWS or Azure.
 - [Compatibility](#compatibility)
 - [Limitations](#limitations)
 - [Release Process](#release-process)
+- [Contributing & Reporting Bugs](#contributing--reporting-bugs)
 
 ## Installing
 
@@ -133,6 +134,11 @@ kubectl -n kube-system annotate service nginx-ingress-controller-app "giantswarm
 create a branch from master called `master#release#v0.1.0` and push it.
 * This will push a new git tag and trigger a new tarball to be pushed to the
 `default-catalog` and the `giantswarm-catalog`
+
+## Contributing & Reporting Bugs
+If you have suggestions for how `external-dns` could be improved, or want to report a bug, open an issue! We'd love all and any contributions. 
+
+Check out the [Contributing Guide](CONTRIBUTING.md) for details on the contribution workflow, submitting patches, and reporting bugs.
 
 [app-operator]: https://github.com/giantswarm/app-operator
 [default-catalog]: https://github.com/giantswarm/default-catalog
