@@ -47,12 +47,6 @@ This is a rough outline of what a contributor's workflow looks like:
 
 Thanks for your contributions!
 
-### Code style
-
-The coding style suggested by the Golang community is used. See the [style doc](https://github.com/golang/go/wiki/CodeReviewComments) for details.
-
-Please follow this style to make the code easy to review, maintain, and develop.
-
 ### Format of the Commit Message
 
 We follow a rough convention for commit messages that is designed to answer two
