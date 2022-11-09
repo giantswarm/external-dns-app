@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Added
+
+- Add support for GCP workload identity for authentication.
+
 ## [2.15.4] - 2022-09-14
 
 ### Changed

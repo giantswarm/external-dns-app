@@ -70,6 +70,10 @@ aws:
   # cannot be changed.
   zoneType:
 
+# gcpProject
+# The GCP project in which external-dns will create records.
+gcpProject: ""
+
 # externalDNS
 # Configuration options for external-dns itself.
 externalDNS:
