@@ -17,7 +17,7 @@ spec:
     metadata:
       labels:
         {{- include "labels.common" . | nindent 8 }}
-        {{- if and (eq .Values.provider "gcp") (.Values.gcpServiceAccountID) (.Values.gcpWorkloadIdentityPool) (.Values.gcpIdentityProvider) }}
+        {{- if and (eq .Values.provider "gcp") (.Values.gcpProject) }}
         giantswarm.io/gcp-workload-identity: enabled
         {{- end }}
       annotations:
