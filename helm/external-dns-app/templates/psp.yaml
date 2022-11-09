@@ -39,3 +39,6 @@ spec:
   - 'emptyDir'
   - 'hostPath'
   {{- end }}
+  {{- if eq .Values.provider "gcp" }}
+  - 'projected'
+  {{- end }}
