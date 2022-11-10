@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Added
+
+- Added `CiliumNetworkPolicy` for the CRD install job.
+
 ## [2.16.0] - 2022-11-09
 
 ### Added
