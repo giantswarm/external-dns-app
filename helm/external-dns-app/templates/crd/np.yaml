@@ -3,7 +3,7 @@
 apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
 metadata:
-  name: {{ include "kyverno-stack.crdInstall" . }}
+  name: {{ .Release.Name }}-crd-install
   namespace: {{ .Release.Namespace | quote }}
   annotations:
     # create hook dependencies in the right order
