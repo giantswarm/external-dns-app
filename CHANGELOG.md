@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [2.17.0] - 2022-11-10
+
 ### Added
 
 - Added `CiliumNetworkPolicy` for the CRD install job.
@@ -344,7 +346,8 @@ If you already specify `--aws-batch-change-interval` or `--aws-zones-cache-durat
 - Network policy that allows all egress traffic.
 - Network policy that allows accessing metrics on port `10254`.
 
-[Unreleased]: https://github.com/giantswarm/external-dns-app/compare/v2.16.0...HEAD
+[Unreleased]: https://github.com/giantswarm/external-dns-app/compare/v2.17.0...HEAD
+[2.17.0]: https://github.com/giantswarm/external-dns-app/compare/v2.16.0...v2.17.0
 [2.16.0]: https://github.com/giantswarm/external-dns-app/compare/v2.15.4...v2.16.0
 [2.15.4]: https://github.com/giantswarm/external-dns-app/compare/v2.15.3...v2.15.4
 [2.15.3]: https://github.com/giantswarm/external-dns-app/compare/v2.15.2...v2.15.3
