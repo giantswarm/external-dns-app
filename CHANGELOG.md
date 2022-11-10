@@ -11,6 +11,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - Added `CiliumNetworkPolicy` for the CRD install job.
 
+### Changed
+
+- The helm job that installs CRDs is not removed if the job fails.
+
 ## [2.16.0] - 2022-11-09
 
 ### Added
