@@ -83,7 +83,7 @@ spec:
         image: "{{ .Values.global.image.registry }}/{{ .Values.global.image.name }}:{{ .Values.global.image.tag }}"
         imagePullPolicy: IfNotPresent
         env:
-        {{- if and (or (eq .Values.provider "aws") (eq .Values.provider "vmware")) .Values.externalDNS.aws_access_key_id .Values.externalDNS.aws_secret_access_key }}
+        {{- if and .Values.externalDNS.aws_access_key_id .Values.externalDNS.aws_secret_access_key }}
         - name: AWS_ACCESS_KEY_ID
           valueFrom:
             secretKeyRef:
