@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Allow using AWS Route53 from any provider [#200](https://github.com/giantswarm/external-dns-app/pull/200)
+
 ## [2.17.0] - 2022-11-10
 
 ### Added
