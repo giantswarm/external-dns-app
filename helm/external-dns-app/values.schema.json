@@ -48,6 +48,25 @@
         "baseDomain": {
             "type": "string"
         },
+	"cluster": {
+            "type": "object",
+            "properties": {
+                "proxy": {
+                    "type": "object",
+                    "properties": {
+                        "http": {
+                            "type": ["null", "string"]
+                        },
+                        "https": {
+                            "type": ["null", "string"]
+                        },
+                        "noProxy": {
+                            "type": ["null", "string"]
+                        }
+                    }
+                }
+            }
+        },
         "clusterID": {
             "type": "string"
         },
@@ -226,6 +245,20 @@
         },
         "provider": {
             "type": "string"
+        },
+         "proxy": {
+            "type": "object",
+            "properties": {
+                "http": {
+                    "type": ["null", "string"]
+                },
+                "https": {
+                    "type": ["null", "string"]
+                },
+                "noProxy": {
+                    "type": ["null", "string"]
+                }
+            }
         },
         "serviceType": {
             "type": "string"
