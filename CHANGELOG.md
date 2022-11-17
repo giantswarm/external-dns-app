@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [2.18.0] - 2022-11-17
+
 ### Added
 
 - Support for running behind a proxy.
@@ -358,7 +360,8 @@ If you already specify `--aws-batch-change-interval` or `--aws-zones-cache-durat
 - Network policy that allows all egress traffic.
 - Network policy that allows accessing metrics on port `10254`.
 
-[Unreleased]: https://github.com/giantswarm/external-dns-app/compare/v2.17.1...HEAD
+[Unreleased]: https://github.com/giantswarm/external-dns-app/compare/v2.18.0...HEAD
+[2.18.0]: https://github.com/giantswarm/external-dns-app/compare/v2.17.1...v2.18.0
 [2.17.1]: https://github.com/giantswarm/external-dns-app/compare/v2.17.0...v2.17.1
 [2.17.0]: https://github.com/giantswarm/external-dns-app/compare/v2.16.0...v2.17.0
 [2.16.0]: https://github.com/giantswarm/external-dns-app/compare/v2.15.4...v2.16.0
