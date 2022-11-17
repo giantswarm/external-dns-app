@@ -150,6 +150,19 @@ externalDNS:
   # Allows to specify additional arguments to the external-dns deployment.
   extraArgs: []
 
+# set the HTTP_PROXY, HTTPS_PROXY and NO_PROXY variable
+proxy:
+  noProxy:
+  http:
+  https:
+cluster:
+  # is getting overwritten by the top level proxy if set
+  # These values are generated via cluster-apps-operator
+  proxy:
+    noProxy:
+    http:
+    https:
+
 # crd
 # Configuration options for CRDs.
 crd:
