@@ -11,6 +11,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ### Added
 
+- CAPA provider for service account `irsa` annotation
+
+### Added
+
 - Support for running behind a proxy.
   - `HTTP_PROXY`,`HTTPS_PROXY` and `NO_PROXY` are set as environment variables in the deployment if defined in `values.yaml`.
 - Support for using `cluster-apps-operator` specific `cluster.proxy` values.
