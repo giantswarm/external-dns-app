@@ -9,11 +9,11 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [2.19.0] - 2022-11-18
 
-## [2.18.0] - 2022-11-17
-
 ### Added
 
 - CAPA provider for service account `irsa` annotation
+
+## [2.18.0] - 2022-11-17
 
 ### Added
 
