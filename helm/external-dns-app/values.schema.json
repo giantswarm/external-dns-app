@@ -246,7 +246,7 @@
         "provider": {
             "type": "string"
         },
-         "proxy": {
+        "proxy": {
             "type": "object",
             "properties": {
                 "http": {
@@ -257,6 +257,20 @@
                 },
                 "noProxy": {
                     "type": ["null", "string"]
+                }
+            }
+        },
+        "serviceAccount": {
+            "type": "object",
+            "properties": {
+                "annotations": {
+                    "type": "object"
+                },
+                "create": {
+                    "type": "boolean"
+                },
+                "name": {
+                    "type": "string"
                 }
             }
         },
