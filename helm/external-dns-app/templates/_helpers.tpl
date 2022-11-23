@@ -201,10 +201,23 @@ external-dns: aws.zoneType
 {{- end -}}
 {{- end -}}
 
+
+{{/*
+Upstream chart helpers.
+*/}}
+
+{{/*
+Common labels
+Temporarly include labels.common during the alignment to upstream.
+*/}}
+{{- define "external-dns.labels" -}}
+{{ include "labels.common" . }}
+{{- end -}}
+
 {{/*
 Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
-If release name contains chart name it will be used as a full name.
+Unless there is a override, we use the release name as the full name.
 */}}
 {{- define "external-dns.fullname" -}}
 {{- if .Values.fullnameOverride }}
