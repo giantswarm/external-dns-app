@@ -31,7 +31,7 @@ spec:
         prometheus.io/scrape: "{{ .Values.global.metrics.scrape }}"
         kubectl.kubernetes.io/default-container: "{{ .Release.Name }}"
     spec:
-      serviceAccountName: {{ .Release.Name }}
+      serviceAccountName: {{ include "external-dns.serviceAccountName" . }}
       securityContext:
         runAsUser: {{ .Values.global.securityContext.userID }}
         runAsGroup: {{ .Values.global.securityContext.groupID }}

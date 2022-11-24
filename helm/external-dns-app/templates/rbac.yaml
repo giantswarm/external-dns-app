@@ -61,5 +61,5 @@ roleRef:
   name: {{ .Release.Name }}
 subjects:
 - kind: ServiceAccount
-  name: {{ .Release.Name }}
+  name: {{ include "external-dns.serviceAccountName" . }}
   namespace: {{ .Release.Namespace }}

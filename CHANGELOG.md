@@ -7,6 +7,12 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- ServiceAccount: Align to upstream ([#207](https://github.com/giantswarm/external-dns-app/pull/207)).
+  - Helper: Add upstream helpers.
+  - ServiceAccount: Add annotations from values.
+
 ## [2.19.0] - 2022-11-18
 
 ### Added

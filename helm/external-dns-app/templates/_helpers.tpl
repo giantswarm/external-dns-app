@@ -200,3 +200,40 @@ external-dns: aws.zoneType
 {{- end -}}
 {{- end -}}
 {{- end -}}
+
+
+{{/*
+Upstream chart helpers.
+*/}}
+
+{{/*
+Common labels
+Temporarly include labels.common during the alignment to upstream.
+*/}}
+{{- define "external-dns.labels" -}}
+{{ include "labels.common" . }}
+{{- end -}}
+
+{{/*
+Create a default fully qualified app name.
+We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
+Unless there is a override, we use the release name as the full name.
+*/}}
+{{- define "external-dns.fullname" -}}
+{{- if .Values.fullnameOverride }}
+{{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
+{{- else }}
+{{- .Release.Name | trunc 63 | trimSuffix "-" }}
+{{- end }}
+{{- end }}
+
+{{/*
+Create the name of the service account to use
+*/}}
+{{- define "external-dns.serviceAccountName" -}}
+{{- if .Values.serviceAccount.create }}
+{{- default (include "external-dns.fullname" .) .Values.serviceAccount.name }}
+{{- else }}
+{{- default "default" .Values.serviceAccount.name }}
+{{- end }}
+{{- end }}
