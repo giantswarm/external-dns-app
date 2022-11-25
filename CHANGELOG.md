@@ -12,6 +12,11 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 - ServiceAccount: Align to upstream ([#207](https://github.com/giantswarm/external-dns-app/pull/207)).
   - Helper: Add upstream helpers.
   - ServiceAccount: Add annotations from values.
+- RBAC: Align to upstream ([#209](https://github.com/giantswarm/external-dns-app/pull/209))
+  - Split rbac.yaml into clusterrole.yaml and clusterrolebinding.yaml
+  - Compose role rules based on values.
+  - Rename ClusterRoleBinding.
+  - Enable RBAC creation based on values.
 
 ## [2.19.0] - 2022-11-18
 
