@@ -207,6 +207,16 @@ serviceAccount:
   # If not set and create is true, a name is generated using the fullname template
   name: ""
 
+rbac:
+  # Specifies whether RBAC resources should be created
+  create: true
+  additionalPermissions: []
+
+sources:
+  - service
+  - ingress
+  - crd
+
 global:
 
   # global.image
