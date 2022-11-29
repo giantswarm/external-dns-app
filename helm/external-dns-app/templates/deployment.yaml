@@ -7,6 +7,10 @@ metadata:
   labels:
     {{- include "labels.common" . | nindent 4 }}
     giantswarm.io/monitoring_basic_sli: "true"
+  {{- with .Values.deploymentAnnotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
 spec:
   replicas: 1
   selector:
@@ -21,15 +25,14 @@ spec:
         {{- if and (eq .Values.provider "gcp") (.Values.gcpProject) }}
         giantswarm.io/gcp-workload-identity: enabled
         {{- end }}
+      {{- with .Values.podLabels }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- include "giantswarm.podAnnotations" . }}
+      {{- with .Values.podAnnotations }}
       annotations:
-        {{- if and (or (eq .Values.provider "aws") (eq .Values.provider "capa")) (eq .Values.aws.access "internal") ( eq .Values.aws.irsa "false") }}
-        iam.amazonaws.com/role: {{ template "aws.iam.role" . }}
-        {{- end }}
-        scheduler.alpha.kubernetes.io/critical-pod: ''
-        prometheus.io/path: /metrics
-        prometheus.io/port: "{{ .Values.global.metrics.port }}"
-        prometheus.io/scrape: "{{ .Values.global.metrics.scrape }}"
-        kubectl.kubernetes.io/default-container: "{{ .Release.Name }}"
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
     spec:
       serviceAccountName: {{ include "external-dns.serviceAccountName" . }}
       securityContext:
