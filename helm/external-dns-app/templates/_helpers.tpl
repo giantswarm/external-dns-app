@@ -202,6 +202,22 @@ external-dns: aws.zoneType
 {{- end -}}
 
 
+
+{{/*
+Set Giant Swarm podAnnotations.
+*/}}
+{{- define "giantswarm.podAnnotations" -}}
+{{- if and (or (eq .Values.provider "aws") (eq .Values.provider "capa")) (eq .Values.aws.access "internal") ( eq .Values.aws.irsa "false") }}
+{{- $_ := set .Values.podAnnotations "iam.amazonaws.com/role" (tpl "{{ template \"aws.iam.role\" . }}" .) }}
+{{- end }}
+{{- $_ := set .Values.podAnnotations "scheduler.alpha.kubernetes.io/critical-pod" "" }}
+{{- $_ := set .Values.podAnnotations "prometheus.io/path" "/metrics" }}
+{{- $_ := set .Values.podAnnotations "prometheus.io/port" (tpl "{{ .Values.global.metrics.port }}" .) }}
+{{- $_ := set .Values.podAnnotations "prometheus.io/scrape" (tpl "{{ .Values.global.metrics.scrape }}" .) }}
+{{- $_ := set .Values.podAnnotations "kubectl.kubernetes.io/default-container" (tpl "{{ .Release.Name }}" .)}}
+{{- end -}}
+
+
 {{/*
 Upstream chart helpers.
 */}}

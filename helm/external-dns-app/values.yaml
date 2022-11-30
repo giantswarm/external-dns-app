@@ -212,6 +212,14 @@ rbac:
   create: true
   additionalPermissions: []
 
+# Annotations to add to the Deployment
+deploymentAnnotations: {}
+
+podLabels: {}
+
+# Annotations to add to the Pod
+podAnnotations: {}
+
 sources:
   - service
   - ingress
