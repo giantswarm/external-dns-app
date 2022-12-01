@@ -1,0 +1,41 @@
+{{- if .Values.serviceAccount.create }}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: {{ .Release.Name }}-serviceaccount-install
+  annotations:
+    {{- include "annotations.serviceaccount" . | nindent 4 }}
+    helm.sh/hook-weight: "-3"
+  labels:
+    {{- include "labels.common" . | nindent 4 }}
+    app.kubernetes.io/component: serviceaccount-install
+rules:
+- apiGroups: [""]
+  resources:
+  - serviceaccounts
+  verbs:
+  - use
+  - get
+  - create
+  - patch
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: {{ .Release.Name }}-serviceaccount-install
+  annotations:
+    {{- include "annotations.serviceaccount" . | nindent 4 }}
+    helm.sh/hook-weight: "-2"
+  labels:
+    {{- include "labels.common" . | nindent 4 }}
+    app.kubernetes.io/component: serviceaccount-install
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: {{ .Release.Name }}-serviceaccount-install
+subjects:
+- kind: ServiceAccount
+  name: {{ .Release.Name }}-serviceaccount-install
+  namespace: {{ .Release.Namespace }}
+{{- end }}
+
