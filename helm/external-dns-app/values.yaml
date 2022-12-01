@@ -209,7 +209,7 @@ serviceAccount:
   # If not set and create is true, a name is generated using the fullname template
   name: ""
 
-  #Needed for the creation of an irsa suppoerted service account
+  # Needed for the creation of an irsa suppoerted service account
   resources:
 
     # crd.resources.requests
