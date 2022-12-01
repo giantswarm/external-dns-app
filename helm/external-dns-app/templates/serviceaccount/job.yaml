@@ -1,0 +1,49 @@
+{{- if .Values.serviceAccount.create }}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "external-dns.serviceAccountName" . }}
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    {{- include "annotations.crd" . | nindent 4 }}
+    helm.sh/hook-weight: "-1"
+  labels:
+    {{- include "labels.common" . | nindent 4 }}
+    app.kubernetes.io/component: serviceaccount-install
+spec:
+  template:
+    metadata:
+      labels:
+        {{- include "labels.common" . | nindent 8 }}
+        app.kubernetes.io/component: serviceaccount-install
+    spec:
+      serviceAccountName: {{ .Release.Name }}-serviceaccount-install
+      securityContext:
+        runAsUser: {{ .Values.global.securityContext.userID }}
+        runAsGroup: {{ .Values.global.securityContext.groupID }}
+      tolerations:
+      - key: node-role.kubernetes.io/master
+        effect: NoSchedule
+      containers:
+      - name: kubectl
+        securityContext:
+          readOnlyRootFilesystem: false
+        image: {{ .Values.global.image.registry }}/giantswarm/docker-kubectl:1.24.2
+        command:
+        - sh
+        - -c
+        - |
+          set -o errexit ; set -o xtrace ; set -o nounset
+
+          export ACCOUNT_ID=$(curl -s http://169.254.169.254/latest/dynamic/instance-identity/document | jq -r .accountId)
+
+          sed "s/<<AWS_ACCOUNT_ID>>/$ACCOUNT_ID/g" files/serviceaccountdyaml | kubectl apply --sedver-side=true --field-manager='kubectl-client-side-apply' --force-conflicts --filename=-
+        volumeMounts:
+        - name: {{ .Release.Name }}-serviceaccount-install
+          mountPath: /files
+      volumes:
+      - name: {{ .Release.Name }}-serviceaccount-install
+        configMap:
+          name: {{ .Release.Name }}-serviceaccount-install
+      restartPolicy: Never
+  backoffLimit: 4
