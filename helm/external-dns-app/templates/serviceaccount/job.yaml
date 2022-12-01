@@ -41,6 +41,7 @@ spec:
         volumeMounts:
         - name: {{ .Release.Name }}-serviceaccount-install
           mountPath: /files
+        resources: {{- toYaml .Values.serviceAccount.resources | nindent 10 }}
       volumes:
       - name: {{ .Release.Name }}-serviceaccount-install
         configMap:
