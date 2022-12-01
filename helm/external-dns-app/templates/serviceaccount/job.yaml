@@ -47,3 +47,4 @@ spec:
           name: {{ .Release.Name }}-serviceaccount-install
       restartPolicy: Never
   backoffLimit: 4
+{{- end }}
