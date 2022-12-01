@@ -27,7 +27,7 @@ spec:
       containers:
       - name: kubectl
         securityContext:
-          readOnlyRootFilesystem: false
+          readOnlyRootFilesystem: true
         image: {{ .Values.global.image.registry }}/giantswarm/docker-kubectl:1.24.2
         command:
         - sh
