@@ -198,6 +198,8 @@ crd:
       cpu: 500m
       memory: 512Mi
 
+imagePullSecrets: []
+
 serviceAccount:
   # Specifies whether a service account should be created
   create: true
@@ -219,6 +221,16 @@ podLabels: {}
 
 # Annotations to add to the Pod
 podAnnotations: {}
+
+shareProcessNamespace: false
+
+# Defaults to `ClusterFirst`.
+# Valid values are: `ClusterFirstWithHostNet`, `ClusterFirst`, `Default` or `None`.
+dnsPolicy:
+
+priorityClassName: "giantswarm-critical"
+
+terminationGracePeriodSeconds:
 
 sources:
   - service
