@@ -120,7 +120,7 @@
             "type": "object"
         },
         "dnsPolicy": {
-            "type": "string"
+            "type": ["null","string"]
         },
         "e2e": {
             "type": "boolean"
@@ -316,7 +316,7 @@
             }
         },
         "terminationGracePeriodSeconds": {
-            "type": "integer"
+            "type": ["null", "integer"]
         }
     }
 }
