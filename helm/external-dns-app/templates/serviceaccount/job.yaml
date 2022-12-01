@@ -35,9 +35,11 @@ spec:
         - |
           set -o errexit ; set -o xtrace ; set -o nounset
 
+          {{- if and .Values.serviceAccount.create (or (eq .Values.provider "aws") (eq .Values.provider "capa")) }}
           export ACCOUNT_ID=$(curl -s http://169.254.169.254/latest/dynamic/instance-identity/document | jq -r .accountId)
+          {{- end }}
 
-          sed "s/<<AWS_ACCOUNT_ID>>/$ACCOUNT_ID/g" files/serviceaccountdyaml | kubectl apply --sedver-side=true --field-manager='kubectl-client-side-apply' --force-conflicts --filename=-
+          sed "s/<<AWS_ACCOUNT_ID>>/$ACCOUNT_ID/g" files/serviceaccount.yaml | kubectl apply --server-side=true --field-manager='kubectl-client-side-apply' --force-conflicts --filename=-
         volumeMounts:
         - name: {{ .Release.Name }}-serviceaccount-install
           mountPath: /files
