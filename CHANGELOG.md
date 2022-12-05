@@ -17,10 +17,11 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
   - Compose role rules based on values.
   - Rename ClusterRoleBinding.
   - Enable RBAC creation based on values.
-- Deployment: Align to upstream ([#210](https://github.com/giantswarm/external-dns-app/pull/210))
+- Deployment: Align to upstream ([#210](https://github.com/giantswarm/external-dns-app/pull/210) [#211](https://github.com/giantswarm/external-dns-app/pull/211))
   - Add annotations from values
   - Add labels in pods from values
   - Add annotations in pods from values
+  - Add deployment specs
 
 ## [2.19.0] - 2022-11-18
 
