@@ -232,12 +232,21 @@ priorityClassName: "giantswarm-critical"
 
 env: []
 
+extraVolumes: []
+
+extraVolumeMounts: []
+
 terminationGracePeriodSeconds:
 
 sources:
   - service
   - ingress
   - crd
+
+secretConfiguration:
+  enabled: false
+  mountPath: /.aws/credentials
+  data: {}
 
 global:
 
