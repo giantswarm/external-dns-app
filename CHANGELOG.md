@@ -7,6 +7,13 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## Added
+
+- Deployment: Align to upstream ([#212](https://github.com/giantswarm/external-dns-app/pull/212)).
+  - Add extraVolumes and extraVolumeMounts from values.
+  - Add environment variables from values.
+  - Add secretConfiguration for injecting secrets to deployment.
+
 ## [2.20.0] - 2022-12-05
 
 ### Changed
@@ -15,15 +22,15 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
   - Helper: Add upstream helpers.
   - ServiceAccount: Add annotations from values.
 - RBAC: Align to upstream ([#209](https://github.com/giantswarm/external-dns-app/pull/209))
-  - Split rbac.yaml into clusterrole.yaml and clusterrolebinding.yaml
+  - Split rbac.yaml into clusterrole.yaml and clusterrolebinding.yaml.
   - Compose role rules based on values.
   - Rename ClusterRoleBinding.
   - Enable RBAC creation based on values.
-- Deployment: Align to upstream ([#210](https://github.com/giantswarm/external-dns-app/pull/210) [#211](https://github.com/giantswarm/external-dns-app/pull/211))
-  - Add annotations from values
-  - Add labels in pods from values
-  - Add annotations in pods from values
-  - Add deployment specs
+- Deployment: Align to upstream ([#210](https://github.com/giantswarm/external-dns-app/pull/210) [#211](https://github.com/giantswarm/external-dns-app/pull/211)).
+  - Add annotations from values.
+  - Add labels in pods from values.
+  - Add annotations in pods from values.
+  - Add deployment specs.
 
 ## [2.19.0] - 2022-11-18
 
