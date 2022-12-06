@@ -9,7 +9,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## Added
 
-- Deployment: Align to upstream ([#212](https://github.com/giantswarm/external-dns-app/pull/212)).
+- Deployment: Align to upstream ([#214](https://github.com/giantswarm/external-dns-app/pull/214)).
   - Add extraVolumes and extraVolumeMounts from values.
   - Add environment variables from values.
   - Add secretConfiguration for injecting secrets to deployment.
