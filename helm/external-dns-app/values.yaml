@@ -230,6 +230,8 @@ dnsPolicy:
 
 priorityClassName: "giantswarm-critical"
 
+env: []
+
 terminationGracePeriodSeconds:
 
 sources:
