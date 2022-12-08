@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Added
+
+- Add pre-unstall,pre-upgrade helm hook that sets up ServiceAccount for IRSA
+
 ## [2.21.0] - 2022-12-08
 
 ## Added
