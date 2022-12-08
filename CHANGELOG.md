@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [2.21.0] - 2022-12-08
+
 ## Added
 
 - Deployment: Align to upstream ([#214](https://github.com/giantswarm/external-dns-app/pull/214)).
@@ -391,7 +393,8 @@ If you already specify `--aws-batch-change-interval` or `--aws-zones-cache-durat
 - Network policy that allows all egress traffic.
 - Network policy that allows accessing metrics on port `10254`.
 
-[Unreleased]: https://github.com/giantswarm/external-dns-app/compare/v2.20.0...HEAD
+[Unreleased]: https://github.com/giantswarm/external-dns-app/compare/v2.21.0...HEAD
+[2.21.0]: https://github.com/giantswarm/external-dns-app/compare/v2.20.0...v2.21.0
 [2.20.0]: https://github.com/giantswarm/external-dns-app/compare/v2.19.0...v2.20.0
 [2.19.0]: https://github.com/giantswarm/external-dns-app/compare/v2.18.0...v2.19.0
 [2.18.0]: https://github.com/giantswarm/external-dns-app/compare/v2.17.1...v2.18.0
