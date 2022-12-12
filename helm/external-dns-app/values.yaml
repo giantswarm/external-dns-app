@@ -203,6 +203,10 @@ imagePullSecrets: []
 serviceAccount:
   # Specifies whether a service account should be created
   create: true
+  # Specifies whether to use IRSA. This option is incompatible with
+  # `create=false` as the ServiceAccount will be created by a
+  # pre-install,pre-upgrade hook.
+  useIRSA: false
   # Annotations to add to the service account
   annotations: {}
   # The name of the service account to use.
