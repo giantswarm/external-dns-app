@@ -7,9 +7,13 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Added
+
+- Added projected volumes for `capa`
+
 ## [2.21.0] - 2022-12-08
 
-## Added
+### Added
 
 - Deployment: Align to upstream ([#214](https://github.com/giantswarm/external-dns-app/pull/214)).
   - Add extraVolumes and extraVolumeMounts from values.
