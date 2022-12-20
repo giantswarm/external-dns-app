@@ -321,6 +321,9 @@
                 "create": {
                     "type": "boolean"
                 },
+                "labels": {
+                    "type": "object"
+                },
                 "name": {
                     "type": "string"
                 }
