@@ -11,6 +11,11 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - Added projected volumes for `capa`
 
+### Changed 
+
+- ServiceAccount: Align to upstream ([#222](https://github.com/giantswarm/external-dns-app/pull/222)).
+  - Labels: Add labels from values.
+
 ## [2.21.0] - 2022-12-08
 
 ### Added
