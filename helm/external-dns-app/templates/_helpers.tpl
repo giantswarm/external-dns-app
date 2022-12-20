@@ -202,7 +202,6 @@ external-dns: aws.zoneType
 {{- end -}}
 
 
-
 {{/*
 Set Giant Swarm podAnnotations.
 */}}
@@ -215,6 +214,17 @@ Set Giant Swarm podAnnotations.
 {{- $_ := set .Values.podAnnotations "prometheus.io/port" (tpl "{{ .Values.global.metrics.port }}" .) }}
 {{- $_ := set .Values.podAnnotations "prometheus.io/scrape" (tpl "{{ .Values.global.metrics.scrape }}" .) }}
 {{- $_ := set .Values.podAnnotations "kubectl.kubernetes.io/default-container" (tpl "{{ .Release.Name }}" .)}}
+{{- end -}}
+
+{{/*
+Set Giant Swarm serviceAccountAnnotations.
+*/}}
+{{- define "giantswarm.serviceAccountAnnotations" -}}
+{{- if and (or (eq .Values.provider "aws") (eq .Values.provider "capa")) (eq .Values.aws.irsa "true") (eq .Values.aws.access "internal") (not (hasKey .Values.serviceAccount.annotations "eks.amazonaws.com/role-arn")) }}
+{{- $_ := set .Values.serviceAccount.annotations "eks.amazonaws.com/role-arn" (tpl "arn:aws:iam::{{ .Values.aws.accountID }}:role/{{ template \"aws.iam.role\" . }}" .) }}
+{{- else if and (eq .Values.provider "gcp") (.Values.gcpProject) (not (hasKey .Values.serviceAccount.annotations "giantswarm.io/gcp-service-account")) }}
+{{- $_ := set .Values.serviceAccount.annotations "giantswarm.io/gcp-service-account" (tpl "external-dns-app@{{ .Values.gcpProject }}.iam.gserviceaccount.com" .) }}
+{{- end }}
 {{- end -}}
 
 
