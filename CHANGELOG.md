@@ -10,6 +10,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 ### Added
 
 - Added projected volumes for `capa`
+- Add nodeSelector, affinity, topologySpreadContraints and tolerations values to align to upstream ([223](https://github.com/giantswarm/external-dns-app/pull/223))
 
 ### Changed 
 

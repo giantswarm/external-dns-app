@@ -2,6 +2,9 @@
     "$schema": "http://json-schema.org/schema#",
     "type": "object",
     "properties": {
+        "affinity": {
+            "type": "object"
+        },
         "aws": {
             "type": "object",
             "properties": {
@@ -261,6 +264,9 @@
         "imagePullSecrets": {
             "type": "array"
         },
+        "nodeSelector": {
+            "type": "object"
+        },
         "podAnnotations": {
             "type": "object"
         },
@@ -343,6 +349,12 @@
         },
         "terminationGracePeriodSeconds": {
             "type": ["null", "integer"]
+        },
+        "tolerations": {
+            "type": "array"
+        },
+        "topologySpreadConstraints": {
+            "type": "array"
         }
     }
 }
