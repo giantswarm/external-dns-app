@@ -9,13 +9,14 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ### Added
 
-- Added projected volumes for `capa`
+- Add projected volumes for `capa` ([#219](https://github.com/giantswarm/external-dns-app/pull/219)).
 - Add nodeSelector, affinity, topologySpreadContraints and tolerations values to align to upstream ([223](https://github.com/giantswarm/external-dns-app/pull/223))
 
 ### Changed 
 
 - ServiceAccount: Align to upstream ([#222](https://github.com/giantswarm/external-dns-app/pull/222)).
   - Labels: Add labels from values.
+- Allow overrides of service account annotations ([#221](https://github.com/giantswarm/external-dns-app/pull/221)).
 
 ## [2.21.0] - 2022-12-08
 
