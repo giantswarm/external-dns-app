@@ -219,6 +219,13 @@ Upstream chart helpers.
 */}}
 
 {{/*
+Expand the name of the chart.
+*/}}
+{{- define "external-dns.name" -}}
+{{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
+{{- end }}
+
+{{/*
 Common labels
 */}}
 {{- define "external-dns.labels" -}}
