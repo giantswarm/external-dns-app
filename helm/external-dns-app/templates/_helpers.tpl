@@ -214,18 +214,33 @@ Set Giant Swarm serviceAccountAnnotations.
 {{- end }}
 {{- end -}}
 
-
 {{/*
 Upstream chart helpers.
 */}}
 
 {{/*
 Common labels
-Temporarly include labels.common during the alignment to upstream.
 */}}
 {{- define "external-dns.labels" -}}
-{{ include "labels.common" . }}
+helm.sh/chart: {{ include "external-dns.chart" . }}
+{{ include "external-dns.selectorLabels" . }}
+{{- if .Chart.AppVersion }}
+app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
+{{- end }}
+app.kubernetes.io/managed-by: {{ .Release.Service }}
+{{- with .Values.commonLabels }}
+{{ toYaml . }}
+{{- end }}
+{{ include "giantswarm.labels" . }}
 {{- end -}}
+
+{{/*
+Selector labels
+*/}}
+{{- define "external-dns.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "external-dns.name" . }}
+app.kubernetes.io/instance: {{ .Release.Name }}
+{{- end }}
 
 {{/*
 Create a default fully qualified app name.
