@@ -6,24 +6,11 @@ Create chart name and version as used by the chart label.
 {{- end }}
 
 {{/*
-Common labels
+Giantswarm labels
 */}}
-{{- define "labels.common" -}}
-{{ include "labels.selector" . }}
-app.kubernetes.io/managed-by: {{ .Release.Service | quote }}
-app.kubernetes.io/name: {{ .Release.Name | quote }}
-app.kubernetes.io/instance: {{ .Release.Name | quote }}
-app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
+{{- define "giantswarm.labels" -}}
 giantswarm.io/service-type: "{{ .Values.serviceType }}"
-helm.sh/chart: {{ include "chart" . | quote }}
 application.giantswarm.io/team: {{ index .Chart.Annotations "application.giantswarm.io/team" | quote }}
-{{- end -}}
-
-{{/*
-Selector labels
-*/}}
-{{- define "labels.selector" -}}
-app: {{ .Release.Name | quote }}
 {{- end -}}
 
 {{/*
