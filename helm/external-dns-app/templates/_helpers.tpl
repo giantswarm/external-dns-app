@@ -230,6 +230,8 @@ Common labels
 */}}
 {{- define "external-dns.labels" -}}
 helm.sh/chart: {{ include "external-dns.chart" . }}
+app.kubernetes.io/name: {{ include "external-dns.name" . }}
+app.kubernetes.io/instance: {{ .Release.Name }}
 {{ include "external-dns.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
@@ -245,8 +247,7 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 Selector labels
 */}}
 {{- define "external-dns.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "external-dns.name" . }}
-app.kubernetes.io/instance: {{ .Release.Name }}
+app: {{ .Release.Name | quote }}
 {{- end }}
 
 {{/*
