@@ -122,6 +122,14 @@
         "deploymentAnnotations": {
             "type": "object"
         },
+        "deploymentStrategy": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "type": "string"
+                }
+            }
+        },
         "dnsPolicy": {
             "type": ["null","string"]
         },
