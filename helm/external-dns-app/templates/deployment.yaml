@@ -56,14 +56,14 @@ spec:
       dnsPolicy: {{ . }}
       {{- end }}
       initContainers:
-      {{- if and (or (eq .Values.provider "aws") (eq .Values.provider "capa")) (eq .Values.aws.access "internal") ( eq .Values.aws.irsa "false") }}
-      - name: wait-for-iam-role
-        image: {{ .Values.global.image.registry }}/giantswarm/alpine:3.16.2
-        command:
-        - /bin/sh
-        - -c
-        - counter=5; while ! wget -qO- http://169.254.169.254/latest/meta-data/iam/security-credentials/ | grep {{ template "aws.iam.role" . }}; do echo 'Waiting for iam-role to be available...'; sleep 5; let "counter-=1"  ; if [ "$counter" -eq "0" ]; then exit 1; fi; done
-      {{- end }}
+        {{- if and (or (eq .Values.provider "aws") (eq .Values.provider "capa")) (eq .Values.aws.access "internal") ( eq .Values.aws.irsa "false") }}
+        - name: wait-for-iam-role
+          image: {{ .Values.global.image.registry }}/giantswarm/alpine:3.16.2
+          command:
+          - /bin/sh
+          - -c
+          - counter=5; while ! wget -qO- http://169.254.169.254/latest/meta-data/iam/security-credentials/ | grep {{ template "aws.iam.role" . }}; do echo 'Waiting for iam-role to be available...'; sleep 5; let "counter-=1"  ; if [ "$counter" -eq "0" ]; then exit 1; fi; done
+        {{- end }}
       {{- if eq .Values.provider "azure" }}
       - name: copy-azure-config-file
         image: {{ .Values.global.image.registry }}/giantswarm/alpine:3.16.2-python3
