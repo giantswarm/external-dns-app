@@ -178,9 +178,9 @@ spec:
           initialDelaySeconds: 10
           timeoutSeconds: 1
         ports:
-        - name: metrics
-          containerPort: {{ .Values.global.metrics.port }}
-          protocol: TCP
+          - name: metrics
+            containerPort: {{ .Values.global.metrics.port }}
+            protocol: TCP
         {{- if or .Values.secretConfiguration.enabled .Values.extraVolumeMounts (eq .Values.provider "azure") }}
         volumeMounts:
           {{- if eq .Values.provider "azure" }}
