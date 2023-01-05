@@ -17,7 +17,7 @@ spec:
     matchLabels:
       {{- include "external-dns.selectorLabels" . | nindent 6 }}
   strategy:
-    type: Recreate
+    {{- toYaml .Values.deploymentStrategy | nindent 4 }}
   template:
     metadata:
       labels:

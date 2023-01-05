@@ -258,6 +258,9 @@ secretConfiguration:
   mountPath: /.aws/credentials
   data: {}
 
+deploymentStrategy:
+  type: Recreate
+
 global:
 
   # global.image
