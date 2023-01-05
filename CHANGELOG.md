@@ -7,6 +7,12 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed 
+
+- Deployment: Align to upstream ([#227](https://github.com/giantswarm/external-dns-app/pull/227)).
+  - Template deployment strategy from values
+  - Align indentation
+
 ## [2.22.0] - 2023-01-02
 
 ### Added
