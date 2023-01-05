@@ -4,11 +4,11 @@ metadata:
   name: {{ .Release.Name }}
   namespace: {{ .Release.Namespace }}
   labels:
-    {{- include "labels.common" . | nindent 4 }}
+    {{- include "external-dns.labels" . | nindent 4 }}
 spec:
   podSelector:
     matchLabels:
-      {{- include "labels.selector" . | nindent 6 }}
+      {{- include "external-dns.selectorLabels" . | nindent 6 }}
   policyTypes:
   - Ingress
   - Egress

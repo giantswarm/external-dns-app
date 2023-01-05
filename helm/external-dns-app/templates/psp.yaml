@@ -3,7 +3,7 @@ kind: PodSecurityPolicy
 metadata:
   name: {{ .Release.Name }}
   labels:
-    {{- include "labels.common" . | nindent 4 }}
+    {{- include "external-dns.labels" . | nindent 4 }}
 spec:
   fsGroup:
     rule: 'MustRunAs'

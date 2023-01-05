@@ -5,7 +5,7 @@ metadata:
   name: {{ .Release.Name }}
   namespace: {{ .Release.Namespace }}
   labels:
-    {{- include "labels.common" . | nindent 4 }}
+    {{- include "external-dns.labels" . | nindent 4 }}
 spec:
   resourcePolicy:
     containerPolicies:

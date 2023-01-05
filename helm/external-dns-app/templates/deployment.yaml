@@ -5,7 +5,7 @@ metadata:
   name: {{ .Release.Name }}
   namespace: {{ .Release.Namespace }}
   labels:
-    {{- include "labels.common" . | nindent 4 }}
+    {{- include "external-dns.labels" . | nindent 4 }}
     giantswarm.io/monitoring_basic_sli: "true"
   {{- with .Values.deploymentAnnotations }}
   annotations:
@@ -15,13 +15,13 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      {{- include "labels.selector" . | nindent 6 }}
+      {{- include "external-dns.selectorLabels" . | nindent 6 }}
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        {{- include "labels.common" . | nindent 8 }}
+        {{- include "external-dns.labels" . | nindent 8 }}
         {{- if and (eq .Values.provider "gcp") (.Values.gcpProject) }}
         giantswarm.io/gcp-workload-identity: enabled
         {{- end }}
