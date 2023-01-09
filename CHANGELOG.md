@@ -9,7 +9,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ### Changed 
 
-- Deployment: Align to upstream ([#227](https://github.com/giantswarm/external-dns-app/pull/227) [#228](https://github.com/giantswarm/external-dns-app/pull/228)).
+- Deployment: Align to upstream ([#227](https://github.com/giantswarm/external-dns-app/pull/227) [#229](https://github.com/giantswarm/external-dns-app/pull/229)).
   - Template deployment strategy from values
   - Align indentation
   - Move blocks to match upstream structure
