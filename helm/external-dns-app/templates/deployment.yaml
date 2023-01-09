@@ -28,10 +28,14 @@ spec:
       {{- with .Values.podLabels }}
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      {{- include "giantswarm.podAnnotations" . }}
-      {{- with .Values.podAnnotations }}
+      {{- if or .Values.secretConfiguration.enabled .Values.podAnnotations }}
       annotations:
+        {{- if .Values.secretConfiguration.enabled }}
+        checksum/secret: {{ include (print $.Template.BasePath "/secret.yaml") . | sha256sum }}
+        {{- end }}
+        {{- with .Values.podAnnotations }}
         {{- toYaml . | nindent 8 }}
+        {{- end }}
       {{- end }}
     spec:
       {{- with .Values.imagePullSecrets }}
@@ -98,9 +102,13 @@ spec:
           resources:
             {{- toYaml .Values.global.resources | nindent 12 }}
         {{- end }}
-        - name: {{ .Release.Name }}
+        - name: external-dns
+          {{- with .Values.securityContext }}
+          securityContext:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           image: "{{ .Values.global.image.registry }}/{{ .Values.global.image.name }}:{{ .Values.global.image.tag }}"
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: {{ .Values.global.image.pullPolicy }}
           env:
             {{- with .Values.env }}
             {{- toYaml . | nindent 12 }}
@@ -161,15 +169,10 @@ spec:
             {{- range .Values.externalDNS.extraArgs }}
             - {{ . }}
             {{- end }}
-          securityContext:
-            readOnlyRootFilesystem: true
-          readinessProbe:
-            httpGet:
-              path: /healthz
-              port: {{ .Values.global.metrics.port }}
-              scheme: HTTP
-          resources:
-            {{- toYaml .Values.global.resources | nindent 12 }}
+          ports:
+            - name: metrics
+              protocol: TCP
+              containerPort: {{ .Values.global.metrics.port }}
           livenessProbe:
             httpGet:
               path: /healthz
@@ -177,10 +180,11 @@ spec:
               scheme: HTTP
             initialDelaySeconds: 10
             timeoutSeconds: 1
-          ports:
-            - name: metrics
-              containerPort: {{ .Values.global.metrics.port }}
-              protocol: TCP
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: {{ .Values.global.metrics.port }}
+              scheme: HTTP
           {{- if or .Values.secretConfiguration.enabled .Values.extraVolumeMounts (eq .Values.provider "azure") }}
           volumeMounts:
             {{- if eq .Values.provider "azure" }}
@@ -191,11 +195,16 @@ spec:
             {{- if .Values.secretConfiguration.enabled }}
             - name: secrets
               mountPath: {{ tpl .Values.secretConfiguration.mountPath $ }}
+            {{- with .Values.secretConfiguration.subPath }}
+              subPath: {{ tpl . $ }}
+            {{- end }}
             {{- end }}
             {{- with .Values.extraVolumeMounts }}
             {{- toYaml . | nindent 12 }}
             {{- end }}
           {{- end }}
+          resources:
+            {{- toYaml .Values.global.resources | nindent 12 }}
       {{- if or .Values.secretConfiguration.enabled .Values.extraVolumes (eq .Values.provider "azure") }}
       volumes:
         {{- if eq .Values.provider "azure" }}
