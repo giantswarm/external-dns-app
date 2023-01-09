@@ -16,7 +16,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
   - Add annotations for secret reload
   - Take imagePullPolicy from values
   - Add secret's mount subpath
-
+  - Take securityContext from values
 
 ## [2.22.0] - 2023-01-02
 
