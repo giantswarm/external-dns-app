@@ -9,9 +9,14 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ### Changed 
 
-- Deployment: Align to upstream ([#227](https://github.com/giantswarm/external-dns-app/pull/227)).
+- Deployment: Align to upstream ([#227](https://github.com/giantswarm/external-dns-app/pull/227) [#228](https://github.com/giantswarm/external-dns-app/pull/228)).
   - Template deployment strategy from values
   - Align indentation
+  - Move blocks to match upstream structure
+  - Add annotations for secret reload
+  - Take imagePullPolicy from values
+  - Add secret's mount subpath
+
 
 ## [2.22.0] - 2023-01-02
 
