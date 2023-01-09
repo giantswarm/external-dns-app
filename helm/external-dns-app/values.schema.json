@@ -210,6 +210,9 @@
                         "name": {
                             "type": "string"
                         },
+                        "pullPolicy": {
+                            "type": "string"
+                        },
                         "registry": {
                             "type": "string"
                         },
@@ -322,6 +325,9 @@
                     "type": "boolean"
                 },
                 "mountPath": {
+                    "type": "string"
+                },
+                "subPath": {
                     "type": "string"
                 }
             }
