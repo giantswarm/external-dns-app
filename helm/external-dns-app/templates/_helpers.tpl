@@ -221,7 +221,7 @@ Set Giant Swarm serviceAccountAnnotations.
 */}}
 {{- define "giantswarm.serviceAccountAnnotations" -}}
 {{- if and (or (eq .Values.provider "aws") (eq .Values.provider "capa")) (eq .Values.aws.irsa "true") (eq .Values.aws.access "internal") (not (hasKey .Values.serviceAccount.annotations "eks.amazonaws.com/role-arn")) }}
-{{- $_ := set .Values.serviceAccount.annotations "eks.amazonaws.com/role-arn" (tpl "arn:aws:iam::{{ .Values.aws.accountID }}:role/{{ template \"aws.iam.role\" . }}" .) }}
+{{- $_ := set .Values.serviceAccount.annotations "eks.amazonaws.com/role-arn" (tpl "{{ template \"aws.iam.role\" . }}" .) }}
 {{- else if and (eq .Values.provider "gcp") (.Values.gcpProject) (not (hasKey .Values.serviceAccount.annotations "giantswarm.io/gcp-service-account")) }}
 {{- $_ := set .Values.serviceAccount.annotations "giantswarm.io/gcp-service-account" (tpl "external-dns-app@{{ .Values.gcpProject }}.iam.gserviceaccount.com" .) }}
 {{- end }}
