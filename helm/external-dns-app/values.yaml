@@ -15,11 +15,6 @@ aws:
   # can update public and private zones.
   access: internal
 
-  # aws.accountID
-  # AWS account ID is used to assume role via IRSA (IAM roles for service accounts).
-  # It is dynamically set and will be overridden.
-  accountID: ""
-
   # aws.baseDomain
   # If aws.access is 'external' then the domain to update must be set.
   baseDomain:
