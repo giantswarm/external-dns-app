@@ -119,6 +119,14 @@
         "deploymentAnnotations": {
             "type": "object"
         },
+        "deploymentStrategy": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "type": "string"
+                }
+            }
+        },
         "dnsPolicy": {
             "type": ["null","string"]
         },
@@ -197,6 +205,9 @@
                     "type": "object",
                     "properties": {
                         "name": {
+                            "type": "string"
+                        },
+                        "pullPolicy": {
                             "type": "string"
                         },
                         "registry": {
@@ -312,6 +323,34 @@
                 },
                 "mountPath": {
                     "type": "string"
+                },
+                "subPath": {
+                    "type": "string"
+                }
+            }
+        },
+        "securityContext": {
+            "type": "object",
+            "properties": {
+                "capabilities": {
+                    "type": "object",
+                    "properties": {
+                        "drop": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                },
+                "readOnlyRootFilesystem": {
+                    "type": "boolean"
+                },
+                "runAsNonRoot": {
+                    "type": "boolean"
+                },
+                "runAsUser": {
+                    "type": "integer"
                 }
             }
         },

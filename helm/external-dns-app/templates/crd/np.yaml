@@ -10,12 +10,12 @@ metadata:
     "helm.sh/hook-weight": "-7"
     {{- include "annotations.crd" . | nindent 4 }}
   labels:
-    {{- include "labels.common" . | nindent 4 }}
+    {{- include "external-dns.labels" . | nindent 4 }}
     app.kubernetes.io/component: crd-install
 spec:
   endpointSelector:
     matchLabels:
-      {{- include "labels.selector" . | nindent 6 }}
+      {{- include "external-dns.selectorLabels" . | nindent 6 }}
       app.kubernetes.io/component: crd-install
   egress:
     - toEntities:
@@ -35,12 +35,12 @@ metadata:
     {{- include "annotations.crd" . | nindent 4 }}
     helm.sh/hook-weight: "-7"
   labels:
-    {{- include "labels.common" . | nindent 4 }}
+    {{- include "external-dns.labels" . | nindent 4 }}
     app.kubernetes.io/component: crd-install
 spec:
   podSelector:
     matchLabels:
-      {{- include "labels.selector" . | nindent 6 }}
+      {{- include "external-dns.selectorLabels" . | nindent 6 }}
       app.kubernetes.io/component: crd-install
   policyTypes:
   - Egress

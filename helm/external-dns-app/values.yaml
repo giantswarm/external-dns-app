@@ -221,6 +221,13 @@ podAnnotations: {}
 
 shareProcessNamespace: false
 
+securityContext:
+  runAsNonRoot: true
+  runAsUser: 65534
+  readOnlyRootFilesystem: true
+  capabilities:
+    drop: ["ALL"]
+
 # Defaults to `ClusterFirst`.
 # Valid values are: `ClusterFirstWithHostNet`, `ClusterFirst`, `Default` or `None`.
 dnsPolicy:
@@ -251,7 +258,11 @@ sources:
 secretConfiguration:
   enabled: false
   mountPath: /.aws/credentials
+  subPath: ""
   data: {}
+
+deploymentStrategy:
+  type: Recreate
 
 global:
 
@@ -268,6 +279,7 @@ global:
     # global.image.tag
     # When updating tag make sure to also keep appVersion in Chart.yaml in sync.
     tag: v0.11.0
+    pullPolicy: IfNotPresent
 
   # global.metrics
   # Metrics configuration options
