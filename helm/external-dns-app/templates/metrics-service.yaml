@@ -8,7 +8,7 @@ metadata:
     giantswarm.io/monitoring-port: {{ .Values.global.metrics.port | quote }}
     giantswarm.io/monitoring-app-label: {{ .Chart.Name | quote }}
   labels:
-    {{- include "labels.common" . | nindent 4 }}
+    {{- include "external-dns.labels" . | nindent 4 }}
     giantswarm.io/monitoring: "true"
 spec:
   clusterIP: None
@@ -17,4 +17,4 @@ spec:
     port: {{ .Values.global.metrics.port }}
     targetPort: metrics
   selector:
-    {{- include "labels.selector" . | nindent 4 }}
+    {{- include "external-dns.selectorLabels" . | nindent 4 }}

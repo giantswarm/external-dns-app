@@ -1,29 +1,16 @@
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "chart" -}}
-{{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" -}}
-{{- end -}}
+{{- define "external-dns.chart" -}}
+{{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
+{{- end }}
 
 {{/*
-Common labels
+Giantswarm labels
 */}}
-{{- define "labels.common" -}}
-{{ include "labels.selector" . }}
-app.kubernetes.io/managed-by: {{ .Release.Service | quote }}
-app.kubernetes.io/name: {{ .Release.Name | quote }}
-app.kubernetes.io/instance: {{ .Release.Name | quote }}
-app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
+{{- define "giantswarm.labels" -}}
 giantswarm.io/service-type: "{{ .Values.serviceType }}"
-helm.sh/chart: {{ include "chart" . | quote }}
 application.giantswarm.io/team: {{ index .Chart.Annotations "application.giantswarm.io/team" | quote }}
-{{- end -}}
-
-{{/*
-Selector labels
-*/}}
-{{- define "labels.selector" -}}
-app: {{ .Release.Name | quote }}
 {{- end -}}
 
 {{/*
@@ -227,18 +214,41 @@ Set Giant Swarm serviceAccountAnnotations.
 {{- end }}
 {{- end -}}
 
-
 {{/*
 Upstream chart helpers.
 */}}
 
 {{/*
+Expand the name of the chart.
+*/}}
+{{- define "external-dns.name" -}}
+{{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
+{{- end }}
+
+{{/*
 Common labels
-Temporarly include labels.common during the alignment to upstream.
 */}}
 {{- define "external-dns.labels" -}}
-{{ include "labels.common" . }}
+helm.sh/chart: {{ include "external-dns.chart" . }}
+app.kubernetes.io/name: {{ include "external-dns.name" . }}
+app.kubernetes.io/instance: {{ .Release.Name }}
+{{ include "external-dns.selectorLabels" . }}
+{{- if .Chart.AppVersion }}
+app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
+{{- end }}
+app.kubernetes.io/managed-by: {{ .Release.Service }}
+{{- with .Values.commonLabels }}
+{{ toYaml . }}
+{{- end }}
+{{ include "giantswarm.labels" . }}
 {{- end -}}
+
+{{/*
+Selector labels
+*/}}
+{{- define "external-dns.selectorLabels" -}}
+app: {{ .Release.Name | quote }}
+{{- end }}
 
 {{/*
 Create a default fully qualified app name.
