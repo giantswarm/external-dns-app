@@ -212,7 +212,7 @@ Set Giant Swarm serviceAccountAnnotations.
 {{- $_ := set .Values.serviceAccount.annotations "eks.amazonaws.com/role-arn" (tpl "arn:aws:iam::{{ .Values.aws.accountID }}:role/{{ template \"aws.iam.role\" . }}" .) }}
 {{- end}}
 {{- if and (or (eq .Values.provider "capa")) }}
-{{- $_ := set .Values.serviceAccount.annotations "eks.amazonaws.com/role-arn" (tpl "{{ template \"aws.iam.role\" . }}" .) }}
+{{- $_ := set .Values.serviceAccount.annotations "eks.amazonaws.com/role-arn" (include "aws.iam.role" .) }}                                                                                                                                        
 {{- end }}
 {{- else if and (eq .Values.provider "gcp") (.Values.gcpProject) (not (hasKey .Values.serviceAccount.annotations "giantswarm.io/gcp-service-account")) }}
 {{- $_ := set .Values.serviceAccount.annotations "giantswarm.io/gcp-service-account" (tpl "external-dns-app@{{ .Values.gcpProject }}.iam.gserviceaccount.com" .) }}
