@@ -253,6 +253,11 @@ affinity: {}
 
 topologySpreadConstraints: []
 
+logLevel: info
+logFormat: text
+
+triggerLoopOnEvent: false
+
 terminationGracePeriodSeconds:
 
 sources:

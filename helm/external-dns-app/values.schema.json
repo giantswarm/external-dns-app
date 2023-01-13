@@ -275,6 +275,12 @@
         "imagePullSecrets": {
             "type": "array"
         },
+        "logFormat": {
+            "type": "string"
+        },
+        "logLevel": {
+            "type": "string"
+        },
         "nodeSelector": {
             "type": "object"
         },
@@ -394,6 +400,9 @@
         },
         "topologySpreadConstraints": {
             "type": "array"
+        },
+        "triggerLoopOnEvent": {
+            "type": "boolean"
         }
     }
 }
