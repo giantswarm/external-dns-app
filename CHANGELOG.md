@@ -9,7 +9,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ### Fixed
 
-- Restored missing pod annotations in deployment ([#232](https://github.com/giantswarm/external-dns-app/pull/232)).
+- Restore missing pod annotations in deployment ([#232](https://github.com/giantswarm/external-dns-app/pull/232)).
 
 ## [2.23.0] - 2023-01-13
 
