@@ -144,6 +144,11 @@ spec:
               value: {{ $proxy.https }}
             {{- end }}
           args:
+            - --log-level={{ .Values.logLevel }}
+            - --log-format={{ .Values.logFormat }}
+            {{- if .Values.triggerLoopOnEvent }}
+            - --events
+            {{- end }}
             {{- if .Values.externalDNS.dryRun }}
             - --dry-run
             {{- end }}
