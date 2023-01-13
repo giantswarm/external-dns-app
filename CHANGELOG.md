@@ -7,11 +7,14 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Fixed
+
+- Restore missing pod annotations in deployment ([#232](https://github.com/giantswarm/external-dns-app/pull/232)).
+
 ## [2.23.0] - 2023-01-13
 
 ### Changed
 
-<<<<<<< HEAD
 - Service account `irsa` annotation for `aws` and `capa` to align with `aws-pod-identity-webhook-app` changes
 - Deployment: Align to upstream ([#227](https://github.com/giantswarm/external-dns-app/pull/227) [#229](https://github.com/giantswarm/external-dns-app/pull/229) [#224](https://github.com/giantswarm/external-dns-app/pull/224)).
   - Template deployment strategy from values

@@ -28,6 +28,7 @@ spec:
       {{- with .Values.podLabels }}
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      {{- include "giantswarm.podAnnotations" . }}
       {{- if or .Values.secretConfiguration.enabled .Values.podAnnotations }}
       annotations:
         {{- if .Values.secretConfiguration.enabled }}
