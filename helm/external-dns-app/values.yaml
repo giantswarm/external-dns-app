@@ -109,7 +109,7 @@ externalDNS:
 
   # externalDNS.interval
   # Interval between synchronisations. Must be in duration format (e.g. `5m`)
-  interval: 5m
+  interval: 1m
 
   # externalDNS.namespaceFilter
   # The namespace to limit sources of endpoints to. If left blank, all
