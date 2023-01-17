@@ -224,7 +224,7 @@ Upstream chart helpers.
 Expand the name of the chart.
 */}}
 {{- define "external-dns.name" -}}
-{{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
+{{- default "external-dns" .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
