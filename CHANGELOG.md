@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [2.23.2] - 2023-01-17
+
 ### Fixed
 
 - Hardcode `external-dns.name` default name dropping the `-app` suffix ([#235](https://github.com/giantswarm/external-dns-app/pull/235))
@@ -431,7 +433,8 @@ If you already specify `--aws-batch-change-interval` or `--aws-zones-cache-durat
 - Network policy that allows all egress traffic.
 - Network policy that allows accessing metrics on port `10254`.
 
-[Unreleased]: https://github.com/giantswarm/external-dns-app/compare/v2.23.1...HEAD
+[Unreleased]: https://github.com/giantswarm/external-dns-app/compare/v2.23.2...HEAD
+[2.23.2]: https://github.com/giantswarm/external-dns-app/compare/v2.23.1...v2.23.2
 [2.23.1]: https://github.com/giantswarm/external-dns-app/compare/v2.23.0...v2.23.1
 [2.23.0]: https://github.com/giantswarm/external-dns-app/compare/v2.22.0...v2.23.0
 [2.22.0]: https://github.com/giantswarm/external-dns-app/compare/v2.21.0...v2.22.0
