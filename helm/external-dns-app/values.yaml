@@ -325,6 +325,9 @@ global:
     # global.securityContext.userID
     userID: 65534
 
+# hostNetwork
+hostNetwork: false
+
 # provider
 # Identifies the cloud provider. Currently supported: `aws` and `azure`. This *must*
 # be set. If this is installed as a default app from the default-catalog then this

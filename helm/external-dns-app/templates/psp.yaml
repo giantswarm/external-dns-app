@@ -11,7 +11,12 @@ spec:
       - min: {{ .Values.global.securityContext.fsGroupID }}
         max: {{ .Values.global.securityContext.fsGroupID }}
   hostIPC: false
-  hostNetwork: false
+  {{- if .Values.hostNetwork }}
+  hostNetwork: true
+  hostPorts:
+  - min: {{ .Values.global.metrics.port }}
+    max: {{ .Values.global.metrics.port }}
+  {{- end }}
   hostPID: false
   privileged: false
   readOnlyRootFilesystem: false

@@ -51,6 +51,9 @@ spec:
         runAsUser: {{ .Values.global.securityContext.userID }}
         runAsGroup: {{ .Values.global.securityContext.groupID }}
         fsGroup: {{ .Values.global.securityContext.fsGroupID }}
+      {{- if .Values.hostNetwork }}
+      hostNetwork: true
+      {{- end }}
       {{- with .Values.priorityClassName }}
       priorityClassName: {{ . | quote }}
       {{- end }}

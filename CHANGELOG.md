@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Added
+
+- Add support to run in `hostNetwork` (primary used in `CAPZ` based management clusters)
+
 ## [2.23.2] - 2023-01-17
 
 ### Fixed
