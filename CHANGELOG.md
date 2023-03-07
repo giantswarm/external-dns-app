@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [2.33.0] - 2023-03-07
+
 ### Added
 
 - Add support to run in `hostNetwork` (primary used in `CAPZ` based management clusters)
@@ -437,7 +439,8 @@ If you already specify `--aws-batch-change-interval` or `--aws-zones-cache-durat
 - Network policy that allows all egress traffic.
 - Network policy that allows accessing metrics on port `10254`.
 
-[Unreleased]: https://github.com/giantswarm/external-dns-app/compare/v2.23.2...HEAD
+[Unreleased]: https://github.com/giantswarm/external-dns-app/compare/v2.33.0...HEAD
+[2.33.0]: https://github.com/giantswarm/external-dns-app/compare/v2.23.2...v2.33.0
 [2.23.2]: https://github.com/giantswarm/external-dns-app/compare/v2.23.1...v2.23.2
 [2.23.1]: https://github.com/giantswarm/external-dns-app/compare/v2.23.0...v2.23.1
 [2.23.0]: https://github.com/giantswarm/external-dns-app/compare/v2.22.0...v2.23.0
