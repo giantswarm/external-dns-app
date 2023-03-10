@@ -7,6 +7,13 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Service: Align to upstream ([#243](https://github.com/giantswarm/external-dns-app/pull/243)).
+  - Replace `global.metrics.port` value with `service.port`.
+  - Add service annotations with GS defaults.
+  - Set readinessProbe and livenessProbe from values.
+
 ## [2.33.0] - 2023-03-07
 
 ### Added
