@@ -165,7 +165,6 @@ spec:
             - --interval={{ .Values.externalDNS.interval }}
             {{- end }}
             {{- include "dnsProvider.flags" . | nindent 12 }}
-            - --metrics-address=:{{ .Values.global.metrics.port }}
             {{- if .Values.externalDNS.namespaceFilter }}
             - --namespace={{ .Values.externalDNS.namespaceFilter }}
             {{- end }}
@@ -179,9 +178,9 @@ spec:
             - {{ . }}
             {{- end }}
           ports:
-            - name: metrics
+            - name: http
               protocol: TCP
-              containerPort: {{ .Values.global.metrics.port }}
+              containerPort: 7979
           livenessProbe:
             {{- toYaml .Values.livenessProbe | nindent 12 }}
           readinessProbe:
