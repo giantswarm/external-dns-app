@@ -265,7 +265,7 @@ service:
   port: 7979
   annotations:
     giantswarm.io/monitoring-path: /metrics
-    giantswarm.io/monitoring-port: 7979
+    giantswarm.io/monitoring-port: "7979"
     giantswarm.io/monitoring-app-label: "external-dns-app"
 
 extraVolumes: []
