@@ -13,6 +13,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
   - Replace `global.metrics.port` value with `service.port`.
   - Add service annotations with GS defaults.
   - Set readinessProbe and livenessProbe from values.
+  - Move podAnnotations to values.
 
 ## [2.33.0] - 2023-03-07
 
