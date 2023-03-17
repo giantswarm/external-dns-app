@@ -226,7 +226,7 @@ podAnnotations:
   scheduler.alpha.kubernetes.io/critical-pod: ""
   prometheus.io/path: /metrics
   prometheus.io/port: "7979"
-  prometheus.io/scrape: true
+  prometheus.io/scrape: "true"
   kubectl.kubernetes.io/default-container: external-dns
 
 shareProcessNamespace: false
