@@ -323,18 +323,6 @@ global:
     tag: v0.11.0
     pullPolicy: IfNotPresent
 
-  # global.metrics
-  # Metrics configuration options
-  metrics:
-
-    # global.metrics.port
-    # The port to serve metrics on.
-    port: 7979
-
-    # global.metrics.scrape
-    # Enable/disable scraping by Prometheus.
-    scrape: true
-
   # global.resources
   # Set pod resource limits and requests. This is passed as a YAML
   # dictionary directly into the deployment manifest.
