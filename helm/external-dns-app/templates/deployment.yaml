@@ -165,7 +165,6 @@ spec:
             - --interval={{ .Values.externalDNS.interval }}
             {{- end }}
             {{- include "dnsProvider.flags" . | nindent 12 }}
-            - --metrics-address=:{{ .Values.global.metrics.port }}
             {{- if .Values.externalDNS.namespaceFilter }}
             - --namespace={{ .Values.externalDNS.namespaceFilter }}
             {{- end }}
@@ -179,21 +178,13 @@ spec:
             - {{ . }}
             {{- end }}
           ports:
-            - name: metrics
+            - name: http
               protocol: TCP
-              containerPort: {{ .Values.global.metrics.port }}
+              containerPort: 7979
           livenessProbe:
-            httpGet:
-              path: /healthz
-              port: {{ .Values.global.metrics.port }}
-              scheme: HTTP
-            initialDelaySeconds: 10
-            timeoutSeconds: 1
+            {{- toYaml .Values.livenessProbe | nindent 12 }}
           readinessProbe:
-            httpGet:
-              path: /healthz
-              port: {{ .Values.global.metrics.port }}
-              scheme: HTTP
+            {{- toYaml .Values.readinessProbe | nindent 12 }}
           {{- if or .Values.secretConfiguration.enabled .Values.extraVolumeMounts (eq .Values.provider "azure") }}
           volumeMounts:
             {{- if eq .Values.provider "azure" }}

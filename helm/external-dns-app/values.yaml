@@ -222,7 +222,12 @@ deploymentAnnotations: {}
 podLabels: {}
 
 # Annotations to add to the Pod
-podAnnotations: {}
+podAnnotations:
+  scheduler.alpha.kubernetes.io/critical-pod: ""
+  prometheus.io/path: /metrics
+  prometheus.io/port: "7979"
+  prometheus.io/scrape: "true"
+  kubectl.kubernetes.io/default-container: external-dns
 
 shareProcessNamespace: false
 
@@ -287,6 +292,33 @@ serviceMonitor:
 
 env: []
 
+livenessProbe:
+  httpGet:
+    path: /healthz
+    port: http
+  initialDelaySeconds: 10
+  periodSeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 2
+  successThreshold: 1
+
+readinessProbe:
+  httpGet:
+    path: /healthz
+    port: http
+  initialDelaySeconds: 5
+  periodSeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 6
+  successThreshold: 1
+
+service:
+  port: 7979
+  annotations:
+    giantswarm.io/monitoring-path: /metrics
+    giantswarm.io/monitoring-port: "7979"
+    giantswarm.io/monitoring-app-label: "external-dns-app"
+
 extraVolumes: []
 
 extraVolumeMounts: []
@@ -336,18 +368,6 @@ global:
     # When updating tag make sure to also keep appVersion in Chart.yaml in sync.
     tag: v0.11.0
     pullPolicy: IfNotPresent
-
-  # global.metrics
-  # Metrics configuration options
-  metrics:
-
-    # global.metrics.port
-    # The port to serve metrics on.
-    port: 7979
-
-    # global.metrics.scrape
-    # Enable/disable scraping by Prometheus.
-    scrape: true
 
   # global.resources
   # Set pod resource limits and requests. This is passed as a YAML

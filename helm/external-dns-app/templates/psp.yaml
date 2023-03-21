@@ -14,8 +14,8 @@ spec:
   {{- if .Values.hostNetwork }}
   hostNetwork: true
   hostPorts:
-  - min: {{ .Values.global.metrics.port }}
-    max: {{ .Values.global.metrics.port }}
+  - min: {{ .Values.service.port }}
+    max: {{ .Values.service.port }}
   {{- end }}
   hostPID: false
   privileged: false
