@@ -9,7 +9,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ### Added
 
-- Add ServiceMonitor and default values ([]()).
+- Add ServiceMonitor and default values ([#245](https://github.com/giantswarm/external-dns-app/pull/245)).
 
 ## [2.33.0] - 2023-03-07
 
