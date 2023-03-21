@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Added
+
+- Add ServiceMonitor and default values ([]()).
+
 ## [2.33.0] - 2023-03-07
 
 ### Added
