@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Make CiliumNetworkPolicy CR creation be deployed or not with a flag in the Values.
+
 ## [2.33.0] - 2023-03-07
 
 ### Added
