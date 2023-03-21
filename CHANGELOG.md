@@ -37,6 +37,11 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 ### Changed
 
 - Remove deprecated annotation from Pod.[#265](https://github.com/giantswarm/external-dns-app/pull/265).
+- Service: Align to upstream ([#243](https://github.com/giantswarm/external-dns-app/pull/243)).
+  - Replace `global.metrics.port` value with `service.port`.
+  - Add service annotations with GS defaults.
+  - Set readinessProbe and livenessProbe from values.
+  - Move podAnnotations to values.
 
 ### Fixed
 
