@@ -383,6 +383,29 @@
                 }
             }
         },
+        "serviceMonitor": {
+            "type": "object",
+            "properties": {
+                "additionalLabels": {
+                    "type": "object"
+                },
+                "annotations": {
+                    "type": "object"
+                },
+                "enabled": {
+                    "type": "boolean"
+                },
+                "metricRelabelings": {
+                    "type": "array"
+                },
+                "relabelings": {
+                    "type": "array"
+                },
+                "targetLabels": {
+                    "type": "array"
+                }
+            }
+        },
         "serviceType": {
             "type": "string"
         },
