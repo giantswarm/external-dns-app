@@ -221,25 +221,6 @@
                         }
                     }
                 },
-                "metrics": {
-                    "type": "object",
-                    "properties": {
-                        "port": {
-                            "type": "integer"
-                        },
-                        "scrape": {
-                            "type": "boolean"
-                        }
-                    }
-                },
-                "podSecurityStandards": {
-                    "type": "object",
-                    "properties": {
-                        "enforced": {
-                            "type": "boolean"
-                        }
-                    }
-                },
                 "resources": {
                     "type": "object",
                     "properties": {
@@ -285,6 +266,37 @@
         },
         "imagePullSecrets": {
             "type": "array"
+        },
+        "livenessProbe": {
+            "type": "object",
+            "properties": {
+                "failureThreshold": {
+                    "type": "integer"
+                },
+                "httpGet": {
+                    "type": "object",
+                    "properties": {
+                        "path": {
+                            "type": "string"
+                        },
+                        "port": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "initialDelaySeconds": {
+                    "type": "integer"
+                },
+                "periodSeconds": {
+                    "type": "integer"
+                },
+                "successThreshold": {
+                    "type": "integer"
+                },
+                "timeoutSeconds": {
+                    "type": "integer"
+                }
+            }
         },
         "logFormat": {
             "type": "string"
@@ -332,6 +344,37 @@
                 }
             }
         },
+        "readinessProbe": {
+            "type": "object",
+            "properties": {
+                "failureThreshold": {
+                    "type": "integer"
+                },
+                "httpGet": {
+                    "type": "object",
+                    "properties": {
+                        "path": {
+                            "type": "string"
+                        },
+                        "port": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "initialDelaySeconds": {
+                    "type": "integer"
+                },
+                "periodSeconds": {
+                    "type": "integer"
+                },
+                "successThreshold": {
+                    "type": "integer"
+                },
+                "timeoutSeconds": {
+                    "type": "integer"
+                }
+            }
+        },
         "secretConfiguration": {
             "type": "object",
             "properties": {
@@ -370,6 +413,17 @@
                     "type": "boolean"
                 },
                 "runAsUser": {
+                    "type": "integer"
+                }
+            }
+        },
+        "service": {
+            "type": "object",
+            "properties": {
+                "annotations": {
+                    "type": "object"
+                },
+                "port": {
                     "type": "integer"
                 }
             }
