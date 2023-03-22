@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Added
+
+- Add `node-role.kubernetes.io/control-plane` to crd install jobs toleration.
+
 ## [2.34.0] - 2023-03-21
 
 ### Added
