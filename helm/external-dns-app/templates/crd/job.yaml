@@ -37,6 +37,8 @@ spec:
         - |
           set -o errexit ; set -o xtrace ; set -o nounset
           kubectl apply --server-side=true --field-manager='kubectl-client-side-apply' --force-conflicts --filename /crd 2>&1
+        resources:
+          {{- toYaml .Values.crd.resources | nindent 10 }}
         volumeMounts:
         - name: {{ .Release.Name }}-crd-install
           mountPath: /crd

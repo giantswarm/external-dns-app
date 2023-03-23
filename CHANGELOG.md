@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Added
+
+- Configure request and limits for CRD job.
+
 ## [2.34.1] - 2023-03-22
 
 ### Added
