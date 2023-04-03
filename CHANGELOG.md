@@ -11,6 +11,24 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - Make CiliumNetworkPolicy CR creation be deployed or not with a flag in the Values.
 
+## [2.34.2] - 2023-03-23
+
+### Added
+
+- Configure request and limits for CRD job.
+
+## [2.34.1] - 2023-03-22
+
+### Added
+
+- Add `node-role.kubernetes.io/control-plane` to crd install jobs toleration.
+
+## [2.34.0] - 2023-03-21
+
+### Added
+
+- Add ServiceMonitor and default values ([#245](https://github.com/giantswarm/external-dns-app/pull/245)).
+
 ## [2.33.0] - 2023-03-07
 
 ### Added
@@ -443,7 +461,10 @@ If you already specify `--aws-batch-change-interval` or `--aws-zones-cache-durat
 - Network policy that allows all egress traffic.
 - Network policy that allows accessing metrics on port `10254`.
 
-[Unreleased]: https://github.com/giantswarm/external-dns-app/compare/v2.33.0...HEAD
+[Unreleased]: https://github.com/giantswarm/external-dns-app/compare/v2.34.2...HEAD
+[2.34.2]: https://github.com/giantswarm/external-dns-app/compare/v2.34.1...v2.34.2
+[2.34.1]: https://github.com/giantswarm/external-dns-app/compare/v2.34.0...v2.34.1
+[2.34.0]: https://github.com/giantswarm/external-dns-app/compare/v2.33.0...v2.34.0
 [2.33.0]: https://github.com/giantswarm/external-dns-app/compare/v2.23.2...v2.33.0
 [2.23.2]: https://github.com/giantswarm/external-dns-app/compare/v2.23.1...v2.23.2
 [2.23.1]: https://github.com/giantswarm/external-dns-app/compare/v2.23.0...v2.23.1
