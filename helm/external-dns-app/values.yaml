@@ -402,3 +402,6 @@ baseDomain: gigantic.io
 # from the default-catalog. It is dynamically set and will be overridden. Specific
 # to Giant Swarm clusters.
 clusterID: en2jo
+
+ciliumNetworkPolicy:
+  enabled: false
