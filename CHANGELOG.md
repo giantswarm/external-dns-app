@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [2.35.0] - 2023-04-04
+
 ### Changed
 
 - Make CiliumNetworkPolicy CR creation be deployed or not with a flag in the Values.
@@ -461,7 +463,8 @@ If you already specify `--aws-batch-change-interval` or `--aws-zones-cache-durat
 - Network policy that allows all egress traffic.
 - Network policy that allows accessing metrics on port `10254`.
 
-[Unreleased]: https://github.com/giantswarm/external-dns-app/compare/v2.34.2...HEAD
+[Unreleased]: https://github.com/giantswarm/external-dns-app/compare/v2.35.0...HEAD
+[2.35.0]: https://github.com/giantswarm/external-dns-app/compare/v2.34.2...v2.35.0
 [2.34.2]: https://github.com/giantswarm/external-dns-app/compare/v2.34.1...v2.34.2
 [2.34.1]: https://github.com/giantswarm/external-dns-app/compare/v2.34.0...v2.34.1
 [2.34.0]: https://github.com/giantswarm/external-dns-app/compare/v2.33.0...v2.34.0
