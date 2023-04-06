@@ -150,6 +150,7 @@ spec:
           args:
             - --log-level={{ .Values.logLevel }}
             - --log-format={{ .Values.logFormat }}
+            - --interval={{ .Values.interval }}
             {{- if .Values.triggerLoopOnEvent }}
             - --events
             {{- end }}
@@ -161,9 +162,6 @@ spec:
             {{- end }}
             - --policy={{ .Values.externalDNS.policy }}
             - --annotation-filter={{- template "annotation.filter" . }}
-            {{- if .Values.externalDNS.interval }}
-            - --interval={{ .Values.externalDNS.interval }}
-            {{- end }}
             {{- include "dnsProvider.flags" . | nindent 12 }}
             {{- if .Values.externalDNS.namespaceFilter }}
             - --namespace={{ .Values.externalDNS.namespaceFilter }}

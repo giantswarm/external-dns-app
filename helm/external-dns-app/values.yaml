@@ -107,10 +107,6 @@ externalDNS:
   # Dry run logs what action external-dns would have taken, but doesn't apply them.
   dryRun: false
 
-  # externalDNS.interval
-  # Interval between synchronisations. Must be in duration format (e.g. `5m`)
-  interval: 5m
-
   # externalDNS.namespaceFilter
   # The namespace to limit sources of endpoints to. If left blank, all
   # namespaces will be used.
@@ -345,6 +341,7 @@ topologySpreadConstraints: []
 logLevel: info
 logFormat: text
 
+interval: 5m
 triggerLoopOnEvent: false
 
 terminationGracePeriodSeconds:
