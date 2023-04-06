@@ -47,10 +47,10 @@ spec:
       {{- with .Values.shareProcessNamespace }}
       shareProcessNamespace: {{ . }}
       {{- end }}
+      {{- with .Values.podSecurityContext }}
       securityContext:
-        runAsUser: {{ .Values.global.securityContext.userID }}
-        runAsGroup: {{ .Values.global.securityContext.groupID }}
-        fsGroup: {{ .Values.global.securityContext.fsGroupID }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       {{- if .Values.hostNetwork }}
       hostNetwork: true
       {{- end }}

@@ -231,6 +231,11 @@ podAnnotations:
 
 shareProcessNamespace: false
 
+podSecurityContext:
+  fsGroup: 65534
+  runAsGroup: 65534
+  runAsUser: 65534
+
 securityContext:
   runAsNonRoot: true
   runAsUser: 65534
@@ -379,17 +384,6 @@ global:
       cpu: 50m
       memory: 100Mi
 
-  # global.securityContext
-  securityContext:
-
-    # global.securityContext.fsGroupID
-    fsGroupID: 65534
-
-    # global.securityContext.groupID
-    groupID: 65534
-
-    # global.securityContext.userID
-    userID: 65534
 
 # hostNetwork
 hostNetwork: false

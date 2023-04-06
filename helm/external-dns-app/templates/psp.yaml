@@ -8,8 +8,8 @@ spec:
   fsGroup:
     rule: 'MustRunAs'
     ranges:
-      - min: {{ .Values.global.securityContext.fsGroupID }}
-        max: {{ .Values.global.securityContext.fsGroupID }}
+      - min: {{ .Values.podSecurityContext.fsGroup }}
+        max: {{ .Values.podSecurityContext.fsGroup }}
   hostIPC: false
   {{- if .Values.hostNetwork }}
   hostNetwork: true
@@ -23,13 +23,13 @@ spec:
   runAsGroup:
     rule: 'MustRunAs'
     ranges:
-      - min: {{ .Values.global.securityContext.groupID }}
-        max: {{ .Values.global.securityContext.groupID }}
+      - min: {{ .Values.podSecurityContext.runAsGroup }}
+        max: {{ .Values.podSecurityContext.runAsGroup }}
   runAsUser:
     rule: 'MustRunAs'
     ranges:
-      - min: {{ .Values.global.securityContext.userID }}
-        max: {{ .Values.global.securityContext.userID }}
+      - min: {{ .Values.podSecurityContext.runAsUser }}
+        max: {{ .Values.podSecurityContext.runAsUser }}
   seLinux:
     rule: RunAsAny
   supplementalGroups:
