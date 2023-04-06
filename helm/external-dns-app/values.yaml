@@ -108,11 +108,6 @@ externalDNS:
   # namespaces will be used.
   namespaceFilter: kube-system
 
-  # externalDNS.minEventSyncInterval
-  # The minimum interval between two consecutive synchronizations triggered from
-  # kubernetes events in duration format (default: 5s)
-  minEventSyncInterval: 30s
-
   # externalDNS.registry
   # Configuration options relating to ownership of created records.
   registry:
@@ -338,7 +333,8 @@ policy: sync
 # value is set dynamically and will be overridden.
 provider: CHANGEME
 
-extraArgs: []
+extraArgs:
+  - --min-event-sync-interval=30s
 
 secretConfiguration:
   enabled: false
