@@ -135,13 +135,6 @@ externalDNS:
     # https://github.com/kubernetes-sigs/external-dns/blob/master/docs/proposal/registry.md
     txtPrefix: extdns
 
-  # externalDNS.sources
-  # Resource types queried for endpoints.
-  sources:
-  - service
-  # Disable ingress source by default.
-  # - ingress
-
   # externalDNS.extraArgs
   # Allows to specify additional arguments to the external-dns deployment.
   extraArgs: []
@@ -348,8 +341,6 @@ terminationGracePeriodSeconds:
 
 sources:
   - service
-  - ingress
-  - crd
 
 secretConfiguration:
   enabled: false
