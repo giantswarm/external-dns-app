@@ -18,9 +18,10 @@ spec:
         app.kubernetes.io/component: crd-install
     spec:
       serviceAccountName: {{ .Release.Name }}-crd-install
+      {{- with .Values.crd.podSecurityContext }}
       securityContext:
-        runAsUser: {{ .Values.global.securityContext.userID }}
-        runAsGroup: {{ .Values.global.securityContext.groupID }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       tolerations:
       - key: node-role.kubernetes.io/master
         effect: NoSchedule

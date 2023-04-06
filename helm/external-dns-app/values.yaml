@@ -170,6 +170,10 @@ crd:
       cpu: 500m
       memory: 512Mi
 
+  podSecurityContext:
+    runAsGroup: 65534
+    runAsUser: 65534
+
 image:
   name: giantswarm/external-dns
   registry: docker.io
