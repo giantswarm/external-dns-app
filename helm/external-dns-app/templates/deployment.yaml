@@ -159,7 +159,6 @@ spec:
             {{- end }}
             - --policy={{ .Values.policy }}
             - --annotation-filter={{- template "annotation.filter" . }}
-            {{- include "dnsProvider.flags" . | nindent 12 }}
             {{- if .Values.externalDNS.namespaceFilter }}
             - --namespace={{ .Values.externalDNS.namespaceFilter }}
             {{- end }}
@@ -169,9 +168,10 @@ spec:
             - --registry=txt
             - --txt-owner-id={{- template "txt.owner.id" . }}
             - --txt-prefix={{- template "txt.prefix" . }}
-            {{- range .Values.externalDNS.extraArgs }}
-            - {{ . }}
-            {{- end }}
+            {{- include "dnsProvider.flags" . | nindent 12 }}
+          {{- range .Values.extraArgs }}
+            - {{ tpl . $ }}
+          {{- end }}
           ports:
             - name: http
               protocol: TCP

@@ -127,10 +127,6 @@ externalDNS:
     # https://github.com/kubernetes-sigs/external-dns/blob/master/docs/proposal/registry.md
     txtPrefix: extdns
 
-  # externalDNS.extraArgs
-  # Allows to specify additional arguments to the external-dns deployment.
-  extraArgs: []
-
 # set the HTTP_PROXY, HTTPS_PROXY and NO_PROXY variable
 proxy:
   noProxy:
@@ -336,6 +332,14 @@ sources:
 
 policy: sync
 
+# provider
+# Identifies the cloud provider. Currently supported: `aws` and `azure`. This *must*
+# be set. If this is installed as a default app from the default-catalog then this
+# value is set dynamically and will be overridden.
+provider: CHANGEME
+
+extraArgs: []
+
 secretConfiguration:
   enabled: false
   mountPath: /.aws/credentials
@@ -359,13 +363,6 @@ global:
 
 # hostNetwork
 hostNetwork: false
-
-# provider
-# Identifies the cloud provider. Currently supported: `aws` and `azure`. This *must*
-# be set. If this is installed as a default app from the default-catalog then this
-# value is set dynamically and will be overridden.
-provider: CHANGEME
-
 
 ## Do not change any values below; these are specific to Giant Swarm environments.
 
