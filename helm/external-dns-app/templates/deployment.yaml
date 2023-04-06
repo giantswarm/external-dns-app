@@ -154,9 +154,6 @@ spec:
             {{- if .Values.triggerLoopOnEvent }}
             - --events
             {{- end }}
-            {{- if .Values.externalDNS.dryRun }}
-            - --dry-run
-            {{- end }}
             {{- range .Values.sources }}
             - --source={{ . }}
             {{- end }}

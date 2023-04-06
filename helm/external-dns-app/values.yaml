@@ -103,10 +103,6 @@ externalDNS:
   # - foo.bar.com
   # - baz.bar.com
 
-  # externalDNS.dryRun
-  # Dry run logs what action external-dns would have taken, but doesn't apply them.
-  dryRun: false
-
   # externalDNS.namespaceFilter
   # The namespace to limit sources of endpoints to. If left blank, all
   # namespaces will be used.
