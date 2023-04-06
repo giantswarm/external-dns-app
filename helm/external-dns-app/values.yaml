@@ -113,10 +113,6 @@ externalDNS:
   # kubernetes events in duration format (default: 5s)
   minEventSyncInterval: 30s
 
-  # externalDNS.policy
-  # Syncing policy between sources and providers.
-  policy: sync
-
   # externalDNS.registry
   # Configuration options relating to ownership of created records.
   registry:
@@ -337,6 +333,8 @@ terminationGracePeriodSeconds:
 
 sources:
   - service
+
+policy: sync
 
 secretConfiguration:
   enabled: false

@@ -157,7 +157,7 @@ spec:
             {{- range .Values.sources }}
             - --source={{ . }}
             {{- end }}
-            - --policy={{ .Values.externalDNS.policy }}
+            - --policy={{ .Values.policy }}
             - --annotation-filter={{- template "annotation.filter" . }}
             {{- include "dnsProvider.flags" . | nindent 12 }}
             {{- if .Values.externalDNS.namespaceFilter }}
