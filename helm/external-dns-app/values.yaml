@@ -308,6 +308,13 @@ extraVolumeMounts: []
 
 tolerations: []
 
+resources:
+  limits:
+    memory: 100Mi
+  requests:
+    cpu: 50m
+    memory: 100Mi
+
 nodeSelector: {}
 
 affinity: {}
@@ -344,18 +351,6 @@ secretConfiguration:
 
 deploymentStrategy:
   type: Recreate
-
-global:
-  # global.resources
-  # Set pod resource limits and requests. This is passed as a YAML
-  # dictionary directly into the deployment manifest.
-  resources:
-    limits:
-      memory: 100Mi
-    requests:
-      cpu: 50m
-      memory: 100Mi
-
 
 # hostNetwork
 hostNetwork: false
