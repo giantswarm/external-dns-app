@@ -270,3 +270,10 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{/*
+The image to use
+*/}}
+{{- define "external-dns.image" -}}
+{{- printf "%s/%s:%s" .Values.image.registry .Values.image.name .Values.image.tag }}
+{{- end }}

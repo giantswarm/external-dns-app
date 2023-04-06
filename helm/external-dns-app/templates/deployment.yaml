@@ -66,7 +66,7 @@ spec:
       initContainers:
         {{- if and (or (eq .Values.provider "aws") (eq .Values.provider "capa")) (eq .Values.aws.access "internal") ( eq .Values.aws.irsa "false") }}
         - name: wait-for-iam-role
-          image: {{ .Values.global.image.registry }}/giantswarm/alpine:3.16.2
+          image: {{ .Values.image.registry }}/giantswarm/alpine:3.16.2
           command:
           - /bin/sh
           - -c
@@ -74,7 +74,7 @@ spec:
         {{- end }}
         {{- if eq .Values.provider "azure" }}
         - name: copy-azure-config-file
-          image: {{ .Values.global.image.registry }}/giantswarm/alpine:3.16.2-python3
+          image: {{ .Values.image.registry }}/giantswarm/alpine:3.16.2-python3
           command:
             - /bin/sh
             - -c
@@ -96,7 +96,7 @@ spec:
       containers:
         {{- if and (or (eq .Values.provider "aws") (eq .Values.provider "capa")) (eq .Values.aws.access "internal") ( eq .Values.aws.irsa "false") }}
         - name: "{{ .Release.Name }}-check-iam"
-          image: {{ .Values.global.image.registry }}/giantswarm/alpine:3.16.2
+          image: {{ .Values.image.registry }}/giantswarm/alpine:3.16.2
           command:
           - /bin/sh
           - -c
@@ -111,8 +111,8 @@ spec:
           securityContext:
             {{- toYaml . | nindent 12 }}
           {{- end }}
-          image: "{{ .Values.global.image.registry }}/{{ .Values.global.image.name }}:{{ .Values.global.image.tag }}"
-          imagePullPolicy: {{ .Values.global.image.pullPolicy }}
+          image: {{ include "external-dns.image" . }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
             {{- with .Values.env }}
             {{- toYaml . | nindent 12 }}
