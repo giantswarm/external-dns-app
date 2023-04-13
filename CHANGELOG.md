@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Create secret from `secretConfiguration.data` value without breaking AWS Credentials values compatibility.
+
 ## [2.35.0] - 2023-04-04
 
 ### Changed
