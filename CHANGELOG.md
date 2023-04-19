@@ -64,6 +64,17 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 ### Changed
 
 - Remove deprecated annotation from Pod.[#265](https://github.com/giantswarm/external-dns-app/pull/265).
+- Deployment: ALign to upstream ([#255](https://github.com/giantswarm/external-dns-app/pull/255)).
+  - Use `crd.podSecurityContext` for crd job.
+  - Rename `global.resources` as `resources`.
+  - Remove dedicated option for `min-event-sync-interval` and set it in extraArgs.
+  - Rename `externalDNS.extraArgs` as `extraArgs`.
+  - Rename `externalDNS.policy` as `policy`.
+  - Remove `externalDNS.dryRun` option.
+  - Rename `externalDNS.sources` as `sources` and adjust default value.
+  - Rename `externalDNS.interval` as `interval`.
+  - Rename `global.image` as `image` using helper for name composition.
+  - Move `global.securityContext` to `podSecurityContext` and align names.
 - Service: Align to upstream ([#243](https://github.com/giantswarm/external-dns-app/pull/243)).
   - Replace `global.metrics.port` value with `service.port`.
   - Add service annotations with GS defaults.

@@ -103,27 +103,10 @@ externalDNS:
   # - foo.bar.com
   # - baz.bar.com
 
-  # externalDNS.dryRun
-  # Dry run logs what action external-dns would have taken, but doesn't apply them.
-  dryRun: false
-
-  # externalDNS.interval
-  # Interval between synchronisations. Must be in duration format (e.g. `5m`)
-  interval: 5m
-
   # externalDNS.namespaceFilter
   # The namespace to limit sources of endpoints to. If left blank, all
   # namespaces will be used.
   namespaceFilter: kube-system
-
-  # externalDNS.minEventSyncInterval
-  # The minimum interval between two consecutive synchronizations triggered from
-  # kubernetes events in duration format (default: 5s)
-  minEventSyncInterval: 30s
-
-  # externalDNS.policy
-  # Syncing policy between sources and providers.
-  policy: sync
 
   # externalDNS.registry
   # Configuration options relating to ownership of created records.
@@ -138,17 +121,6 @@ externalDNS:
     # String prefix applied to TXT registry records. See
     # https://github.com/kubernetes-sigs/external-dns/blob/master/docs/proposal/registry.md
     txtPrefix: extdns
-
-  # externalDNS.sources
-  # Resource types queried for endpoints.
-  sources:
-  - service
-  # Disable ingress source by default.
-  # - ingress
-
-  # externalDNS.extraArgs
-  # Allows to specify additional arguments to the external-dns deployment.
-  extraArgs: []
 
 # set the HTTP_PROXY, HTTPS_PROXY and NO_PROXY variable
 proxy:
@@ -198,6 +170,18 @@ crd:
       cpu: 500m
       memory: 512Mi
 
+  podSecurityContext:
+    runAsGroup: 65534
+    runAsUser: 65534
+    seccompProfile:
+      type: RuntimeDefault
+
+image:
+  name: giantswarm/external-dns
+  registry: docker.io
+  tag: v0.11.0
+  pullPolicy: IfNotPresent
+
 imagePullSecrets: []
 
 serviceAccount:
@@ -227,6 +211,13 @@ podAnnotations:
   kubectl.kubernetes.io/default-container: external-dns
 
 shareProcessNamespace: false
+
+podSecurityContext:
+  fsGroup: 65534
+  runAsGroup: 65534
+  runAsUser: 65534
+  seccompProfile:
+    type: RuntimeDefault
 
 securityContext:
   allowPrivilegeEscalation: false
@@ -329,6 +320,13 @@ extraVolumeMounts: []
 
 tolerations: []
 
+resources:
+  limits:
+    memory: 100Mi
+  requests:
+    cpu: 50m
+    memory: 100Mi
+
 nodeSelector: {}
 
 affinity: {}
@@ -338,14 +336,23 @@ topologySpreadConstraints: []
 logLevel: info
 logFormat: text
 
+interval: 5m
 triggerLoopOnEvent: false
 
 terminationGracePeriodSeconds:
 
 sources:
   - service
-  - ingress
-  - crd
+
+policy: sync
+
+# provider
+# Identifies the cloud provider. Currently supported: `aws` and `azure`. This *must*
+# be set. If this is installed as a default app from the default-catalog then this
+# value is set dynamically and will be overridden.
+provider: CHANGEME
+
+extraArgs: []
 
 secretConfiguration:
   enabled: false
@@ -356,57 +363,8 @@ secretConfiguration:
 deploymentStrategy:
   type: Recreate
 
-global:
-
-  # global.image
-  # Configuration options for images.
-  image:
-
-    # global.image.name
-    name: giantswarm/external-dns
-
-    # global.image.registry
-    registry: docker.io
-
-    # global.image.tag
-    # When updating tag make sure to also keep appVersion in Chart.yaml in sync.
-    tag: v0.11.0
-    pullPolicy: IfNotPresent
-
-  # global.resources
-  # Set pod resource limits and requests. This is passed as a YAML
-  # dictionary directly into the deployment manifest.
-  resources:
-    limits:
-      memory: 150Mi
-    requests:
-      cpu: 50m
-      memory: 100Mi
-
-  # global.securityContext
-  securityContext:
-
-    # global.securityContext.fsGroupID
-    fsGroupID: 65534
-
-    # global.securityContext.groupID
-    groupID: 65534
-
-    # global.securityContext.userID
-    userID: 65534
-
-  podSecurityStandards:
-    enforced: false
-
 # hostNetwork
 hostNetwork: false
-
-# provider
-# Identifies the cloud provider. Currently supported: `aws` and `azure`. This *must*
-# be set. If this is installed as a default app from the default-catalog then this
-# value is set dynamically and will be overridden.
-provider: CHANGEME
-
 
 ## Do not change any values below; these are specific to Giant Swarm environments.
 
