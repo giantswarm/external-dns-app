@@ -238,7 +238,7 @@ Set Giant Swarm initContainers.
 {{- define "giantswarm.deploymentInitContainers" -}}
 {{- if and (or (eq .Values.provider "aws") (eq .Values.provider "capa")) (eq .Values.aws.access "internal") ( eq .Values.aws.irsa "false") }}
 - name: wait-for-iam-role
-  image: {{ .Values.global.image.registry }}/giantswarm/alpine:3.16.2
+  image: {{ .Values.image.registry }}/giantswarm/alpine:3.16.2
   command:
     - /bin/sh
     - -c
@@ -246,7 +246,7 @@ Set Giant Swarm initContainers.
 {{- end }}
 {{- if eq .Values.provider "azure" }}
 - name: copy-azure-config-file
-  image: {{ .Values.global.image.registry }}/giantswarm/alpine:3.16.2-python3
+  image: {{ .Values.image.registry }}/giantswarm/alpine:3.16.2-python3
   command:
     - /bin/sh
     - -c
@@ -324,4 +324,11 @@ Create the name of the service account to use
 {{- else }}
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
+{{- end }}
+
+{{/*
+The image to use
+*/}}
+{{- define "external-dns.image" -}}
+{{- printf "%s/%s:%s" .Values.image.registry .Values.image.name .Values.image.tag }}
 {{- end }}
