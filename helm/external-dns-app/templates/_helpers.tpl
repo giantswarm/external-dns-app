@@ -217,6 +217,77 @@ Set Giant Swarm serviceAccountAnnotations.
 {{- end -}}
 
 {{/*
+Set Giant Swarm env for Deployment.
+*/}}
+{{- define "giantswarm.deploymentEnv" -}}
+{{- if and .Values.externalDNS.aws_access_key_id .Values.externalDNS.aws_secret_access_key }}
+- name: AWS_ACCESS_KEY_ID
+  valueFrom:
+  secretKeyRef:
+    name: {{ .Release.Name }}-route53-credentials
+    key: aws_access_key_id
+- name: AWS_SECRET_ACCESS_KEY
+  valueFrom:
+  secretKeyRef:
+    name: {{ .Release.Name }}-route53-credentials
+    key: aws_secret_access_key
+{{- end }}
+{{- with .Values.aws.region }}
+- name: AWS_DEFAULT_REGION
+  value: {{ . }}
+{{- end }}
+{{- $proxy := deepCopy .Values.cluster.proxy |  mustMerge .Values.proxy -}}
+{{- if and $proxy.noProxy $proxy.http $proxy.https }}
+- name: NO_PROXY
+  value: {{ $proxy.noProxy }}
+- name: no_proxy
+  value: {{ $proxy.noProxy }}
+- name: HTTP_PROXY
+  value: {{ $proxy.http }}
+- name: http_proxy
+  value: {{ $proxy.http }}
+- name: HTTPS_PROXY
+  value: {{ $proxy.https }}
+- name: https_proxy
+  value: {{ $proxy.https }}
+{{- end }}
+{{- end -}}
+
+{{/*
+Set Giant Swarm initContainers.
+*/}}
+{{- define "giantswarm.deploymentInitContainers" -}}
+{{- if and (or (eq .Values.provider "aws") (eq .Values.provider "capa")) (eq .Values.aws.access "internal") ( eq .Values.aws.irsa "false") }}
+- name: wait-for-iam-role
+  image: {{ .Values.global.image.registry }}/giantswarm/alpine:3.16.2
+  command:
+    - /bin/sh
+    - -c
+    - counter=5; while ! wget -qO- http://169.254.169.254/latest/meta-data/iam/security-credentials/ | grep {{ template "aws.iam.role" . }}; do echo 'Waiting for iam-role to be available...'; sleep 5; let "counter-=1"  ; if [ "$counter" -eq "0" ]; then exit 1; fi; done
+{{- end }}
+{{- if eq .Values.provider "azure" }}
+- name: copy-azure-config-file
+  image: {{ .Values.global.image.registry }}/giantswarm/alpine:3.16.2-python3
+  command:
+    - /bin/sh
+    - -c
+    # GS clusters have the cloud config file in /etc/kubernetes/config/azure.yaml and we can use it as-is so we just copy it to the desired position.
+    # CAPZ clusters use a JSON file so we convert it to yaml and save it to the desired position.
+    - if [ -f /etc/kubernetes/config/azure.yaml ]; then
+      cp /etc/kubernetes/config/azure.yaml /config/azure.yaml;
+      else
+      cat /etc/kubernetes/azure.json | python3 -c 'import sys, yaml, json; print(yaml.dump(json.loads(sys.stdin.read())))' > /config/azure.yaml;
+      fi
+  volumeMounts:
+    - mountPath: /etc/kubernetes
+      name: etc-kubernetes
+      readOnly: true
+    - mountPath: /config
+      name: config
+{{- end }}
+{{- end -}}
+
+{{/*
 Upstream chart helpers.
 */}}
 

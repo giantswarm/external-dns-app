@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Move initContainers and env into a helper function [#259](https://github.com/giantswarm/external-dns-app/pull/259).
+
 ## [2.35.1] - 2023-04-14
 
 ### Changed
