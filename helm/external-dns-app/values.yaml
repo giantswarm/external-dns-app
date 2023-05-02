@@ -222,7 +222,8 @@ deploymentAnnotations: {}
 podLabels: {}
 
 # Annotations to add to the Pod
-podAnnotations: {}
+podAnnotations:
+  cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
 
 shareProcessNamespace: false
 
