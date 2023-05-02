@@ -10,6 +10,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 ### Changed
 
 - Move initContainers and env into a helper function [#259](https://github.com/giantswarm/external-dns-app/pull/259).
+- Add `safe-to-evict` annotations to allow eviction [#261](https://github.com/giantswarm/external-dns-app/pull/261).
 
 ## [2.35.1] - 2023-04-14
 
