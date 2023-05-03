@@ -8,5 +8,5 @@ sources:
   - https://github.com/kubernetes-sigs/external-dns
 annotations:
   application.giantswarm.io/team: team-cabbage
-version: 2.35.0
+version: 2.36.0
 kubeVersion: ">=1.19.0-0"

@@ -1,6 +1,6 @@
 version: 2.1
 orbs:
-  architect: giantswarm/architect@4.28.1
+  architect: giantswarm/architect@4.29.0
 
 workflows:
   version: 2
@@ -36,9 +36,9 @@ workflows:
       - architect/run-tests-with-ats:
           name: execute chart tests
           filters:
-            # Do not trigger the job on merge to master.
+            # Do not trigger the job on merge to main.
             branches:
               ignore:
-                - master
+                - main
           requires:
             - "package and push to default catalog"
