@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Remove deprecated annotation from Pod.[#265](https://github.com/giantswarm/external-dns-app/pull/265).
+
 ## [2.37.0] - 2023-05-04
 
 ### Changed
