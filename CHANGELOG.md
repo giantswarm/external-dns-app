@@ -26,6 +26,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
   - Add service annotations with GS defaults.
   - Set readinessProbe and livenessProbe from values.
   - Move podAnnotations to values.
+- Secrets: Remove deprecated values for AWS Route53 external authentication []().
 
 ## [2.37.0] - 2023-05-04
 
