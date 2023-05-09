@@ -84,14 +84,6 @@ externalDNS:
   # instances of external-dns.
   annotationFilter: "giantswarm.io/external-dns=managed"
 
-  # externalDNS.aws_access_key_id
-  # Access key ID for the AWS API. Only required when aws.access is 'external'.
-  aws_access_key_id:
-
-  # externalDNS.aws_secret_access_key
-  # Access key secret for the AWS API. Only required when aws.access is 'external'.
-  aws_secret_access_key:
-
   # externalDNS.domainFilterList
   # One or more domains that this instance of external-dns will manage. If
   # no domains are provided then the cluster baseDomain must be provided via
