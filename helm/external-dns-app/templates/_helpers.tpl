@@ -99,7 +99,7 @@ Set the txt record prefix.
 {{- if .Values.NetExporter -}}
 {{/* if this value is present then the app was installed
 from the default catalog and is therefore a default app */}}
-{{- printf "%s-%s" .Values.clusterID "%{record_type}" }}
+{{- tpl .Values.externalDNS.registry.txtPrefix . }}
 {{- else -}}
 {{/* the customer must provide their own */}}
 {{- printf "%s" .Values.externalDNS.registry.txtPrefix }}
