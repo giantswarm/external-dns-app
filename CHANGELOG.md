@@ -11,6 +11,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - Remove deprecated annotation from Pod.[#265](https://github.com/giantswarm/external-dns-app/pull/265).
 
+### Fixed
+
+- Fix indentation in environment variables for secret injection [#272](https://github.com/giantswarm/external-dns-app/pull/272).
+
 ## [2.37.0] - 2023-05-04
 
 ### Changed
