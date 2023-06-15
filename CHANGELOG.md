@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [2.37.1] - 2023-06-15
+
 ### Changed
 
 - Remove deprecated annotation from Pod.[#265](https://github.com/giantswarm/external-dns-app/pull/265).
@@ -490,7 +492,8 @@ If you already specify `--aws-batch-change-interval` or `--aws-zones-cache-durat
 - Network policy that allows all egress traffic.
 - Network policy that allows accessing metrics on port `10254`.
 
-[Unreleased]: https://github.com/giantswarm/external-dns-app/compare/v2.37.0...HEAD
+[Unreleased]: https://github.com/giantswarm/external-dns-app/compare/v2.37.1...HEAD
+[2.37.1]: https://github.com/giantswarm/external-dns-app/compare/v2.37.0...v2.37.1
 [2.37.0]: https://github.com/giantswarm/external-dns-app/compare/v2.36.0...v2.37.0
 [2.36.0]: https://github.com/giantswarm/external-dns-app/compare/v2.35.1...v2.36.0
 [2.35.1]: https://github.com/giantswarm/external-dns-app/compare/v2.35.0...v2.35.1
