@@ -222,14 +222,14 @@ Set Giant Swarm env for Deployment.
 {{- if and .Values.externalDNS.aws_access_key_id .Values.externalDNS.aws_secret_access_key }}
 - name: AWS_ACCESS_KEY_ID
   valueFrom:
-  secretKeyRef:
-    name: {{ .Release.Name }}-route53-credentials
-    key: aws_access_key_id
+    secretKeyRef:
+      name: {{ .Release.Name }}-route53-credentials
+      key: aws_access_key_id
 - name: AWS_SECRET_ACCESS_KEY
   valueFrom:
-  secretKeyRef:
-    name: {{ .Release.Name }}-route53-credentials
-    key: aws_secret_access_key
+    secretKeyRef:
+      name: {{ .Release.Name }}-route53-credentials
+      key: aws_secret_access_key
 {{- end }}
 {{- with .Values.aws.region }}
 - name: AWS_DEFAULT_REGION
