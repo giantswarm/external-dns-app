@@ -12,7 +12,7 @@ It can be installed multiple times in the same Workload Cluster.
 
 **Why did we add it?**
 
-The App is already used as a default App in most clusters (except on-prem) to provide DNS records for [nginx-ingress-controller-app](https://github.com/giantswarm/nginx-ingress-controller-app).
+The App is already used as a default App in most clusters (except on-prem) to provide DNS records for [Ingress NGINX Controller](https://github.com/giantswarm/ingress-nginx-app).
 
 **Who can use it?**
 
@@ -118,7 +118,7 @@ Not following these limitations will most likely result in a broken deployment.
 
 External DNS v2.0.0+ requires
 * Kubernetes version `1.19.0-0` or greater
-* [nginx-ingress-controller-app v1.14.0](https://github.com/giantswarm/nginx-ingress-controller-app/blob/main/CHANGELOG.md#1140---2021-02-03) or greater to work (due to the need for the filtering annotation).
+* [nginx-ingress-controller-app v1.14.0](https://github.com/giantswarm/ingress-nginx-app/blob/main/CHANGELOG.md#1140---2021-02-03) or greater to work (due to the need for the filtering annotation).
   * If you do not (or cannot) upgrade `nginx-ingress-controller-app` to `v1.14.0`,
     you can work around this by running the following command to ensure the default
     `external-dns` continues to reconcile the relevant Service:
