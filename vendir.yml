@@ -1,0 +1,16 @@
+apiVersion: vendir.k14s.io/v1alpha1
+kind: Config
+directories:
+- path: vendor
+  contents:
+  - path: external-dns
+    git:
+      url: git@github.com:giantswarm/external-dns-upstream.git
+      ref: v0.13.5
+    includePaths:
+    - charts/**/*
+- path: helm/external-dns-app/templates
+  contents:
+  - path: .
+    directory:
+      path: vendor/external-dns/charts/external-dns/templates
