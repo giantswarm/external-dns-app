@@ -1,4 +1,3 @@
-{{- if .Values.crd.install }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -13,4 +12,3 @@ metadata:
 data:
   dnsendpoints.yaml: |
 {{ tpl ( .Files.Get "files/dnsendpoints.yaml" ) . | indent 4 }}
-{{- end }}

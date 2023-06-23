@@ -1,5 +1,3 @@
-{{- if .Values.crd.install }}
-  {{ if .Values.ciliumNetworkPolicy.enabled }}
 apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
 metadata:
@@ -25,5 +23,3 @@ spec:
             - port: "443"
         - ports:
             - port: "6443"
-  {{- end }}
-{{- end }}
