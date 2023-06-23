@@ -10,3 +10,7 @@ annotations:
   application.giantswarm.io/team: team-cabbage
 version: 2.37.1
 kubeVersion: ">=1.19.0-0"
+dependencies:
+  - name: crd
+    version: 0.1.0
+    condition: crd.install
