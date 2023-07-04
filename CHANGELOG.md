@@ -9,7 +9,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ### Removed
 
-- Hardcoded references to `provider==vmware` ([]()).
+- Hardcoded references to `provider==vmware` ([#277](https://github.com/giantswarm/external-dns-app/pull/277)).
 
 ## [2.37.1] - 2023-06-15
 
