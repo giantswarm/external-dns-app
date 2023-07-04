@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Removed
+
+- Hardcoded references to `provider==vmware` ([]()).
+
 ## [2.37.1] - 2023-06-15
 
 ### Changed
