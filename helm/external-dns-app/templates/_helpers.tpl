@@ -107,15 +107,11 @@ from the default catalog and is therefore a default app */}}
 {{- end -}}
 
 {{/*
-Set provider specific flags (VMWare clusters use Route53 for DNS). Ternary
-function returns `aws` if provider is vmware; otherwise it returns
-the value of .Values.provider.
+Set provider specific flags. 
 */}}
 {{- define "dnsProvider.flags" -}}
 {{- $dnsProvider := .Values.provider -}}
-{{- if eq .Values.provider "vmware" }}
-{{- $dnsProvider = "aws" -}}
-{{- else if eq .Values.provider "capa" }}
+{{- if eq .Values.provider "capa" }}
 {{- $dnsProvider = "aws" -}}
 {{- else if eq .Values.provider "gcp" }}
 {{- $dnsProvider = "google" -}}
@@ -134,10 +130,6 @@ the value of .Values.provider.
 - --aws-batch-change-interval={{ .Values.aws.batchChangeInterval }}
 {{- end }}
 {{ include "domain.list" . }}
-{{- end }}
-
-{{- if eq .Values.provider "vmware" }}
-- --source=crd
 {{- end }}
 
 {{- if eq .Values.provider "azure" }}
@@ -172,9 +164,9 @@ Validate that the provider makes sense
 don't expose that value to the user in the error message.
 */}}
 {{- define "validateValues.provider" -}}
-{{- if and (ne .Values.provider "aws") (ne .Values.provider "azure") (ne .Values.provider "capa") (ne .Values.provider "gcp") (ne .Values.provider "vmware") (ne .Values.provider "inmemory") -}}
+{{- if and (ne .Values.provider "aws") (ne .Values.provider "azure") (ne .Values.provider "capa") (ne .Values.provider "gcp") (ne .Values.provider "inmemory") -}}
 external-dns: provider
-    Incorrect value provided. Valid values are either 'aws', 'azure', 'capa', 'gcp' or 'vmware'.
+    Incorrect value provided. Valid values are either 'aws', 'azure', 'capa' or 'gcp'.
 {{- end -}}
 {{- end -}}
 
