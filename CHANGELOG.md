@@ -16,23 +16,11 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
   - Add txtPrefix value with higher priority.
   - Add txtOwnerId value with higher priority.
   - Add annotationFilter value with higher priority.
-
-### Removed
-
-- Hardcoded references to `provider==vmware` ([#277](https://github.com/giantswarm/external-dns-app/pull/277)).
-
-## [2.37.1] - 2023-06-15
-
-### Changed
-
-- Remove deprecated annotation from Pod.[#265](https://github.com/giantswarm/external-dns-app/pull/265).
 - Deployment: ALign to upstream ([#255](https://github.com/giantswarm/external-dns-app/pull/255)).
   - Use `crd.podSecurityContext` for crd job.
   - Rename `global.resources` as `resources`.
-  - Remove dedicated option for `min-event-sync-interval` and set it in extraArgs.
   - Rename `externalDNS.extraArgs` as `extraArgs`.
   - Rename `externalDNS.policy` as `policy`.
-  - Remove `externalDNS.dryRun` option.
   - Rename `externalDNS.sources` as `sources` and adjust default value.
   - Rename `externalDNS.interval` as `interval`.
   - Rename `global.image` as `image` using helper for name composition.
@@ -42,7 +30,20 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
   - Add service annotations with GS defaults.
   - Set readinessProbe and livenessProbe from values.
   - Move podAnnotations to values.
+
+### Removed
+
+- Hardcoded references to `provider==vmware` ([#277](https://github.com/giantswarm/external-dns-app/pull/277)).
+- Deployment: ALign to upstream ([#255](https://github.com/giantswarm/external-dns-app/pull/255)).
+  - Remove dedicated option for `min-event-sync-interval` and set it in extraArgs.
+  - Remove `externalDNS.dryRun` option.
 - Secrets: Remove deprecated values for AWS Route53 external authentication [#266](https://github.com/giantswarm/external-dns-app/pull/266).
+
+## [2.37.1] - 2023-06-15
+
+### Changed
+
+- Remove deprecated annotation from Pod.[#265](https://github.com/giantswarm/external-dns-app/pull/265).
 
 ### Fixed
 
