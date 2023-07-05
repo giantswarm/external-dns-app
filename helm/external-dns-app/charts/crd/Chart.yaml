@@ -1,5 +1,5 @@
 apiVersion: v2
 name: crd
-description: Job for installing CRDs
+description: CRD's installation Job
 type: application
 version: 0.1.0
