@@ -31,3 +31,7 @@ ciliumNetworkPolicy:
   enabled: true
 
 serviceType: "managed"
+
+podSecurityContext:
+  runAsGroup: 65534
+  runAsUser: 65534
