@@ -3,3 +3,5 @@ name: crd
 description: CRD's installation Job
 type: application
 version: 0.1.0
+annotations:
+  application.giantswarm.io/team: team-cabbage
