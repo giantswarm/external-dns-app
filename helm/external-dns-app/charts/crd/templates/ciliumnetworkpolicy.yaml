@@ -7,15 +7,13 @@ metadata:
   annotations:
     # create hook dependencies in the right order
     "helm.sh/hook-weight": "-7"
-    {{- include "annotations.crd" . | nindent 4 }}
+    {{- include "crd.annotations" . | nindent 4 }}
   labels:
-    {{- include "external-dns.labels" . | nindent 4 }}
-    app.kubernetes.io/component: crd-install
+    {{- include "crd.labels" . | nindent 4 }}
 spec:
   endpointSelector:
     matchLabels:
-      {{- include "external-dns.selectorLabels" . | nindent 6 }}
-      app.kubernetes.io/component: crd-install
+      {{- include "crd.selectorLabels" . | nindent 6 }}
   egress:
     - toEntities:
         - kube-apiserver
