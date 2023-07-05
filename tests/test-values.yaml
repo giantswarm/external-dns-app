@@ -1,3 +1,7 @@
 provider: inmemory
 image:
   registry: quay.io
+
+crd:
+  ciliumNetworkPolicy:
+    enabled: false
