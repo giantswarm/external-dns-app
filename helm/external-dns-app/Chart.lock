@@ -1,0 +1,6 @@
+dependencies:
+- name: crd
+  repository: ""
+  version: 0.1.0
+digest: sha256:903086f922688607c65e66bcde27337307c9311bf0cfffc5d8a4e34bdd2c9a8c
+generated: "2023-07-05T07:05:42.596497456Z"
