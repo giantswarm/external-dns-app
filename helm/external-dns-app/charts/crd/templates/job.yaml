@@ -1,21 +1,18 @@
-{{- if .Values.crd.install }}
 apiVersion: batch/v1
 kind: Job
 metadata:
   name: {{ .Release.Name }}-crd-install
   namespace: {{ .Release.Namespace }}
   annotations:
-    {{- include "annotations.crd" . | nindent 4 }}
+    {{- include "crd.annotations" . | nindent 4 }}
     helm.sh/hook-weight: "-1"
   labels:
-    {{- include "external-dns.labels" . | nindent 4 }}
-    app.kubernetes.io/component: crd-install
+    {{- include "crd.labels" . | nindent 4 }}
 spec:
   template:
     metadata:
       labels:
-        {{- include "external-dns.labels" . | nindent 8 }}
-        app.kubernetes.io/component: crd-install
+        {{- include "crd.labels" . | nindent 8 }}
     spec:
       serviceAccountName: {{ .Release.Name }}-crd-install
       securityContext:
@@ -38,15 +35,13 @@ spec:
           set -o errexit ; set -o xtrace ; set -o nounset
           kubectl apply --server-side=true --field-manager='kubectl-client-side-apply' --force-conflicts --filename /crd 2>&1
         resources:
-          {{- toYaml .Values.crd.resources | nindent 10 }}
+          {{- toYaml .Values.resources | nindent 10 }}
         volumeMounts:
         - name: {{ .Release.Name }}-crd-install
           mountPath: /crd
-        resources: {{- toYaml .Values.crd.resources | nindent 10 }}
       volumes:
       - name: {{ .Release.Name }}-crd-install
         configMap:
           name: {{ .Release.Name }}-crd-install
       restartPolicy: Never
-  backoffLimit: {{ .Values.crd.backoffLimit }}
-{{- end }}
+  backoffLimit: {{ .Values.backoffLimit }}

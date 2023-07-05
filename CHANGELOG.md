@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Move CRD jobs into a separated subchart ([#275](https://github.com/giantswarm/external-dns-app/pull/275)).
+
 ### Removed
 
 - Hardcoded references to `provider==vmware` ([#277](https://github.com/giantswarm/external-dns-app/pull/277)).

@@ -14,14 +14,6 @@ application.giantswarm.io/team: {{ index .Chart.Annotations "application.giantsw
 {{- end -}}
 
 {{/*
-CRD install annotations.
-*/}}
-{{- define "annotations.crd" -}}
-helm.sh/hook: pre-install,pre-upgrade
-helm.sh/hook-delete-policy: before-hook-creation,hook-succeeded
-{{- end -}}
-
-{{/*
 Create the list of domains to update
 */}}
 {{- define "domain.list" }}

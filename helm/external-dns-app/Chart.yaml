@@ -1,4 +1,4 @@
-apiVersion: v1
+apiVersion: v2
 appVersion: v0.11.0
 description: Configure external DNS servers for Kubernetes Ingresses and Services
 home: https://github.com/giantswarm/external-dns-app
@@ -10,3 +10,7 @@ annotations:
   application.giantswarm.io/team: team-cabbage
 version: 2.37.1
 kubeVersion: ">=1.19.0-0"
+dependencies:
+  - name: crd
+    version: 0.1.0
+    condition: crd.install

@@ -1,20 +1,17 @@
-{{- if .Values.crd.install }}
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: {{ .Release.Name }}-crd-install
   namespace: {{ .Release.Namespace }}
   annotations:
-    {{- include "annotations.crd" . | nindent 4 }}
+    {{- include "crd.annotations" . | nindent 4 }}
     helm.sh/hook-weight: "-7"
   labels:
-    {{- include "external-dns.labels" . | nindent 4 }}
-    app.kubernetes.io/component: crd-install
+    {{- include "crd.labels" . | nindent 4 }}
 spec:
   podSelector:
     matchLabels:
-      {{- include "external-dns.selectorLabels" . | nindent 6 }}
-      app.kubernetes.io/component: crd-install
+      {{- include "crd.selectorLabels" . | nindent 6 }}
   policyTypes:
   - Egress
   - Ingress
@@ -30,4 +27,3 @@ spec:
     - port: 6443
       protocol: TCP
   ingress: []
-{{- end }}
