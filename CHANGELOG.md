@@ -24,6 +24,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
   - Add service annotations with GS defaults.
   - Set readinessProbe and livenessProbe from values.
   - Move podAnnotations to values.
+- Remove support for KIAM ([#278](https://github.com/giantswarm/external-dns-app/pull/278)).
 
 ### Removed
 
