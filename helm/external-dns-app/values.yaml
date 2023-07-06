@@ -346,3 +346,7 @@ clusterID: en2jo
 
 ciliumNetworkPolicy:
   enabled: false
+
+global:
+  image:
+    registry: docker.io
