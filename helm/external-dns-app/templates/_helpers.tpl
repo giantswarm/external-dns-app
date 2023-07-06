@@ -44,7 +44,7 @@ Set the zone type when running on AWS
 {{- end }}
 
 {{/*
-Set the role name for KIAM
+Set the role name for IRSA
 */}}
 {{- define "aws.iam.role" -}}
 {{- if .Values.aws.iam.customRoleName }}
@@ -172,21 +172,11 @@ external-dns: aws.zoneType
 {{- end -}}
 {{- end -}}
 
-
-{{/*
-Set Giant Swarm podAnnotations.
-*/}}
-{{- define "giantswarm.podAnnotations" -}}
-{{- if and (or (eq .Values.provider "aws") (eq .Values.provider "capa")) (eq .Values.aws.access "internal") ( eq .Values.aws.irsa "false") }}
-{{- $_ := set .Values.podAnnotations "iam.amazonaws.com/role" (tpl "{{ template \"aws.iam.role\" . }}" .) }}
-{{- end }}
-{{- end -}}
-
 {{/*
 Set Giant Swarm serviceAccountAnnotations.
 */}}
 {{- define "giantswarm.serviceAccountAnnotations" -}}
-{{- if and (eq .Values.provider "aws") (eq .Values.aws.irsa "true") (eq .Values.aws.access "internal") (not (hasKey .Values.serviceAccount.annotations "eks.amazonaws.com/role-arn")) }}
+{{- if and (eq .Values.provider "aws") (eq .Values.aws.access "internal") (not (hasKey .Values.serviceAccount.annotations "eks.amazonaws.com/role-arn")) }}
 {{- $_ := set .Values.serviceAccount.annotations "eks.amazonaws.com/role-arn" (tpl "arn:aws:iam::{{ .Values.aws.accountID }}:role/{{ template \"aws.iam.role\" . }}" .) }}
 {{- else if and (eq .Values.provider "capa") (eq .Values.aws.access "internal") (not (hasKey .Values.serviceAccount.annotations "eks.amazonaws.com/role-arn")) }}
 {{- $_ := set .Values.serviceAccount.annotations "eks.amazonaws.com/role-arn" (include "aws.iam.role" .) }}
@@ -220,14 +210,6 @@ Set Giant Swarm env for Deployment.
 Set Giant Swarm initContainers.
 */}}
 {{- define "giantswarm.deploymentInitContainers" -}}
-{{- if and (or (eq .Values.provider "aws") (eq .Values.provider "capa")) (eq .Values.aws.access "internal") ( eq .Values.aws.irsa "false") }}
-- name: wait-for-iam-role
-  image: {{ .Values.image.registry }}/giantswarm/alpine:3.16.2
-  command:
-    - /bin/sh
-    - -c
-    - counter=5; while ! wget -qO- http://169.254.169.254/latest/meta-data/iam/security-credentials/ | grep {{ template "aws.iam.role" . }}; do echo 'Waiting for iam-role to be available...'; sleep 5; let "counter-=1"  ; if [ "$counter" -eq "0" ]; then exit 1; fi; done
-{{- end }}
 {{- if eq .Values.provider "azure" }}
 - name: copy-azure-config-file
   image: {{ .Values.image.registry }}/giantswarm/alpine:3.16.2-python3

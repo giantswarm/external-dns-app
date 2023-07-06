@@ -34,11 +34,6 @@ aws:
   # be used.
   batchChangeInterval: 10s
 
-  # aws.irsa
-  # Set to true when IAM roles for service accounts is enabled.
-  # It is dynamically set and will be overridden.
-  irsa: "false"
-
   # aws.zonesCacheDuration
   # Set the zones list cache TTL. If left blank then the default will
   # be used.
