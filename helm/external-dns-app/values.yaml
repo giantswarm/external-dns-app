@@ -39,16 +39,6 @@ aws:
   # be used.
   zonesCacheDuration: 3h
 
-  # aws.iam
-  # AWS IAM configuration.
-  iam:
-
-    # aws.iam.customRole
-    # If set, allows a user-created role to be assumed. Role must have access to a
-    # policy which allows configuration of Route53 hosted zone(s).
-    # e.g. `customRoleName: route53-manager-role`
-    customRoleName:
-
   # aws.preferCNAME
   # Create CNAME records instead of ALIAS. Will always be set to true when aws.access
   # is `external`.
