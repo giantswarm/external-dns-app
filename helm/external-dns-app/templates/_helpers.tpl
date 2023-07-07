@@ -60,6 +60,9 @@ Set the role name for KIAM
 Set the annotation filter.
 */}}
 {{- define "annotation.filter" -}}
+{{- if .Values.annotationFilter -}}
+{{- printf "%s" .Values.annotationFilter }}
+{{- else }}
 {{- if .Values.NetExporter -}}
 {{/* if this value is present then the app was installed
 from the default catalog and is therefore a default app */}}
@@ -67,6 +70,7 @@ from the default catalog and is therefore a default app */}}
 {{- else -}}
 {{/* the customer must provide their own */}}
 {{- printf "%s" .Values.externalDNS.annotationFilter }}
+{{- end -}}
 {{- end -}}
 {{- end -}}
 
