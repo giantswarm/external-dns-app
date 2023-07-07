@@ -78,6 +78,9 @@ from the default catalog and is therefore a default app */}}
 Set the txt owner ID.
 */}}
 {{- define "txt.owner.id" -}}
+{{- if .Values.txtOwnerId -}}
+{{- printf "%s" .Values.txtOwnerId }}
+{{- else }}
 {{- if .Values.NetExporter -}}
 {{/* if this value is present then the app was installed
 from the default catalog and is therefore a default app */}}
@@ -85,6 +88,7 @@ from the default catalog and is therefore a default app */}}
 {{- else -}}
 {{/* the customer must provide their own */}}
 {{- printf "%s" .Values.externalDNS.registry.txtOwnerID }}
+{{- end -}}
 {{- end -}}
 {{- end -}}
 
