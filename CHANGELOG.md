@@ -44,6 +44,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
   - Remove dedicated option for `min-event-sync-interval` and set it in extraArgs.
   - Remove `externalDNS.dryRun` option.
 - Secrets: Remove deprecated values for AWS Route53 external authentication [#266](https://github.com/giantswarm/external-dns-app/pull/266).
+- Remove support for KIAM ([#278](https://github.com/giantswarm/external-dns-app/pull/278)).
+- Remove `aws.iam.customRoleName` value ([#278](https://github.com/giantswarm/external-dns-app/pull/278)).
 
 ## [2.38.0] - 2023-07-13
 
