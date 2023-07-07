@@ -111,9 +111,15 @@ spec:
             - --registry=txt
             - --txt-owner-id={{- template "txt.owner.id" . }}
             - --txt-prefix={{- template "txt.prefix" . }}
+            {{- range .Values.domainFilters }}
+            - --domain-filter={{ . }}
+            {{- end }}
             {{- range .Values.externalDNS.extraArgs }}
             - {{ . }}
             {{- end }}
+          {{- range .Values.extraArgs }}
+            - {{ tpl . $ }}
+          {{- end }}
           ports:
             - name: metrics
               protocol: TCP
