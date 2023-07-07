@@ -60,6 +60,9 @@ Set the role name for KIAM
 Set the annotation filter.
 */}}
 {{- define "annotation.filter" -}}
+{{- if .Values.annotationFilter -}}
+{{- printf "%s" .Values.annotationFilter }}
+{{- else }}
 {{- if .Values.NetExporter -}}
 {{/* if this value is present then the app was installed
 from the default catalog and is therefore a default app */}}
@@ -69,11 +72,15 @@ from the default catalog and is therefore a default app */}}
 {{- printf "%s" .Values.externalDNS.annotationFilter }}
 {{- end -}}
 {{- end -}}
+{{- end -}}
 
 {{/*
 Set the txt owner ID.
 */}}
 {{- define "txt.owner.id" -}}
+{{- if .Values.txtOwnerId -}}
+{{- printf "%s" .Values.txtOwnerId }}
+{{- else }}
 {{- if .Values.NetExporter -}}
 {{/* if this value is present then the app was installed
 from the default catalog and is therefore a default app */}}
@@ -83,11 +90,15 @@ from the default catalog and is therefore a default app */}}
 {{- printf "%s" .Values.externalDNS.registry.txtOwnerID }}
 {{- end -}}
 {{- end -}}
+{{- end -}}
 
 {{/*
 Set the txt record prefix.
 */}}
 {{- define "txt.prefix" -}}
+{{- if .Values.txtPrefix -}}
+{{- printf "%s" .Values.txtPrefix }}
+{{- else }}
 {{- if .Values.NetExporter -}}
 {{/* if this value is present then the app was installed
 from the default catalog and is therefore a default app */}}
@@ -95,6 +106,7 @@ from the default catalog and is therefore a default app */}}
 {{- else -}}
 {{/* the customer must provide their own */}}
 {{- printf "%s" .Values.externalDNS.registry.txtPrefix }}
+{{- end -}}
 {{- end -}}
 {{- end -}}
 

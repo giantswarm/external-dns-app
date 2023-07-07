@@ -10,6 +10,12 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 ### Changed
 
 - Move CRD jobs into a separated subchart ([#275](https://github.com/giantswarm/external-dns-app/pull/275)).
+- Prepare new values for alignment ([]()).
+  - Add domainFilter and extraArgs values.
+  - Add interval, namepsaceFilter and minEventSyncInterval values.
+  - Add txtPrefix value with higher priority.
+  - Add txtOwnerId value with higher priority.
+  - Add annotationFilter value with higher priority.
 
 ### Removed
 
