@@ -26,7 +26,6 @@ spec:
       {{- with .Values.podLabels }}
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      {{- include "giantswarm.podAnnotations" . }}
       {{- if or .Values.secretConfiguration.enabled .Values.podAnnotations }}
       annotations:
         {{- if .Values.secretConfiguration.enabled }}
@@ -64,20 +63,6 @@ spec:
       initContainers:
         {{- include "giantswarm.deploymentInitContainers" . | nindent 8 }}
       containers:
-        {{- if and (or (eq .Values.provider "aws") (eq .Values.provider "capa")) (eq .Values.aws.access "internal") ( eq .Values.aws.irsa "false") }}
-        - name: "{{ .Release.Name }}-check-iam"
-          image: {{ .Values.image.registry }}/giantswarm/alpine:3.16.2
-          command:
-          - /bin/sh
-          - -c
-          - while wget -qO- http://169.254.169.254/latest/meta-data/iam/security-credentials/ | grep -q {{ template "aws.iam.role" . }} ; do sleep 30 ; done && exit 1
-          securityContext:
-            readOnlyRootFilesystem: true
-          {{- with .Values.resources }}
-          resources:
-            {{- toYaml . | nindent 12 }}
-          {{- end }}
-        {{- end }}
         - name: external-dns
           {{- with .Values.securityContext }}
           securityContext:
