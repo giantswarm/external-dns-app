@@ -96,6 +96,9 @@ from the default catalog and is therefore a default app */}}
 Set the txt record prefix.
 */}}
 {{- define "txt.prefix" -}}
+{{- if .Values.txtPrefix -}}
+{{- printf "%s" .Values.txtPrefix }}
+{{- else }}
 {{- if .Values.NetExporter -}}
 {{/* if this value is present then the app was installed
 from the default catalog and is therefore a default app */}}
@@ -103,6 +106,7 @@ from the default catalog and is therefore a default app */}}
 {{- else -}}
 {{/* the customer must provide their own */}}
 {{- printf "%s" .Values.externalDNS.registry.txtPrefix }}
+{{- end -}}
 {{- end -}}
 {{- end -}}
 
