@@ -41,11 +41,9 @@ spec:
   volumes:
   - 'configMap'
   - 'secret'
+  - 'projected'
   {{- if eq .Values.provider "azure" }}
   - 'emptyDir'
   - 'hostPath'
-  {{- end }}
-  {{- if has .Values.provider (list "gcp" "capa") }}
-  - 'projected'
   {{- end }}
 {{- end }}
