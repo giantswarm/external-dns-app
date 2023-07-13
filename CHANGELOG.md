@@ -16,6 +16,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
   - Add txtPrefix value with higher priority.
   - Add txtOwnerId value with higher priority.
   - Add annotationFilter value with higher priority.
+- Allow projected volumes across all providers ([#282](https://github.com/giantswarm/external-dns-app/pull/282)).
 
 ### Removed
 
