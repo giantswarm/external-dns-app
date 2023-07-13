@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [2.38.0] - 2023-07-13
+
 ### Changed
 
 - Move CRD jobs into a separated subchart ([#275](https://github.com/giantswarm/external-dns-app/pull/275)).
@@ -507,7 +509,8 @@ If you already specify `--aws-batch-change-interval` or `--aws-zones-cache-durat
 - Network policy that allows all egress traffic.
 - Network policy that allows accessing metrics on port `10254`.
 
-[Unreleased]: https://github.com/giantswarm/external-dns-app/compare/v2.37.1...HEAD
+[Unreleased]: https://github.com/giantswarm/external-dns-app/compare/v2.38.0...HEAD
+[2.38.0]: https://github.com/giantswarm/external-dns-app/compare/v2.37.1...v2.38.0
 [2.37.1]: https://github.com/giantswarm/external-dns-app/compare/v2.37.0...v2.37.1
 [2.37.0]: https://github.com/giantswarm/external-dns-app/compare/v2.36.0...v2.37.0
 [2.36.0]: https://github.com/giantswarm/external-dns-app/compare/v2.35.1...v2.36.0
