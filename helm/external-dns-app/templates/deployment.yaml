@@ -120,13 +120,8 @@ spec:
             {{- toYaml .Values.livenessProbe | nindent 12 }}
           readinessProbe:
             {{- toYaml .Values.readinessProbe | nindent 12 }}
-          {{- if or .Values.secretConfiguration.enabled .Values.extraVolumeMounts (eq .Values.provider "azure") }}
+          {{- if or .Values.secretConfiguration.enabled .Values.extraVolumeMounts }}
           volumeMounts:
-            {{- if eq .Values.provider "azure" }}
-            - name: config
-              mountPath: /config
-              readOnly: true
-            {{- end }}
             {{- if .Values.secretConfiguration.enabled }}
             - name: secrets
               mountPath: {{ tpl .Values.secretConfiguration.mountPath $ }}
@@ -142,15 +137,8 @@ spec:
           resources:
             {{- toYaml . | nindent 12 }}
           {{- end }}
-      {{- if or .Values.secretConfiguration.enabled .Values.extraVolumes (eq .Values.provider "azure") }}
+      {{- if or .Values.secretConfiguration.enabled .Values.extraVolumes }}
       volumes:
-        {{- if eq .Values.provider "azure" }}
-        - name: config
-          emptyDir: {}
-        - name: etc-kubernetes
-          hostPath:
-            path: /etc/kubernetes
-        {{- end }}
         {{- if .Values.secretConfiguration.enabled }}
         - name: secrets
           secret:
