@@ -107,38 +107,6 @@ from the default catalog and is therefore a default app */}}
 {{- end -}}
 
 {{/*
-Set provider specific flags. 
-*/}}
-{{- define "dnsProvider.flags" -}}
-{{- $dnsProvider := .Values.provider -}}
-{{- if eq .Values.provider "capa" }}
-{{- $dnsProvider = "aws" -}}
-{{- else if eq .Values.provider "gcp" }}
-{{- $dnsProvider = "google" -}}
-{{- end }}
-{{- printf "- --provider=%s" $dnsProvider }}
-
-{{- if eq $dnsProvider "aws" }}
-{{ include "zone.type" . }}
-{{- if or .Values.aws.preferCNAME (eq .Values.aws.access "external") }}
-- --aws-prefer-cname
-{{- end }}
-{{- if .Values.aws.batchChangeSize }}
-- --aws-batch-change-size={{ .Values.aws.batchChangeSize }}
-{{- end }}
-{{- if .Values.aws.batchChangeInterval }}
-- --aws-batch-change-interval={{ .Values.aws.batchChangeInterval }}
-{{- end }}
-{{ include "domain.list" . }}
-{{- end }}
-
-{{- if eq .Values.provider "azure" }}
-- --azure-config-file=/config/azure.yaml
-{{- end }}
-
-{{- end }}
-
-{{/*
 Validate certain values and fail if they are incorrect
 */}}
 

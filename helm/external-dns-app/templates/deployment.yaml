@@ -84,19 +84,31 @@ spec:
             {{- if .Values.annotationFilter }}
             - --annotation-filter={{ .Values.annotationFilter }}
             {{- end }}
-            {{- include "dnsProvider.flags" . | nindent 12 }}
             {{- if .Values.namespaceFilter }}
             - --namespace={{ .Values.namespaceFilter }}
             {{- end }}
             {{- if .Values.minEventSyncInterval }}
             - --min-event-sync-interval={{ .Values.minEventSyncInterval }}
             {{- end }}
-            - --registry=txt
-            - --txt-owner-id={{- template "txt.owner.id" . }}
-            - --txt-prefix={{- template "txt.prefix" . }}
+            - --registry={{ .Values.registry }}
+            {{- if eq .Values.registry "txt" }}
+            {{- if .Values.txtOwnerId }}
+            - --txt-owner-id={{ .Values.txtOwnerId }}
+            {{- end }}
+            {{- if .Values.txtPrefix }}
+            - --txt-prefix={{ .Values.txtPrefix }}
+            {{- end }}
+            {{- if and (eq .Values.txtPrefix "") (ne .Values.txtSuffix "") }}
+            - --txt-suffix={{ .Values.txtSuffix }}
+            {{- end }}
+            {{- end }}
+            {{- if .Values.namespaced }}
+            - --namespace={{ .Release.Namespace }}
+            {{- end }}
             {{- range .Values.domainFilters }}
             - --domain-filter={{ . }}
             {{- end }}
+            - --provider={{ tpl .Values.provider $ }}
           {{- range .Values.extraArgs }}
             - {{ tpl . $ }}
           {{- end }}
