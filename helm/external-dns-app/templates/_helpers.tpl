@@ -194,27 +194,6 @@ Set Giant Swarm serviceAccountAnnotations.
 {{- end -}}
 
 {{/*
-Set Giant Swarm env for Deployment.
-*/}}
-{{- define "giantswarm.deploymentEnv" -}}
-{{- $proxy := deepCopy .Values.cluster.proxy |  mustMerge .Values.proxy -}}
-{{- if and $proxy.noProxy $proxy.http $proxy.https }}
-- name: NO_PROXY
-  value: {{ $proxy.noProxy }}
-- name: no_proxy
-  value: {{ $proxy.noProxy }}
-- name: HTTP_PROXY
-  value: {{ $proxy.http }}
-- name: http_proxy
-  value: {{ $proxy.http }}
-- name: HTTPS_PROXY
-  value: {{ $proxy.https }}
-- name: https_proxy
-  value: {{ $proxy.https }}
-{{- end }}
-{{- end -}}
-
-{{/*
 Upstream chart helpers.
 */}}
 
