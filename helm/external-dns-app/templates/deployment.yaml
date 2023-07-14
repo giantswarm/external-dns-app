@@ -81,7 +81,9 @@ spec:
             - --source={{ . }}
             {{- end }}
             - --policy={{ .Values.policy }}
-            - --annotation-filter={{- template "annotation.filter" . }}
+            {{- if .Values.annotationFilter }}
+            - --annotation-filter={{ .Values.annotationFilter }}
+            {{- end }}
             {{- include "dnsProvider.flags" . | nindent 12 }}
             {{- if .Values.namespaceFilter }}
             - --namespace={{ .Values.namespaceFilter }}
