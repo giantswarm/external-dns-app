@@ -215,32 +215,6 @@ Set Giant Swarm env for Deployment.
 {{- end -}}
 
 {{/*
-Set Giant Swarm initContainers.
-*/}}
-{{- define "giantswarm.deploymentInitContainers" -}}
-{{- if eq .Values.provider "azure" }}
-- name: copy-azure-config-file
-  image: {{ .Values.image.registry }}/giantswarm/alpine:3.16.2-python3
-  command:
-    - /bin/sh
-    - -c
-    # GS clusters have the cloud config file in /etc/kubernetes/config/azure.yaml and we can use it as-is so we just copy it to the desired position.
-    # CAPZ clusters use a JSON file so we convert it to yaml and save it to the desired position.
-    - if [ -f /etc/kubernetes/config/azure.yaml ]; then
-      cp /etc/kubernetes/config/azure.yaml /config/azure.yaml;
-      else
-      cat /etc/kubernetes/azure.json | python3 -c 'import sys, yaml, json; print(yaml.dump(json.loads(sys.stdin.read())))' > /config/azure.yaml;
-      fi
-  volumeMounts:
-    - mountPath: /etc/kubernetes
-      name: etc-kubernetes
-      readOnly: true
-    - mountPath: /config
-      name: config
-{{- end }}
-{{- end -}}
-
-{{/*
 Upstream chart helpers.
 */}}
 

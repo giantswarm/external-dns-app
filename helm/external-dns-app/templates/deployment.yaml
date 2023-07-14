@@ -58,8 +58,6 @@ spec:
       {{- with .Values.dnsPolicy }}
       dnsPolicy: {{ . }}
       {{- end }}
-      initContainers:
-        {{- include "giantswarm.deploymentInitContainers" . | nindent 8 }}
       containers:
         - name: external-dns
           {{- with .Values.securityContext }}
