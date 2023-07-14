@@ -21,9 +21,6 @@ spec:
     metadata:
       labels:
         {{- include "external-dns.labels" . | nindent 8 }}
-        {{- if and (eq .Values.provider "gcp") (.Values.gcpProject) }}
-        giantswarm.io/gcp-workload-identity: enabled
-        {{- end }}
       {{- with .Values.podLabels }}
         {{- toYaml . | nindent 8 }}
       {{- end }}
