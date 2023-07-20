@@ -12,6 +12,9 @@ spec:
     - containerName: {{ .Release.Name }}
       controlledValues: RequestsAndLimits
       mode: Auto
+      minAllowed:
+        Cpu: 50m
+        Memory: 75Mi
   targetRef:
     apiVersion: apps/v1
     kind: Deployment
