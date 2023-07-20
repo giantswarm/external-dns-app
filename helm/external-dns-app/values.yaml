@@ -355,7 +355,7 @@ global:
   # dictionary directly into the deployment manifest.
   resources:
     limits:
-      memory: 100Mi
+      memory: 150Mi
     requests:
       cpu: 50m
       memory: 100Mi
