@@ -7,6 +7,14 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Added
+
+- Add minAllowed in VPA to minimize OOM cycle.
+
+### Changed
+
+- Increase Memory limit.
+
 ## [2.38.0] - 2023-07-13
 
 ### Changed
