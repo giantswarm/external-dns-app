@@ -10,6 +10,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 ### Added
 
 - Add minAllowed in VPA to minimize OOM cycle.
+- Add vendir for upstream sync.
 
 ### Changed
 
