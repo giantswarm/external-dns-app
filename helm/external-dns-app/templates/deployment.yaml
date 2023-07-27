@@ -20,9 +20,6 @@ spec:
     metadata:
       labels:
         {{- include "external-dns.labels" . | nindent 8 }}
-        {{- if and (eq .Values.provider "gcp") (.Values.gcpProject) }}
-        giantswarm.io/gcp-workload-identity: enabled
-        {{- end }}
       {{- with .Values.podLabels }}
         {{- toYaml . | nindent 8 }}
       {{- end }}
@@ -60,8 +57,6 @@ spec:
       {{- with .Values.dnsPolicy }}
       dnsPolicy: {{ . }}
       {{- end }}
-      initContainers:
-        {{- include "giantswarm.deploymentInitContainers" . | nindent 8 }}
       containers:
         - name: external-dns
           {{- with .Values.securityContext }}
@@ -70,11 +65,10 @@ spec:
           {{- end }}
           image: {{ include "external-dns.image" . }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          {{- with .Values.env }}
           env:
-            {{- with .Values.env }}
             {{- toYaml . | nindent 12 }}
-            {{- end }}
-            {{- include "giantswarm.deploymentEnv" . | nindent 12 }}
+          {{- end }}
           args:
             - --log-level={{ .Values.logLevel }}
             - --log-format={{ .Values.logFormat }}
@@ -86,20 +80,34 @@ spec:
             - --source={{ . }}
             {{- end }}
             - --policy={{ .Values.policy }}
-            - --annotation-filter={{- template "annotation.filter" . }}
-            {{- include "dnsProvider.flags" . | nindent 12 }}
+            {{- if .Values.annotationFilter }}
+            - --annotation-filter={{ .Values.annotationFilter }}
+            {{- end }}
             {{- if .Values.namespaceFilter }}
             - --namespace={{ .Values.namespaceFilter }}
             {{- end }}
             {{- if .Values.minEventSyncInterval }}
             - --min-event-sync-interval={{ .Values.minEventSyncInterval }}
             {{- end }}
-            - --registry=txt
-            - --txt-owner-id={{- template "txt.owner.id" . }}
-            - --txt-prefix={{- template "txt.prefix" . }}
+            - --registry={{ .Values.registry }}
+            {{- if eq .Values.registry "txt" }}
+            {{- if .Values.txtOwnerId }}
+            - --txt-owner-id={{ .Values.txtOwnerId }}
+            {{- end }}
+            {{- if .Values.txtPrefix }}
+            - --txt-prefix={{ .Values.txtPrefix }}
+            {{- end }}
+            {{- if and (eq .Values.txtPrefix "") (ne .Values.txtSuffix "") }}
+            - --txt-suffix={{ .Values.txtSuffix }}
+            {{- end }}
+            {{- end }}
+            {{- if .Values.namespaced }}
+            - --namespace={{ .Release.Namespace }}
+            {{- end }}
             {{- range .Values.domainFilters }}
             - --domain-filter={{ . }}
             {{- end }}
+            - --provider={{ tpl .Values.provider $ }}
           {{- range .Values.extraArgs }}
             - {{ tpl . $ }}
           {{- end }}
@@ -111,13 +119,8 @@ spec:
             {{- toYaml .Values.livenessProbe | nindent 12 }}
           readinessProbe:
             {{- toYaml .Values.readinessProbe | nindent 12 }}
-          {{- if or .Values.secretConfiguration.enabled .Values.extraVolumeMounts (eq .Values.provider "azure") }}
+          {{- if or .Values.secretConfiguration.enabled .Values.extraVolumeMounts }}
           volumeMounts:
-            {{- if eq .Values.provider "azure" }}
-            - name: config
-              mountPath: /config
-              readOnly: true
-            {{- end }}
             {{- if .Values.secretConfiguration.enabled }}
             - name: secrets
               mountPath: {{ tpl .Values.secretConfiguration.mountPath $ }}
@@ -133,15 +136,8 @@ spec:
           resources:
             {{- toYaml . | nindent 12 }}
           {{- end }}
-      {{- if or .Values.secretConfiguration.enabled .Values.extraVolumes (eq .Values.provider "azure") }}
+      {{- if or .Values.secretConfiguration.enabled .Values.extraVolumes }}
       volumes:
-        {{- if eq .Values.provider "azure" }}
-        - name: config
-          emptyDir: {}
-        - name: etc-kubernetes
-          hostPath:
-            path: /etc/kubernetes
-        {{- end }}
         {{- if .Values.secretConfiguration.enabled }}
         - name: secrets
           secret:

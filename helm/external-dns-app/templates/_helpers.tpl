@@ -107,38 +107,6 @@ from the default catalog and is therefore a default app */}}
 {{- end -}}
 
 {{/*
-Set provider specific flags. 
-*/}}
-{{- define "dnsProvider.flags" -}}
-{{- $dnsProvider := .Values.provider -}}
-{{- if eq .Values.provider "capa" }}
-{{- $dnsProvider = "aws" -}}
-{{- else if eq .Values.provider "gcp" }}
-{{- $dnsProvider = "google" -}}
-{{- end }}
-{{- printf "- --provider=%s" $dnsProvider }}
-
-{{- if eq $dnsProvider "aws" }}
-{{ include "zone.type" . }}
-{{- if or .Values.aws.preferCNAME (eq .Values.aws.access "external") }}
-- --aws-prefer-cname
-{{- end }}
-{{- if .Values.aws.batchChangeSize }}
-- --aws-batch-change-size={{ .Values.aws.batchChangeSize }}
-{{- end }}
-{{- if .Values.aws.batchChangeInterval }}
-- --aws-batch-change-interval={{ .Values.aws.batchChangeInterval }}
-{{- end }}
-{{ include "domain.list" . }}
-{{- end }}
-
-{{- if eq .Values.provider "azure" }}
-- --azure-config-file=/config/azure.yaml
-{{- end }}
-
-{{- end }}
-
-{{/*
 Validate certain values and fail if they are incorrect
 */}}
 
@@ -190,53 +158,6 @@ Set Giant Swarm serviceAccountAnnotations.
 {{- $_ := set .Values.serviceAccount.annotations "eks.amazonaws.com/role-arn" (include "aws.iam.role" .) }}
 {{- else if and (eq .Values.provider "gcp") (.Values.gcpProject) (not (hasKey .Values.serviceAccount.annotations "giantswarm.io/gcp-service-account")) }}
 {{- $_ := set .Values.serviceAccount.annotations "giantswarm.io/gcp-service-account" (tpl "external-dns-app@{{ .Values.gcpProject }}.iam.gserviceaccount.com" .) }}
-{{- end }}
-{{- end -}}
-
-{{/*
-Set Giant Swarm env for Deployment.
-*/}}
-{{- define "giantswarm.deploymentEnv" -}}
-{{- $proxy := deepCopy .Values.cluster.proxy |  mustMerge .Values.proxy -}}
-{{- if and $proxy.noProxy $proxy.http $proxy.https }}
-- name: NO_PROXY
-  value: {{ $proxy.noProxy }}
-- name: no_proxy
-  value: {{ $proxy.noProxy }}
-- name: HTTP_PROXY
-  value: {{ $proxy.http }}
-- name: http_proxy
-  value: {{ $proxy.http }}
-- name: HTTPS_PROXY
-  value: {{ $proxy.https }}
-- name: https_proxy
-  value: {{ $proxy.https }}
-{{- end }}
-{{- end -}}
-
-{{/*
-Set Giant Swarm initContainers.
-*/}}
-{{- define "giantswarm.deploymentInitContainers" -}}
-{{- if eq .Values.provider "azure" }}
-- name: copy-azure-config-file
-  image: {{ .Values.image.registry }}/giantswarm/alpine:3.16.2-python3
-  command:
-    - /bin/sh
-    - -c
-    # GS clusters have the cloud config file in /etc/kubernetes/config/azure.yaml and we can use it as-is so we just copy it to the desired position.
-    # CAPZ clusters use a JSON file so we convert it to yaml and save it to the desired position.
-    - if [ -f /etc/kubernetes/config/azure.yaml ]; then
-      cp /etc/kubernetes/config/azure.yaml /config/azure.yaml;
-      else
-      cat /etc/kubernetes/azure.json | python3 -c 'import sys, yaml, json; print(yaml.dump(json.loads(sys.stdin.read())))' > /config/azure.yaml;
-      fi
-  volumeMounts:
-    - mountPath: /etc/kubernetes
-      name: etc-kubernetes
-      readOnly: true
-    - mountPath: /config
-      name: config
 {{- end }}
 {{- end -}}
 
