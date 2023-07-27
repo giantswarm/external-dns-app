@@ -166,6 +166,7 @@ logLevel: info
 logFormat: text
 
 interval: 5m
+minEventSyncInterval: 30s
 triggerLoopOnEvent: false
 
 namespaceFilter: kube-system
