@@ -2,120 +2,7 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-# aws
-# Configuration options specific to external-dns when running in AWS
-# clusters.
-aws:
-
-  # aws.access
-  # Route53 access type. Use 'internal' to utilise in-cluster AWS authentication
-  # via KIAM, or 'external' to access the AWS API via the public endpoints. When
-  # using external access, you must also provide the AWS access credentials below.
-  # Note that external access can only update public hosted zones, whereas internal
-  # can update public and private zones.
-  access: internal
-
-  # aws.accountID
-  # AWS account ID is used to assume role via IRSA (IAM roles for service accounts).
-  # It is dynamically set and will be overridden.
-  accountID: ""
-
-  # aws.baseDomain
-  # If aws.access is 'external' then the domain to update must be set.
-  baseDomain:
-
-  # aws.batchChangeSize
-  # Maximum number of changes applied in each batch. If left blank then the
-  # default will be used.
-  batchChangeSize:
-
-  # aws.batchChangeInterval
-  # Set interval between batch changes. If left blank then the default will
-  # be used.
-  batchChangeInterval: 10s
-
-  # aws.zonesCacheDuration
-  # Set the zones list cache TTL. If left blank then the default will
-  # be used.
-  zonesCacheDuration: 3h
-
-  # aws.preferCNAME
-  # Create CNAME records instead of ALIAS. Will always be set to true when aws.access
-  # is `external`.
-  preferCNAME: false
-
-  # aws.region
-  # If aws.access is 'external' then the AWS region must be set.
-  region:
-
-  # aws.zoneType
-  # Filters hosted zones to update based on type. Supported options: `public`,
-  # `private`. Leave blank to not filter based on zone type. If `aws.access` is
-  # set to `external` then the zone type is automatically set to `public` and
-  # cannot be changed.
-  zoneType:
-
-# gcpProject
-# The GCP project in which external-dns will create records.
-gcpProject: ""
-
-# externalDNS
-# Configuration options for external-dns itself.
-externalDNS:
-
-  # externalDNS.annotationFilter
-  # Annotation to filter objects to reconcile. Use in conjunction with
-  # `externalDNS.sources` to limit further. This must be provided when running multiple
-  # instances of external-dns.
-  annotationFilter: "giantswarm.io/external-dns=managed"
-
-  # externalDNS.domainFilterList
-  # One or more domains that this instance of external-dns will manage. If
-  # no domains are provided then the cluster baseDomain must be provided via
-  # either `baseDomain` or `aws.baseDomain` (depending on the Route53 access
-  # method used).
-  # By explicitly setting externalDNS.domainFilterList to null, the --domain-filter
-  # flag will be completely omitted. Otherwise leave this as empty array ([])
-  domainFilterList: []
-  # - foo.bar.com
-  # - baz.bar.com
-
-  # externalDNS.namespaceFilter
-  # The namespace to limit sources of endpoints to. If left blank, all
-  # namespaces will be used.
-  namespaceFilter: kube-system
-
-  # externalDNS.registry
-  # Configuration options relating to ownership of created records.
-  registry:
-
-    # externalDNS.registry.txtOwnerID
-    # String to identify this instance of external-dns and the records it owns. See
-    # https://github.com/kubernetes-sigs/external-dns/blob/master/docs/proposal/registry.md
-    txtOwnerID: managed-external-dns
-
-    # externalDNS.registry.txtPrefix
-    # String prefix applied to TXT registry records. See
-    # https://github.com/kubernetes-sigs/external-dns/blob/master/docs/proposal/registry.md
-    txtPrefix: extdns
-
-# set the HTTP_PROXY, HTTPS_PROXY and NO_PROXY variable
-proxy:
-  noProxy:
-  http:
-  https:
-cluster:
-  # is getting overwritten by the top level proxy if set
-  # These values are generated via cluster-apps-operator
-  proxy:
-    noProxy:
-    http:
-    https:
-
-# crd
-# Configuration options for CRDs.
-crd:
-  install: true
+annotationFilter: "giantswarm.io/external-dns=managed"
 
 image:
   name: giantswarm/external-dns
@@ -124,6 +11,11 @@ image:
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []
+
+nameOverride: ""
+fullnameOverride: ""
+
+commonLabels: {}
 
 serviceAccount:
   # Specifies whether a service account should be created
@@ -173,6 +65,8 @@ securityContext:
 dnsPolicy:
 
 priorityClassName: "giantswarm-critical"
+
+terminationGracePeriodSeconds:
 
 serviceMonitor:
   enabled: false
@@ -253,8 +147,6 @@ extraVolumes: []
 
 extraVolumeMounts: []
 
-tolerations: []
-
 resources:
   limits:
     memory: 100Mi
@@ -264,6 +156,8 @@ resources:
 
 nodeSelector: {}
 
+tolerations: []
+
 affinity: {}
 
 topologySpreadConstraints: []
@@ -272,14 +166,23 @@ logLevel: info
 logFormat: text
 
 interval: 5m
+minEventSyncInterval: 30s
 triggerLoopOnEvent: false
 
-terminationGracePeriodSeconds:
+namespaceFilter: kube-system
+namespaced: false
 
 sources:
   - service
 
 policy: sync
+
+registry: txt
+txtOwnerId: ""
+txtPrefix: ""
+txtSuffix: ""
+
+domainFilters: []
 
 # provider
 # Identifies the cloud provider. Currently supported: `aws` and `azure`. This *must*
@@ -291,12 +194,16 @@ extraArgs: []
 
 secretConfiguration:
   enabled: false
-  mountPath: /.aws/credentials
+  mountPath: ""
   subPath: ""
   data: {}
 
 deploymentStrategy:
   type: Recreate
+
+# Configuration options for CRDs.
+crd:
+  install: true
 
 # hostNetwork
 hostNetwork: false

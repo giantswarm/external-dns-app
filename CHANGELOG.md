@@ -37,6 +37,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 - Secrets: Remove deprecated values for AWS Route53 external authentication [#266](https://github.com/giantswarm/external-dns-app/pull/266).
 - Remove support for KIAM ([#278](https://github.com/giantswarm/external-dns-app/pull/278)).
 - Remove `aws.iam.customRoleName` value ([#278](https://github.com/giantswarm/external-dns-app/pull/278)).
+- Remove `aws`, `gcpProject` and `externalDNS` values ([#284](https://github.com/giantswarm/external-dns-app/pull/284)).
+- Remove Azure volume configuration ([#284](https://github.com/giantswarm/external-dns-app/pull/284)).
 
 ## [2.38.0] - 2023-07-13
 

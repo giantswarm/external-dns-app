@@ -5,117 +5,31 @@
         "affinity": {
             "type": "object"
         },
-        "aws": {
-            "type": "object",
-            "properties": {
-                "access": {
-                    "type": "string"
-                },
-                "accountID": {
-                    "type": "string"
-                },
-                "baseDomain": {
-                    "type": ["null", "string"]
-                },
-                "batchChangeInterval": {
-                    "type": ["null", "string"]
-                },
-                "batchChangeSize": {
-                    "type": ["null", "integer"]
-                },
-                "iam": {
-                    "type": "object",
-                    "properties": {
-                        "customRoleName": {
-                            "type": ["null", "string"]
-                        }
-                    }
-                },
-                "irsa": {
-                    "type": "string"
-                },
-                "preferCNAME": {
-                    "type": "boolean"
-                },
-                "region": {
-                    "type": ["null", "string"]
-                },
-                "zoneType": {
-                    "type": ["null", "string"]
-                },
-                "zonesCacheDuration": {
-                    "type": ["null", "string"]
-                }
-            }
+        "annotationFilter": {
+            "type": "string"
         },
         "baseDomain": {
             "type": "string"
         },
-	"cluster": {
+        "ciliumNetworkPolicy": {
             "type": "object",
             "properties": {
-                "proxy": {
-                    "type": "object",
-                    "properties": {
-                        "http": {
-                            "type": ["null", "string"]
-                        },
-                        "https": {
-                            "type": ["null", "string"]
-                        },
-                        "noProxy": {
-                            "type": ["null", "string"]
-                        }
-                    }
+                "enabled": {
+                    "type": "boolean"
                 }
             }
         },
         "clusterID": {
             "type": "string"
         },
+        "commonLabels": {
+            "type": "object"
+        },
         "crd": {
             "type": "object",
             "properties": {
-                "backoffLimit": {
-                    "type": "integer"
-                },
-                "image": {
-                    "type": "object",
-                    "properties": {
-                        "pullPolicy": {
-                            "type": "string"
-                        }
-                    }
-                },
                 "install": {
                     "type": "boolean"
-                },
-                "resources": {
-                    "type": "object",
-                    "properties": {
-                        "limits": {
-                            "type": "object",
-                            "properties": {
-                                "cpu": {
-                                    "type": ["string", "integer"]
-                                },
-                                "memory": {
-                                    "type": "string"
-                                }
-                            }
-                        },
-                        "requests": {
-                            "type": "object",
-                            "properties": {
-                                "cpu": {
-                                    "type": ["string", "integer"]
-                                },
-                                "memory": {
-                                    "type": "string"
-                                }
-                            }
-                        }
-                    }
                 }
             }
         },
@@ -133,64 +47,17 @@
         "dnsPolicy": {
             "type": ["null","string"]
         },
+        "domainFilters": {
+            "type": "array"
+        },
         "e2e": {
             "type": "boolean"
         },
         "env": {
             "type": "array"
         },
-        "externalDNS": {
-            "type": "object",
-            "properties": {
-                "annotationFilter": {
-                    "type": "string"
-                },
-                "aws_access_key_id": {
-                    "type": ["null", "string"]
-                },
-                "aws_secret_access_key": {
-                    "type": ["null", "string"]
-                },
-                "domainFilterList": {
-                    "type": ["null", "array"]
-                },
-                "dryRun": {
-                    "type": "boolean"
-                },
-                "extraArgs": {
-                    "type": "array",
-                    "items": { "type": "string" }
-                },
-                "interval": {
-                    "type": ["null", "string"]
-                },
-                "minEventSyncInterval": {
-                    "type": ["null", "string"]
-                },
-                "namespaceFilter": {
-                    "type": ["null", "string"]
-                },
-                "policy": {
-                    "type": "string"
-                },
-                "registry": {
-                    "type": "object",
-                    "properties": {
-                        "txtOwnerID": {
-                            "type": "string"
-                        },
-                        "txtPrefix": {
-                            "type": "string"
-                        }
-                    }
-                },
-                "sources": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                }
-            }
+        "extraArgs": {
+            "type": "array"
         },
         "extraVolumeMounts": {
             "type": "array"
@@ -198,7 +65,7 @@
         "extraVolumes": {
             "type": "array"
         },
-        "gcpProject": {
+        "fullnameOverride": {
             "type": "string"
         },
         "global": {
@@ -207,55 +74,8 @@
                 "image": {
                     "type": "object",
                     "properties": {
-                        "name": {
-                            "type": "string"
-                        },
-                        "pullPolicy": {
-                            "type": "string"
-                        },
                         "registry": {
                             "type": "string"
-                        },
-                        "tag": {
-                            "type": "string"
-                        }
-                    }
-                },
-                "resources": {
-                    "type": "object",
-                    "properties": {
-                        "limits": {
-                            "type": "object",
-                            "properties": {
-                                "memory": {
-                                    "type": "string"
-                                }
-                            }
-                        },
-                        "requests": {
-                            "type": "object",
-                            "properties": {
-                                "cpu": {
-                                    "type": "string"
-                                },
-                                "memory": {
-                                    "type": "string"
-                                }
-                            }
-                        }
-                    }
-                },
-                "securityContext": {
-                    "type": "object",
-                    "properties": {
-                        "fsGroupID": {
-                            "type": "integer"
-                        },
-                        "groupID": {
-                            "type": "integer"
-                        },
-                        "userID": {
-                            "type": "integer"
                         }
                     }
                 }
@@ -264,8 +84,28 @@
         "hostNetwork": {
             "type": "boolean"
         },
+        "image": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "pullPolicy": {
+                    "type": "string"
+                },
+                "registry": {
+                    "type": "string"
+                },
+                "tag": {
+                    "type": "string"
+                }
+            }
+        },
         "imagePullSecrets": {
             "type": "array"
+        },
+        "interval": {
+            "type": "string"
         },
         "livenessProbe": {
             "type": "object",
@@ -304,6 +144,18 @@
         "logLevel": {
             "type": "string"
         },
+        "minEventSyncInterval": {
+            "type": "string"
+        },
+        "nameOverride": {
+            "type": "string"
+        },
+        "namespaceFilter": {
+            "type": "string"
+        },
+        "namespaced": {
+            "type": "boolean"
+        },
         "nodeSelector": {
             "type": "object"
         },
@@ -313,25 +165,28 @@
         "podLabels": {
             "type": "object"
         },
+        "podSecurityContext": {
+            "type": "object",
+            "properties": {
+                "fsGroup": {
+                    "type": "integer"
+                },
+                "runAsGroup": {
+                    "type": "integer"
+                },
+                "runAsUser": {
+                    "type": "integer"
+                }
+            }
+        },
+        "policy": {
+            "type": "string"
+        },
         "priorityClassName": {
             "type": "string"
         },
         "provider": {
             "type": "string"
-        },
-        "proxy": {
-            "type": "object",
-            "properties": {
-                "http": {
-                    "type": ["null", "string"]
-                },
-                "https": {
-                    "type": ["null", "string"]
-                },
-                "noProxy": {
-                    "type": ["null", "string"]
-                }
-            }
         },
         "rbac": {
             "type": "object",
@@ -372,6 +227,33 @@
                 },
                 "timeoutSeconds": {
                     "type": "integer"
+                }
+            }
+        },
+        "registry": {
+            "type": "string"
+        },
+        "resources": {
+            "type": "object",
+            "properties": {
+                "limits": {
+                    "type": "object",
+                    "properties": {
+                        "memory": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "requests": {
+                    "type": "object",
+                    "properties": {
+                        "cpu": {
+                            "type": "string"
+                        },
+                        "memory": {
+                            "type": "string"
+                        }
+                    }
                 }
             }
         },
@@ -491,6 +373,15 @@
         },
         "triggerLoopOnEvent": {
             "type": "boolean"
+        },
+        "txtOwnerId": {
+            "type": "string"
+        },
+        "txtPrefix": {
+            "type": "string"
+        },
+        "txtSuffix": {
+            "type": "string"
         }
     }
 }
