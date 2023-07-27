@@ -47,6 +47,9 @@
         "dnsPolicy": {
             "type": ["null","string"]
         },
+        "domainFilters": {
+            "type": "array"
+        },
         "e2e": {
             "type": "boolean"
         },
