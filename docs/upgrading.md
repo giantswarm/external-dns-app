@@ -4,8 +4,6 @@
 
 Starting from `external-dns` version `3.0.0` and later, there have been modifications to the values.yaml schema. These changes were introduced in version `2.28.0`, and the previous format has been completely removed in version 3. Therefore, it's important to take note of these updates while upgrading.
 
-If you are utilizing a custom setup with this app, certain adjustments might be necessary before upgrading."
-
 ### Values
 
 - `aws.access` has been removed. Check the [External DNS with AWS Route 53 and static credentials](https://docs.giantswarm.io/advanced/external-dns/aws-route53-static-creds) guide for more details.
