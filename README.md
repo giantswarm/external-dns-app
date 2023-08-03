@@ -103,7 +103,7 @@ See our [full reference page on how to configure applications](https://docs.gian
 
 ## Upgrade to v3
 
-This version includes many breaking changings from previous versions. Please read the defailed information in the [Upgrade guide](https://github.com/giantswarm/external-dns-app/blob/main/docs/upgrading.md)
+Starting from this version, `external-dns-app` includes significant changes that may affect its functionality if not configured properly. For the full list of modifications, we strongly recommend referring to the [Upgrade guide](https://github.com/giantswarm/external-dns-app/blob/main/docs/upgrading.md).
 
 ## Release Process
 
