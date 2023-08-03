@@ -61,7 +61,7 @@ domainFilters:
 namespaced: 'web-app'
 annotationFilter: "mydomain.com/external-dns=owned"
 
-txtPrefix: 'webapp'
+txtOwnerId: 'webapp'
 sources:
   - ingress
 
