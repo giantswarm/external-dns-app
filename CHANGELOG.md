@@ -11,6 +11,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - Add minAllowed in VPA to minimize OOM cycle.
 - Add vendir for upstream sync.
+- Add namespaced feature to scope permissions to one namespace.
 
 ### Changed
 
