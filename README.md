@@ -38,7 +38,7 @@ There are 3 ways to install this app onto a workload cluster:
 
 ## Configuring
 
-Configuration options are documented in the [Configuration.md](https://github.com/giantswarm/external-dns-app/blob/main/helm/external-dns-app/Configuration.md)
+Configuration options are documented in the [README](https://github.com/giantswarm/external-dns-app/blob/main/helm/external-dns-app/README.md)
 document. See also the [default `values.yaml`](https://github.com/giantswarm/external-dns-app/blob/main/helm/external-dns-app/values.yaml)
 
 ### values.yaml
@@ -46,30 +46,28 @@ document. See also the [default `values.yaml`](https://github.com/giantswarm/ext
 This is an example of a values file you could upload using our web interface. It assumes:
 
 - The cloud provider is AWS.
-- API access is internal and therefore authentication is provided by KIAM.
+- API access is internal and therefore authentication is provided by IRSA.
 - Only Ingress resources in the namespace `web-app` should be reconciled.
 - Only Hosted Zone `Z262CGXUQ3M97` will be modified.
 
 ```yaml
 # values.yaml
-aws:
-  iam:
-    customRoleName: 'my-precreated-route53-role'
-  zoneType: private
+serviceAccount:
+  annotations:
+    eks.amazonaws.com/role-arn: <CLUSTER_ID>-Route53Manager-Role
 
-externalDNS:
-  annotationFilter: "mydomain.com/external-dns=owned"
-  domainFilterList:
+domainFilters:
   - web-app.mydomain.com
-  namespaceFilter: 'web-app'
-  registry:
-    txtPrefix: 'webapp'
-  sources:
+namespaced: 'web-app'
+annotationFilter: "mydomain.com/external-dns=owned"
+
+txtOwnerId: 'webapp'
+sources:
   - ingress
-  extraArgs:
-  - "--zone-id-filter=Z262CGXUQ3M97"
 
 provider: aws
+extraArgs:
+  - "--zone-id-filter=Z262CGXUQ3M97"
 ```
 
 Additionally to the above example, `external-dns` can also be configured to synchronize `DNSEndpoint` custom resources:
@@ -77,8 +75,7 @@ Additionally to the above example, `external-dns` can also be configured to sync
 ```yaml
 # values.yaml
 ...
-externalDNS:
-  sources:
+sources:
   - crd
 ...
 ```
@@ -104,28 +101,9 @@ spec:
 
 See our [full reference page on how to configure applications](https://docs.giantswarm.io/reference/app-configuration/) for more details.
 
-## Compatibility
+## Upgrade to v3
 
-This app has been tested to work with the following workload cluster release versions:
-
-* AWS `v13.0.0`
-* Azure `v16.0.2`
-
-## Limitations
-
-Some apps have restrictions on how they can be deployed.
-Not following these limitations will most likely result in a broken deployment.
-
-External DNS v2.0.0+ requires
-* Kubernetes version `1.19.0-0` or greater
-* [nginx-ingress-controller-app v1.14.0](https://github.com/giantswarm/ingress-nginx-app/blob/main/CHANGELOG.md#1140---2021-02-03) or greater to work (due to the need for the filtering annotation).
-  * If you do not (or cannot) upgrade `nginx-ingress-controller-app` to `v1.14.0`,
-    you can work around this by running the following command to ensure the default
-    `external-dns` continues to reconcile the relevant Service:
-
-```bash
-kubectl -n kube-system annotate service nginx-ingress-controller-app "giantswarm.io/external-dns=managed"
-```
+Starting from this version, `external-dns-app` includes significant changes that may affect its functionality if not configured properly. For the full list of modifications, we strongly recommend referring to the [Upgrade guide](https://github.com/giantswarm/external-dns-app/blob/main/docs/upgrading.md).
 
 ## Release Process
 
