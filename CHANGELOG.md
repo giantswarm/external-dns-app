@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [2.38.1] - 2023-08-04
+
 ### Added
 
 - Add minAllowed in VPA to minimize OOM cycle.
@@ -517,7 +519,8 @@ If you already specify `--aws-batch-change-interval` or `--aws-zones-cache-durat
 - Network policy that allows all egress traffic.
 - Network policy that allows accessing metrics on port `10254`.
 
-[Unreleased]: https://github.com/giantswarm/external-dns-app/compare/v2.38.0...HEAD
+[Unreleased]: https://github.com/giantswarm/external-dns-app/compare/v2.38.1...HEAD
+[2.38.1]: https://github.com/giantswarm/external-dns-app/compare/v2.38.0...v2.38.1
 [2.38.0]: https://github.com/giantswarm/external-dns-app/compare/v2.37.1...v2.38.0
 [2.37.1]: https://github.com/giantswarm/external-dns-app/compare/v2.37.0...v2.37.1
 [2.37.0]: https://github.com/giantswarm/external-dns-app/compare/v2.36.0...v2.37.0
