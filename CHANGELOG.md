@@ -57,6 +57,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
   - Add service annotations with GS defaults.
   - Set readinessProbe and livenessProbe from values.
   - Move podAnnotations to values.
+- Update README and config docs ([#290](https://github.com/giantswarm/external-dns-app/pull/290)).
 
 ### Removed
 
@@ -68,6 +69,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 - Remove `aws.iam.customRoleName` value ([#278](https://github.com/giantswarm/external-dns-app/pull/278)).
 - Remove `aws`, `gcpProject` and `externalDNS` values ([#284](https://github.com/giantswarm/external-dns-app/pull/284)).
 - Remove Azure volume configuration ([#284](https://github.com/giantswarm/external-dns-app/pull/284)).
+- Remove unused helpers ([#290](https://github.com/giantswarm/external-dns-app/pull/290)).
 
 ## [2.38.0] - 2023-07-13
 
