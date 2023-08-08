@@ -136,13 +136,8 @@ spec:
               path: /healthz
               port: {{ .Values.global.metrics.port }}
               scheme: HTTP
-          {{- if or .Values.secretConfiguration.enabled .Values.extraVolumeMounts (eq .Values.provider "azure") }}
+          {{- if or .Values.secretConfiguration.enabled .Values.extraVolumeMounts }}
           volumeMounts:
-            {{- if eq .Values.provider "azure" }}
-            - name: config
-              mountPath: /config
-              readOnly: true
-            {{- end }}
             {{- if .Values.secretConfiguration.enabled }}
             - name: secrets
               mountPath: {{ tpl .Values.secretConfiguration.mountPath $ }}
@@ -156,15 +151,8 @@ spec:
           {{- end }}
           resources:
             {{- toYaml .Values.global.resources | nindent 12 }}
-      {{- if or .Values.secretConfiguration.enabled .Values.extraVolumes (eq .Values.provider "azure") }}
+      {{- if or .Values.secretConfiguration.enabled .Values.extraVolumes }}
       volumes:
-        {{- if eq .Values.provider "azure" }}
-        - name: config
-          emptyDir: {}
-        - name: etc-kubernetes
-          hostPath:
-            path: /etc/kubernetes
-        {{- end }}
         {{- if .Values.secretConfiguration.enabled }}
         - name: secrets
           secret:
