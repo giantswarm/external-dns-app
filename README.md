@@ -1,4 +1,4 @@
-[![CircleCI](https://circleci.com/gh/giantswarm/external-dns-app.svg?style=svg)](https://circleci.com/gh/giantswarm/external-dns-app)
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/giantswarm/external-dns-app/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/giantswarm/external-dns-app/tree/main)
 
 # external-dns-app chart
 
