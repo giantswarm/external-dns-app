@@ -241,7 +241,7 @@ dnsPolicy:
 priorityClassName: "giantswarm-critical"
 
 serviceMonitor:
-  enabled: false
+  enabled: true
   # force namespace
   # namespace: monitoring
 
