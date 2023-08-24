@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [2.39.0] - 2023-08-24
+
 ### Changed
 
 - Replace monitoring labels with ServiceMonitor ([#296](https://github.com/giantswarm/external-dns-app/pull/296)).
@@ -524,7 +526,8 @@ If you already specify `--aws-batch-change-interval` or `--aws-zones-cache-durat
 - Network policy that allows all egress traffic.
 - Network policy that allows accessing metrics on port `10254`.
 
-[Unreleased]: https://github.com/giantswarm/external-dns-app/compare/v2.38.1...HEAD
+[Unreleased]: https://github.com/giantswarm/external-dns-app/compare/v2.39.0...HEAD
+[2.39.0]: https://github.com/giantswarm/external-dns-app/compare/v2.38.1...v2.39.0
 [2.38.1]: https://github.com/giantswarm/external-dns-app/compare/v2.38.0...v2.38.1
 [2.38.0]: https://github.com/giantswarm/external-dns-app/compare/v2.37.1...v2.38.0
 [2.37.1]: https://github.com/giantswarm/external-dns-app/compare/v2.37.0...v2.37.1
