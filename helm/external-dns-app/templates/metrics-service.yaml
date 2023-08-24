@@ -8,7 +8,7 @@ metadata:
 spec:
   clusterIP: None
   ports:
-  - name: metrics
+  - name: http
     port: {{ .Values.global.metrics.port }}
     targetPort: metrics
   selector:
