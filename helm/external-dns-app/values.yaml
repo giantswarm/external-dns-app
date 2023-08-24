@@ -241,12 +241,12 @@ dnsPolicy:
 priorityClassName: "giantswarm-critical"
 
 serviceMonitor:
-  enabled: false
+  enabled: true
   # force namespace
   # namespace: monitoring
 
   # Fallback to the prometheus default unless specified
-  # interval: 10s
+  interval: 60s
 
   ## scheme: HTTP scheme to use for scraping. Can be used with `tlsConfig` for example if using istio mTLS.
   # scheme: ""
@@ -276,14 +276,23 @@ serviceMonitor:
 
   ## Relabel configs to apply to samples before ingestion.
   ## [Relabeling](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#relabel_config)
-  relabelings: []
-  # - sourceLabels: [__meta_kubernetes_pod_node_name]
-  #   separator: ;
-  #   regex: ^(.*)$
-  #   targetLabel: nodename
-  #   replacement: $1
-  #   action: replace
-
+  relabelings:
+    - action: replace
+      regex: ;(.*)
+      replacement: $1
+      separator: ;
+      sourceLabels:
+      - namespace
+      - __meta_kubernetes_namespace
+      targetLabel: namespace
+    - action: replace
+      sourceLabels:
+      - __meta_kubernetes_pod_label_app
+      targetLabel: app
+    - action: replace
+      sourceLabels:
+      - __meta_kubernetes_pod_node_name
+      targetLabel: node
   targetLabels: []
 
 env: []

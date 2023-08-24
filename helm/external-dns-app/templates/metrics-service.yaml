@@ -3,17 +3,12 @@ kind: Service
 metadata:
   name: {{ .Release.Name }}-monitoring
   namespace: {{ .Release.Namespace }}
-  annotations:
-    giantswarm.io/monitoring-path: /metrics
-    giantswarm.io/monitoring-port: {{ .Values.global.metrics.port | quote }}
-    giantswarm.io/monitoring-app-label: {{ .Chart.Name | quote }}
   labels:
     {{- include "external-dns.labels" . | nindent 4 }}
-    giantswarm.io/monitoring: "true"
 spec:
   clusterIP: None
   ports:
-  - name: metrics
+  - name: http
     port: {{ .Values.global.metrics.port }}
     targetPort: metrics
   selector:

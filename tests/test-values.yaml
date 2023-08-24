@@ -5,3 +5,6 @@ image:
 crd:
   ciliumNetworkPolicy:
     enabled: false
+
+serviceMonitor:
+  enabled: false
