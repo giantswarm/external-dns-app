@@ -276,7 +276,7 @@ serviceMonitor:
 
   ## Relabel configs to apply to samples before ingestion.
   ## [Relabeling](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#relabel_config)
-  relabelings: []
+  relabelings:
     - action: replace
       regex: ;(.*)
       replacement: $1
