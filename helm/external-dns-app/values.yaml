@@ -246,7 +246,7 @@ serviceMonitor:
   # namespace: monitoring
 
   # Fallback to the prometheus default unless specified
-  # interval: 10s
+  interval: 60s
 
   ## scheme: HTTP scheme to use for scraping. Can be used with `tlsConfig` for example if using istio mTLS.
   # scheme: ""
