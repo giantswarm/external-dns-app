@@ -232,6 +232,14 @@
                         }
                     }
                 },
+                "podSecurityStandards": {
+                    "type": "object",
+                    "properties": {
+                        "enforced": {
+                            "type": "boolean"
+                        }
+                    }
+                },
                 "resources": {
                     "type": "object",
                     "properties": {
