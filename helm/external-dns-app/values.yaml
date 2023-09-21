@@ -381,6 +381,9 @@ global:
     # global.securityContext.userID
     userID: 65534
 
+  podSecurityStandards:
+    enforced: false
+
 # hostNetwork
 hostNetwork: false
 
