@@ -1,4 +1,24 @@
 {{/*
+Expand the name of the chart.
+*/}}
+{{- define "external-dns.name" -}}
+{{- default "external-dns" .Values.nameOverride | trunc 63 | trimSuffix "-" }}
+{{- end }}
+
+{{/*
+Create a default fully qualified app name.
+We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
+Unless there is a override, we use the release name as the full name.
+*/}}
+{{- define "external-dns.fullname" -}}
+{{- if .Values.fullnameOverride }}
+{{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
+{{- else }}
+{{- .Release.Name | trunc 63 | trimSuffix "-" }}
+{{- end }}
+{{- end }}
+
+{{/*
 Create chart name and version as used by the chart label.
 */}}
 {{- define "external-dns.chart" -}}
@@ -12,13 +32,6 @@ Giantswarm labels
 giantswarm.io/service-type: "{{ .Values.serviceType }}"
 application.giantswarm.io/team: {{ index .Chart.Annotations "application.giantswarm.io/team" | quote }}
 {{- end -}}
-
-{{/*
-Expand the name of the chart.
-*/}}
-{{- define "external-dns.name" -}}
-{{- default "external-dns" .Values.nameOverride | trunc 63 | trimSuffix "-" }}
-{{- end }}
 
 {{/*
 Common labels
@@ -43,19 +56,6 @@ Selector labels
 */}}
 {{- define "external-dns.selectorLabels" -}}
 app: {{ .Release.Name | quote }}
-{{- end }}
-
-{{/*
-Create a default fully qualified app name.
-We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
-Unless there is a override, we use the release name as the full name.
-*/}}
-{{- define "external-dns.fullname" -}}
-{{- if .Values.fullnameOverride }}
-{{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
-{{- else }}
-{{- .Release.Name | trunc 63 | trimSuffix "-" }}
-{{- end }}
 {{- end }}
 
 {{/*
