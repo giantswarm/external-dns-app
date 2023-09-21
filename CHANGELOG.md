@@ -7,6 +7,43 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Added
+
+- Add vendir for upstream sync.
+- Add namespaced feature to scope permissions to one namespace.
+- Add support for Gateway API ([#305](https://github.com/giantswarm/external-dns-app/pull/305)).
+
+### Changed
+
+- Deployment: ALign to upstream ([#255](https://github.com/giantswarm/external-dns-app/pull/255)).
+  - Use `crd.podSecurityContext` for crd job.
+  - Rename `global.resources` as `resources`.
+  - Rename `externalDNS.extraArgs` as `extraArgs`.
+  - Rename `externalDNS.policy` as `policy`.
+  - Rename `externalDNS.sources` as `sources` and adjust default value.
+  - Rename `externalDNS.interval` as `interval`.
+  - Rename `global.image` as `image` using helper for name composition.
+  - Move `global.securityContext` to `podSecurityContext` and align names.
+- Service: Align to upstream ([#243](https://github.com/giantswarm/external-dns-app/pull/243)).
+  - Replace `global.metrics.port` value with `service.port`.
+  - Add service annotations with GS defaults.
+  - Set readinessProbe and livenessProbe from values.
+  - Move podAnnotations to values.
+- Update README and config docs ([#290](https://github.com/giantswarm/external-dns-app/pull/290)).
+
+### Removed
+
+- Deployment: ALign to upstream ([#255](https://github.com/giantswarm/external-dns-app/pull/255)).
+  - Remove dedicated option for `min-event-sync-interval` and set it in extraArgs.
+  - Remove `externalDNS.dryRun` option.
+- Secrets: Remove deprecated values for AWS Route53 external authentication [#266](https://github.com/giantswarm/external-dns-app/pull/266).
+- Remove support for KIAM ([#278](https://github.com/giantswarm/external-dns-app/pull/278)).
+- Remove `aws.iam.customRoleName` value ([#278](https://github.com/giantswarm/external-dns-app/pull/278)).
+- Remove `aws`, `gcpProject` and `externalDNS` values ([#284](https://github.com/giantswarm/external-dns-app/pull/284)).
+- Remove Azure volume configuration ([#284](https://github.com/giantswarm/external-dns-app/pull/284)).
+- Remove unused helpers ([#290](https://github.com/giantswarm/external-dns-app/pull/290)).
+- Remove PSP ([#305](https://github.com/giantswarm/external-dns-app/pull/305)).
+
 ## [2.42.0] - 2023-09-28
 
 ### Changed
@@ -37,39 +74,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 ### Added
 
 - Add minAllowed in VPA to minimize OOM cycle.
-- Add vendir for upstream sync.
-- Add namespaced feature to scope permissions to one namespace.
 
 ### Changed
 
 - Increase Memory limit.
-- Deployment: ALign to upstream ([#255](https://github.com/giantswarm/external-dns-app/pull/255)).
-  - Use `crd.podSecurityContext` for crd job.
-  - Rename `global.resources` as `resources`.
-  - Rename `externalDNS.extraArgs` as `extraArgs`.
-  - Rename `externalDNS.policy` as `policy`.
-  - Rename `externalDNS.sources` as `sources` and adjust default value.
-  - Rename `externalDNS.interval` as `interval`.
-  - Rename `global.image` as `image` using helper for name composition.
-  - Move `global.securityContext` to `podSecurityContext` and align names.
-- Service: Align to upstream ([#243](https://github.com/giantswarm/external-dns-app/pull/243)).
-  - Replace `global.metrics.port` value with `service.port`.
-  - Add service annotations with GS defaults.
-  - Set readinessProbe and livenessProbe from values.
-  - Move podAnnotations to values.
-- Update README and config docs ([#290](https://github.com/giantswarm/external-dns-app/pull/290)).
-
-### Removed
-
-- Deployment: ALign to upstream ([#255](https://github.com/giantswarm/external-dns-app/pull/255)).
-  - Remove dedicated option for `min-event-sync-interval` and set it in extraArgs.
-  - Remove `externalDNS.dryRun` option.
-- Secrets: Remove deprecated values for AWS Route53 external authentication [#266](https://github.com/giantswarm/external-dns-app/pull/266).
-- Remove support for KIAM ([#278](https://github.com/giantswarm/external-dns-app/pull/278)).
-- Remove `aws.iam.customRoleName` value ([#278](https://github.com/giantswarm/external-dns-app/pull/278)).
-- Remove `aws`, `gcpProject` and `externalDNS` values ([#284](https://github.com/giantswarm/external-dns-app/pull/284)).
-- Remove Azure volume configuration ([#284](https://github.com/giantswarm/external-dns-app/pull/284)).
-- Remove unused helpers ([#290](https://github.com/giantswarm/external-dns-app/pull/290)).
 
 ## [2.38.0] - 2023-07-13
 
