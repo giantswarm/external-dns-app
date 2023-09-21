@@ -7,24 +7,14 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
-## [2.39.0] - 2023-08-24
-
-### Changed
-
-- Replace monitoring labels with ServiceMonitor ([#296](https://github.com/giantswarm/external-dns-app/pull/296)).
-- Update ATS to 0.4.1 and python deps ([#297](https://github.com/giantswarm/external-dns-app/pull/297)).
-
-## [2.38.1] - 2023-08-04
-
 ### Added
 
-- Add minAllowed in VPA to minimize OOM cycle.
 - Add vendir for upstream sync.
 - Add namespaced feature to scope permissions to one namespace.
+- Add support for Gateway API ([#305](https://github.com/giantswarm/external-dns-app/pull/305)).
 
 ### Changed
 
-- Increase Memory limit.
 - Deployment: ALign to upstream ([#255](https://github.com/giantswarm/external-dns-app/pull/255)).
   - Use `crd.podSecurityContext` for crd job.
   - Rename `global.resources` as `resources`.
@@ -52,6 +42,24 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 - Remove `aws`, `gcpProject` and `externalDNS` values ([#284](https://github.com/giantswarm/external-dns-app/pull/284)).
 - Remove Azure volume configuration ([#284](https://github.com/giantswarm/external-dns-app/pull/284)).
 - Remove unused helpers ([#290](https://github.com/giantswarm/external-dns-app/pull/290)).
+- Remove PSP ([#305](https://github.com/giantswarm/external-dns-app/pull/305)).
+
+## [2.39.0] - 2023-08-24
+
+### Changed
+
+- Replace monitoring labels with ServiceMonitor ([#296](https://github.com/giantswarm/external-dns-app/pull/296)).
+- Update ATS to 0.4.1 and python deps ([#297](https://github.com/giantswarm/external-dns-app/pull/297)).
+
+## [2.38.1] - 2023-08-04
+
+### Added
+
+- Add minAllowed in VPA to minimize OOM cycle.
+
+### Changed
+
+- Increase Memory limit.
 
 ## [2.38.0] - 2023-07-13
 
