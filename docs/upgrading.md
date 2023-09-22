@@ -2,7 +2,7 @@
 
 ## Upgrading from v2 to v3.0.0
 
-Starting from `external-dns` version `3.0.0` and later, there have been modifications to the values.yaml schema. These changes were introduced in version `2.28.0`, and the previous format has been completely removed in version 3. Therefore, it's important to take note of these updates while upgrading.
+Starting from `external-dns-app` version `3.0.0`, there have been modifications to the values.yaml schema. These changes were introduced in version `2.28.0`, and the previous format has been completely removed in version 3.0.0. Therefore, it's important to take note of these updates while upgrading.
 
 ### Values
 
