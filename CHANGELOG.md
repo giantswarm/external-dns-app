@@ -33,7 +33,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ### Removed
 
-- Deployment: ALign to upstream ([#255](https://github.com/giantswarm/external-dns-app/pull/255)).
+- Deployment: Align to upstream ([#255](https://github.com/giantswarm/external-dns-app/pull/255)).
   - Remove dedicated option for `min-event-sync-interval` and set it in extraArgs.
   - Remove `externalDNS.dryRun` option.
 - Secrets: Remove deprecated values for AWS Route53 external authentication [#266](https://github.com/giantswarm/external-dns-app/pull/266).
