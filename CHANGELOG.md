@@ -15,7 +15,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ### Changed
 
-- Deployment: ALign to upstream ([#255](https://github.com/giantswarm/external-dns-app/pull/255)).
+- Deployment: Align to upstream ([#255](https://github.com/giantswarm/external-dns-app/pull/255)).
   - Use `crd.podSecurityContext` for crd job.
   - Rename `global.resources` as `resources`.
   - Rename `externalDNS.extraArgs` as `extraArgs`.
