@@ -5,6 +5,8 @@ metadata:
   name: {{ .Release.Name }}
   labels:
     {{- include "external-dns.labels" . | nindent 4 }}
+  annotations:
+    seccomp.security.alpha.kubernetes.io/allowedProfileNames: 'runtime/default'
 spec:
   fsGroup:
     rule: 'MustRunAs'
