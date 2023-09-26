@@ -49,6 +49,8 @@ spec:
         runAsUser: {{ .Values.global.securityContext.userID }}
         runAsGroup: {{ .Values.global.securityContext.groupID }}
         fsGroup: {{ .Values.global.securityContext.fsGroupID }}
+        seccompProfile:
+          type: RuntimeDefault
       {{- if .Values.hostNetwork }}
       hostNetwork: true
       {{- end }}

@@ -228,6 +228,7 @@ podAnnotations:
 shareProcessNamespace: false
 
 securityContext:
+  allowPrivilegeEscalation: false
   runAsNonRoot: true
   runAsUser: 65534
   readOnlyRootFilesystem: true
