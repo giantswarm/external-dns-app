@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Make deployment compliant with PSS ([#307](https://github.com/giantswarm/external-dns-app/pull/307)).
+
 ## [2.40.0] - 2023-09-21
 
 ### Changed
