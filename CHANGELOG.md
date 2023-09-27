@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Make CRD install job compliant with PSS ([#309](https://github.com/giantswarm/external-dns-app/pull/309)).
+
 ## [2.41.0] - 2023-09-26
 
 ### Changed
