@@ -3,7 +3,7 @@ CRD install annotations.
 */}}
 {{- define "crd.annotations" -}}
 helm.sh/hook: pre-install,pre-upgrade
-helm.sh/hook-delete-policy: before-hook-creation,hook-succeeded
+helm.sh/hook-delete-policy: before-hook-creation
 {{- end -}}
 
 {{/*
