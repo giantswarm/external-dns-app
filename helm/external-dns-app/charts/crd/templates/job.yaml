@@ -18,6 +18,8 @@ spec:
       securityContext:
         runAsUser: {{ .Values.global.securityContext.userID }}
         runAsGroup: {{ .Values.global.securityContext.groupID }}
+        seccompProfile:
+          type: RuntimeDefault
       tolerations:
       - key: node-role.kubernetes.io/master
         effect: NoSchedule
@@ -26,7 +28,11 @@ spec:
       containers:
       - name: kubectl
         securityContext:
+          allowPrivilegeEscalation: false
+          runAsNonRoot: true
           readOnlyRootFilesystem: true
+          capabilities:
+            drop: ["ALL"]
         image: {{ .Values.global.image.registry }}/giantswarm/docker-kubectl:1.24.2
         command:
         - sh

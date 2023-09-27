@@ -1,4 +1,4 @@
-{{- if le (int .Capabilities.KubeVersion.Minor) 24 }}
+{{- if not .Values.global.podSecurityStandards.enforced }}
 apiVersion: policy/v1beta1
 kind: PodSecurityPolicy
 metadata:
@@ -6,6 +6,7 @@ metadata:
   annotations:
     {{- include "crd.annotations" . | nindent 4 }}
     helm.sh/hook-weight: "-6"
+    seccomp.security.alpha.kubernetes.io/allowedProfileNames: 'runtime/default'
   labels:
     {{- include "crd.labels" . | nindent 4 }}
 spec:
