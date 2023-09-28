@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [2.42.0] - 2023-09-28
+
 ### Changed
 
 - Make CRD install job compliant with PSS ([#309](https://github.com/giantswarm/external-dns-app/pull/309)).
@@ -542,7 +544,8 @@ If you already specify `--aws-batch-change-interval` or `--aws-zones-cache-durat
 - Network policy that allows all egress traffic.
 - Network policy that allows accessing metrics on port `10254`.
 
-[Unreleased]: https://github.com/giantswarm/external-dns-app/compare/v2.41.0...HEAD
+[Unreleased]: https://github.com/giantswarm/external-dns-app/compare/v2.42.0...HEAD
+[2.42.0]: https://github.com/giantswarm/external-dns-app/compare/v2.41.0...v2.42.0
 [2.41.0]: https://github.com/giantswarm/external-dns-app/compare/v2.40.0...v2.41.0
 [2.40.0]: https://github.com/giantswarm/external-dns-app/compare/v2.39.0...v2.40.0
 [2.39.0]: https://github.com/giantswarm/external-dns-app/compare/v2.38.1...v2.39.0
