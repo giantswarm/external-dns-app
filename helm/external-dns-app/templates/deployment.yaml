@@ -70,7 +70,7 @@ spec:
           command:
           - /bin/sh
           - -c
-          - counter=5; while ! wget -qO- http://169.254.169.254/latest/meta-data/iam/security-credentials/ | grep {{ template "aws.iam.role" . }}; do echo 'Waiting for iam-role to be available...'; sleep 5; let "counter-=1"  ; if [ "$counter" -eq "0" ]; then exit 1; fi; done
+          - counter=5; while ! wget -qO- http://169.254.169.254/latest/meta-data/iam/security-credentials/ | grep -F -- "{{ template "aws.iam.role" . }}"; do echo "Waiting for iam-role '{{ template "aws.iam.role" . }}' to be available..."; sleep 5; let "counter-=1"  ; if [ "$counter" -eq "0" ]; then exit 1; fi; done
         {{- end }}
         {{- if eq .Values.provider "azure" }}
         - name: copy-azure-config-file
@@ -100,7 +100,7 @@ spec:
           command:
           - /bin/sh
           - -c
-          - while wget -qO- http://169.254.169.254/latest/meta-data/iam/security-credentials/ | grep -q {{ template "aws.iam.role" . }} ; do sleep 30 ; done && exit 1
+          - while wget -qO- http://169.254.169.254/latest/meta-data/iam/security-credentials/ | grep -q -F -- "{{ template "aws.iam.role" . }}" ; do sleep 30 ; done && exit 1
           securityContext:
             readOnlyRootFilesystem: true
           resources:
