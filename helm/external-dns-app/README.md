@@ -2,7 +2,7 @@
 
 Configure external DNS servers for Kubernetes Ingresses and Services
 
-![Version: 2.40.0](https://img.shields.io/badge/Version-2.40.0-informational?style=flat-square)
+![Version: 2.42.0](https://img.shields.io/badge/Version-2.42.0-informational?style=flat-square)
 
 ![AppVersion: v0.11.0](https://img.shields.io/badge/AppVersion-v0.11.0-informational?style=flat-square)
 
@@ -37,11 +37,11 @@ Kubernetes: `>=1.19.0-0`
 | extraVolumeMounts | list | `[]` |  |
 | extraVolumes | list | `[]` |  |
 | fullnameOverride | string | `""` |  |
-| global.image.registry | string | `"docker.io"` |  |
+| global.image.registry | string | `"gsoci.azurecr.io"` |  |
 | hostNetwork | bool | `false` |  |
 | image.name | string | `"giantswarm/external-dns"` |  |
 | image.pullPolicy | string | `"IfNotPresent"` |  |
-| image.registry | string | `"docker.io"` |  |
+| image.registry | string | `"gsoci.azurecr.io"` |  |
 | image.tag | string | `"v0.11.0"` |  |
 | imagePullSecrets | list | `[]` |  |
 | interval | string | `"5m"` |  |
@@ -65,6 +65,7 @@ Kubernetes: `>=1.19.0-0`
 | podSecurityContext.fsGroup | int | `65534` |  |
 | podSecurityContext.runAsGroup | int | `65534` |  |
 | podSecurityContext.runAsUser | int | `65534` |  |
+| podSecurityContext.seccompProfile.type | string | `"RuntimeDefault"` |  |
 | policy | string | `"sync"` |  |
 | priorityClassName | string | `"giantswarm-critical"` |  |
 | provider | string | `"CHANGEME"` |  |
@@ -85,6 +86,7 @@ Kubernetes: `>=1.19.0-0`
 | secretConfiguration.enabled | bool | `false` |  |
 | secretConfiguration.mountPath | string | `""` |  |
 | secretConfiguration.subPath | string | `""` |  |
+| securityContext.allowPrivilegeEscalation | bool | `false` |  |
 | securityContext.capabilities.drop[0] | string | `"ALL"` |  |
 | securityContext.readOnlyRootFilesystem | bool | `true` |  |
 | securityContext.runAsNonRoot | bool | `true` |  |
