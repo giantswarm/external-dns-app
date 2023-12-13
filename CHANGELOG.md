@@ -30,7 +30,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
   - Set readinessProbe and livenessProbe from values.
   - Move podAnnotations to values.
 - Update README and config docs ([#290](https://github.com/giantswarm/external-dns-app/pull/290)).
-- Switch Registry to ACR
+- Switch Registry to ACR ([#318](https://github.com/giantswarm/external-dns-app/pull/318)).
 
 ### Removed
 
