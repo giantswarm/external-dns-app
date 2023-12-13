@@ -6,7 +6,7 @@ annotationFilter: "giantswarm.io/external-dns=managed"
 
 image:
   name: giantswarm/external-dns
-  registry: docker.io
+  registry: gsoci.azurecr.io
   tag: v0.11.0
   pullPolicy: IfNotPresent
 
@@ -241,4 +241,4 @@ ciliumNetworkPolicy:
 
 global:
   image:
-    registry: docker.io
+    registry: gsoci.azurecr.io
