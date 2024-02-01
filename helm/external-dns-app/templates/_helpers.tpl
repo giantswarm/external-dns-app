@@ -168,9 +168,9 @@ Validate that the provider makes sense
 don't expose that value to the user in the error message.
 */}}
 {{- define "validateValues.provider" -}}
-{{- if and (ne .Values.provider "aws") (ne .Values.provider "azure") (ne .Values.provider "capa") (ne .Values.provider "gcp") (ne .Values.provider "inmemory") -}}
+{{- if and (ne .Values.provider "aws") (ne .Values.provider "azure") (ne .Values.provider "azure-private-dns") (ne .Values.provider "capa") (ne .Values.provider "gcp") (ne .Values.provider "inmemory") -}}
 external-dns: provider
-    Incorrect value provided. Valid values are either 'aws', 'azure', 'capa' or 'gcp'.
+    Incorrect value provided. Valid values are either 'aws', 'azure', 'azure-private-dns' , 'capa' or 'gcp'.
 {{- end -}}
 {{- end -}}
 

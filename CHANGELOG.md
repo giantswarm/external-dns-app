@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Support `azure-private-dns` as provider.
+
 ## [2.42.0] - 2023-09-28
 
 ### Changed
