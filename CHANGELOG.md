@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Remove default namespaceFilter configuration. ([#324](https://github.com/giantswarm/external-dns-app/pull/324)).
+
 ## [3.0.0] - 2023-12-13
 
 ### Added
