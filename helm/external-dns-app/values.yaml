@@ -175,7 +175,7 @@ interval: 5m
 minEventSyncInterval: 30s
 triggerLoopOnEvent: false
 
-namespaceFilter: kube-system
+namespaceFilter: ""
 namespaced: false
 
 sources:
