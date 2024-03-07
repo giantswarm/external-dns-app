@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [3.1.1] - 2024-03-07
+
 ### Changed
 
 - Update architect-orb and ATS
@@ -594,7 +596,8 @@ If you already specify `--aws-batch-change-interval` or `--aws-zones-cache-durat
 - Network policy that allows all egress traffic.
 - Network policy that allows accessing metrics on port `10254`.
 
-[Unreleased]: https://github.com/giantswarm/external-dns-app/compare/v3.1.0...HEAD
+[Unreleased]: https://github.com/giantswarm/external-dns-app/compare/v3.1.1...HEAD
+[3.1.1]: https://github.com/giantswarm/external-dns-app/compare/v3.1.0...v3.1.1
 [3.1.0]: https://github.com/giantswarm/external-dns-app/compare/v3.0.0...v3.1.0
 [3.0.0]: https://github.com/giantswarm/external-dns-app/compare/v2.42.0...v3.0.0
 [2.42.0]: https://github.com/giantswarm/external-dns-app/compare/v2.41.0...v2.42.0
