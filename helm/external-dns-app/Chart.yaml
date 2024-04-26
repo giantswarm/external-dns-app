@@ -7,7 +7,7 @@ name: external-dns-app
 sources:
   - https://github.com/kubernetes-sigs/external-dns
 annotations:
-  application.giantswarm.io/team: team-cabbage
+  application.giantswarm.io/team: cabbage
 version: 3.1.0
 kubeVersion: ">=1.19.0-0"
 dependencies:
