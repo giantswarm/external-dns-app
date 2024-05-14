@@ -13,11 +13,15 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [3.1.0] - 2024-02-13
 
+Release [v3.0.0](https://github.com/giantswarm/external-dns-app/releases/tag/v3.0.0) contains some breaking changes! In case you're skipping v3.0.0, consult the [migration guide](https://github.com/giantswarm/external-dns-app/blob/main/docs/upgrading.md)
+
 ### Changed
 
 - Remove default namespaceFilter configuration. ([#324](https://github.com/giantswarm/external-dns-app/pull/324)).
 
 ## [3.0.0] - 2023-12-13
+
+This release contains some breaking changes! Please also consult the [migration guide](https://github.com/giantswarm/external-dns-app/blob/main/docs/upgrading.md)
 
 ### Added
 
