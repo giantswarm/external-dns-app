@@ -7,7 +7,7 @@ annotationFilter: "giantswarm.io/external-dns=managed"
 image:
   name: giantswarm/external-dns
   registry: gsoci.azurecr.io
-  tag: v0.11.0
+  tag: v0.14.2
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []
