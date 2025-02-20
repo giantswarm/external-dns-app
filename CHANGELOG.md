@@ -9,7 +9,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ### Changed
 
-- Update architect-orb and ATS
+- Update architect-orb and ATS.
+- Add DNSEndpoints as a source for DNS records.
 
 ## [3.1.0] - 2024-02-13
 
