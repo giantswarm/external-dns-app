@@ -180,6 +180,7 @@ namespaced: false
 
 sources:
   - service
+  - crd
 
 policy: sync
 
