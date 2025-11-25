@@ -1,0 +1,31 @@
+diff --git a/helm/external-dns-app/charts/crd/templates/ciliumnetworkpolicy.yaml b/helm/external-dns-app/charts/crd/templates/ciliumnetworkpolicy.yaml
+new file mode 100644
+index 0000000..3e57957
+--- /dev/null
++++ b/helm/external-dns-app/charts/crd/templates/ciliumnetworkpolicy.yaml
+@@ -0,0 +1,25 @@
++{{ if .Values.ciliumNetworkPolicy.enabled }}
++apiVersion: cilium.io/v2
++kind: CiliumNetworkPolicy
++metadata:
++  name: {{ .Release.Name }}-crd-install
++  namespace: {{ .Release.Namespace | quote }}
++  annotations:
++    # create hook dependencies in the right order
++    "helm.sh/hook-weight": "-7"
++    {{- include "crd.annotations" . | nindent 4 }}
++  labels:
++    {{- include "crd.labels" . | nindent 4 }}
++spec:
++  endpointSelector:
++    matchLabels:
++      {{- include "crd.selectorLabels" . | nindent 6 }}
++  egress:
++    - toEntities:
++        - kube-apiserver
++      toPorts:
++        - ports:
++            - port: "443"
++        - ports:
++            - port: "6443"
++{{- end }}

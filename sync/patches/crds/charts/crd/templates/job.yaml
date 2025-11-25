@@ -1,0 +1,52 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ .Release.Name }}-crd-install
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    {{- include "crd.annotations" . | nindent 4 }}
+    helm.sh/hook-weight: "-1"
+  labels:
+    {{- include "crd.labels" . | nindent 4 }}
+spec:
+  template:
+    metadata:
+      labels:
+        {{- include "crd.labels" . | nindent 8 }}
+    spec:
+      serviceAccountName: {{ .Release.Name }}-crd-install
+      {{- with .Values.podSecurityContext }}
+      securityContext:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      tolerations:
+      - key: node-role.kubernetes.io/master
+        effect: NoSchedule
+      - key: node-role.kubernetes.io/control-plane
+        effect: NoSchedule
+      containers:
+      - name: kubectl
+        securityContext:
+          allowPrivilegeEscalation: false
+          runAsNonRoot: true
+          readOnlyRootFilesystem: true
+          capabilities:
+            drop: ["ALL"]
+        image: {{ .Values.global.image.registry }}/giantswarm/docker-kubectl:1.24.2
+        command:
+        - sh
+        - -c
+        - |
+          set -o errexit ; set -o xtrace ; set -o nounset
+          kubectl apply --server-side=true --field-manager='kubectl-client-side-apply' --force-conflicts --filename /crd 2>&1
+        resources:
+          {{- toYaml .Values.resources | nindent 10 }}
+        volumeMounts:
+        - name: {{ .Release.Name }}-crd-install
+          mountPath: /crd
+      volumes:
+      - name: {{ .Release.Name }}-crd-install
+        configMap:
+          name: {{ .Release.Name }}-crd-install
+      restartPolicy: Never
+  backoffLimit: {{ .Values.backoffLimit }}
