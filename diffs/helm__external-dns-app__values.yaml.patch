@@ -1,5 +1,5 @@
 diff --git a/vendor/external-dns/values.yaml b/helm/external-dns-app/values.yaml
-index 6e0f802..ac55d6a 100644
+index 6e0f802..e96800b 100644
 --- a/vendor/external-dns/values.yaml
 +++ b/helm/external-dns-app/values.yaml
 @@ -1,11 +1,13 @@
@@ -145,7 +145,7 @@ index 6e0f802..ac55d6a 100644
  
  extraArgs: []
  
-@@ -175,10 +204,42 @@ secretConfiguration:
+@@ -175,10 +204,49 @@ secretConfiguration:
    mountPath: ""
    subPath: ""
    data: {}
@@ -192,3 +192,10 @@ index 6e0f802..ac55d6a 100644
 +global:
 +  image:
 +    registry: gsoci.azurecr.io
++
++# Values for subchart kubectl-apply-job
++# for installing CRDs
++kubectlApplyJob:
++  enabled: true
++  files:
++  - files/dnsendpoints.yaml
