@@ -4,13 +4,22 @@ directories:
 - path: vendor
   contents:
   - path: external-dns
-    git:
-      url: git@github.com:giantswarm/external-dns-upstream.git
-      ref: master
-    includePaths:
-    - charts/**/*
-- path: helm/external-dns-app/templates
+    helmChart:
+      name: external-dns
+      version: v1.13.0
+      repository:
+        url: https://kubernetes-sigs.github.io/external-dns/
+- path: helm/external-dns-app
   contents:
   - path: .
     directory:
-      path: vendor/external-dns/charts/external-dns/templates
+      path: vendor/external-dns
+    excludePaths:
+      - CHANGELOG.md
+      - RELEASE.md
+    ignorePaths:
+      - Chart.yaml
+      - Chart.lock
+      - README.md
+      - README.md.gotmpl
+      - .kube-linter.yaml

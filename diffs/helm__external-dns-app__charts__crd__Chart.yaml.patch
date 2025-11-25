@@ -1,0 +1,13 @@
+diff --git a/helm/external-dns-app/charts/crd/Chart.yaml b/helm/external-dns-app/charts/crd/Chart.yaml
+new file mode 100644
+index 0000000..789374d
+--- /dev/null
++++ b/helm/external-dns-app/charts/crd/Chart.yaml
+@@ -0,0 +1,7 @@
++apiVersion: v2
++name: crd
++description: CRD's installation Job
++type: application
++version: 0.1.0
++annotations:
++  application.giantswarm.io/team: team-cabbage

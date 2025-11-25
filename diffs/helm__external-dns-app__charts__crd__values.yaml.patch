@@ -1,0 +1,45 @@
+diff --git a/helm/external-dns-app/charts/crd/values.yaml b/helm/external-dns-app/charts/crd/values.yaml
+new file mode 100644
+index 0000000..ac127f6
+--- /dev/null
++++ b/helm/external-dns-app/charts/crd/values.yaml
+@@ -0,0 +1,39 @@
++
++# backoffLimit
++# setting this higher means the CRD creation is less likely to be marked
++# as failed.
++backoffLimit: 10
++
++# image
++image:
++  pullPolicy: IfNotPresent
++
++# install
++# CRDs are installed by default. If this is disabled then CRDs must
++# be managed by another method.
++install: true
++
++# resources
++resources:
++  # resources.requests
++  # Minimum resources requested for the job.
++  requests:
++    cpu: 100m
++    memory: 256Mi
++
++  # resources.limits
++  # Maximum resources available for the job.
++  limits:
++    cpu: 500m
++    memory: 512Mi
++
++ciliumNetworkPolicy:
++  enabled: true
++
++serviceType: "managed"
++
++podSecurityContext:
++  runAsGroup: 65534
++  runAsUser: 65534
++  seccompProfile:
++    type: RuntimeDefault

@@ -16,13 +16,12 @@ vendir sync
 find vendor/ -type f -exec sed -i 's/[[:space:]]*$//' {} \;
 
 # Patches
-# ./sync/patches/image-registry/patch.sh
-# ./sync/patches/team-label/patch.sh
-# ./sync/patches/values/patch.sh
 ./sync/patches/network-policies/patch.sh
-# ./sync/patches/pod-monitor/patch.sh
-# ./sync/patches/crds/patch.sh
+./sync/patches/deployment/patch.sh
+./sync/patches/crds/patch.sh
 ./sync/patches/vpa/patch.sh
+./sync/patches/helper/patch.sh
+./sync/patches/values/patch.sh
 
 HELM_BASE="helm/external-dns-app"
 VENDIR_BASE="vendor/external-dns"

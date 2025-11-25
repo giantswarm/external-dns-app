@@ -1,15 +1,13 @@
 apiVersion: vendir.k14s.io/v1alpha1
 directories:
 - contents:
-  - git:
-      commitTitle: '[GS] keep GS labels in deployment to avoid upgrade problems...'
-      sha: 8430bac2907cb97a2febb4cd6114dec116b2afed
-      tags:
-      - external-dns-helm-chart-1.13.0-99-g8430bac2
+  - helmChart:
+      appVersion: 0.13.5
+      version: 1.13.0
     path: external-dns
   path: vendor
 - contents:
   - directory: {}
     path: .
-  path: helm/external-dns-app/templates
+  path: helm/external-dns-app
 kind: LockConfig

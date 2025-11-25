@@ -1,0 +1,194 @@
+diff --git a/vendor/external-dns/values.yaml b/helm/external-dns-app/values.yaml
+index 6e0f802..ac55d6a 100644
+--- a/vendor/external-dns/values.yaml
++++ b/helm/external-dns-app/values.yaml
+@@ -1,11 +1,13 @@
+-# Default values for external-dns.
++# Default values for external-dns-chart.
+ # This is a YAML-formatted file.
+ # Declare variables to be passed into your templates.
+ 
++annotationFilter: "giantswarm.io/external-dns=managed"
++
+ image:
+-  repository: registry.k8s.io/external-dns/external-dns
+-  # Overrides the image tag whose default is v{{ .Chart.AppVersion }}
+-  tag: ""
++  name: giantswarm/external-dns
++  registry: gsoci.azurecr.io
++  tag: v0.11.0
+   pullPolicy: IfNotPresent
+ 
+ imagePullSecrets: []
+@@ -37,14 +39,21 @@ deploymentAnnotations: {}
+ podLabels: {}
+ 
+ # Annotations to add to the Pod
+-podAnnotations: {}
++podAnnotations:
++  cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
++  kubectl.kubernetes.io/default-container: external-dns
+ 
+ shareProcessNamespace: false
+ 
+ podSecurityContext:
+   fsGroup: 65534
++  runAsGroup: 65534
++  runAsUser: 65534
++  seccompProfile:
++    type: RuntimeDefault
+ 
+ securityContext:
++  allowPrivilegeEscalation: false
+   runAsNonRoot: true
+   runAsUser: 65534
+   readOnlyRootFilesystem: true
+@@ -55,17 +64,17 @@ securityContext:
+ # Valid values are: `ClusterFirstWithHostNet`, `ClusterFirst`, `Default` or `None`.
+ dnsPolicy:
+ 
+-priorityClassName: ""
++priorityClassName: "giantswarm-critical"
+ 
+ terminationGracePeriodSeconds:
+ 
+ serviceMonitor:
+-  enabled: false
++  enabled: true
+   # force namespace
+   # namespace: monitoring
+ 
+   # Fallback to the prometheus default unless specified
+-  # interval: 10s
++  interval: 60s
+ 
+   ## scheme: HTTP scheme to use for scraping. Can be used with `tlsConfig` for example if using istio mTLS.
+   # scheme: ""
+@@ -95,14 +104,23 @@ serviceMonitor:
+ 
+   ## Relabel configs to apply to samples before ingestion.
+   ## [Relabeling](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#relabel_config)
+-  relabelings: []
+-  # - sourceLabels: [__meta_kubernetes_pod_node_name]
+-  #   separator: ;
+-  #   regex: ^(.*)$
+-  #   targetLabel: nodename
+-  #   replacement: $1
+-  #   action: replace
+-
++  relabelings:
++    - action: replace
++      regex: ;(.*)
++      replacement: $1
++      separator: ;
++      sourceLabels:
++      - namespace
++      - __meta_kubernetes_namespace
++      targetLabel: namespace
++    - action: replace
++      sourceLabels:
++      - __meta_kubernetes_pod_label_app
++      targetLabel: app
++    - action: replace
++      sourceLabels:
++      - __meta_kubernetes_pod_node_name
++      targetLabel: node
+   targetLabels: []
+ 
+ env: []
+@@ -135,7 +153,12 @@ extraVolumes: []
+ 
+ extraVolumeMounts: []
+ 
+-resources: {}
++resources:
++  limits:
++    memory: 100Mi
++  requests:
++    cpu: 50m
++    memory: 100Mi
+ 
+ nodeSelector: {}
+ 
+@@ -148,16 +171,18 @@ topologySpreadConstraints: []
+ logLevel: info
+ logFormat: text
+ 
+-interval: 1m
++interval: 5m
++minEventSyncInterval: 30s
+ triggerLoopOnEvent: false
+ 
++namespaceFilter: ""
+ namespaced: false
+ 
+ sources:
+   - service
+-  - ingress
++  - crd
+ 
+-policy: upsert-only
++policy: sync
+ 
+ registry: txt
+ txtOwnerId: ""
+@@ -166,7 +191,11 @@ txtSuffix: ""
+ 
+ domainFilters: []
+ 
+-provider: aws
++# provider
++# Identifies the cloud provider. Currently supported: `aws` and `azure`. This *must*
++# be set. If this is installed as a default app from the default-catalog then this
++# value is set dynamically and will be overridden.
++provider: CHANGEME
+ 
+ extraArgs: []
+ 
+@@ -175,10 +204,42 @@ secretConfiguration:
+   mountPath: ""
+   subPath: ""
+   data: {}
+-    # credentials: |
+-    #   [default]
+-    #   aws_access_key_id = $SECRET_ACCESS_KEY
+-    #   aws_secret_access_key = $SECRET_ACCESS_KEY
+ 
+ deploymentStrategy:
+   type: Recreate
++
++# Configuration options for CRDs.
++crd:
++  install: true
++
++# hostNetwork
++hostNetwork: false
++
++## Do not change any values below; these are specific to Giant Swarm environments.
++
++# serviceType:
++# Resources will be annotated with this value. Specific to Giant Swarm clusters.
++serviceType: "managed"
++
++# e2e
++# Is the app running in CI.
++e2e: false
++
++# baseDomain
++# The base domain of the cluster. This is only used if this chart is installed as
++# a default app from the default-catalog. It is dynamically set and will be
++# overridden. Specific to Giant Swarm clusters.
++baseDomain: gigantic.io
++
++# clusterID
++# The cluster's ID. This is only used if this chart is installed as a default app
++# from the default-catalog. It is dynamically set and will be overridden. Specific
++# to Giant Swarm clusters.
++clusterID: en2jo
++
++ciliumNetworkPolicy:
++  enabled: false
++
++global:
++  image:
++    registry: gsoci.azurecr.io

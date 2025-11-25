@@ -12,6 +12,6 @@ cd "${repo_dir}"
 readonly script_dir_rel=".${script_dir#"${repo_dir}"}"
 
 set -x
-cp "${script_dir_rel}/networkpolicy.yaml" ./helm/external-dns-app/templates/networkpolicy.yaml
+cp "${script_dir_rel}/networkpolicy.yaml" ./helm/external-dns-app/templates/np.yaml
 
 { set +x; } 2>/dev/null
