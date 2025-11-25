@@ -26,9 +26,6 @@ find vendor/ -type f -exec sed -i 's/[[:space:]]*$//' {} \;
 HELM_BASE="helm/external-dns-app"
 VENDIR_BASE="vendor/external-dns"
 
-# HELM_DOCS="docker run --rm -u $(id -u) -v ${PWD}:/helm-docs -w /helm-docs jnorwood/helm-docs:v1.11.0"
-# $HELM_DOCS --template-files=sync/readme.gotmpl -g helm/envoy-gateway -f values.yaml -o README.md
-
 # Store diffs
 rm -f ./diffs/*
 for f in $(git --no-pager diff --no-exit-code --no-color --no-index "$VENDIR_BASE" "$HELM_BASE" --name-only) ; do
