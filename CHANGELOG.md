@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Use kubectl-apply-job when installing CRDs
+
 ## [3.2.0] - 2025-02-20
 
 ### Changed

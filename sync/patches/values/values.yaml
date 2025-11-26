@@ -243,3 +243,10 @@ ciliumNetworkPolicy:
 global:
   image:
     registry: gsoci.azurecr.io
+
+# Values for subchart kubectl-apply-job
+# for installing CRDs
+kubectlApplyJob:
+  enabled: true
+  files:
+  - files/dnsendpoints.yaml

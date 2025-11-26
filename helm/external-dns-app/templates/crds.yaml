@@ -1,0 +1,4 @@
+{{/* This requires giantswarm/kubectl-apply-job to be present as a Chart dependency */}}
+{{- if .Values.crd.install -}}
+{{ include "kubectlApplyJob.job" . }}
+{{- end }}

@@ -1,0 +1,10 @@
+diff --git a/helm/external-dns-app/templates/crds.yaml b/helm/external-dns-app/templates/crds.yaml
+new file mode 100644
+index 0000000..fb1cce8
+--- /dev/null
++++ b/helm/external-dns-app/templates/crds.yaml
+@@ -0,0 +1,4 @@
++{{/* This requires giantswarm/kubectl-apply-job to be present as a Chart dependency */}}
++{{- if .Values.crd.install -}}
++{{ include "kubectlApplyJob.job" . }}
++{{- end }}
