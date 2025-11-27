@@ -91,7 +91,7 @@ podSecurityContext:
     type: RuntimeDefault
 
 # -- (string) Priority class name for the `Pod`.
-priorityClassName: "giantswarm-critical" # @schema type:[string, null]; default: null
+priorityClassName: "giantswarm-critical"  # @schema type:[string, null]; default: null
 
 # -- (int) Termination grace period for the `Pod` in seconds.
 terminationGracePeriodSeconds:  # @schema type:[integer, null]

@@ -1,5 +1,5 @@
 diff --git a/vendor/external-dns/values.yaml b/helm/external-dns-app/values.yaml
-index 9b9292c..b19f340 100644
+index 9b9292c..b7d167d 100644
 --- a/vendor/external-dns/values.yaml
 +++ b/helm/external-dns-app/values.yaml
 @@ -8,7 +8,7 @@ global:
@@ -35,7 +35,7 @@ index 9b9292c..b19f340 100644
  
  # -- (string) Priority class name for the `Pod`.
 -priorityClassName:  # @schema type:[string, null]; default: null
-+priorityClassName: "giantswarm-critical" # @schema type:[string, null]; default: null
++priorityClassName: "giantswarm-critical"  # @schema type:[string, null]; default: null
  
  # -- (int) Termination grace period for the `Pod` in seconds.
  terminationGracePeriodSeconds:  # @schema type:[integer, null]
