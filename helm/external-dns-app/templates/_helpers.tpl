@@ -73,7 +73,7 @@ Create the name of the service account to use
 The image to use
 */}}
 {{- define "external-dns.image" -}}
-{{- printf "%s/%s:%s" .Values.image.registry .Values.image.name .Values.image.tag }}
+{{- printf "%s:%s" .Values.image.repository (default (printf "v%s" .Chart.AppVersion) .Values.image.tag) }}
 {{- end }}
 
 {{/*
