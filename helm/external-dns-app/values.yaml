@@ -380,4 +380,4 @@ ciliumNetworkPolicy:
 kubectlApplyJob:
   enabled: true
   files:
-  - files/dnsendpoints.yaml
+  - files/dnsendpoints.externaldns.k8s.io.yaml

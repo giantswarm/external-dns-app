@@ -1,5 +1,5 @@
 diff --git a/vendor/external-dns/values.yaml b/helm/external-dns-app/values.yaml
-index 9b9292c..2cc0354 100644
+index 9b9292c..d2d0e07 100644
 --- a/vendor/external-dns/values.yaml
 +++ b/helm/external-dns-app/values.yaml
 @@ -6,9 +6,9 @@ global:
@@ -179,4 +179,4 @@ index 9b9292c..2cc0354 100644
 +kubectlApplyJob:
 +  enabled: true
 +  files:
-+  - files/dnsendpoints.yaml
++  - files/dnsendpoints.externaldns.k8s.io.yaml
