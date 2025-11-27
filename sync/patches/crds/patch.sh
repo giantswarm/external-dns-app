@@ -12,11 +12,9 @@ cd "${repo_dir}"
 readonly script_dir_rel=".${script_dir#"${repo_dir}"}"
 
 set -x
-# rm -rf ./helm/external-dns-app/crds
-
 { set +x; } 2>/dev/null
 
-cp -R "${script_dir_rel}/files" ./helm/external-dns-app/
+mv ./helm/external-dns-app/crds ./helm/external-dns-app/files
 cp -R "${script_dir_rel}/crds.yaml" ./helm/external-dns-app/templates
 
 set -x
