@@ -1,5 +1,5 @@
 diff --git a/vendor/external-dns/values.schema.json b/helm/external-dns-app/values.schema.json
-index 22bfef2..b9013ee 100644
+index 22bfef2..2f655a5 100644
 --- a/vendor/external-dns/values.schema.json
 +++ b/helm/external-dns-app/values.schema.json
 @@ -1,873 +1,838 @@
@@ -495,7 +495,7 @@ index 22bfef2..b9013ee 100644
 -                },
 -                "memory": {
 -                  "type": "string"
-+            "additionalProperties": false
++            "additionalProperties": true
 +        },
 +        "imagePullSecrets": {
 +            "type": "array",

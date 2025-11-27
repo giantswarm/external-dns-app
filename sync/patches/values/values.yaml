@@ -6,7 +6,7 @@ global:
   # -- Global image pull secrets.
   imagePullSecrets: []  # @schema item: object
 
-image:  # @schema additionalProperties: false
+image:  # @schema additionalProperties: true
   # -- Image repository for the `external-dns` container.
   repository: gsoci.azurecr.io/giantswarm/external-dns
   # -- Image tag for the `external-dns` container, this will default to `.Chart.AppVersion` if not set.
