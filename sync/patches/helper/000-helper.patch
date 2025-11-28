@@ -69,10 +69,3 @@ index 4f70ccd..18b943a 100644
  {{- end }}
  
  {{/*
-@@ -68,5 +73,5 @@ Create the name of the service account to use
- The image to use
- */}}
- {{- define "external-dns.image" -}}
--{{- printf "%s:%s" .Values.image.repository (default (printf "v%s" .Chart.AppVersion) .Values.image.tag) }}
-+{{- printf "%s/%s:%s" .Values.image.registry .Values.image.name .Values.image.tag }}
- {{- end }}

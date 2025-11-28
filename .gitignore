@@ -2,3 +2,4 @@ build
 .pytest_cache
 test_results_*.xml
 vendor
+helm/external-dns-app/charts

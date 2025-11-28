@@ -1,5 +1,5 @@
 apiVersion: v2
-appVersion: v0.11.0
+appVersion: 0.20.0
 description: Configure external DNS servers for Kubernetes Ingresses and Services
 home: https://github.com/giantswarm/external-dns-app
 icon: https://s.giantswarm.io/app-icons/external-dns/1/dark.png
