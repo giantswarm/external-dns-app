@@ -1,0 +1,44 @@
+apiVersion: iam.aws.upbound.io/v1beta1
+kind: Role
+metadata:
+  name: {{ .Values.clusterID }}-Route53Manager-Role
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "external-dns-app-bundle.labels" . | nindent 4 }}
+spec:
+  providerConfigRef:
+    name: {{ .Values.clusterID }}
+  forProvider:
+    tags:
+      giantswarm.io/cluster: {{ .Values.clusterID }}
+      sigs.k8s.io/cluster-api-provider-aws/cluster/{{ .Values.clusterID }}: owned
+    assumeRolePolicy: |
+      {
+        "Version": "2012-10-17",
+        "Statement": [
+          {{- include "external-dns-app-bundle.trustPolicyStatements" . | nindent 10 }}
+        ]
+      }
+    inlinePolicy:
+      - name: route53-policy
+        policy: |
+          {
+            "Version": "2012-10-17",
+            "Statement": [
+              {
+                "Action": "route53:ChangeResourceRecordSets",
+                "Resource": [
+                  "arn:*:route53:::hostedzone/*"
+                ],
+                "Effect": "Allow"
+              },
+              {
+                "Action": [
+                  "route53:ListHostedZones",
+                  "route53:ListResourceRecordSets"
+                ],
+                "Resource": "*",
+                "Effect": "Allow"
+              }
+            ]
+          }

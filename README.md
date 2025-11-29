@@ -2,9 +2,18 @@
 
 # external-dns-app chart
 
-Helm chart for the [external-dns](https://github.com/kubernetes-sigs/external-dns) service running in Workload
-Clusters. This chart is used to deploy both as a default app and as a Managed App.
-It can be installed multiple times in the same Workload Cluster.
+Giant Swarm offers an `external-dns-app-bundle` Managed App which can be installed in tenant clusters.
+
+Here we define the `external-dns-app-bundle`, `external-dns-app` charts with their templates and default configuration.
+
+## Architecture
+
+This repository contains two Helm charts:
+
+- `helm/external-dns-app-bundle/`: Main chart installed on the management cluster, contains the workload cluster chart and the required AWS IAM role.
+- `helm/external-dns-app/`: Workload cluster chart that contains the actual external-dns setup.
+
+Users only need to install the bundle chart on the management cluster, which in turn will deploy the workload cluster chart.
 
 **What is this App?**
 
@@ -30,11 +39,26 @@ Customers using Giant Swarm clusters on AWS or Azure.
 
 ## Installing
 
-There are 3 ways to install this app onto a workload cluster:
+Install the chart on the management cluster using an App CR:
 
-1. [Using our web interface](https://docs.giantswarm.io/reference/web-interface/app-catalog/)
-2. [Using our API](https://docs.giantswarm.io/api/#operation/createClusterAppV5)
-3. Directly creating the [App custom resource](https://docs.giantswarm.io/use-the-api/management-api/crd/apps.application.giantswarm.io/) on the Management Cluster
+```yaml
+apiVersion: application.giantswarm.io/v1alpha1
+kind: App
+metadata:
+  name: coyote-external-dns-app-bundle
+  namespace: org-acme
+spec:
+  catalog: default
+  config:
+    configMap:
+      name: coyote-cluster-values
+      namespace: org-acme
+  kubeConfig:
+    inCluster: true
+  name: external-dns-app-bundle
+  namespace: org-acme
+  version: 3.2.0
+```
 
 ## Configuring
 
@@ -52,10 +76,6 @@ This is an example of a values file you could upload using our web interface. It
 
 ```yaml
 # values.yaml
-serviceAccount:
-  annotations:
-    eks.amazonaws.com/role-arn: <CLUSTER_ID>-Route53Manager-Role
-
 domainFilters:
   - web-app.mydomain.com
 namespaced: 'web-app'

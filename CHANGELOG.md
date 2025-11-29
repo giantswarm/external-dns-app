@@ -7,9 +7,23 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Added
+
+- Introduce bundle chart architecture with Crossplane IAM resources.
+  - Add `external-dns-app-bundle` chart that includes:
+    - Crossplane IAM Role with Route53 permissions
+    - Flux HelmRelease to deploy the workload cluster chart
+    - ConfigMap for values passthrough
+  - Bundle chart is installed on the management cluster and deploys the app chart to the workload cluster
+  - IAM role uses OIDC federation (IRSA) and reads configuration from `<clusterID>-crossplane-config` ConfigMap
+  - Both charts share the same version and are released together
+
 ### Changed
 
 - Use kubectl-apply-job when installing CRDs
+- Update CircleCI configuration to push both app and bundle charts to default and giantswarm catalogs
+- Update README with bundle architecture documentation
+- Add IAM role annotation to service account
 
 ## [3.2.0] - 2025-02-20
 
