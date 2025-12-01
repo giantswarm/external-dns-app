@@ -1,5 +1,5 @@
 diff --git a/vendor/external-dns/values.yaml b/helm/external-dns-app/values.yaml
-index 9b9292c..ebf8303 100644
+index 9b9292c..d2d0e07 100644
 --- a/vendor/external-dns/values.yaml
 +++ b/helm/external-dns-app/values.yaml
 @@ -6,9 +6,9 @@ global:
@@ -14,17 +14,7 @@ index 9b9292c..ebf8303 100644
    # -- Image tag for the `external-dns` container, this will default to `.Chart.AppVersion` if not set.
    tag:  # @schema type:[string, null]
    # -- Image pull policy for the `external-dns` container.
-@@ -24,7 +24,8 @@ nameOverride:  # @schema type:[string, null]; default: null
- fullnameOverride:  # @schema type:[string, null]; default: null
- 
- # -- Labels to add to all chart resources.
--commonLabels: {}
-+commonLabels:
-+  application.giantswarm.io/team: team-cabbage
- 
- serviceAccount:
-   # -- If `true`, create a new `ServiceAccount`.
-@@ -53,7 +54,6 @@ service:
+@@ -53,7 +53,6 @@ service:
  rbac:  # @schema additionalProperties: true
    # -- If `true`, create a `ClusterRole` & `ClusterRoleBinding` with access to the Kubernetes API.
    create: true
@@ -32,7 +22,7 @@ index 9b9292c..ebf8303 100644
    additionalPermissions: []
  
  # -- Annotations to add to the `Deployment`.
-@@ -73,7 +73,9 @@ revisionHistoryLimit:  # @schema type:[integer, null];minimum:0
+@@ -73,7 +72,9 @@ revisionHistoryLimit:  # @schema type:[integer, null];minimum:0
  podLabels: {}
  
  # -- Annotations to add to the `Pod`.
@@ -43,7 +33,7 @@ index 9b9292c..ebf8303 100644
  
  # -- (bool) Set this to `false` to [opt out of API credential automounting](https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/#opt-out-of-api-credential-automounting) for the `Pod`.
  automountServiceAccountToken: true
-@@ -90,7 +92,7 @@ podSecurityContext:
+@@ -90,7 +91,7 @@ podSecurityContext:
      type: RuntimeDefault
  
  # -- (string) Priority class name for the `Pod`.
@@ -52,7 +42,7 @@ index 9b9292c..ebf8303 100644
  
  # -- (int) Termination grace period for the `Pod` in seconds.
  terminationGracePeriodSeconds:  # @schema type:[integer, null]
-@@ -150,7 +152,12 @@ extraVolumes: []
+@@ -150,7 +151,12 @@ extraVolumes: []
  extraVolumeMounts: []
  
  # -- [Resources](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/) for the `external-dns` container.
@@ -66,7 +56,7 @@ index 9b9292c..ebf8303 100644
  
  # -- Node labels to match for `Pod` [scheduling](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/).
  nodeSelector: {}
-@@ -166,7 +173,7 @@ tolerations: []
+@@ -166,7 +172,7 @@ tolerations: []
  
  serviceMonitor:
    # -- If `true`, create a `ServiceMonitor` resource to support the _Prometheus Operator_.
@@ -75,7 +65,7 @@ index 9b9292c..ebf8303 100644
    # -- Additional labels for the `ServiceMonitor`.
    additionalLabels: {}
    # -- Annotations to add to the `ServiceMonitor`.
-@@ -174,7 +181,7 @@ serviceMonitor:
+@@ -174,7 +180,7 @@ serviceMonitor:
    # -- (string) If set create the `ServiceMonitor` in an alternate namespace.
    namespace:  # @schema type:[string, null]; default: null
    # -- (string) If set override the _Prometheus_ default interval.
@@ -84,7 +74,7 @@ index 9b9292c..ebf8303 100644
    # -- (string) If set override the _Prometheus_ default scrape timeout.
    scrapeTimeout:  # @schema type:[string, null]; default: null
    # -- (string) If set overrides the _Prometheus_ default scheme.
-@@ -184,7 +191,23 @@ serviceMonitor:
+@@ -184,7 +190,23 @@ serviceMonitor:
    # -- (string) Provide a bearer token file for the `ServiceMonitor`.
    bearerTokenFile:  # @schema type:[string, null]; default: null
    # -- [Relabel configs](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#relabel_config) to apply to samples before ingestion.
@@ -109,7 +99,7 @@ index 9b9292c..ebf8303 100644
    # -- [Metric relabel configs](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#metric_relabel_configs) to apply to samples before ingestion.
    metricRelabelings: []
    # -- Provide target labels for the `ServiceMonitor`.
-@@ -197,11 +220,14 @@ logLevel: info  # @schema enum:[panic, debug, info, warning, error, fatal]; type
+@@ -197,11 +219,14 @@ logLevel: info  # @schema enum:[panic, debug, info, warning, error, fatal]; type
  logFormat: text  # @schema enum:["text", "json"]; type:string; default: "text"
  
  # -- Interval for DNS updates.
@@ -125,7 +115,7 @@ index 9b9292c..ebf8303 100644
  # -- if `true`, _ExternalDNS_ will run in a namespaced scope (`Role`` and `Rolebinding`` will be namespaced too).
  namespaced: false
  
-@@ -211,10 +237,10 @@ gatewayNamespace:  # @schema type:[string, null]; default: null
+@@ -211,10 +236,10 @@ gatewayNamespace:  # @schema type:[string, null]; default: null
  # -- _Kubernetes_ resources to monitor for DNS entries.
  sources:
    - service
@@ -138,7 +128,7 @@ index 9b9292c..ebf8303 100644
  
  # -- Specify the registry for storing ownership and labels.
  # Valid values are `txt`, `aws-sd`, `dynamodb` & `noop`.
-@@ -238,7 +264,7 @@ excludeDomains: []
+@@ -238,7 +263,7 @@ excludeDomains: []
  labelFilter:  # @schema type: [string,null]; default: null
  
  # -- Filter resources queried for endpoints by annotation selector.
@@ -147,7 +137,7 @@ index 9b9292c..ebf8303 100644
  
  # -- Record types to manage (default: A, AAAA, CNAME)
  managedRecordTypes: []  # @schema type: [array, null]; item: string; uniqueItems: true
-@@ -317,3 +343,42 @@ secretConfiguration:
+@@ -317,3 +342,42 @@ secretConfiguration:
  
  # -- (bool) No effect - reserved for use in sub-charting.
  enabled:  # @schema type: [boolean, null]; description: No effect - reserved for use in sub-charting

@@ -24,8 +24,7 @@ nameOverride:  # @schema type:[string, null]; default: null
 fullnameOverride:  # @schema type:[string, null]; default: null
 
 # -- Labels to add to all chart resources.
-commonLabels:
-  application.giantswarm.io/team: team-cabbage
+commonLabels: {}
 
 serviceAccount:
   # -- If `true`, create a new `ServiceAccount`.

@@ -20,7 +20,7 @@ find vendor/ -type f -exec sed -i 's/[[:space:]]*$//' {} \;
 # ./sync/patches/deployment/patch.sh
 ./sync/patches/crds/patch.sh
 ./sync/patches/vpa/patch.sh
-# ./sync/patches/helper/patch.sh
+./sync/patches/helper/patch.sh
 ./sync/patches/values/patch.sh
 
 HELM_BASE="helm/external-dns-app"
