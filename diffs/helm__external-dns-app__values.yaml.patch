@@ -1,5 +1,5 @@
 diff --git a/vendor/external-dns/values.yaml b/helm/external-dns-app/values.yaml
-index 9b9292c..d2d0e07 100644
+index 9b9292c..d986012 100644
 --- a/vendor/external-dns/values.yaml
 +++ b/helm/external-dns-app/values.yaml
 @@ -6,9 +6,9 @@ global:
@@ -14,6 +14,15 @@ index 9b9292c..d2d0e07 100644
    # -- Image tag for the `external-dns` container, this will default to `.Chart.AppVersion` if not set.
    tag:  # @schema type:[string, null]
    # -- Image pull policy for the `external-dns` container.
+@@ -18,7 +18,7 @@ image:  # @schema additionalProperties: false
+ imagePullSecrets: []  # @schema item: object
+ 
+ # -- (string) Override the name of the chart.
+-nameOverride:  # @schema type:[string, null]; default: null
++nameOverride: "external-dns" # @schema type:[string, null]; default: null
+ 
+ # -- (string) Override the full name of the chart.
+ fullnameOverride:  # @schema type:[string, null]; default: null
 @@ -53,7 +53,6 @@ service:
  rbac:  # @schema additionalProperties: true
    # -- If `true`, create a `ClusterRole` & `ClusterRoleBinding` with access to the Kubernetes API.

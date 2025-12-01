@@ -18,7 +18,7 @@ image:  # @schema additionalProperties: true
 imagePullSecrets: []  # @schema item: object
 
 # -- (string) Override the name of the chart.
-nameOverride:  # @schema type:[string, null]; default: null
+nameOverride: "external-dns" # @schema type:[string, null]; default: null
 
 # -- (string) Override the full name of the chart.
 fullnameOverride:  # @schema type:[string, null]; default: null
