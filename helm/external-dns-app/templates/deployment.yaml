@@ -24,7 +24,7 @@ spec:
   template:
     metadata:
       labels:
-        {{- include "external-dns.selectorLabels" . | nindent 8 }}
+        {{- include "external-dns.labels" . | nindent 8 }}
       {{- with .Values.podLabels }}
         {{- toYaml . | nindent 8 }}
       {{- end }}
@@ -52,6 +52,9 @@ spec:
       {{- with .Values.podSecurityContext }}
       securityContext:
         {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- if .Values.hostNetwork }}
+      hostNetwork: true
       {{- end }}
       {{- with .Values.priorityClassName }}
       priorityClassName: {{ . | quote }}
