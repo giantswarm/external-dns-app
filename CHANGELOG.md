@@ -7,9 +7,31 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Important changes
+
+- TXT registry record formatting has changed in this version. After upgrading, external-dns creates new TXT records, but existing (old) records will not be deleted automatically; manual cleanup by the operator is required.
+- The value `.Values.provider` has been deprecated in favour of `.Values.provider.name`.
+
 ### Changed
 
-- Use kubectl-apply-job when installing CRDs
+- Use kubectl-apply-job when installing CRDs.
+- Upgrade external-dns to v0.20.0.
+- Update DNSEndpoints CRD.
+- Sync to upstream helm chart `1.19.0`.
+  - Grant `discovery.k8s.io/endpointslices` permission only when using `service` source. 
+  - Update RBAC for `Service` source to support `EndpointSlices`.
+  - Allow extraArgs to also be a map enabling overrides of individual values.
+  - Set defaults for `automountServiceAccountToken` and `serviceAccount.automountServiceAccountToken` to `true` in Helm chart values.
+  - Correctly handle `txtPrefix` and `txtSuffix` arguments when both are provided.
+  - Add ability to generate schema with `helm plugin schema`.
+  - Regenerate JSON schema with `helm-values-schema-json' plugin.
+  - Added ability to configure `imagePullSecrets` via helm `global` value.
+  - Added options to configure `labelFilter` and `managedRecordTypes` via dedicated helm values.
+  - Allow templating `serviceaccount.annotations` keys and values, by rendering them using the `tpl` built-in function.
+  - Added support for `extraContainers` argument.
+  - Added support for setting `excludeDomains` argument.
+  - Added support for setting `dnsConfig`.
+  - Added support for webhook providers.
 
 ## [3.2.0] - 2025-02-20
 

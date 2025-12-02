@@ -1,81 +1,93 @@
 diff --git a/vendor/external-dns/values.yaml b/helm/external-dns-app/values.yaml
-index 6e0f802..e96800b 100644
+index 9b9292c..1ae0bc6 100644
 --- a/vendor/external-dns/values.yaml
 +++ b/helm/external-dns-app/values.yaml
-@@ -1,11 +1,13 @@
--# Default values for external-dns.
-+# Default values for external-dns-chart.
- # This is a YAML-formatted file.
- # Declare variables to be passed into your templates.
+@@ -6,9 +6,9 @@ global:
+   # -- Global image pull secrets.
+   imagePullSecrets: []  # @schema item: object
  
-+annotationFilter: "giantswarm.io/external-dns=managed"
-+
- image:
+-image:  # @schema additionalProperties: false
++image:  # @schema additionalProperties: true
+   # -- Image repository for the `external-dns` container.
 -  repository: registry.k8s.io/external-dns/external-dns
--  # Overrides the image tag whose default is v{{ .Chart.AppVersion }}
--  tag: ""
-+  name: giantswarm/external-dns
-+  registry: gsoci.azurecr.io
-+  tag: v0.11.0
-   pullPolicy: IfNotPresent
++  repository: gsoci.azurecr.io/giantswarm/external-dns
+   # -- Image tag for the `external-dns` container, this will default to `.Chart.AppVersion` if not set.
+   tag:  # @schema type:[string, null]
+   # -- Image pull policy for the `external-dns` container.
+@@ -18,7 +18,7 @@ image:  # @schema additionalProperties: false
+ imagePullSecrets: []  # @schema item: object
  
- imagePullSecrets: []
-@@ -37,14 +39,21 @@ deploymentAnnotations: {}
+ # -- (string) Override the name of the chart.
+-nameOverride:  # @schema type:[string, null]; default: null
++nameOverride: "external-dns"  # @schema type:[string, null]; default: null
+ 
+ # -- (string) Override the full name of the chart.
+ fullnameOverride:  # @schema type:[string, null]; default: null
+@@ -53,7 +53,6 @@ service:
+ rbac:  # @schema additionalProperties: true
+   # -- If `true`, create a `ClusterRole` & `ClusterRoleBinding` with access to the Kubernetes API.
+   create: true
+-  # -- Additional rules to add to the `ClusterRole`.
+   additionalPermissions: []
+ 
+ # -- Annotations to add to the `Deployment`.
+@@ -73,7 +72,9 @@ revisionHistoryLimit:  # @schema type:[integer, null];minimum:0
  podLabels: {}
  
- # Annotations to add to the Pod
+ # -- Annotations to add to the `Pod`.
 -podAnnotations: {}
 +podAnnotations:
 +  cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
 +  kubectl.kubernetes.io/default-container: external-dns
  
- shareProcessNamespace: false
+ # -- (bool) Set this to `false` to [opt out of API credential automounting](https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/#opt-out-of-api-credential-automounting) for the `Pod`.
+ automountServiceAccountToken: true
+@@ -90,7 +91,7 @@ podSecurityContext:
+     type: RuntimeDefault
  
- podSecurityContext:
-   fsGroup: 65534
-+  runAsGroup: 65534
-+  runAsUser: 65534
-+  seccompProfile:
-+    type: RuntimeDefault
+ # -- (string) Priority class name for the `Pod`.
+-priorityClassName:  # @schema type:[string, null]; default: null
++priorityClassName: "giantswarm-critical"  # @schema type:[string, null]; default: null
  
- securityContext:
-+  allowPrivilegeEscalation: false
-   runAsNonRoot: true
-   runAsUser: 65534
-   readOnlyRootFilesystem: true
-@@ -55,17 +64,17 @@ securityContext:
- # Valid values are: `ClusterFirstWithHostNet`, `ClusterFirst`, `Default` or `None`.
- dnsPolicy:
+ # -- (int) Termination grace period for the `Pod` in seconds.
+ terminationGracePeriodSeconds:  # @schema type:[integer, null]
+@@ -150,7 +151,12 @@ extraVolumes: []
+ extraVolumeMounts: []
  
--priorityClassName: ""
-+priorityClassName: "giantswarm-critical"
+ # -- [Resources](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/) for the `external-dns` container.
+-resources: {}
++resources:
++  limits:
++    memory: 100Mi
++  requests:
++    cpu: 50m
++    memory: 100Mi
  
- terminationGracePeriodSeconds:
+ # -- Node labels to match for `Pod` [scheduling](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/).
+ nodeSelector: {}
+@@ -166,7 +172,7 @@ tolerations: []
  
  serviceMonitor:
+   # -- If `true`, create a `ServiceMonitor` resource to support the _Prometheus Operator_.
 -  enabled: false
 +  enabled: true
-   # force namespace
-   # namespace: monitoring
- 
-   # Fallback to the prometheus default unless specified
--  # interval: 10s
+   # -- Additional labels for the `ServiceMonitor`.
+   additionalLabels: {}
+   # -- Annotations to add to the `ServiceMonitor`.
+@@ -174,7 +180,7 @@ serviceMonitor:
+   # -- (string) If set create the `ServiceMonitor` in an alternate namespace.
+   namespace:  # @schema type:[string, null]; default: null
+   # -- (string) If set override the _Prometheus_ default interval.
+-  interval:  # @schema type:[string, null]; default: null
 +  interval: 60s
- 
-   ## scheme: HTTP scheme to use for scraping. Can be used with `tlsConfig` for example if using istio mTLS.
-   # scheme: ""
-@@ -95,14 +104,23 @@ serviceMonitor:
- 
-   ## Relabel configs to apply to samples before ingestion.
-   ## [Relabeling](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#relabel_config)
+   # -- (string) If set override the _Prometheus_ default scrape timeout.
+   scrapeTimeout:  # @schema type:[string, null]; default: null
+   # -- (string) If set overrides the _Prometheus_ default scheme.
+@@ -184,7 +190,23 @@ serviceMonitor:
+   # -- (string) Provide a bearer token file for the `ServiceMonitor`.
+   bearerTokenFile:  # @schema type:[string, null]; default: null
+   # -- [Relabel configs](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#relabel_config) to apply to samples before ingestion.
 -  relabelings: []
--  # - sourceLabels: [__meta_kubernetes_pod_node_name]
--  #   separator: ;
--  #   regex: ^(.*)$
--  #   targetLabel: nodename
--  #   replacement: $1
--  #   action: replace
--
 +  relabelings:
 +    - action: replace
 +      regex: ;(.*)
@@ -93,69 +105,51 @@ index 6e0f802..e96800b 100644
 +      sourceLabels:
 +      - __meta_kubernetes_pod_node_name
 +      targetLabel: node
-   targetLabels: []
+   # -- [Metric relabel configs](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#metric_relabel_configs) to apply to samples before ingestion.
+   metricRelabelings: []
+   # -- Provide target labels for the `ServiceMonitor`.
+@@ -197,11 +219,14 @@ logLevel: info  # @schema enum:[panic, debug, info, warning, error, fatal]; type
+ logFormat: text  # @schema enum:["text", "json"]; type:string; default: "text"
  
- env: []
-@@ -135,7 +153,12 @@ extraVolumes: []
- 
- extraVolumeMounts: []
- 
--resources: {}
-+resources:
-+  limits:
-+    memory: 100Mi
-+  requests:
-+    cpu: 50m
-+    memory: 100Mi
- 
- nodeSelector: {}
- 
-@@ -148,16 +171,18 @@ topologySpreadConstraints: []
- logLevel: info
- logFormat: text
- 
+ # -- Interval for DNS updates.
 -interval: 1m
 +interval: 5m
+ 
 +minEventSyncInterval: 30s
+ # -- If `true`, triggers run loop on create/update/delete events in addition of regular interval.
  triggerLoopOnEvent: false
  
 +namespaceFilter: ""
++
+ # -- if `true`, _ExternalDNS_ will run in a namespaced scope (`Role`` and `Rolebinding`` will be namespaced too).
  namespaced: false
  
+@@ -211,10 +236,10 @@ gatewayNamespace:  # @schema type:[string, null]; default: null
+ # -- _Kubernetes_ resources to monitor for DNS entries.
  sources:
    - service
 -  - ingress
 +  - crd
  
--policy: upsert-only
-+policy: sync
+ # -- How DNS records are synchronized between sources and providers; available values are `create-only`, `sync`, & `upsert-only`.
+-policy: upsert-only  # @schema enum:[create-only, sync, upsert-only]; type:string; default: "upsert-only"
++policy: sync  # @schema enum:[create-only, sync, upsert-only]; type:string; default: "upsert-only"
  
- registry: txt
- txtOwnerId: ""
-@@ -166,7 +191,11 @@ txtSuffix: ""
+ # -- Specify the registry for storing ownership and labels.
+ # Valid values are `txt`, `aws-sd`, `dynamodb` & `noop`.
+@@ -238,7 +263,7 @@ excludeDomains: []
+ labelFilter:  # @schema type: [string,null]; default: null
  
- domainFilters: []
+ # -- Filter resources queried for endpoints by annotation selector.
+-annotationFilter:  # @schema type: [string,null]; default: null
++annotationFilter: "giantswarm.io/external-dns=managed"  # @schema type: [string,null]; default: null
  
--provider: aws
-+# provider
-+# Identifies the cloud provider. Currently supported: `aws` and `azure`. This *must*
-+# be set. If this is installed as a default app from the default-catalog then this
-+# value is set dynamically and will be overridden.
-+provider: CHANGEME
+ # -- Record types to manage (default: A, AAAA, CNAME)
+ managedRecordTypes: []  # @schema type: [array, null]; item: string; uniqueItems: true
+@@ -317,3 +342,42 @@ secretConfiguration:
  
- extraArgs: []
- 
-@@ -175,10 +204,49 @@ secretConfiguration:
-   mountPath: ""
-   subPath: ""
-   data: {}
--    # credentials: |
--    #   [default]
--    #   aws_access_key_id = $SECRET_ACCESS_KEY
--    #   aws_secret_access_key = $SECRET_ACCESS_KEY
- 
- deploymentStrategy:
-   type: Recreate
+ # -- (bool) No effect - reserved for use in sub-charting.
+ enabled:  # @schema type: [boolean, null]; description: No effect - reserved for use in sub-charting
 +
 +# Configuration options for CRDs.
 +crd:
@@ -189,13 +183,9 @@ index 6e0f802..e96800b 100644
 +ciliumNetworkPolicy:
 +  enabled: false
 +
-+global:
-+  image:
-+    registry: gsoci.azurecr.io
-+
 +# Values for subchart kubectl-apply-job
 +# for installing CRDs
 +kubectlApplyJob:
 +  enabled: true
 +  files:
-+  - files/dnsendpoints.yaml
++  - files/dnsendpoints.externaldns.k8s.io.yaml

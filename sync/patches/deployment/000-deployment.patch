@@ -21,19 +21,3 @@ index 5c3e112..a03da7f 100644
        {{- with .Values.priorityClassName }}
        priorityClassName: {{ . | quote }}
        {{- end }}
-@@ -77,6 +80,15 @@ spec:
-             - --source={{ . }}
-             {{- end }}
-             - --policy={{ .Values.policy }}
-+            {{- if .Values.annotationFilter }}
-+            - --annotation-filter={{ .Values.annotationFilter }}
-+            {{- end }}
-+            {{- if .Values.namespaceFilter }}
-+            - --namespace={{ .Values.namespaceFilter }}
-+            {{- end }}
-+            {{- if .Values.minEventSyncInterval }}
-+            - --min-event-sync-interval={{ .Values.minEventSyncInterval }}
-+            {{- end }}
-             - --registry={{ .Values.registry }}
-             {{- if eq .Values.registry "txt" }}
-             {{- if .Values.txtOwnerId }}

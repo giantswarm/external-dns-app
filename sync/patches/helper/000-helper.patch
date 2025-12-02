@@ -1,35 +1,8 @@
 diff --git b/helm/external-dns-app/templates/_helpers.tpl a/helm/external-dns-app/templates/_helpers.tpl
-index 4f70ccd..18b943a 100644
+index aad0982..9b244d8 100644
 --- b/helm/external-dns-app/templates/_helpers.tpl
 +++ a/helm/external-dns-app/templates/_helpers.tpl
-@@ -2,24 +2,19 @@
- Expand the name of the chart.
- */}}
- {{- define "external-dns.name" -}}
--{{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
-+{{- default "external-dns" .Values.nameOverride | trunc 63 | trimSuffix "-" }}
- {{- end }}
- 
- {{/*
- Create a default fully qualified app name.
- We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
--If release name contains chart name it will be used as a full name.
-+Unless there is a override, we use the release name as the full name.
- */}}
- {{- define "external-dns.fullname" -}}
- {{- if .Values.fullnameOverride }}
- {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
- {{- else }}
--{{- $name := default .Chart.Name .Values.nameOverride }}
--{{- if contains $name .Release.Name }}
- {{- .Release.Name | trunc 63 | trimSuffix "-" }}
--{{- else }}
--{{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" }}
--{{- end }}
- {{- end }}
- {{- end }}
- 
-@@ -30,11 +25,21 @@ Create chart name and version as used by the chart label.
+@@ -30,6 +30,14 @@ Create chart name and version as used by the chart label.
  {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
  {{- end }}
  
@@ -39,40 +12,18 @@ index 4f70ccd..18b943a 100644
 +{{- define "giantswarm.labels" -}}
 +giantswarm.io/service-type: "{{ .Values.serviceType }}"
 +application.giantswarm.io/team: {{ index .Chart.Annotations "application.giantswarm.io/team" | quote }}
-+{{- end -}}
++{{- end }}
 +
  {{/*
  Common labels
  */}}
- {{- define "external-dns.labels" -}}
- helm.sh/chart: {{ include "external-dns.chart" . }}
-+app.kubernetes.io/name: {{ include "external-dns.name" . }}
-+app.kubernetes.io/instance: {{ .Release.Name }}
- {{ include "external-dns.selectorLabels" . }}
- {{- if .Chart.AppVersion }}
- app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
-@@ -43,14 +48,14 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
+@@ -43,7 +51,8 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
  {{- with .Values.commonLabels }}
  {{ toYaml . }}
  {{- end }}
 -{{- end }}
 +{{ include "giantswarm.labels" . }}
-+{{- end -}}
++{{- end }}
  
  {{/*
  Selector labels
- */}}
- {{- define "external-dns.selectorLabels" -}}
--app.kubernetes.io/name: {{ include "external-dns.name" . }}
--app.kubernetes.io/instance: {{ .Release.Name }}
-+app: {{ .Release.Name | quote }}
- {{- end }}
- 
- {{/*
-@@ -68,5 +73,5 @@ Create the name of the service account to use
- The image to use
- */}}
- {{- define "external-dns.image" -}}
--{{- printf "%s:%s" .Values.image.repository (default (printf "v%s" .Chart.AppVersion) .Values.image.tag) }}
-+{{- printf "%s/%s:%s" .Values.image.registry .Values.image.name .Values.image.tag }}
- {{- end }}
