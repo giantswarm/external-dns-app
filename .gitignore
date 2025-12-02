@@ -3,3 +3,5 @@ build
 test_results_*.xml
 vendor
 helm/external-dns-app/charts
+tests/e2e/*.json
+tests/e2e/kubeconfig

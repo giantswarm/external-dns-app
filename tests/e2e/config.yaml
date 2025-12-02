@@ -1,0 +1,5 @@
+appName: external-dns
+repoName: external-dns-app
+appCatalog: default
+providers:
+- capa
