@@ -266,7 +266,9 @@ labelFilter:  # @schema type: [string,null]; default: null
 annotationFilter: "giantswarm.io/external-dns=managed"  # @schema type: [string,null]; default: null
 
 # -- Record types to manage (default: A, AAAA, CNAME)
-managedRecordTypes: []  # @schema type: [array, null]; item: string; uniqueItems: true
+managedRecordTypes:  # @schema type: [array, null]; item: string; uniqueItems: true
+  - A
+  - CNAME
 
 provider:  # @schema type: [object, string]
   # -- _ExternalDNS_ provider name; for the available providers and how to configure them see [README](https://github.com/kubernetes-sigs/external-dns/blob/master/charts/external-dns/README.md#providers).

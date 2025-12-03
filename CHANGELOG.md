@@ -32,6 +32,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
   - Added support for setting `excludeDomains` argument.
   - Added support for setting `dnsConfig`.
   - Added support for webhook providers.
+- Restrict managed record types to A and CNAME.
 
 ## [3.2.0] - 2025-02-20
 
