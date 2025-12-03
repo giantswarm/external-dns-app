@@ -42,6 +42,7 @@ func TestBasic(t *testing.T) {
 			It("should create DNS records", func() {
 				baseDomain := getWorkloadClusterBaseDomain()
 				testDomain := fmt.Sprintf("test.%s", baseDomain)
+				testTxtDomain := fmt.Sprintf("%scname-%s", state.GetCluster().Name, testDomain)
 				resolver := getResolver(baseDomain)
 
 				By("adding a LoadBalancer service")
@@ -102,6 +103,34 @@ func TestBasic(t *testing.T) {
 
 					}
 					logger.Log("DNS records found for %s: %v", testDomain, ips)
+					return true, nil
+				}).
+					WithTimeout(5 * time.Minute).
+					WithPolling(15 * time.Second).
+					Should(BeTrue())
+
+				By("checking that the TXT registry record exists")
+
+				Eventually(func() (bool, error) {
+					logger.Log("checking the TXT registry record exists for %s", testTxtDomain)
+					txtRecords, err := resolver.LookupTXT(context.Background(), testTxtDomain)
+					if err != nil {
+						return false, err
+					}
+
+					if len(txtRecords) == 0 {
+						logger.Log("no TXT records found for %s", testTxtDomain)
+						return false, fmt.Errorf("no TXT records found for %s", testTxtDomain)
+
+					}
+
+					expectedValue := "heritage=external-dns,external-dns/owner=giantswarm-io-external-dns,external-dns/resource=service/kube-system/external-dns-test"
+					if txtRecords[0] != expectedValue {
+						logger.Log("TXT record found for %s: %s", testTxtDomain, txtRecords[0])
+						return false, fmt.Errorf("TXT record found for %s: %s", testTxtDomain, txtRecords[0])
+					}
+
+					logger.Log("TXT records found for %s: %v", testTxtDomain, txtRecords)
 					return true, nil
 				}).
 					WithTimeout(5 * time.Minute).
