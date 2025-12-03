@@ -126,8 +126,8 @@ func TestBasic(t *testing.T) {
 
 					expectedValue := "heritage=external-dns,external-dns/owner=giantswarm-io-external-dns,external-dns/resource=service/kube-system/external-dns-test"
 					if txtRecords[0] != expectedValue {
-						logger.Log("TXT record found for %s: %s", testTxtDomain, txtRecords[0])
-						return false, fmt.Errorf("TXT record found for %s: %s", testTxtDomain, txtRecords[0])
+						logger.Log("unexpected TXT record value for %s: got %s, want %s", testTxtDomain, txtRecords[0], expectedValue)
+						return false, fmt.Errorf("unexpected TXT record value for %s: got %s, want %s", testTxtDomain, txtRecords[0], expectedValue)
 					}
 
 					logger.Log("TXT records found for %s: %v", testTxtDomain, txtRecords)
