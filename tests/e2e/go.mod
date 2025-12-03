@@ -6,8 +6,9 @@ require (
 	github.com/fluxcd/helm-controller/api v1.4.2
 	github.com/giantswarm/apptest-framework/v2 v2.0.2
 	github.com/giantswarm/clustertest/v2 v2.1.2
-	github.com/onsi/ginkgo/v2 v2.27.1
+	github.com/onsi/ginkgo/v2 v2.27.2
 	github.com/onsi/gomega v1.38.2
+	k8s.io/api v0.34.1
 	k8s.io/apimachinery v0.34.1
 )
 
@@ -153,7 +154,6 @@ require (
 	gopkg.in/inf.v0 v0.9.1 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	helm.sh/helm/v3 v3.19.0 // indirect
-	k8s.io/api v0.34.1 // indirect
 	k8s.io/apiextensions-apiserver v0.34.1 // indirect
 	k8s.io/apiserver v0.34.1 // indirect
 	k8s.io/cli-runtime v0.34.1 // indirect
