@@ -3,3 +3,4 @@ repoName: external-dns-app
 appCatalog: default
 providers:
 - capa
+- capz
