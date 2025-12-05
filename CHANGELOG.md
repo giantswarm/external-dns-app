@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [3.3.0] - 2025-12-05
+
 ### Important changes
 
 - TXT registry record formatting has changed in this version. After upgrading, external-dns creates new TXT records, but existing (old) records will not be deleted automatically; manual cleanup by the operator is required.
@@ -628,7 +630,8 @@ If you already specify `--aws-batch-change-interval` or `--aws-zones-cache-durat
 - Network policy that allows all egress traffic.
 - Network policy that allows accessing metrics on port `10254`.
 
-[Unreleased]: https://github.com/giantswarm/external-dns-app/compare/v3.2.0...HEAD
+[Unreleased]: https://github.com/giantswarm/external-dns-app/compare/v3.3.0...HEAD
+[3.3.0]: https://github.com/giantswarm/external-dns-app/compare/v3.2.0...v3.3.0
 [3.2.0]: https://github.com/giantswarm/external-dns-app/compare/v3.1.0...v3.2.0
 [3.1.0]: https://github.com/giantswarm/external-dns-app/compare/v3.0.0...v3.1.0
 [3.0.0]: https://github.com/giantswarm/external-dns-app/compare/v2.42.0...v3.0.0
