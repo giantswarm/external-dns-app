@@ -1,5 +1,5 @@
 diff --git a/vendor/external-dns/values.yaml b/helm/external-dns-app/values.yaml
-index 9b9292c..611fe93 100644
+index 46fbe8f..619507e 100644
 --- a/vendor/external-dns/values.yaml
 +++ b/helm/external-dns-app/values.yaml
 @@ -6,9 +6,9 @@ global:
@@ -137,12 +137,15 @@ index 9b9292c..611fe93 100644
  
  # -- Specify the registry for storing ownership and labels.
  # Valid values are `txt`, `aws-sd`, `dynamodb` & `noop`.
-@@ -238,10 +263,12 @@ excludeDomains: []
+@@ -238,13 +263,15 @@ excludeDomains: []
  labelFilter:  # @schema type: [string,null]; default: null
  
  # -- Filter resources queried for endpoints by annotation selector.
 -annotationFilter:  # @schema type: [string,null]; default: null
 +annotationFilter: "giantswarm.io/external-dns=managed"  # @schema type: [string,null]; default: null
+ 
+ # -- Annotation prefix for external-dns annotations (useful for split horizon DNS with multiple instances).
+ annotationPrefix:  # @schema type: [string,null]; default: null
  
  # -- Record types to manage (default: A, AAAA, CNAME)
 -managedRecordTypes: []  # @schema type: [array, null]; item: string; uniqueItems: true
@@ -152,7 +155,7 @@ index 9b9292c..611fe93 100644
  
  provider:  # @schema type: [object, string]
    # -- _ExternalDNS_ provider name; for the available providers and how to configure them see [README](https://github.com/kubernetes-sigs/external-dns/blob/master/charts/external-dns/README.md#providers).
-@@ -317,3 +344,42 @@ secretConfiguration:
+@@ -320,3 +347,42 @@ secretConfiguration:
  
  # -- (bool) No effect - reserved for use in sub-charting.
  enabled:  # @schema type: [boolean, null]; description: No effect - reserved for use in sub-charting

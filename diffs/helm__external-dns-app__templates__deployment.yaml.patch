@@ -1,5 +1,5 @@
 diff --git a/vendor/external-dns/templates/deployment.yaml b/helm/external-dns-app/templates/deployment.yaml
-index 70f231f..75ed80e 100644
+index b213f75..e91206f 100644
 --- a/vendor/external-dns/templates/deployment.yaml
 +++ b/helm/external-dns-app/templates/deployment.yaml
 @@ -24,7 +24,7 @@ spec:
