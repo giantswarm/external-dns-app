@@ -7,6 +7,13 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Sync to upstream helm chart [1.20.0](https://github.com/kubernetes-sigs/external-dns/releases/tag/external-dns-helm-chart-1.20.0).
+  - Add option to set annotationPrefix.
+  - Fixed the missing schema for .provider.webhook.serviceMonitor configs.
+  - Fixed incorrect indentation of selector labels under spec.template.spec.topologySpreadConstraints when topologySpreadConstraints is set.
+
 ## [3.3.0] - 2025-12-05
 
 ### Important changes
