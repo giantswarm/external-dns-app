@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [3.4.0] - 2026-01-07
+
 ### Changed
 
 - Sync to upstream helm chart [1.20.0](https://github.com/kubernetes-sigs/external-dns/releases/tag/external-dns-helm-chart-1.20.0).
@@ -637,7 +639,8 @@ If you already specify `--aws-batch-change-interval` or `--aws-zones-cache-durat
 - Network policy that allows all egress traffic.
 - Network policy that allows accessing metrics on port `10254`.
 
-[Unreleased]: https://github.com/giantswarm/external-dns-app/compare/v3.3.0...HEAD
+[Unreleased]: https://github.com/giantswarm/external-dns-app/compare/v3.4.0...HEAD
+[3.4.0]: https://github.com/giantswarm/external-dns-app/compare/v3.3.0...v3.4.0
 [3.3.0]: https://github.com/giantswarm/external-dns-app/compare/v3.2.0...v3.3.0
 [3.2.0]: https://github.com/giantswarm/external-dns-app/compare/v3.1.0...v3.2.0
 [3.1.0]: https://github.com/giantswarm/external-dns-app/compare/v3.0.0...v3.1.0
