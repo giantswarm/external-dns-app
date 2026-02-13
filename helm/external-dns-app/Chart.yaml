@@ -9,7 +9,6 @@ sources:
 annotations:
   io.giantswarm.application.team: cabbage
   io.giantswarm.application.audience: "all"
-  io.giantswarm.application.managed: "false"
 version: 3.4.0
 kubeVersion: ">=1.19.0-0"
 dependencies:
