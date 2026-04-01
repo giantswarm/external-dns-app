@@ -13,10 +13,10 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/util/intstr"
 
-	"github.com/giantswarm/apptest-framework/v3/pkg/state"
-	"github.com/giantswarm/apptest-framework/v3/pkg/suite"
-	"github.com/giantswarm/clustertest/v3/pkg/application"
-	"github.com/giantswarm/clustertest/v3/pkg/logger"
+	"github.com/giantswarm/apptest-framework/v4/pkg/state"
+	"github.com/giantswarm/apptest-framework/v4/pkg/suite"
+	"github.com/giantswarm/clustertest/v4/pkg/application"
+	"github.com/giantswarm/clustertest/v4/pkg/logger"
 )
 
 const (
