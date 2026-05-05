@@ -1,5 +1,5 @@
 diff --git a/vendor/external-dns/values.schema.json b/helm/external-dns-app/values.schema.json
-index b4c5e3a..f8e33b0 100644
+index d13e3ee..e671602 100644
 --- a/vendor/external-dns/values.schema.json
 +++ b/helm/external-dns-app/values.schema.json
 @@ -24,10 +24,32 @@
@@ -42,10 +42,10 @@ index b4c5e3a..f8e33b0 100644
 +    "e2e": {
 +      "type": "boolean"
 +    },
-     "enabled": {
-       "description": "No effect - reserved for use in sub-charting",
-       "type": [
-@@ -130,6 +155,9 @@
+     "enableGatewayListenerSets": {
+       "description": "if `true`, the Gateway API ListenerSet flag will be enabled.",
+       "type": "boolean"
+@@ -134,6 +159,9 @@
          }
        }
      },
@@ -55,7 +55,7 @@ index b4c5e3a..f8e33b0 100644
      "image": {
        "type": "object",
        "properties": {
-@@ -153,7 +181,7 @@
+@@ -157,7 +185,7 @@
            ]
          }
        },
@@ -64,7 +64,7 @@ index b4c5e3a..f8e33b0 100644
      },
      "imagePullSecrets": {
        "description": "Image pull secrets.",
-@@ -170,6 +198,20 @@
+@@ -174,6 +202,20 @@
        "description": "Interval for DNS updates.",
        "type": "string"
      },
@@ -85,7 +85,7 @@ index b4c5e3a..f8e33b0 100644
      "labelFilter": {
        "description": "Filter resources queried for endpoints by label selector.",
        "type": [
-@@ -242,6 +284,9 @@
+@@ -246,6 +288,9 @@
          "type": "string"
        }
      },
@@ -95,17 +95,17 @@ index b4c5e3a..f8e33b0 100644
      "nameOverride": {
        "description": "Override the name of the chart.",
        "type": [
-@@ -249,6 +294,9 @@
+@@ -253,6 +298,9 @@
          "null"
        ]
      },
 +    "namespaceFilter": {
 +      "type": "string"
 +    },
-     "namespaced": {
-       "description": "if `true`, _ExternalDNS_ will run in a namespaced scope (`Role`` and `Rolebinding`` will be namespaced too).",
-       "type": "boolean"
-@@ -259,7 +307,15 @@
+     "namespaceOverride": {
+       "description": "Override the namespace that chart resources are rendered into. Defaults to the release namespace. Useful when installing the chart as a subchart that should live in its own namespace, separate from the umbrella release namespace.",
+       "type": [
+@@ -270,7 +318,15 @@
      },
      "podAnnotations": {
        "description": "Annotations to add to the `Pod`.",
@@ -122,7 +122,7 @@ index b4c5e3a..f8e33b0 100644
      },
      "podLabels": {
        "description": "Labels to add to the `Pod`.",
-@@ -350,17 +406,6 @@
+@@ -361,17 +417,6 @@
                  }
                }
              },
@@ -140,7 +140,7 @@ index b4c5e3a..f8e33b0 100644
              "livenessProbe": {
                "description": "[Liveness probe](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/) configuration for the `external-dns` container.",
                "type": "object",
-@@ -469,17 +514,6 @@
+@@ -480,17 +525,6 @@
                  }
                }
              },
@@ -158,15 +158,7 @@ index b4c5e3a..f8e33b0 100644
              "resources": {
                "description": "[Resources](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/) for the `webhook` container.",
                "type": "object"
-@@ -544,7 +578,6 @@
-       "type": "object",
-       "properties": {
-         "additionalPermissions": {
--          "description": "Additional rules to add to the `ClusterRole`.",
-           "type": "array"
-         },
-         "create": {
-@@ -604,9 +637,6 @@
+@@ -615,9 +649,6 @@
          "limits": {
            "type": "object",
            "properties": {
@@ -176,7 +168,7 @@ index b4c5e3a..f8e33b0 100644
              "memory": {
                "type": "string"
              }
-@@ -792,10 +822,7 @@
+@@ -803,10 +834,7 @@
          },
          "interval": {
            "description": "If set override the _Prometheus_ default interval.",
@@ -188,7 +180,7 @@ index b4c5e3a..f8e33b0 100644
          },
          "metricRelabelings": {
            "description": "[Metric relabel configs](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#metric_relabel_configs) to apply to samples before ingestion.",
-@@ -810,7 +837,33 @@
+@@ -821,7 +849,33 @@
          },
          "relabelings": {
            "description": "[Relabel configs](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#relabel_config) to apply to samples before ingestion.",
@@ -223,7 +215,7 @@ index b4c5e3a..f8e33b0 100644
          },
          "scheme": {
            "description": "If set overrides the _Prometheus_ default scheme.",
-@@ -836,6 +889,9 @@
+@@ -847,6 +901,9 @@
          }
        }
      },
