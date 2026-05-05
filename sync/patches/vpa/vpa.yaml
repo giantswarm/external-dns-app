@@ -20,5 +20,5 @@ spec:
     kind: Deployment
     name:  {{ .Release.Name }}
   updatePolicy:
-    updateMode: Auto
+    updateMode: Recreate
 {{ end }}

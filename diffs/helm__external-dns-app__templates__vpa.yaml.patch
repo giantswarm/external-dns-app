@@ -1,6 +1,6 @@
 diff --git a/helm/external-dns-app/templates/vpa.yaml b/helm/external-dns-app/templates/vpa.yaml
 new file mode 100644
-index 0000000..e27c461
+index 0000000..99c1a5d
 --- /dev/null
 +++ b/helm/external-dns-app/templates/vpa.yaml
 @@ -0,0 +1,24 @@
@@ -26,5 +26,5 @@ index 0000000..e27c461
 +    kind: Deployment
 +    name:  {{ .Release.Name }}
 +  updatePolicy:
-+    updateMode: Auto
++    updateMode: Recreate
 +{{ end }}
