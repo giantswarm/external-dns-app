@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [3.5.0] - 2026-05-05
+
 ### Changed
 
 - Update VPA `updatePolicy.updateMode` from deprecated `Auto` to `Recreate`.
@@ -651,7 +653,8 @@ If you already specify `--aws-batch-change-interval` or `--aws-zones-cache-durat
 - Network policy that allows all egress traffic.
 - Network policy that allows accessing metrics on port `10254`.
 
-[Unreleased]: https://github.com/giantswarm/external-dns-app/compare/v3.4.0...HEAD
+[Unreleased]: https://github.com/giantswarm/external-dns-app/compare/v3.5.0...HEAD
+[3.5.0]: https://github.com/giantswarm/external-dns-app/compare/v3.4.0...v3.5.0
 [3.4.0]: https://github.com/giantswarm/external-dns-app/compare/v3.3.0...v3.4.0
 [3.3.0]: https://github.com/giantswarm/external-dns-app/compare/v3.2.0...v3.3.0
 [3.2.0]: https://github.com/giantswarm/external-dns-app/compare/v3.1.0...v3.2.0

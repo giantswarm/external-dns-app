@@ -9,7 +9,7 @@ sources:
 annotations:
   io.giantswarm.application.team: cabbage
   io.giantswarm.application.audience: "all"
-version: 3.4.0
+version: 3.5.0
 kubeVersion: ">=1.19.0-0"
 dependencies:
   - name: kubectl-apply-job
