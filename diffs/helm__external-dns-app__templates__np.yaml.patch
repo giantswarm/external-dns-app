@@ -1,6 +1,6 @@
 diff --git a/helm/external-dns-app/templates/np.yaml b/helm/external-dns-app/templates/np.yaml
 new file mode 100644
-index 0000000..6d25a93
+index 0000000..2643b59
 --- /dev/null
 +++ b/helm/external-dns-app/templates/np.yaml
 @@ -0,0 +1,21 @@
@@ -8,7 +8,7 @@ index 0000000..6d25a93
 +apiVersion: networking.k8s.io/v1
 +metadata:
 +  name: {{ .Release.Name }}
-+  namespace: {{ .Release.Namespace }}
++  namespace: {{ include "external-dns.namespace" . }}
 +  labels:
 +    {{- include "external-dns.labels" . | nindent 4 }}
 +spec:
