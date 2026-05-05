@@ -16,6 +16,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
   - Add `sourceNamespace` value (used with `namespaced=true`) to watch resources in a namespace different from the deployment namespace.
   - Avoid creating cluster-scoped namespace RBAC when `gatewayNamespace` is set, reducing required permissions.
   - Fix `extraArgs` map handling: boolean values now render as `--flag` / `--no-flag` and string values are properly quoted.
+- Use external-dns.namespace in VPA and NetworkPolicy resources.
 
 ## [3.4.0] - 2026-01-07
 

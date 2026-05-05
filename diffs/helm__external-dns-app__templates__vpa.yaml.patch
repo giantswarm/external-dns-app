@@ -1,6 +1,6 @@
 diff --git a/helm/external-dns-app/templates/vpa.yaml b/helm/external-dns-app/templates/vpa.yaml
 new file mode 100644
-index 0000000..869f2dc
+index 0000000..e27c461
 --- /dev/null
 +++ b/helm/external-dns-app/templates/vpa.yaml
 @@ -0,0 +1,24 @@
@@ -9,7 +9,7 @@ index 0000000..869f2dc
 +kind: VerticalPodAutoscaler
 +metadata:
 +  name: {{ .Release.Name }}
-+  namespace: {{ .Release.Namespace }}
++  namespace: {{ include "external-dns.namespace" . }}
 +  labels:
 +    {{- include "external-dns.labels" . | nindent 4 }}
 +spec:
