@@ -11,7 +11,7 @@ workflows:
         executor: app-build-suite
         name: package and push to default catalog
         app_catalog: default-catalog
-        app_catalog_test: default-test-catalog
+        override_app_version: false
         chart: external-dns-app
         persist_chart_archive: true
         filters:
@@ -29,7 +29,7 @@ workflows:
         executor: app-build-suite
         name: package and push to giantswarm catalog
         app_catalog: giantswarm-catalog
-        app_catalog_test: giantswarm-test-catalog
+        override_app_version: false
         chart: external-dns-app
           # Trigger job on git tag.
         filters:
