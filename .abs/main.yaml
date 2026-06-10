@@ -1,4 +1,4 @@
-replace-chart-version-with-git: true
+override-app-version: false
 generate-metadata: true
 chart-dir: ./helm/external-dns-app
 destination: ./build
