@@ -13,6 +13,6 @@ version: 3.5.0
 kubeVersion: ">=1.19.0-0"
 dependencies:
   - name: kubectl-apply-job
-    version: "0.11.0"
+    version: "0.11.1"
     repository: oci://giantswarmpublic.azurecr.io/giantswarm-playground-catalog
     condition: crd.install
