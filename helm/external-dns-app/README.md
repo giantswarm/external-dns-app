@@ -14,7 +14,7 @@ Kubernetes: `>=1.19.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| oci://giantswarmpublic.azurecr.io/giantswarm-playground-catalog | kubectl-apply-job | 0.11.0 |
+| oci://gsoci.azurecr.io/charts/giantswarm | kubectl-apply-job | 0.11.0 |
 
 ## Values
 
