@@ -1,29 +1,29 @@
 diff --git b/helm/external-dns-app/templates/_helpers.tpl a/helm/external-dns-app/templates/_helpers.tpl
-index aad0982..9b244d8 100644
+index 19ce2cb..185594d 100644
 --- b/helm/external-dns-app/templates/_helpers.tpl
 +++ a/helm/external-dns-app/templates/_helpers.tpl
-@@ -30,6 +30,14 @@ Create chart name and version as used by the chart label.
- {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
- {{- end }}
- 
+@@ -37,7 +37,15 @@ If release name contains chart name it will be used as a full name.
+ Create chart name and version as used by the chart label.
+ */}}
+ {{- define "external-dns.chart" -}}
+-{{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
++{{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" | trimSuffix "." }}
++{{- end }}
++
 +{{/*
 +Giantswarm labels
 +*/}}
 +{{- define "giantswarm.labels" -}}
 +giantswarm.io/service-type: "{{ .Values.serviceType }}"
 +application.giantswarm.io/team: {{ index .Chart.Annotations "application.giantswarm.io/team" | quote }}
-+{{- end }}
-+
+ {{- end }}
+
  {{/*
- Common labels
- */}}
-@@ -43,7 +51,8 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
+@@ -53,6 +61,7 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
  {{- with .Values.commonLabels }}
  {{ toYaml . }}
  {{- end }}
--{{- end }}
 +{{ include "giantswarm.labels" . }}
-+{{- end }}
- 
+ {{- end }}
+
  {{/*
- Selector labels
