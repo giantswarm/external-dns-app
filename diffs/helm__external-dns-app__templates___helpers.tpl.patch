@@ -1,21 +1,25 @@
 diff --git a/vendor/external-dns/templates/_helpers.tpl b/helm/external-dns-app/templates/_helpers.tpl
-index 19ce2cb..94e7dd2 100644
+index 19ce2cb..3de4300 100644
 --- a/vendor/external-dns/templates/_helpers.tpl
 +++ b/helm/external-dns-app/templates/_helpers.tpl
-@@ -40,11 +40,21 @@ Create chart name and version as used by the chart label.
- {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
- {{- end }}
- 
+@@ -37,7 +37,15 @@ If release name contains chart name it will be used as a full name.
+ Create chart name and version as used by the chart label.
+ */}}
+ {{- define "external-dns.chart" -}}
+-{{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
++{{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" | trimSuffix "." }}
++{{- end }}
++
 +{{/*
 +Giantswarm labels
 +*/}}
 +{{- define "giantswarm.labels" -}}
 +giantswarm.io/service-type: "{{ .Values.serviceType }}"
 +application.giantswarm.io/team: {{ index .Chart.Annotations "application.giantswarm.io/team" | quote }}
-+{{- end }}
-+
+ {{- end }}
+ 
  {{/*
- Common labels
+@@ -45,6 +53,8 @@ Common labels
  */}}
  {{- define "external-dns.labels" -}}
  helm.sh/chart: {{ include "external-dns.chart" . }}
