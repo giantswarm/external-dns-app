@@ -1,6 +1,6 @@
 dependencies:
 - name: kubectl-apply-job
   repository: oci://gsoci.azurecr.io/charts/giantswarm
-  version: 0.11.3
-digest: sha256:75792f7136d49e3bee69e758c8d307f6d50883512cb9c90eaa4ec2049c7d21f9
-generated: "2026-06-24T11:00:52.301416403+02:00"
+  version: 0.12.0
+digest: sha256:1b54fd37931655d8ded32adc011d7d48fb0d248d636fdc91e1ddbdd2f9907108
+generated: "2026-06-24T14:23:24.568043202+02:00"
