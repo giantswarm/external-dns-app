@@ -13,6 +13,6 @@ version: 3.5.0
 kubeVersion: ">=1.19.0-0"
 dependencies:
   - name: kubectl-apply-job
-    version: "0.11.2"
+    version: "0.11.3"
     repository: oci://gsoci.azurecr.io/charts/giantswarm
     condition: crd.install
