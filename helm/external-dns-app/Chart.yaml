@@ -6,9 +6,19 @@ icon: https://s.giantswarm.io/app-icons/external-dns/1/dark.png
 name: external-dns-app
 sources:
   - https://github.com/kubernetes-sigs/external-dns
+maintainers:
+  - name: Giant Swarm
+    url: https://github.com/giantswarm
 annotations:
   io.giantswarm.application.team: cabbage
   io.giantswarm.application.audience: "all"
+  artifacthub.io/license: Apache-2.0
+  artifacthub.io/category: networking
+  artifacthub.io/links: |
+    - name: Support
+      url: https://github.com/giantswarm/external-dns-app/issues
+    - name: Upstream project
+      url: https://github.com/kubernetes-sigs/external-dns
 version: 3.5.0
 kubeVersion: ">=1.19.0-0"
 dependencies:
