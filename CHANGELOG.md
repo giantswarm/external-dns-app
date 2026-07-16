@@ -9,7 +9,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ### Added
 
-- Artifact Hub metadata in `Chart.yaml`: `maintainers`, `artifacthub.io/license`, `artifacthub.io/category` and `artifacthub.io/links` annotations. ([roadmap#3940](https://github.com/giantswarm/roadmap/issues/3940))
+- Artifact Hub metadata in `Chart.yaml`: `artifacthub.io/license`, `artifacthub.io/category` and `artifacthub.io/links` annotations. ([roadmap#3940](https://github.com/giantswarm/roadmap/issues/3940))
 
 ## [3.5.0] - 2026-05-05
 
