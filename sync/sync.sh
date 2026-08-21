@@ -26,7 +26,7 @@ find vendor/ -type f -exec sed -i 's/[[:space:]]*$//' {} \;
 HELM_BASE="helm/external-dns-app"
 VENDIR_BASE="vendor/external-dns"
 
-make helm-docs APPLICATION=$HELM_BASE
+make helm-docs APPLICATION="external-dns-app"
 
 # Store diffs
 rm -f ./diffs/*
