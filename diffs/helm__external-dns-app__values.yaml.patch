@@ -1,5 +1,5 @@
 diff --git a/vendor/external-dns/values.yaml b/helm/external-dns-app/values.yaml
-index a2c6967..ae5d224 100644
+index a2c6967..73f9dc2 100644
 --- a/vendor/external-dns/values.yaml
 +++ b/helm/external-dns-app/values.yaml
 @@ -6,9 +6,9 @@ global:
@@ -137,7 +137,8 @@ index a2c6967..ae5d224 100644
 +annotationFilter: "giantswarm.io/external-dns=managed"  # @schema type: [string,null]; default: null
  
  # -- Annotation prefix for external-dns annotations (useful for split horizon DNS with multiple instances).
- annotationPrefix:  # @schema type: [string,null]; default: null
+-annotationPrefix:  # @schema type: [string,null]; default: null
++annotationPrefix: "external-dns.alpha.kubernetes.io/"  # @schema type: [string,null]; default: null
  
  # -- Record types to manage (default: A, AAAA, CNAME)
 -managedRecordTypes: []  # @schema type: [array, null]; item: string; uniqueItems: true

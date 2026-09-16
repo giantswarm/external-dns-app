@@ -19,6 +19,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
   - Install the new `DNSRecord` CRD.
   - Narrow the RBAC verbs on `dnsendpoints/status` from `*` to `update`.
   - `policy` is now a required value. Our default of `sync` is unchanged.
+  - Pin `annotationPrefix` to `external-dns.alpha.kubernetes.io/`, keeping the previous annotation prefix after upstream changed the default.
 
 ## [3.5.0] - 2026-05-05
 
