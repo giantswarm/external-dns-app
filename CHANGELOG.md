@@ -10,6 +10,15 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 ### Changed
 
 - Run the E2E test suites automatically on release PRs by adding `.github/release-pr-body.md`.
+- Upgrade external-dns to [v0.22.0](https://github.com/kubernetes-sigs/external-dns/releases/tag/v0.22.0).
+- Sync to upstream helm chart [1.22.0](https://github.com/kubernetes-sigs/external-dns/releases/tag/external-dns-helm-chart-1.22.0).
+  - Add `replicaCount` value to scale the deployment down to `0` or back to `1`.
+  - Add `service.enabled` value to skip creating the `Service`.
+  - Add `hostAliases` value to inject entries into the pod's `/etc/hosts`.
+  - Add `crd` as a valid `registry` value, with the matching RBAC on `dnsrecords`.
+  - Install the new `DNSRecord` CRD.
+  - Narrow the RBAC verbs on `dnsendpoints/status` from `*` to `update`.
+  - `policy` is now a required value. Our default of `sync` is unchanged.
 
 ## [3.5.0] - 2026-05-05
 

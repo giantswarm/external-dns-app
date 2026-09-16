@@ -2,8 +2,8 @@ apiVersion: vendir.k14s.io/v1alpha1
 directories:
 - contents:
   - helmChart:
-      appVersion: 0.21.0
-      version: 1.21.1
+      appVersion: 0.22.0
+      version: 1.22.0
     path: external-dns
   path: vendor
 - contents:

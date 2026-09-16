@@ -4,7 +4,7 @@ Configure external DNS servers for Kubernetes Ingresses and Services
 
 ![Version: 3.5.0](https://img.shields.io/badge/Version-3.5.0-informational?style=flat-square)
 
-![AppVersion: 0.21.0](https://img.shields.io/badge/AppVersion-0.21.0-informational?style=flat-square)
+![AppVersion: 0.22.0](https://img.shields.io/badge/AppVersion-0.22.0-informational?style=flat-square)
 
 **Homepage:** <https://github.com/giantswarm/external-dns-app>
 
@@ -46,6 +46,7 @@ Kubernetes: `>=1.19.0-0`
 | fullnameOverride | string | `nil` | Override the full name of the chart. |
 | gatewayNamespace | string | `nil` | _Gateway API_ gateway namespace to watch. When `namespaced=true`, setting this value avoids creating any cluster-scoped RBAC (no ClusterRole/ClusterRoleBinding) for Gateway sources. |
 | global.imagePullSecrets | list | `[]` | Global image pull secrets. |
+| hostAliases | list | `[]` | [Host aliases](https://kubernetes.io/docs/tasks/network/customize-hosts-file-for-pods/) to add to the `Pod` definition, injected into the pod's `/etc/hosts`. |
 | hostNetwork | bool | `false` |  |
 | image.pullPolicy | string | `"IfNotPresent"` | Image pull policy for the `external-dns` container. |
 | image.repository | string | `"gsoci.azurecr.io/giantswarm/external-dns"` | Image repository for the `external-dns` container. |
@@ -55,6 +56,7 @@ Kubernetes: `>=1.19.0-0`
 | interval | string | `"5m"` | Interval for DNS updates. |
 | kubectlApplyJob.enabled | bool | `true` |  |
 | kubectlApplyJob.files[0] | string | `"files/dnsendpoints.externaldns.k8s.io.yaml"` |  |
+| kubectlApplyJob.files[1] | string | `"files/dnsrecords.externaldns.k8s.io.yaml"` |  |
 | labelFilter | string | `nil` | Filter resources queried for endpoints by label selector. |
 | livenessProbe | object | See _values.yaml_ | [Liveness probe](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/) configuration for the `external-dns` container. |
 | logFormat | string | `"text"` | Log format. |
@@ -69,7 +71,7 @@ Kubernetes: `>=1.19.0-0`
 | podAnnotations | object | `{"cluster-autoscaler.kubernetes.io/safe-to-evict":"true","kubectl.kubernetes.io/default-container":"external-dns"}` | Annotations to add to the `Pod`. |
 | podLabels | object | `{}` | Labels to add to the `Pod`. |
 | podSecurityContext | object | See _values.yaml_ | [Pod security context](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#podsecuritycontext-v1-core), this supports full customisation. |
-| policy | string | `"sync"` | How DNS records are synchronized between sources and providers; available values are `create-only`, `sync`, & `upsert-only`. |
+| policy | REQUIRED | `"sync"` | How DNS records are synchronized between sources and providers; must be set explicitly to one of `create-only`, `sync`, or `upsert-only`. |
 | priorityClassName | string | `"giantswarm-critical"` | Priority class name for the `Pod`. |
 | provider.name | string | `"aws"` | _ExternalDNS_ provider name; for the available providers and how to configure them see [README](https://github.com/kubernetes-sigs/external-dns/blob/master/charts/external-dns/README.md#providers). |
 | provider.webhook.args | list | `[]` | Extra arguments to provide for the `webhook` container. |
@@ -87,7 +89,8 @@ Kubernetes: `>=1.19.0-0`
 | rbac.additionalPermissions | list | `[]` | Additional rules to add to the `ClusterRole`. |
 | rbac.create | bool | `true` | If `true`, create a `ClusterRole` & `ClusterRoleBinding` with access to the Kubernetes API. |
 | readinessProbe | object | See _values.yaml_ | [Readiness probe](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/) configuration for the `external-dns` container. |
-| registry | string | `"txt"` | Specify the registry for storing ownership and labels. Valid values are `txt`, `aws-sd`, `dynamodb` & `noop`. |
+| registry | string | `"txt"` | Specify the registry for storing ownership and labels. Valid values are `txt`, `aws-sd`, `crd`, `dynamodb` & `noop`. |
+| replicaCount | int | `1` | Number of replicas of the `external-dns` `Deployment`. external-dns does not support leader election, so this must be `0` or `1` to avoid duplicate or conflicting DNS record updates. Set to `0` to scale the `Deployment` down. |
 | resources | object | `{"limits":{"memory":"100Mi"},"requests":{"cpu":"50m","memory":"100Mi"}}` | [Resources](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/) for the `external-dns` container. |
 | revisionHistoryLimit | int | `nil` | Specify the number of old `ReplicaSets` to retain to allow rollback of the `Deployment``. |
 | secretConfiguration.data | object | `{}` | `Secret` data. |
@@ -96,6 +99,7 @@ Kubernetes: `>=1.19.0-0`
 | secretConfiguration.subPath | string | `nil` | Sub-path for mounting the `Secret`, this can be templated. |
 | securityContext | object | See _values.yaml_ | [Security context](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-container) for the `external-dns` container. |
 | service.annotations | object | `{}` | Service annotations. |
+| service.enabled | bool | `true` | If `true`, create a `Service` Kubernetes. |
 | service.ipFamilies | list | `[]` | Service IP families (e.g. IPv4 and/or IPv6). |
 | service.ipFamilyPolicy | string | `nil` | Service IP family policy. |
 | service.port | int | `7979` | Service HTTP port. |
