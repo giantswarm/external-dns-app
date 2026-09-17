@@ -1,5 +1,5 @@
 diff --git a/vendor/external-dns/values.yaml b/helm/external-dns-app/values.yaml
-index a4537dc..46d944d 100644
+index a2c6967..73f9dc2 100644
 --- a/vendor/external-dns/values.yaml
 +++ b/helm/external-dns-app/values.yaml
 @@ -6,9 +6,9 @@ global:
@@ -23,7 +23,7 @@ index a4537dc..46d944d 100644
  
  # -- (string) Override the full name of the chart.
  fullnameOverride:  # @schema type:[string, null]; default: null
-@@ -79,7 +79,9 @@ revisionHistoryLimit:  # @schema type:[integer, null];minimum:0
+@@ -86,7 +86,9 @@ revisionHistoryLimit:  # @schema type:[integer, null];minimum:0
  podLabels: {}
  
  # -- Annotations to add to the `Pod`.
@@ -34,7 +34,7 @@ index a4537dc..46d944d 100644
  
  # -- (bool) Set this to `false` to [opt out of API credential automounting](https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/#opt-out-of-api-credential-automounting) for the `Pod`.
  automountServiceAccountToken: true
-@@ -96,7 +98,7 @@ podSecurityContext:
+@@ -103,7 +105,7 @@ podSecurityContext:
      type: RuntimeDefault
  
  # -- (string) Priority class name for the `Pod`.
@@ -43,7 +43,7 @@ index a4537dc..46d944d 100644
  
  # -- (int) Termination grace period for the `Pod` in seconds.
  terminationGracePeriodSeconds:  # @schema type:[integer, null]
-@@ -156,7 +158,12 @@ extraVolumes: []
+@@ -166,7 +168,12 @@ extraVolumes: []
  extraVolumeMounts: []
  
  # -- [Resources](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/) for the `external-dns` container.
@@ -57,7 +57,7 @@ index a4537dc..46d944d 100644
  
  # -- Node labels to match for `Pod` [scheduling](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/).
  nodeSelector: {}
-@@ -172,7 +179,7 @@ tolerations: []
+@@ -182,7 +189,7 @@ tolerations: []
  
  serviceMonitor:
    # -- If `true`, create a `ServiceMonitor` resource to support the _Prometheus Operator_.
@@ -66,7 +66,7 @@ index a4537dc..46d944d 100644
    # -- Additional labels for the `ServiceMonitor`.
    additionalLabels: {}
    # -- Annotations to add to the `ServiceMonitor`.
-@@ -180,7 +187,7 @@ serviceMonitor:
+@@ -190,7 +197,7 @@ serviceMonitor:
    # -- (string) If set create the `ServiceMonitor` in an alternate namespace.
    namespace:  # @schema type:[string, null]; default: null
    # -- (string) If set override the _Prometheus_ default interval.
@@ -75,7 +75,7 @@ index a4537dc..46d944d 100644
    # -- (string) If set override the _Prometheus_ default scrape timeout.
    scrapeTimeout:  # @schema type:[string, null]; default: null
    # -- (string) If set overrides the _Prometheus_ default scheme.
-@@ -190,7 +197,23 @@ serviceMonitor:
+@@ -200,7 +207,23 @@ serviceMonitor:
    # -- (string) Provide a bearer token file for the `ServiceMonitor`.
    bearerTokenFile:  # @schema type:[string, null]; default: null
    # -- [Relabel configs](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#relabel_config) to apply to samples before ingestion.
@@ -100,7 +100,7 @@ index a4537dc..46d944d 100644
    # -- [Metric relabel configs](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#metric_relabel_configs) to apply to samples before ingestion.
    metricRelabelings: []
    # -- Provide target labels for the `ServiceMonitor`.
-@@ -203,11 +226,14 @@ logLevel: info  # @schema enum:[panic, debug, info, warning, error, fatal]; type
+@@ -213,11 +236,14 @@ logLevel: info  # @schema enum:[panic, debug, info, warning, error, fatal]; type
  logFormat: text  # @schema enum:["text", "json"]; type:string; default: "text"
  
  # -- Interval for DNS updates.
@@ -116,20 +116,20 @@ index a4537dc..46d944d 100644
  # -- if `true`, _ExternalDNS_ will run in a namespaced scope (`Role`` and `Rolebinding`` will be namespaced too).
  namespaced: false
  
-@@ -226,10 +252,10 @@ sourceNamespace:  # @schema type:[string, null]; default: null
+@@ -236,10 +262,10 @@ sourceNamespace:  # @schema type:[string, null]; default: null
  # -- _Kubernetes_ resources to monitor for DNS entries.
  sources:
    - service
 -  - ingress
 +  - crd
  
- # -- How DNS records are synchronized between sources and providers; available values are `create-only`, `sync`, & `upsert-only`.
--policy: upsert-only  # @schema enum:[create-only, sync, upsert-only]; type:string; default: "upsert-only"
-+policy: sync  # @schema enum:[create-only, sync, upsert-only]; type:string; default: "upsert-only"
+ # -- (REQUIRED) How DNS records are synchronized between sources and providers; must be set explicitly to one of `create-only`, `sync`, or `upsert-only`.
+-policy:  # @schema enum:[create-only, sync, upsert-only]; type:string; required:true
++policy: sync  # @schema enum:[create-only, sync, upsert-only]; type:string; required:true
  
  # -- Specify the registry for storing ownership and labels.
- # Valid values are `txt`, `aws-sd`, `dynamodb` & `noop`.
-@@ -253,13 +279,15 @@ excludeDomains: []
+ # Valid values are `txt`, `aws-sd`, `crd`, `dynamodb` & `noop`.
+@@ -263,13 +289,15 @@ excludeDomains: []
  labelFilter:  # @schema type: [string,null]; default: null
  
  # -- Filter resources queried for endpoints by annotation selector.
@@ -137,7 +137,8 @@ index a4537dc..46d944d 100644
 +annotationFilter: "giantswarm.io/external-dns=managed"  # @schema type: [string,null]; default: null
  
  # -- Annotation prefix for external-dns annotations (useful for split horizon DNS with multiple instances).
- annotationPrefix:  # @schema type: [string,null]; default: null
+-annotationPrefix:  # @schema type: [string,null]; default: null
++annotationPrefix: "external-dns.alpha.kubernetes.io/"  # @schema type: [string,null]; default: null
  
  # -- Record types to manage (default: A, AAAA, CNAME)
 -managedRecordTypes: []  # @schema type: [array, null]; item: string; uniqueItems: true
@@ -147,7 +148,7 @@ index a4537dc..46d944d 100644
  
  provider:  # @schema type: [object, string]
    # -- _ExternalDNS_ provider name; for the available providers and how to configure them see [README](https://github.com/kubernetes-sigs/external-dns/blob/master/charts/external-dns/README.md#providers).
-@@ -335,3 +363,42 @@ secretConfiguration:
+@@ -345,3 +373,43 @@ secretConfiguration:
  
  # -- (bool) No effect - reserved for use in sub-charting.
  enabled:  # @schema type: [boolean, null]; description: No effect - reserved for use in sub-charting
@@ -190,3 +191,4 @@ index a4537dc..46d944d 100644
 +  enabled: true
 +  files:
 +  - files/dnsendpoints.externaldns.k8s.io.yaml
++  - files/dnsrecords.externaldns.k8s.io.yaml

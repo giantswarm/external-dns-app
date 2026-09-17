@@ -1,8 +1,8 @@
 diff --git a/vendor/external-dns/templates/deployment.yaml b/helm/external-dns-app/templates/deployment.yaml
-index fe0c783..81b5f85 100644
+index b6a6935..584dce1 100644
 --- a/vendor/external-dns/templates/deployment.yaml
 +++ b/helm/external-dns-app/templates/deployment.yaml
-@@ -24,7 +24,7 @@ spec:
+@@ -28,7 +28,7 @@ spec:
    template:
      metadata:
        labels:
@@ -11,7 +11,7 @@ index fe0c783..81b5f85 100644
        {{- with .Values.podLabels }}
          {{- toYaml . | nindent 8 }}
        {{- end }}
-@@ -53,6 +53,9 @@ spec:
+@@ -57,6 +57,9 @@ spec:
        securityContext:
          {{- toYaml . | nindent 8 }}
        {{- end }}

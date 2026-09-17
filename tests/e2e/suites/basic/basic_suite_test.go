@@ -42,7 +42,7 @@ func TestBasic(t *testing.T) {
 			It("should create DNS records", func() {
 				baseDomain := getWorkloadClusterBaseDomain()
 				testDomain := fmt.Sprintf("test.%s", baseDomain)
-				testTxtDomain := fmt.Sprintf("%scname-%s", state.GetCluster().Name, testDomain)
+				testTxtDomain := fmt.Sprintf("%sa-%s", state.GetCluster().Name, testDomain)
 				resolver := getResolver(baseDomain)
 
 				By("adding a LoadBalancer service")
