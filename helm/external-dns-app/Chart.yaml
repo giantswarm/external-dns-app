@@ -8,6 +8,7 @@ sources:
   - https://github.com/kubernetes-sigs/external-dns
 annotations:
   io.giantswarm.application.team: cabbage
+  io.giantswarm.application.managed: "true"
   io.giantswarm.application.audience: "all"
 version: 3.5.0
 kubeVersion: ">=1.19.0-0"
@@ -16,3 +17,7 @@ dependencies:
     version: "0.12.0"
     repository: oci://gsoci.azurecr.io/charts/giantswarm
     condition: crd.install
+keywords:
+  - dns
+  - external-dns
+  - networking
