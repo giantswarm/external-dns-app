@@ -7,6 +7,11 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Added
+
+- Chart metadata: add `io.giantswarm.application.managed` annotation (`"true"`).
+- Chart metadata: add `keywords`.
+
 ### Changed
 
 - Run the E2E test suites automatically on release PRs by adding `.github/release-pr-body.md`.
