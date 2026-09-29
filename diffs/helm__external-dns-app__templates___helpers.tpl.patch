@@ -1,5 +1,5 @@
 diff --git a/vendor/external-dns/templates/_helpers.tpl b/helm/external-dns-app/templates/_helpers.tpl
-index 19ce2cb..3de4300 100644
+index 19ce2cb..5f1c284 100644
 --- a/vendor/external-dns/templates/_helpers.tpl
 +++ b/helm/external-dns-app/templates/_helpers.tpl
 @@ -37,7 +37,15 @@ If release name contains chart name it will be used as a full name.
@@ -7,7 +7,7 @@ index 19ce2cb..3de4300 100644
  */}}
  {{- define "external-dns.chart" -}}
 -{{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
-+{{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" | trimSuffix "." }}
++{{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimAll "-._" }}
 +{{- end }}
 +
 +{{/*
