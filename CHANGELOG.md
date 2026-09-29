@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [3.6.0] - 2026-09-29
+
 ### Fixed
 
 - The `helm.sh/chart` label is valid for long chart versions: the 63-character cut trims the whole trailing run of `-`, `.` and `_`.
@@ -676,7 +678,8 @@ If you already specify `--aws-batch-change-interval` or `--aws-zones-cache-durat
 - Network policy that allows all egress traffic.
 - Network policy that allows accessing metrics on port `10254`.
 
-[Unreleased]: https://github.com/giantswarm/external-dns-app/compare/v3.5.0...HEAD
+[Unreleased]: https://github.com/giantswarm/external-dns-app/compare/v3.6.0...HEAD
+[3.6.0]: https://github.com/giantswarm/external-dns-app/compare/v3.5.0...v3.6.0
 [3.5.0]: https://github.com/giantswarm/external-dns-app/compare/v3.4.0...v3.5.0
 [3.4.0]: https://github.com/giantswarm/external-dns-app/compare/v3.3.0...v3.4.0
 [3.3.0]: https://github.com/giantswarm/external-dns-app/compare/v3.2.0...v3.3.0
