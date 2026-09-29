@@ -1,0 +1,13 @@
+diff --git a/helm/external-dns-app/templates/_helpers.tpl b/helm/external-dns-app/templates/_helpers.tpl
+index 3de4300..5f1c284 100644
+--- a/helm/external-dns-app/templates/_helpers.tpl
++++ b/helm/external-dns-app/templates/_helpers.tpl
+@@ -37,7 +37,7 @@ If release name contains chart name it will be used as a full name.
+ Create chart name and version as used by the chart label.
+ */}}
+ {{- define "external-dns.chart" -}}
+-{{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" | trimSuffix "." }}
++{{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimAll "-._" }}
+ {{- end }}
+ 
+ {{/*
