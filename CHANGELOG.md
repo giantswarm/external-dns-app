@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Update architect to v10.12.0 (giantswarm/external-dns-app#491)
+
 ## [3.6.0] - 2026-09-29
 
 ### Fixed
