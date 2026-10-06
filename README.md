@@ -114,7 +114,7 @@ create a branch from main called `main#release#v0.1.0` and push it.
 `default-catalog` and the `giantswarm-catalog`
 
 ## Contributing & Reporting Bugs
-If you have suggestions for how `external-dns` could be improved, or want to report a bug, open an issue! We'd love all and any contributions. 
+If you have suggestions for how `external-dns` could be improved, or want to report a bug, open an issue! We'd love all and any contributions.
 
 Check out the [Contributing Guide](CONTRIBUTING.md) for details on the contribution workflow, submitting patches, and reporting bugs.
 
