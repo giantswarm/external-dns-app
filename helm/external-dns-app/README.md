@@ -131,3 +131,4 @@ Kubernetes: `>=1.19.0-0`
 | kubectlApplyJob.enabled | bool | `true` |  |
 | kubectlApplyJob.files[0] | string | `"files/dnsendpoints.externaldns.k8s.io.yaml"` |  |
 | kubectlApplyJob.files[1] | string | `"files/dnsrecords.externaldns.k8s.io.yaml"` |  |
+| kubectl-apply-job | object | `{}` | Values Helm merges in from the kubectl-apply-job subchart defaults. Configure the job through `kubectlApplyJob`. |

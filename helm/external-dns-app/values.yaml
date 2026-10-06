@@ -413,3 +413,6 @@ kubectlApplyJob:
   files:
   - files/dnsendpoints.externaldns.k8s.io.yaml
   - files/dnsrecords.externaldns.k8s.io.yaml
+
+# -- Values Helm merges in from the kubectl-apply-job subchart defaults. Configure the job through `kubectlApplyJob`.
+kubectl-apply-job: {}  # @schema skipProperties: true; additionalProperties: true

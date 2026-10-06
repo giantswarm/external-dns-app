@@ -244,6 +244,11 @@
             "type": "string",
             "description": "Interval for DNS updates."
         },
+        "kubectl-apply-job": {
+            "type": "object",
+            "description": "Values Helm merges in from the kubectl-apply-job subchart defaults. Configure the job through `kubectlApplyJob`.",
+            "additionalProperties": true
+        },
         "kubectlApplyJob": {
             "type": "object",
             "additionalProperties": false,

@@ -1,8 +1,8 @@
 diff --git a/vendor/external-dns/values.schema.json b/helm/external-dns-app/values.schema.json
-index e8324c6..1e471b0 100644
+index e8324c6..7277a8b 100644
 --- a/vendor/external-dns/values.schema.json
 +++ b/helm/external-dns-app/values.schema.json
-@@ -1,927 +1,1060 @@
+@@ -1,927 +1,1065 @@
  {
 -  "$schema": "http://json-schema.org/draft-07/schema#",
 -  "type": "object",
@@ -611,6 +611,11 @@ index e8324c6..1e471b0 100644
 +        "interval": {
 +            "type": "string",
 +            "description": "Interval for DNS updates."
++        },
++        "kubectl-apply-job": {
++            "type": "object",
++            "description": "Values Helm merges in from the kubectl-apply-job subchart defaults. Configure the job through `kubectlApplyJob`.",
++            "additionalProperties": true
 +        },
 +        "kubectlApplyJob": {
 +            "type": "object",
