@@ -1,0 +1,7 @@
+{
+  extends: [
+    'github>giantswarm/renovate-presets:disable-vendir.json5',
+    'github>giantswarm/renovate-presets:lang-go.json5',
+    'github>giantswarm/renovate-presets:tests-e2e-app-cabbage.json5',
+  ],
+}
