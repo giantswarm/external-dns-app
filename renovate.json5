@@ -18,10 +18,6 @@
     'github>giantswarm/renovate-presets:disable-vendir.json5',
     'github>giantswarm/renovate-presets:lang-go.json5',
     'github>giantswarm/renovate-presets:tests-e2e-app-cabbage.json5',
-    // Repo-owned overrides -- last entry, so its rules win over the presets.
-    // Renovate resolves this from the default branch on every run: edits are
-    // live on merge, no regeneration needed.
-    'github>giantswarm/external-dns-app:renovate-custom.json5',
   ],
   // Two of our own bots commit onto Renovate branches. taylorbot
   // <dev@giantswarm.io> pushes what the generated workflows produce
