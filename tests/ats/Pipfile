@@ -1,11 +1,21 @@
+# DO NOT EDIT. The canonical app-test-suite (ATS) test dependencies are owned
+# centrally in giantswarm/devctl and generated into tests/ats/Pipfile for
+# chart/app repos by `devctl gen circleci`. The stack is bumped by a single
+# Renovate PR against the embedded source in giantswarm/devctl (pipenv manager)
+# and propagated to every repo by the align-files regeneration. Per-repo
+# Renovate updates of this file are disabled via
+# github>giantswarm/renovate-presets:tests-ats.json5.
+#
+# Pins are exact == and chosen to resolve together: pytest must satisfy the
+# pytest range pytest-helm-charts declares (1.3.5 requires pytest>=9.0.2,<10).
 [[source]]
 name = "pypi"
 url = "https://pypi.org/simple"
 verify_ssl = true
 
 [packages]
-pytest-helm-charts = ">=1.1.1"
-pytest = ">=6.2.5"
-pykube-ng = ">=21.10.0"
-pytest-rerunfailures = ">=10.2"
-
+pytest-helm-charts = "==1.3.5"
+pytest = "==9.1.1"
+pykube-ng = "==23.6.0"
+pytest-rerunfailures = "==16.6.1"
+requests = "==2.34.2"

@@ -68,7 +68,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 - Upgrade external-dns to v0.20.0.
 - Update DNSEndpoints CRD.
 - Sync to upstream helm chart `1.19.0`.
-  - Grant `discovery.k8s.io/endpointslices` permission only when using `service` source. 
+  - Grant `discovery.k8s.io/endpointslices` permission only when using `service` source.
   - Update RBAC for `Service` source to support `EndpointSlices`.
   - Allow extraArgs to also be a map enabling overrides of individual values.
   - Set defaults for `automountServiceAccountToken` and `serviceAccount.automountServiceAccountToken` to `true` in Helm chart values.
@@ -286,7 +286,7 @@ This release contains some breaking changes! Please also consult the [migration 
 - Add projected volumes for `capa` ([#219](https://github.com/giantswarm/external-dns-app/pull/219)).
 - Add nodeSelector, affinity, topologySpreadContraints and tolerations values to align to upstream ([223](https://github.com/giantswarm/external-dns-app/pull/223))
 
-### Changed 
+### Changed
 
 - ServiceAccount: Align to upstream ([#222](https://github.com/giantswarm/external-dns-app/pull/222)).
   - Labels: Add labels from values.

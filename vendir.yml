@@ -23,3 +23,5 @@ directories:
       - README.md
       - README.md.gotmpl
       - .kube-linter.yaml
+      - .schema.yaml
+      - zz_generated.app-platform.values.yaml

@@ -25,4 +25,3 @@ Starting from `external-dns-app` version `3.0.0`, there have been modifications 
 - `externalDNS.sources` has been removed. Use `sources` instead.
 - `baseDomain` has been replaced by `domainFilters`.
 - `proxy` and `cluster.proxy` values have been removed in favor of the `env` value.
-

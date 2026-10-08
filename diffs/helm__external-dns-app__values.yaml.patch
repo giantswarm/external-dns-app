@@ -1,5 +1,5 @@
 diff --git a/vendor/external-dns/values.yaml b/helm/external-dns-app/values.yaml
-index a2c6967..73f9dc2 100644
+index a2c6967..820f573 100644
 --- a/vendor/external-dns/values.yaml
 +++ b/helm/external-dns-app/values.yaml
 @@ -6,9 +6,9 @@ global:
@@ -148,7 +148,7 @@ index a2c6967..73f9dc2 100644
  
  provider:  # @schema type: [object, string]
    # -- _ExternalDNS_ provider name; for the available providers and how to configure them see [README](https://github.com/kubernetes-sigs/external-dns/blob/master/charts/external-dns/README.md#providers).
-@@ -345,3 +373,43 @@ secretConfiguration:
+@@ -345,3 +373,46 @@ secretConfiguration:
  
  # -- (bool) No effect - reserved for use in sub-charting.
  enabled:  # @schema type: [boolean, null]; description: No effect - reserved for use in sub-charting
@@ -192,3 +192,6 @@ index a2c6967..73f9dc2 100644
 +  files:
 +  - files/dnsendpoints.externaldns.k8s.io.yaml
 +  - files/dnsrecords.externaldns.k8s.io.yaml
++
++# -- Values Helm merges in from the kubectl-apply-job subchart defaults. Configure the job through `kubectlApplyJob`.
++kubectl-apply-job: {}  # @schema skipProperties: true; additionalProperties: true
