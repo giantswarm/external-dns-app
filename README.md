@@ -23,8 +23,7 @@ Customers using Giant Swarm clusters on AWS or Azure.
 ## Index
 - [Installing](#installing)
 - [Configuring](#configuring)
-- [Compatibility](#compatibility)
-- [Limitations](#limitations)
+- [Upgrade to v3](#upgrade-to-v3)
 - [Release Process](#release-process)
 - [Contributing & Reporting Bugs](#contributing--reporting-bugs)
 
