@@ -7,6 +7,11 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Upgrade external-dns to [v0.23.0](https://github.com/kubernetes-sigs/external-dns/releases/tag/v0.23.0).
+- Sync to upstream helm chart [1.23.0](https://github.com/kubernetes-sigs/external-dns/releases/tag/external-dns-helm-chart-1.23.0).
+
 ## [3.6.0] - 2026-09-29
 
 ### Fixed
