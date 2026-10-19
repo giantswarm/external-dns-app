@@ -120,6 +120,7 @@ Kubernetes: `>=1.19.0-0`
 | secretConfiguration.mountPath | string | `nil` | Mount path for the `Secret`, this can be templated. |
 | secretConfiguration.subPath | string | `nil` | Sub-path for mounting the `Secret`, this can be templated. |
 | secretConfiguration.data | object | `{}` | `Secret` data. |
+| aws | object | `{}` | No effect - accepted for compatibility with values from cluster-aws, which still sets `aws.irsa` and `aws.batchChangeInterval`. |
 | enabled | bool | `nil` | No effect - reserved for use in sub-charting. |
 | crd.install | bool | `true` |  |
 | hostNetwork | bool | `false` |  |
