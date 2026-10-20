@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [3.7.0] - 2026-10-20
+
 ### Fixed
 
 - Values schema: accept arbitrary keys again in free-form maps and pass-through Kubernetes objects (annotations, labels, `nodeSelector`, `affinity`, security contexts, probes, resources, `extraArgs` as a map, `tlsConfig`, `secretConfiguration.data`), and `name` in `imagePullSecrets` items. This broke installs, for example with the IRSA `eks.amazonaws.com/role-arn` service account annotation on CAPA.
@@ -688,7 +690,8 @@ If you already specify `--aws-batch-change-interval` or `--aws-zones-cache-durat
 - Network policy that allows all egress traffic.
 - Network policy that allows accessing metrics on port `10254`.
 
-[Unreleased]: https://github.com/giantswarm/external-dns-app/compare/v3.6.0...HEAD
+[Unreleased]: https://github.com/giantswarm/external-dns-app/compare/v3.7.0...HEAD
+[3.7.0]: https://github.com/giantswarm/external-dns-app/compare/v3.6.0...v3.7.0
 [3.6.0]: https://github.com/giantswarm/external-dns-app/compare/v3.5.0...v3.6.0
 [3.5.0]: https://github.com/giantswarm/external-dns-app/compare/v3.4.0...v3.5.0
 [3.4.0]: https://github.com/giantswarm/external-dns-app/compare/v3.3.0...v3.4.0
