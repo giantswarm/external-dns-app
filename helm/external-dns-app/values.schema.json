@@ -9,7 +9,7 @@
         "affinity": {
             "type": "object",
             "description": "Affinity settings for `Pod` [scheduling](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/). If an explicit label selector is not provided for pod affinity or pod anti-affinity one will be created from the pod selector labels.",
-            "additionalProperties": false
+            "additionalProperties": true
         },
         "annotationFilter": {
             "type": [
@@ -28,6 +28,11 @@
         "automountServiceAccountToken": {
             "type": "boolean",
             "description": "Set this to `false` to [opt out of API credential automounting](https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/#opt-out-of-api-credential-automounting) for the `Pod`."
+        },
+        "aws": {
+            "type": "object",
+            "description": "No effect - accepted for compatibility with values from cluster-aws, which still sets `aws.irsa` and `aws.batchChangeInterval`.",
+            "additionalProperties": true
         },
         "baseDomain": {
             "type": "string"
@@ -68,7 +73,7 @@
         "commonLabels": {
             "type": "object",
             "description": "Labels to add to all chart resources.",
-            "additionalProperties": false
+            "additionalProperties": true
         },
         "crd": {
             "type": "object",
@@ -82,7 +87,7 @@
         "deploymentAnnotations": {
             "type": "object",
             "description": "Annotations to add to the `Deployment`.",
-            "additionalProperties": false
+            "additionalProperties": true
         },
         "deploymentStrategy": {
             "type": "object",
@@ -105,7 +110,7 @@
                 "null"
             ],
             "description": "[DNS config](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/#pod-dns-config) for the pod, if not set the default will be used.",
-            "additionalProperties": false
+            "additionalProperties": true
         },
         "dnsPolicy": {
             "type": [
@@ -147,7 +152,7 @@
                 "object"
             ],
             "description": "Extra arguments to provide to _ExternalDNS_. An array or map can be used, with maps allowing for value overrides; maps also support slice values to use the same arg multiple times.",
-            "additionalProperties": false,
+            "additionalProperties": true,
             "items": {
                 "type": "string"
             },
@@ -191,7 +196,12 @@
                     "description": "Global image pull secrets.",
                     "items": {
                         "type": "object",
-                        "additionalProperties": false
+                        "additionalProperties": false,
+                        "properties": {
+                            "name": {
+                                "type": "string"
+                            }
+                        }
                     }
                 }
             }
@@ -233,7 +243,12 @@
             "description": "Image pull secrets.",
             "items": {
                 "type": "object",
-                "additionalProperties": false
+                "additionalProperties": false,
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    }
+                }
             }
         },
         "initContainers": {
@@ -274,14 +289,14 @@
         "livenessProbe": {
             "type": "object",
             "description": "[Liveness probe](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/) configuration for the `external-dns` container.",
-            "additionalProperties": false,
+            "additionalProperties": true,
             "properties": {
                 "failureThreshold": {
                     "type": "integer"
                 },
                 "httpGet": {
                     "type": "object",
-                    "additionalProperties": false,
+                    "additionalProperties": true,
                     "properties": {
                         "path": {
                             "type": "string"
@@ -365,12 +380,12 @@
         "nodeSelector": {
             "type": "object",
             "description": "Node labels to match for `Pod` [scheduling](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/).",
-            "additionalProperties": false
+            "additionalProperties": true
         },
         "podAnnotations": {
             "type": "object",
             "description": "Annotations to add to the `Pod`.",
-            "additionalProperties": false,
+            "additionalProperties": true,
             "properties": {
                 "cluster-autoscaler.kubernetes.io/safe-to-evict": {
                     "type": "string"
@@ -383,12 +398,12 @@
         "podLabels": {
             "type": "object",
             "description": "Labels to add to the `Pod`.",
-            "additionalProperties": false
+            "additionalProperties": true
         },
         "podSecurityContext": {
             "type": "object",
             "description": "[Pod security context](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#podsecuritycontext-v1-core), this supports full customisation.",
-            "additionalProperties": false,
+            "additionalProperties": true,
             "properties": {
                 "fsGroup": {
                     "type": "integer"
@@ -398,7 +413,7 @@
                 },
                 "seccompProfile": {
                     "type": "object",
-                    "additionalProperties": false,
+                    "additionalProperties": true,
                     "properties": {
                         "type": {
                             "type": "string"
@@ -477,7 +492,7 @@
                         "livenessProbe": {
                             "type": "object",
                             "description": "[Liveness probe](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/) configuration for the `external-dns` container.",
-                            "additionalProperties": false,
+                            "additionalProperties": true,
                             "properties": {
                                 "failureThreshold": {
                                     "type": [
@@ -487,7 +502,7 @@
                                 },
                                 "httpGet": {
                                     "type": "object",
-                                    "additionalProperties": false,
+                                    "additionalProperties": true,
                                     "properties": {
                                         "path": {
                                             "type": [
@@ -533,7 +548,7 @@
                         "readinessProbe": {
                             "type": "object",
                             "description": "[Readiness probe](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/) configuration for the `webhook` container.",
-                            "additionalProperties": false,
+                            "additionalProperties": true,
                             "properties": {
                                 "failureThreshold": {
                                     "type": [
@@ -543,7 +558,7 @@
                                 },
                                 "httpGet": {
                                     "type": "object",
-                                    "additionalProperties": false,
+                                    "additionalProperties": true,
                                     "properties": {
                                         "path": {
                                             "type": [
@@ -589,12 +604,12 @@
                         "resources": {
                             "type": "object",
                             "description": "[Resources](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/) for the `webhook` container.",
-                            "additionalProperties": false
+                            "additionalProperties": true
                         },
                         "securityContext": {
                             "type": "object",
                             "description": "[Pod security context](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-container) for the `webhook` container.",
-                            "additionalProperties": false
+                            "additionalProperties": true
                         },
                         "service": {
                             "type": "object",
@@ -643,7 +658,7 @@
                                 },
                                 "tlsConfig": {
                                     "type": "object",
-                                    "additionalProperties": false
+                                    "additionalProperties": true
                                 }
                             }
                         }
@@ -668,14 +683,14 @@
         "readinessProbe": {
             "type": "object",
             "description": "[Readiness probe](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/) configuration for the `external-dns` container.",
-            "additionalProperties": false,
+            "additionalProperties": true,
             "properties": {
                 "failureThreshold": {
                     "type": "integer"
                 },
                 "httpGet": {
                     "type": "object",
-                    "additionalProperties": false,
+                    "additionalProperties": true,
                     "properties": {
                         "path": {
                             "type": "string"
@@ -720,11 +735,11 @@
         "resources": {
             "type": "object",
             "description": "[Resources](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/) for the `external-dns` container.",
-            "additionalProperties": false,
+            "additionalProperties": true,
             "properties": {
                 "limits": {
                     "type": "object",
-                    "additionalProperties": false,
+                    "additionalProperties": true,
                     "properties": {
                         "memory": {
                             "type": "string"
@@ -733,7 +748,7 @@
                 },
                 "requests": {
                     "type": "object",
-                    "additionalProperties": false,
+                    "additionalProperties": true,
                     "properties": {
                         "cpu": {
                             "type": "string"
@@ -760,7 +775,7 @@
                 "data": {
                     "type": "object",
                     "description": "`Secret` data.",
-                    "additionalProperties": false
+                    "additionalProperties": true
                 },
                 "enabled": {
                     "type": "boolean",
@@ -785,14 +800,14 @@
         "securityContext": {
             "type": "object",
             "description": "[Security context](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-container) for the `external-dns` container.",
-            "additionalProperties": false,
+            "additionalProperties": true,
             "properties": {
                 "allowPrivilegeEscalation": {
                     "type": "boolean"
                 },
                 "capabilities": {
                     "type": "object",
-                    "additionalProperties": false,
+                    "additionalProperties": true,
                     "properties": {
                         "drop": {
                             "type": "array",
@@ -826,7 +841,7 @@
                 "annotations": {
                     "type": "object",
                     "description": "Service annotations.",
-                    "additionalProperties": false
+                    "additionalProperties": true
                 },
                 "enabled": {
                     "type": "boolean",
@@ -877,7 +892,7 @@
                 "annotations": {
                     "type": "object",
                     "description": "Annotations to add to the service account. Templates are allowed in both the key and the value. Example: `example.com/annotation/{{ .Values.nameOverride }}: {{ .Values.nameOverride }}`",
-                    "additionalProperties": false
+                    "additionalProperties": true
                 },
                 "automountServiceAccountToken": {
                     "type": "boolean",
@@ -890,7 +905,7 @@
                 "labels": {
                     "type": "object",
                     "description": "Labels to add to the service account.",
-                    "additionalProperties": false
+                    "additionalProperties": true
                 },
                 "name": {
                     "type": [
@@ -908,12 +923,12 @@
                 "additionalLabels": {
                     "type": "object",
                     "description": "Additional labels for the `ServiceMonitor`.",
-                    "additionalProperties": false
+                    "additionalProperties": true
                 },
                 "annotations": {
                     "type": "object",
                     "description": "Annotations to add to the `ServiceMonitor`.",
-                    "additionalProperties": false
+                    "additionalProperties": true
                 },
                 "bearerTokenFile": {
                     "type": [
@@ -993,7 +1008,7 @@
                 "tlsConfig": {
                     "type": "object",
                     "description": "Configure the `ServiceMonitor` [TLS config](https://github.com/coreos/prometheus-operator/blob/master/Documentation/api.md#tlsconfig).",
-                    "additionalProperties": false
+                    "additionalProperties": true
                 }
             }
         },

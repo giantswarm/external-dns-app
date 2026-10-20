@@ -4,7 +4,7 @@ Configure external DNS servers for Kubernetes Ingresses and Services
 
 ![Version: 3.6.0](https://img.shields.io/badge/Version-3.6.0-informational?style=flat-square)
 
-![AppVersion: 0.22.0](https://img.shields.io/badge/AppVersion-0.22.0-informational?style=flat-square)
+![AppVersion: 0.23.0](https://img.shields.io/badge/AppVersion-0.23.0-informational?style=flat-square)
 
 **Homepage:** <https://github.com/giantswarm/external-dns-app>
 
@@ -120,6 +120,7 @@ Kubernetes: `>=1.19.0-0`
 | secretConfiguration.mountPath | string | `nil` | Mount path for the `Secret`, this can be templated. |
 | secretConfiguration.subPath | string | `nil` | Sub-path for mounting the `Secret`, this can be templated. |
 | secretConfiguration.data | object | `{}` | `Secret` data. |
+| aws | object | `{}` | No effect - accepted for compatibility with values from cluster-aws, which still sets `aws.irsa` and `aws.batchChangeInterval`. |
 | enabled | bool | `nil` | No effect - reserved for use in sub-charting. |
 | crd.install | bool | `true` |  |
 | hostNetwork | bool | `false` |  |

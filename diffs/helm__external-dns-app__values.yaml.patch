@@ -1,10 +1,13 @@
 diff --git a/vendor/external-dns/values.yaml b/helm/external-dns-app/values.yaml
-index a2c6967..820f573 100644
+index a2c6967..6623a18 100644
 --- a/vendor/external-dns/values.yaml
 +++ b/helm/external-dns-app/values.yaml
-@@ -6,9 +6,9 @@ global:
+@@ -4,21 +4,21 @@
+ 
+ global:
    # -- Global image pull secrets.
-   imagePullSecrets: []  # @schema item: object
+-  imagePullSecrets: []  # @schema item: object
++  imagePullSecrets: []  # @schema item: object; itemProperties: {"name": {"type": "string"}}
  
 -image:  # @schema additionalProperties: false
 +image:  # @schema additionalProperties: true
@@ -14,8 +17,11 @@ index a2c6967..820f573 100644
    # -- Image tag for the `external-dns` container, this will default to `.Chart.AppVersion` if not set.
    tag:  # @schema type:[string, null]
    # -- Image pull policy for the `external-dns` container.
-@@ -18,7 +18,7 @@ image:  # @schema additionalProperties: false
- imagePullSecrets: []  # @schema item: object
+   pullPolicy: IfNotPresent  # @schema enum:[IfNotPresent, Always]
+ 
+ # -- Image pull secrets.
+-imagePullSecrets: []  # @schema item: object
++imagePullSecrets: []  # @schema item: object; itemProperties: {"name": {"type": "string"}}
  
  # -- (string) Override the name of the chart.
 -nameOverride:  # @schema type:[string, null]; default: null
@@ -23,18 +29,68 @@ index a2c6967..820f573 100644
  
  # -- (string) Override the full name of the chart.
  fullnameOverride:  # @schema type:[string, null]; default: null
-@@ -86,7 +86,9 @@ revisionHistoryLimit:  # @schema type:[integer, null];minimum:0
- podLabels: {}
+@@ -30,15 +30,15 @@ fullnameOverride:  # @schema type:[string, null]; default: null
+ namespaceOverride:  # @schema type:[string, null]; default: null
+ 
+ # -- Labels to add to all chart resources.
+-commonLabels: {}
++commonLabels: {}  # @schema additionalProperties: true
+ 
+ serviceAccount:
+   # -- If `true`, create a new `ServiceAccount`.
+   create: true
+   # -- Labels to add to the service account.
+-  labels: {}
++  labels: {}  # @schema additionalProperties: true
+   # -- Annotations to add to the service account. Templates are allowed in both the key and the value. Example: `example.com/annotation/{{ .Values.nameOverride }}: {{ .Values.nameOverride }}`
+-  annotations: {}
++  annotations: {}  # @schema additionalProperties: true
+   # -- (string) If this is set and `serviceAccount.create` is `true` this will be used for the created `ServiceAccount` name, if set and `serviceAccount.create` is `false` then this will define an existing `ServiceAccount` to use.
+   name:  # @schema type:[string, null]; default: null
+   # -- Set this to `false` to [opt out of API credential automounting](https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/#opt-out-of-api-credential-automounting) for the `ServiceAccount`.
+@@ -46,7 +46,7 @@ serviceAccount:
+ 
+ service:
+   # -- Service annotations.
+-  annotations: {}
++  annotations: {}  # @schema additionalProperties: true
+   # -- Service HTTP port.
+   port: 7979  # @schema minimum:0; default:7979
+   # -- Service IP families (e.g. IPv4 and/or IPv6).
+@@ -70,7 +70,7 @@ rbac:  # @schema additionalProperties: true
+ replicaCount: 1  # @schema minimum:0; maximum:1
+ 
+ # -- Annotations to add to the `Deployment`.
+-deploymentAnnotations: {}
++deploymentAnnotations: {}  # @schema additionalProperties: true
+ 
+ # -- Extra containers to add to the `Deployment`.
+ extraContainers: []
+@@ -83,10 +83,12 @@ deploymentStrategy:  # @schema additionalProperties: true
+ revisionHistoryLimit:  # @schema type:[integer, null];minimum:0
+ 
+ # -- Labels to add to the `Pod`.
+-podLabels: {}
++podLabels: {}  # @schema additionalProperties: true
  
  # -- Annotations to add to the `Pod`.
 -podAnnotations: {}
-+podAnnotations:
++podAnnotations:  # @schema additionalProperties: true
 +  cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
 +  kubectl.kubernetes.io/default-container: external-dns
  
  # -- (bool) Set this to `false` to [opt out of API credential automounting](https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/#opt-out-of-api-credential-automounting) for the `Pod`.
  automountServiceAccountToken: true
-@@ -103,7 +105,7 @@ podSecurityContext:
+@@ -96,14 +98,14 @@ shareProcessNamespace: false
+ 
+ # -- [Pod security context](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#podsecuritycontext-v1-core), this supports full customisation.
+ # @default -- See _values.yaml_
+-podSecurityContext:
++podSecurityContext:  # @schema additionalProperties: true
+   runAsNonRoot: true
+   fsGroup: 65534
+-  seccompProfile:
++  seccompProfile:  # @schema additionalProperties: true
      type: RuntimeDefault
  
  # -- (string) Priority class name for the `Pod`.
@@ -43,30 +99,88 @@ index a2c6967..820f573 100644
  
  # -- (int) Termination grace period for the `Pod` in seconds.
  terminationGracePeriodSeconds:  # @schema type:[integer, null]
-@@ -166,7 +168,12 @@ extraVolumes: []
+@@ -112,7 +114,7 @@ terminationGracePeriodSeconds:  # @schema type:[integer, null]
+ dnsPolicy:  # @schema type:[string, null]; default: null
+ 
+ # -- (object) [DNS config](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/#pod-dns-config) for the pod, if not set the default will be used.
+-dnsConfig:  # @schema type:[object, null]; default: null
++dnsConfig:  # @schema type:[object, null]; default: null; additionalProperties: true
+ 
+ # -- [Host aliases](https://kubernetes.io/docs/tasks/network/customize-hosts-file-for-pods/) to add to the `Pod` definition, injected into the pod's `/etc/hosts`.
+ hostAliases: []
+@@ -122,14 +124,14 @@ initContainers: []
+ 
+ # -- [Security context](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-container) for the `external-dns` container.
+ # @default -- See _values.yaml_
+-securityContext:
++securityContext:  # @schema additionalProperties: true
+   privileged: false
+   allowPrivilegeEscalation: false
+   readOnlyRootFilesystem: true
+   runAsNonRoot: true
+   runAsUser: 65532
+   runAsGroup: 65532
+-  capabilities:
++  capabilities:  # @schema additionalProperties: true
+     drop: ["ALL"]
+ 
+ # -- [Environment variables](https://kubernetes.io/docs/tasks/inject-data-application/define-environment-variable-container/) for the `external-dns` container.
+@@ -137,8 +139,8 @@ env: []
+ 
+ # -- [Liveness probe](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/) configuration for the `external-dns` container.
+ # @default -- See _values.yaml_
+-livenessProbe:
+-  httpGet:
++livenessProbe:  # @schema additionalProperties: true
++  httpGet:  # @schema additionalProperties: true
+     path: /healthz
+     port: http
+   initialDelaySeconds: 10
+@@ -149,8 +151,8 @@ livenessProbe:
+ 
+ # -- [Readiness probe](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/) configuration for the `external-dns` container.
+ # @default -- See _values.yaml_
+-readinessProbe:
+-  httpGet:
++readinessProbe:  # @schema additionalProperties: true
++  httpGet:  # @schema additionalProperties: true
+     path: /healthz
+     port: http
+   initialDelaySeconds: 5
+@@ -166,13 +168,18 @@ extraVolumes: []
  extraVolumeMounts: []
  
  # -- [Resources](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/) for the `external-dns` container.
 -resources: {}
-+resources:
-+  limits:
++resources:  # @schema additionalProperties: true
++  limits:  # @schema additionalProperties: true
 +    memory: 100Mi
-+  requests:
++  requests:  # @schema additionalProperties: true
 +    cpu: 50m
 +    memory: 100Mi
  
  # -- Node labels to match for `Pod` [scheduling](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/).
- nodeSelector: {}
-@@ -182,7 +189,7 @@ tolerations: []
+-nodeSelector: {}
++nodeSelector: {}  # @schema additionalProperties: true
+ 
+ # -- Affinity settings for `Pod` [scheduling](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/). If an explicit label selector is not provided for pod affinity or pod anti-affinity one will be created from the pod selector labels.
+-affinity: {}
++affinity: {}  # @schema additionalProperties: true
+ 
+ # -- Topology spread constraints for `Pod` [scheduling](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/). If an explicit label selector is not provided one will be created from the pod selector labels.
+ topologySpreadConstraints: []
+@@ -182,25 +189,41 @@ tolerations: []
  
  serviceMonitor:
    # -- If `true`, create a `ServiceMonitor` resource to support the _Prometheus Operator_.
 -  enabled: false
 +  enabled: true
    # -- Additional labels for the `ServiceMonitor`.
-   additionalLabels: {}
+-  additionalLabels: {}
++  additionalLabels: {}  # @schema additionalProperties: true
    # -- Annotations to add to the `ServiceMonitor`.
-@@ -190,7 +197,7 @@ serviceMonitor:
+-  annotations: {}
++  annotations: {}  # @schema additionalProperties: true
    # -- (string) If set create the `ServiceMonitor` in an alternate namespace.
    namespace:  # @schema type:[string, null]; default: null
    # -- (string) If set override the _Prometheus_ default interval.
@@ -75,7 +189,10 @@ index a2c6967..820f573 100644
    # -- (string) If set override the _Prometheus_ default scrape timeout.
    scrapeTimeout:  # @schema type:[string, null]; default: null
    # -- (string) If set overrides the _Prometheus_ default scheme.
-@@ -200,7 +207,23 @@ serviceMonitor:
+   scheme:  # @schema type:[string, null]; default: null
+   # -- Configure the `ServiceMonitor` [TLS config](https://github.com/coreos/prometheus-operator/blob/master/Documentation/api.md#tlsconfig).
+-  tlsConfig: {}
++  tlsConfig: {}  # @schema additionalProperties: true
    # -- (string) Provide a bearer token file for the `ServiceMonitor`.
    bearerTokenFile:  # @schema type:[string, null]; default: null
    # -- [Relabel configs](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#relabel_config) to apply to samples before ingestion.
@@ -148,7 +265,63 @@ index a2c6967..820f573 100644
  
  provider:  # @schema type: [object, string]
    # -- _ExternalDNS_ provider name; for the available providers and how to configure them see [README](https://github.com/kubernetes-sigs/external-dns/blob/master/charts/external-dns/README.md#providers).
-@@ -345,3 +373,46 @@ secretConfiguration:
+@@ -289,14 +317,14 @@ provider:  # @schema type: [object, string]
+     # -- Extra [volume mounts](https://kubernetes.io/docs/concepts/storage/volumes/) for the `webhook` container.
+     extraVolumeMounts: []
+     # -- [Resources](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/) for the `webhook` container.
+-    resources: {}
++    resources: {}  # @schema additionalProperties: true
+     # -- [Pod security context](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-container) for the `webhook` container.
+     # @default -- See _values.yaml_
+-    securityContext: {}
++    securityContext: {}  # @schema additionalProperties: true
+     # -- [Liveness probe](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/) configuration for the `external-dns` container.
+     # @default -- See _values.yaml_
+-    livenessProbe:
+-      httpGet:
++    livenessProbe:  # @schema additionalProperties: true
++      httpGet:  # @schema additionalProperties: true
+         path: /healthz  # @schema type:[string, null]; default: null
+         port: http-webhook  # @schema type:[integer,string]; default: string
+       initialDelaySeconds: 10  # @schema type:[integer, null]; default: null
+@@ -306,8 +334,8 @@ provider:  # @schema type: [object, string]
+       successThreshold: 1  # @schema type:[integer, null]; default: null
+     # -- [Readiness probe](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/) configuration for the `webhook` container.
+     # @default -- See _values.yaml_
+-    readinessProbe:
+-      httpGet:
++    readinessProbe:  # @schema additionalProperties: true
++      httpGet:  # @schema additionalProperties: true
+         path: /healthz  # @schema type:[string, null]; default: null
+         port: http-webhook  # @schema type:[integer,string]; default: string
+       initialDelaySeconds: 5  # @schema type:[integer, null]; default: null
+@@ -323,7 +351,7 @@ provider:  # @schema type: [object, string]
+     serviceMonitor:
+       interval:  # @schema type:[string, null]; default: null
+       scheme:  # @schema type:[string, null]; default: null
+-      tlsConfig: {}
++      tlsConfig: {}  # @schema additionalProperties: true
+       bearerTokenFile:  # @schema type:[string, null]; default: null
+       scrapeTimeout:  # @schema type:[string, null]; default: null
+       metricRelabelings: []
+@@ -331,7 +359,7 @@ provider:  # @schema type: [object, string]
+ 
+ # -- Extra arguments to provide to _ExternalDNS_.
+ # An array or map can be used, with maps allowing for value overrides; maps also support slice values to use the same arg multiple times.
+-extraArgs: {}  # @schema type: [array, null, object]; item: string; uniqueItems: true
++extraArgs: {}  # @schema type: [array, null, object]; item: string; uniqueItems: true; additionalProperties: true
+ 
+ secretConfiguration:
+   # -- If `true`, create a `Secret` to store sensitive provider configuration (**DEPRECATED**).
+@@ -341,7 +369,53 @@ secretConfiguration:
+   # -- Sub-path for mounting the `Secret`, this can be templated.
+   subPath:  # @schema type:[string, null]; default: null
+   # -- `Secret` data.
+-  data: {}
++  data: {}  # @schema additionalProperties: true
++
++# -- (object) No effect - accepted for compatibility with values from cluster-aws, which still sets `aws.irsa` and `aws.batchChangeInterval`.
++aws: {}  # @schema skipProperties: true; additionalProperties: true
  
  # -- (bool) No effect - reserved for use in sub-charting.
  enabled:  # @schema type: [boolean, null]; description: No effect - reserved for use in sub-charting
