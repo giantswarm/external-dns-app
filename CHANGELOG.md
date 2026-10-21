@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Fixed
+
+- CRD install job: bump the `kubectl-apply-job` dependency to 0.14.0 and pull it from `oci://gsoci.azurecr.io/charts/giantswarm`. Its fallback image is `gsoci.azurecr.io/giantswarm/docker-kubectl` instead of `quay.io/giantswarm/docker-kubectl:1.26.0`, which quay.io now refuses with 401.
+
 ## [3.4.0] - 2026-01-07
 
 ### Changed
