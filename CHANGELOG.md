@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [3.7.1] - 2026-10-21
+
 ### Fixed
 
 - CRD install job: bump the `kubectl-apply-job` dependency to 0.14.0, whose fallback image is `gsoci.azurecr.io/giantswarm/docker-kubectl` instead of `quay.io/giantswarm/docker-kubectl:1.26.0`, which quay.io now refuses with 401.
@@ -694,7 +696,8 @@ If you already specify `--aws-batch-change-interval` or `--aws-zones-cache-durat
 - Network policy that allows all egress traffic.
 - Network policy that allows accessing metrics on port `10254`.
 
-[Unreleased]: https://github.com/giantswarm/external-dns-app/compare/v3.7.0...HEAD
+[Unreleased]: https://github.com/giantswarm/external-dns-app/compare/v3.7.1...HEAD
+[3.7.1]: https://github.com/giantswarm/external-dns-app/compare/v3.7.0...v3.7.1
 [3.7.0]: https://github.com/giantswarm/external-dns-app/compare/v3.6.0...v3.7.0
 [3.6.0]: https://github.com/giantswarm/external-dns-app/compare/v3.5.0...v3.6.0
 [3.5.0]: https://github.com/giantswarm/external-dns-app/compare/v3.4.0...v3.5.0
