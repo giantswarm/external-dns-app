@@ -7,69 +7,6 @@ version: 2.1
 orbs:
   architect: giantswarm/architect@10.14.0
 
-commands:
-  # Pre-steps of the chart-test jobs: pull the images run-tests-with-ats starts
-  # (app-test-suite, the kind node) before the orb does, so `docker run` and
-  # `kind create cluster` find them locally. The pull is logged in with the
-  # registry's credentials from the architect context: ACR throttles all
-  # anonymous pulls of a registry together as one identity, an authenticated
-  # pull has its own budget. A transient `toomanyrequests` (or any failed pull)
-  # is retried with backoff; ACR's Retry-After counts down to the end of its
-  # throttling period, at most about a minute, which the longer delays cover.
-  pull-chart-test-images:
-    parameters:
-      registry:
-        type: string
-      images:
-        description: Images to pull, space-separated.
-        type: string
-    steps:
-    - run:
-        name: Pull chart-test images (logged in, with retry)
-        environment:
-          PULL_REGISTRY: << parameters.registry >>
-          PULL_IMAGES: << parameters.images >>
-        command: |
-          delays="15 30 60 60 60"
-          retry() {
-            for delay in $delays ""; do
-              if "$@"; then return 0; fi
-              [ -n "$delay" ] || return 1
-              echo "Attempt failed, retrying in ${delay}s: $*"
-              sleep "$delay"
-            done
-          }
-
-          # Same input as architect/image-login-to-registries: one registry per
-          # line, "visibility registry username_envvar password_envvar push_dev".
-          # No xtrace: the loop resolves the password.
-          set +x
-          username_val=""
-          password_val=""
-          while read -r _ reg username password _; do
-            [ "$reg" = "$PULL_REGISTRY" ] && [ -n "$username" ] && [ -n "$password" ] || continue
-            case "$username$password" in *[!a-zA-Z0-9_]*) echo "Invalid credential variable name for $reg" >&2; exit 1 ;; esac
-            eval "username_val=\${$username:-}"
-            eval "password_val=\${$password:-}"
-          done \<<EOF
-          $(printf '%s' "${REGISTRIES_DATA_BASE64:-}" | base64 -d)
-          EOF
-          login() {
-            printf '%s' "$password_val" | docker login "$PULL_REGISTRY" --username "$username_val" --password-stdin
-          }
-          if [ -z "$username_val" ] || [ -z "$password_val" ]; then
-            echo "No $PULL_REGISTRY credentials in the job's context: pulling anonymously."
-          elif ! retry login; then
-            echo "Login to $PULL_REGISTRY failed: pulling anonymously."
-          fi
-
-          for image in $PULL_IMAGES; do
-            if ! retry docker pull "$image"; then
-              echo "Pulling $image failed after every retry." >&2
-              exit 1
-            fi
-          done
-
 workflows:
   build:
     jobs:
@@ -112,20 +49,17 @@ workflows:
         # packages an app built elsewhere, so that app's version is what
         # Chart.yaml declares. Keep it; the chart version is still stamped.
         override_app_version: false
+        requires:
+        - build-chart
         filters:
           branches:
             ignore:
             - main
             - /^release-v?[0-9]+(\.[0-9]+)?\.x$/
 
-    # Tag: push the chart after build-chart (+ the gsoci image). The chart
-    # tests ran on the branch (execute-chart-tests) and the tag is cut from the
-    # merge commit of a PR whose branch run tested this tree, so they are not
-    # re-run here (atsOnRelease brings the tag-time run back). Make the
-    # ci/circleci statuses required checks on the default branch, with
-    # up-to-date branches (strict), so a PR cannot merge before that run is
-    # green. Intentionally does NOT depend on sync-china-registry so the chart
-    # catalog can publish even if the in-China Aliyun mirror is slow or fails.
+    # Tag: push chart after tests + the gsoci image. Intentionally does NOT
+    # depend on sync-china-registry so the chart catalog can publish even if
+    # the in-China Aliyun mirror is slow or fails.
     - architect/push-to-app-catalog:
         executor: app-build-suite
         context: architect
