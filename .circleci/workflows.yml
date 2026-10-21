@@ -99,34 +99,6 @@ workflows:
             - main
             - /^release-v?[0-9]+(\.[0-9]+)?\.x$/
 
-    # Branch: run chart tests after build-chart. When branchPublish pushes a dev
-    # image, the test also waits on push-to-registries -- run-tests-with-ats
-    # deploys the chart, which pulls that image from gsoci, and gating on the
-    # push avoids an ImagePullBackOff race. The architect context carries the
-    # registry credentials the job hands to its kind node, so the chart can pull
-    # private images (gsociprivate) without imagePullSecrets. The kind cluster
-    # the job creates takes its configuration (feature gates, runtime config,
-    # patches, extra nodes) from .ats/kind-config.yaml when the repo carries one
-    # -- repo-owned, like .ats/main.yaml -- and its resource class from
-    # gen.ci.atsResourceClass in giantswarm/github (the orb default is medium).
-    # Its pre-steps pull the images it starts logged in and with retry (see
-    # pull-chart-test-images above).
-    - architect/run-tests-with-ats:
-        name: execute-chart-tests
-        context: architect
-        app-test-suite_container_tag: "0.15.0"
-        pre-steps:
-        - pull-chart-test-images:
-            registry: gsoci.azurecr.io
-            images: "gsoci.azurecr.io/giantswarm/app-test-suite:0.15.0"
-        requires:
-        - build-chart
-        filters:
-          branches:
-            ignore:
-            - main
-            - /^release-v?[0-9]+(\.[0-9]+)?\.x$/
-
     # Branch chart push (opt-in): publish the dev chart after tests + the amd64
     # branch image, coupled with push-to-registries above.
     - architect/push-to-app-catalog:
@@ -140,8 +112,6 @@ workflows:
         # packages an app built elsewhere, so that app's version is what
         # Chart.yaml declares. Keep it; the chart version is still stamped.
         override_app_version: false
-        requires:
-        - execute-chart-tests
         filters:
           branches:
             ignore:

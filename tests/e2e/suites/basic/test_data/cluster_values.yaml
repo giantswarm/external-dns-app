@@ -1,0 +1,10 @@
+# Workaround: the default external-dns of the workload cluster release still uses
+# kubectl-apply-job 0.13.0, whose CRD job pulls quay.io/giantswarm/docker-kubectl:1.26.0
+# (401 on quay.io). Point that job at gsoci until a release ships external-dns with
+# kubectl-apply-job >= 0.14.0. Remove afterwards.
+global:
+  apps:
+    externalDns:
+      values:
+        image:
+          registry: gsoci.azurecr.io
