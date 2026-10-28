@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Fixed
+
+- Values schema: accept the values the Giant Swarm platform injects that the stricter schema from 3.7.0 rejected with `values-schema-violation`: `managementCluster`, `global.podSecurityStandards`, and the `externalDNSIP` and `helm` cluster values cluster-apps-operator sets for private clusters and the management cluster. `global` now allows additional properties.
+
 ## [3.7.1] - 2026-10-21
 
 ### Fixed

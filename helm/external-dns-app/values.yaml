@@ -2,9 +2,11 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-global:
+global:  # @schema additionalProperties: true
   # -- Global image pull secrets.
   imagePullSecrets: []  # @schema item: object; itemProperties: {"name": {"type": "string"}}
+  # -- (object) No effect - accepted for compatibility with the `global.podSecurityStandards.enforced` value the Giant Swarm platform sets.
+  podSecurityStandards: {}  # @schema skipProperties: true; additionalProperties: true
 
 image:  # @schema additionalProperties: true
   # -- Image repository for the `external-dns` container.
@@ -373,6 +375,15 @@ secretConfiguration:
 
 # -- (object) No effect - accepted for compatibility with values from cluster-aws, which still sets `aws.irsa` and `aws.batchChangeInterval`.
 aws: {}  # @schema skipProperties: true; additionalProperties: true
+
+# -- (string) No effect - accepted for compatibility with the `managementCluster` value the Giant Swarm platform sets.
+managementCluster:  # @schema type: [string, null]
+
+# -- (string) No effect - accepted for compatibility with the cluster values cluster-apps-operator sets for private clusters.
+externalDNSIP:  # @schema type: [string, null]
+
+# -- (object) No effect - accepted for compatibility with the cluster values cluster-apps-operator sets for the management cluster.
+helm: {}  # @schema skipProperties: true; additionalProperties: true
 
 # -- (bool) No effect - reserved for use in sub-charting.
 enabled:  # @schema type: [boolean, null]; description: No effect - reserved for use in sub-charting

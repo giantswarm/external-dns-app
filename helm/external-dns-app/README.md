@@ -21,6 +21,7 @@ Kubernetes: `>=1.19.0-0`
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | global.imagePullSecrets | list | `[]` | Global image pull secrets. |
+| global.podSecurityStandards | object | `{}` | No effect - accepted for compatibility with the `global.podSecurityStandards.enforced` value the Giant Swarm platform sets. |
 | image.repository | string | `"gsoci.azurecr.io/giantswarm/external-dns"` | Image repository for the `external-dns` container. |
 | image.tag | string | `nil` | Image tag for the `external-dns` container, this will default to `.Chart.AppVersion` if not set. |
 | image.pullPolicy | string | `"IfNotPresent"` | Image pull policy for the `external-dns` container. |
@@ -121,6 +122,9 @@ Kubernetes: `>=1.19.0-0`
 | secretConfiguration.subPath | string | `nil` | Sub-path for mounting the `Secret`, this can be templated. |
 | secretConfiguration.data | object | `{}` | `Secret` data. |
 | aws | object | `{}` | No effect - accepted for compatibility with values from cluster-aws, which still sets `aws.irsa` and `aws.batchChangeInterval`. |
+| managementCluster | string | `nil` | No effect - accepted for compatibility with the `managementCluster` value the Giant Swarm platform sets. |
+| externalDNSIP | string | `nil` | No effect - accepted for compatibility with the cluster values cluster-apps-operator sets for private clusters. |
+| helm | object | `{}` | No effect - accepted for compatibility with the cluster values cluster-apps-operator sets for the management cluster. |
 | enabled | bool | `nil` | No effect - reserved for use in sub-charting. |
 | crd.install | bool | `true` |  |
 | hostNetwork | bool | `false` |  |
