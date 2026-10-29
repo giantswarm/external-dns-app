@@ -145,6 +145,13 @@
             "type": "array",
             "description": "Intentionally exclude domains from being managed."
         },
+        "externalDNSIP": {
+            "type": [
+                "string",
+                "null"
+            ],
+            "description": "No effect - accepted for compatibility with the cluster values cluster-apps-operator sets for private clusters."
+        },
         "extraArgs": {
             "type": [
                 "array",
@@ -189,7 +196,7 @@
         },
         "global": {
             "type": "object",
-            "additionalProperties": false,
+            "additionalProperties": true,
             "properties": {
                 "imagePullSecrets": {
                     "type": "array",
@@ -203,8 +210,18 @@
                             }
                         }
                     }
+                },
+                "podSecurityStandards": {
+                    "type": "object",
+                    "description": "No effect - accepted for compatibility with the `global.podSecurityStandards.enforced` value the Giant Swarm platform sets.",
+                    "additionalProperties": true
                 }
             }
+        },
+        "helm": {
+            "type": "object",
+            "description": "No effect - accepted for compatibility with the cluster values cluster-apps-operator sets for the management cluster.",
+            "additionalProperties": true
         },
         "hostAliases": {
             "type": "array",
@@ -352,6 +369,13 @@
                 "type": "string"
             },
             "uniqueItems": true
+        },
+        "managementCluster": {
+            "type": [
+                "string",
+                "null"
+            ],
+            "description": "No effect - accepted for compatibility with the `managementCluster` value the Giant Swarm platform sets."
         },
         "minEventSyncInterval": {
             "type": "string"

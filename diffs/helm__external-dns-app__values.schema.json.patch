@@ -1,8 +1,8 @@
 diff --git a/vendor/external-dns/values.schema.json b/helm/external-dns-app/values.schema.json
-index e8324c6..d496846 100644
+index e8324c6..b555c60 100644
 --- a/vendor/external-dns/values.schema.json
 +++ b/helm/external-dns-app/values.schema.json
-@@ -1,927 +1,1080 @@
+@@ -1,927 +1,1104 @@
  {
 -  "$schema": "http://json-schema.org/draft-07/schema#",
 -  "type": "object",
@@ -488,6 +488,13 @@ index e8324c6..d496846 100644
 +            "type": "array",
 +            "description": "Intentionally exclude domains from being managed."
 +        },
++        "externalDNSIP": {
++            "type": [
++                "string",
++                "null"
++            ],
++            "description": "No effect - accepted for compatibility with the cluster values cluster-apps-operator sets for private clusters."
++        },
 +        "extraArgs": {
 +            "type": [
 +                "array",
@@ -535,7 +542,7 @@ index e8324c6..d496846 100644
 +        },
 +        "global": {
 +            "type": "object",
-+            "additionalProperties": false,
++            "additionalProperties": true,
 +            "properties": {
 +                "imagePullSecrets": {
 +                    "type": "array",
@@ -549,8 +556,18 @@ index e8324c6..d496846 100644
 +                            }
 +                        }
 +                    }
++                },
++                "podSecurityStandards": {
++                    "type": "object",
++                    "description": "No effect - accepted for compatibility with the `global.podSecurityStandards.enforced` value the Giant Swarm platform sets.",
++                    "additionalProperties": true
 +                }
 +            }
++        },
++        "helm": {
++            "type": "object",
++            "description": "No effect - accepted for compatibility with the cluster values cluster-apps-operator sets for the management cluster.",
++            "additionalProperties": true
 +        },
 +        "hostAliases": {
 +            "type": "array",
@@ -766,6 +783,13 @@ index e8324c6..d496846 100644
 -              "type": "object",
 -              "properties": {
 +            "uniqueItems": true
++        },
++        "managementCluster": {
++            "type": [
++                "string",
++                "null"
++            ],
++            "description": "No effect - accepted for compatibility with the `managementCluster` value the Giant Swarm platform sets."
 +        },
 +        "minEventSyncInterval": {
 +            "type": "string"
