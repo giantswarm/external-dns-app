@@ -196,6 +196,7 @@
         },
         "global": {
             "type": "object",
+            "description": "Global values shared between all subcharts and the platform.",
             "additionalProperties": true,
             "properties": {
                 "imagePullSecrets": {
