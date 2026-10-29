@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [3.7.2] - 2026-10-29
+
 ### Fixed
 
 - Values schema: accept the values the Giant Swarm platform injects that the stricter schema from 3.7.0 rejected with `values-schema-violation`: `managementCluster`, `global.podSecurityStandards`, and the `externalDNSIP` and `helm` cluster values cluster-apps-operator sets for private clusters and the management cluster. `global` now allows additional properties.
@@ -700,7 +702,8 @@ If you already specify `--aws-batch-change-interval` or `--aws-zones-cache-durat
 - Network policy that allows all egress traffic.
 - Network policy that allows accessing metrics on port `10254`.
 
-[Unreleased]: https://github.com/giantswarm/external-dns-app/compare/v3.7.1...HEAD
+[Unreleased]: https://github.com/giantswarm/external-dns-app/compare/v3.7.2...HEAD
+[3.7.2]: https://github.com/giantswarm/external-dns-app/compare/v3.7.1...v3.7.2
 [3.7.1]: https://github.com/giantswarm/external-dns-app/compare/v3.7.0...v3.7.1
 [3.7.0]: https://github.com/giantswarm/external-dns-app/compare/v3.6.0...v3.7.0
 [3.6.0]: https://github.com/giantswarm/external-dns-app/compare/v3.5.0...v3.6.0
