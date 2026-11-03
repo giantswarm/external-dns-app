@@ -1,8 +1,8 @@
 diff --git a/vendor/external-dns/values.schema.json b/helm/external-dns-app/values.schema.json
-index e8324c6..b555c60 100644
+index e8324c6..2a5354c 100644
 --- a/vendor/external-dns/values.schema.json
 +++ b/helm/external-dns-app/values.schema.json
-@@ -1,927 +1,1104 @@
+@@ -1,927 +1,1105 @@
  {
 -  "$schema": "http://json-schema.org/draft-07/schema#",
 -  "type": "object",
@@ -542,6 +542,7 @@ index e8324c6..b555c60 100644
 +        },
 +        "global": {
 +            "type": "object",
++            "description": "Global values shared between all subcharts and the platform.",
 +            "additionalProperties": true,
 +            "properties": {
 +                "imagePullSecrets": {
