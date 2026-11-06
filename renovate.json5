@@ -19,7 +19,7 @@
     'github>giantswarm/renovate-presets:lang-go.json5',
     'github>giantswarm/renovate-presets:tests-e2e-app-cabbage.json5',
   ],
-  // Our own bots commit onto Renovate branches. The giantswarm-release
+  // Our automation commits onto Renovate branches. The giantswarm-release
   // GitHub App pushes what the generated workflows produce
   // (zz_generated.helm-docs-regen.yaml, the update-chart and
   // sync-from-upstream flows); taylorbot <dev@giantswarm.io> did so before
