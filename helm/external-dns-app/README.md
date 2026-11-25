@@ -132,7 +132,9 @@ Kubernetes: `>=1.19.0-0`
 | e2e | bool | `false` |  |
 | baseDomain | string | `"gigantic.io"` |  |
 | clusterID | string | `"en2jo"` |  |
-| ciliumNetworkPolicy.enabled | bool | `false` |  |
+| ciliumNetworkPolicy.enabled | bool | `false` | Render a CiliumNetworkPolicy. When false, a plain NetworkPolicy is rendered instead. |
+| ciliumNetworkPolicy.egress | list | `[]` | Replaces the default CiliumNetworkPolicy egress rules when set. |
+| ciliumNetworkPolicy.ingress | list | `[]` | Replaces the default CiliumNetworkPolicy ingress rules when set. |
 | kubectlApplyJob.enabled | bool | `true` |  |
 | kubectlApplyJob.files[0] | string | `"files/dnsendpoints.externaldns.k8s.io.yaml"` |  |
 | kubectlApplyJob.files[1] | string | `"files/dnsrecords.externaldns.k8s.io.yaml"` |  |

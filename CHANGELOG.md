@@ -7,6 +7,12 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Replace the allow-all egress NetworkPolicy with least-privilege rules. `ciliumNetworkPolicy.enabled`, which had no effect, now renders a CiliumNetworkPolicy instead of the NetworkPolicy, with rules overridable through `ciliumNetworkPolicy.egress` and `ciliumNetworkPolicy.ingress`.
+- Limit metrics ingress to `alloy-metrics`.
+- Render no network policy when `hostNetwork` is enabled.
+
 ## [3.7.2] - 2026-10-29
 
 ### Fixed

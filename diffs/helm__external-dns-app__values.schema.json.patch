@@ -1,8 +1,8 @@
 diff --git a/vendor/external-dns/values.schema.json b/helm/external-dns-app/values.schema.json
-index e8324c6..2a5354c 100644
+index e8324c6..c7f265e 100644
 --- a/vendor/external-dns/values.schema.json
 +++ b/helm/external-dns-app/values.schema.json
-@@ -1,927 +1,1105 @@
+@@ -1,927 +1,1122 @@
  {
 -  "$schema": "http://json-schema.org/draft-07/schema#",
 -  "type": "object",
@@ -258,8 +258,25 @@ index e8324c6..2a5354c 100644
 +            "type": "object",
 +            "additionalProperties": true,
 +            "properties": {
++                "egress": {
++                    "type": "array",
++                    "description": "Replaces the default CiliumNetworkPolicy egress rules when set.",
++                    "items": {
++                        "type": "object",
++                        "additionalProperties": true
++                    }
++                },
 +                "enabled": {
-+                    "type": "boolean"
++                    "type": "boolean",
++                    "description": "Render a CiliumNetworkPolicy. When false, a plain NetworkPolicy is rendered instead."
++                },
++                "ingress": {
++                    "type": "array",
++                    "description": "Replaces the default CiliumNetworkPolicy ingress rules when set.",
++                    "items": {
++                        "type": "object",
++                        "additionalProperties": true
++                    }
 +                }
              }
 -          }
