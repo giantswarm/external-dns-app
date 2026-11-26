@@ -255,8 +255,10 @@ namespaced: false
 enableGatewayListenerSets: false
 
 # -- _Gateway API_ gateway namespace to watch.
-# When `namespaced=true`, setting this value avoids creating cluster-scoped RBAC
-# for Gateway sources, except for ListenerSets (see `enableGatewayListenerSets`).
+# When `namespaced=true`, setting this value grants Gateway access with a `Role` in
+# that namespace instead of cluster-wide. _ExternalDNS_ still lists Namespaces
+# (and ListenerSets, see `enableGatewayListenerSets`) cluster-wide, so a `ClusterRole`
+# for them is always created.
 gatewayNamespace:  # @schema type:[string, null]; default: null
 
 # -- Source namespace to watch for Kubernetes resources other than Gateway API gateways.

@@ -1,0 +1,180 @@
+suite: Gateway RBAC in namespaced mode
+templates:
+  - templates/clusterrole.yaml
+  - templates/clusterrolebinding.yaml
+release:
+  name: t
+  namespace: dns
+set:
+  sources:
+    - gateway-httproute
+tests:
+  - it: cluster-scoped install keeps every Gateway permission in the main ClusterRole
+    set:
+      enableGatewayListenerSets: true
+    template: templates/clusterrole.yaml
+    asserts:
+      - hasDocuments:
+          count: 1
+      - isKind:
+          of: ClusterRole
+      - contains:
+          path: rules
+          content:
+            apiGroups: ["gateway.networking.k8s.io"]
+            resources: ["listenersets"]
+            verbs: ["get", "watch", "list"]
+      - contains:
+          path: rules
+          content:
+            apiGroups: [""]
+            resources: ["namespaces"]
+            verbs: ["get", "watch", "list"]
+
+  - it: namespaced install grants namespaces cluster-wide
+    set:
+      namespaced: true
+    template: templates/clusterrole.yaml
+    asserts:
+      - hasDocuments:
+          count: 2
+      - containsDocument:
+          any: true
+          kind: ClusterRole
+          apiVersion: rbac.authorization.k8s.io/v1
+          name: t-external-dns-namespaces
+      - notContains:
+          path: rules
+          content:
+            apiGroups: ["gateway.networking.k8s.io"]
+            resources: ["listenersets"]
+            verbs: ["get", "watch", "list"]
+        documentSelector:
+          path: metadata.name
+          value: t-external-dns
+
+  - it: namespaced install with gatewayNamespace still grants namespaces cluster-wide
+    set:
+      namespaced: true
+      gatewayNamespace: gw
+    asserts:
+      - containsDocument:
+          any: true
+          kind: ClusterRole
+          apiVersion: rbac.authorization.k8s.io/v1
+          name: t-external-dns-namespaces
+        template: templates/clusterrole.yaml
+      - containsDocument:
+          any: true
+          kind: ClusterRoleBinding
+          apiVersion: rbac.authorization.k8s.io/v1
+          name: t-external-dns-namespaces
+        template: templates/clusterrolebinding.yaml
+      - containsDocument:
+          any: true
+          kind: Role
+          apiVersion: rbac.authorization.k8s.io/v1
+          name: t-external-dns-gateway
+          namespace: gw
+        template: templates/clusterrole.yaml
+
+  - it: namespaced install with ListenerSets grants listenersets cluster-wide
+    set:
+      namespaced: true
+      enableGatewayListenerSets: true
+    asserts:
+      - equal:
+          path: rules
+          value:
+            - apiGroups: ["gateway.networking.k8s.io"]
+              resources: ["listenersets"]
+              verbs: ["get", "watch", "list"]
+        documentSelector:
+          path: metadata.name
+          value: t-external-dns-listenersets
+        template: templates/clusterrole.yaml
+      - isKind:
+          of: ClusterRole
+        documentSelector:
+          path: metadata.name
+          value: t-external-dns-listenersets
+        template: templates/clusterrole.yaml
+      - equal:
+          path: roleRef
+          value:
+            apiGroup: rbac.authorization.k8s.io
+            kind: ClusterRole
+            name: t-external-dns-listenersets
+        documentSelector:
+          path: metadata.name
+          value: t-external-dns-listenersets
+        template: templates/clusterrolebinding.yaml
+      - equal:
+          path: subjects
+          value:
+            - kind: ServiceAccount
+              name: t-external-dns
+              namespace: dns
+        documentSelector:
+          path: metadata.name
+          value: t-external-dns-listenersets
+        template: templates/clusterrolebinding.yaml
+      - notContains:
+          path: rules
+          content:
+            apiGroups: ["gateway.networking.k8s.io"]
+            resources: ["listenersets"]
+            verbs: ["get", "watch", "list"]
+        documentSelector:
+          path: metadata.name
+          value: t-external-dns
+        template: templates/clusterrole.yaml
+
+  - it: namespaced install with ListenerSets and gatewayNamespace grants listenersets cluster-wide
+    set:
+      namespaced: true
+      enableGatewayListenerSets: true
+      gatewayNamespace: gw
+    asserts:
+      - containsDocument:
+          any: true
+          kind: ClusterRole
+          apiVersion: rbac.authorization.k8s.io/v1
+          name: t-external-dns-listenersets
+        template: templates/clusterrole.yaml
+      - containsDocument:
+          any: true
+          kind: ClusterRoleBinding
+          apiVersion: rbac.authorization.k8s.io/v1
+          name: t-external-dns-listenersets
+        template: templates/clusterrolebinding.yaml
+      - notContains:
+          path: rules
+          content:
+            apiGroups: ["gateway.networking.k8s.io"]
+            resources: ["listenersets"]
+            verbs: ["get", "watch", "list"]
+        documentSelector:
+          path: metadata.name
+          value: t-external-dns-gateway
+        template: templates/clusterrole.yaml
+
+  - it: namespaced install without Gateway sources creates no cluster-scoped RBAC
+    set:
+      namespaced: true
+      enableGatewayListenerSets: true
+      sources:
+        - service
+    asserts:
+      - hasDocuments:
+          count: 1
+        template: templates/clusterrole.yaml
+      - isKind:
+          of: Role
+        template: templates/clusterrole.yaml
+      - hasDocuments:
+          count: 1
+        template: templates/clusterrolebinding.yaml
+      - isKind:
+          of: RoleBinding
+        template: templates/clusterrolebinding.yaml

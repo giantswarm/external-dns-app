@@ -13,5 +13,7 @@ readonly script_dir_rel=".${script_dir#"${repo_dir}"}"
 
 set -x
 git apply "${script_dir_rel}/000-rbac.patch"
+mkdir -p ./helm/external-dns-app/tests
+cp "${script_dir_rel}/tests/"*_test.yaml ./helm/external-dns-app/tests/
 
 { set +x; } 2>/dev/null

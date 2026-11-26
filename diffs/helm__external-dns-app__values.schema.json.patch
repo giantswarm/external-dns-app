@@ -1,5 +1,5 @@
 diff --git a/vendor/external-dns/values.schema.json b/helm/external-dns-app/values.schema.json
-index e8324c6..c7f265e 100644
+index e8324c6..67e1137 100644
 --- a/vendor/external-dns/values.schema.json
 +++ b/helm/external-dns-app/values.schema.json
 @@ -1,927 +1,1122 @@
@@ -488,7 +488,7 @@ index e8324c6..c7f265e 100644
 +        },
 +        "enableGatewayListenerSets": {
 +            "type": "boolean",
-+            "description": "if `true`, the Gateway API ListenerSet flag will be enabled."
++            "description": "if `true`, the Gateway API ListenerSet flag will be enabled. _ExternalDNS_ watches ListenerSets cluster-wide, so this always grants cluster-scoped read access to `listenersets`, also when `namespaced=true`."
 +        },
 +        "enabled": {
 +            "type": [
@@ -552,7 +552,7 @@ index e8324c6..c7f265e 100644
 +                "string",
 +                "null"
 +            ],
-+            "description": "_Gateway API_ gateway namespace to watch. When `namespaced=true`, setting this value avoids creating any cluster-scoped RBAC (no ClusterRole/ClusterRoleBinding) for Gateway sources."
++            "description": "_Gateway API_ gateway namespace to watch. When `namespaced=true`, setting this value grants Gateway access with a `Role` in that namespace instead of cluster-wide. _ExternalDNS_ still lists Namespaces (and ListenerSets, see `enableGatewayListenerSets`) cluster-wide, so a `ClusterRole` for them is always created."
 +        },
 +        "gcpProject": {
 +            "type": "string"
