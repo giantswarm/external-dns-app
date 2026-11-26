@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [3.8.0] - 2026-11-26
+
 ### Changed
 
 - Replace the allow-all egress NetworkPolicy with least-privilege rules. `ciliumNetworkPolicy.enabled`, which had no effect, now renders a CiliumNetworkPolicy instead of the NetworkPolicy, with rules overridable through `ciliumNetworkPolicy.egress` and `ciliumNetworkPolicy.ingress`.
@@ -708,7 +710,8 @@ If you already specify `--aws-batch-change-interval` or `--aws-zones-cache-durat
 - Network policy that allows all egress traffic.
 - Network policy that allows accessing metrics on port `10254`.
 
-[Unreleased]: https://github.com/giantswarm/external-dns-app/compare/v3.7.2...HEAD
+[Unreleased]: https://github.com/giantswarm/external-dns-app/compare/v3.8.0...HEAD
+[3.8.0]: https://github.com/giantswarm/external-dns-app/compare/v3.7.2...v3.8.0
 [3.7.2]: https://github.com/giantswarm/external-dns-app/compare/v3.7.1...v3.7.2
 [3.7.1]: https://github.com/giantswarm/external-dns-app/compare/v3.7.0...v3.7.1
 [3.7.0]: https://github.com/giantswarm/external-dns-app/compare/v3.6.0...v3.7.0
