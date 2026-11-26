@@ -76,7 +76,7 @@ rules:
   - apiGroups: ["gateway.networking.k8s.io"]
     resources: ["gateways"]
     verbs: ["get","watch","list"]
-{{- if .Values.enableGatewayListenerSets }}
+{{- if and .Values.enableGatewayListenerSets (not .Values.namespaced) }}
   - apiGroups: ["gateway.networking.k8s.io"]
     resources: ["listenersets"]
     verbs: ["get","watch","list"]
@@ -182,11 +182,23 @@ rules:
   - apiGroups: ["gateway.networking.k8s.io"]
     resources: ["gateways"]
     verbs: ["get","watch","list"]
+{{- end }}
+{{- /*
+     ExternalDNS always watches ListenerSets cluster-wide, ignoring --namespace
+     and --gateway-namespace, so it needs a ClusterRole for them.
+  */ -}}
 {{- if .Values.enableGatewayListenerSets }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: {{ template "external-dns.fullname" . }}-listenersets
+  labels:
+    {{- include "external-dns.labels" . | nindent 4 }}
+rules:
   - apiGroups: ["gateway.networking.k8s.io"]
     resources: ["listenersets"]
     verbs: ["get","watch","list"]
-{{- end }}
 {{- end }}
 {{- end }}
 {{- end }}

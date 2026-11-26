@@ -1,0 +1,27 @@
+diff --git a/vendor/external-dns/templates/clusterrolebinding.yaml b/helm/external-dns-app/templates/clusterrolebinding.yaml
+index 64fb33a..daa56e8 100644
+--- a/vendor/external-dns/templates/clusterrolebinding.yaml
++++ b/helm/external-dns-app/templates/clusterrolebinding.yaml
+@@ -56,5 +56,22 @@ subjects:
+     name: {{ template "external-dns.serviceAccountName" . }}
+     namespace: {{ include "external-dns.namespace" . }}
+ {{- end }}
++{{- if .Values.enableGatewayListenerSets }}
++---
++apiVersion: rbac.authorization.k8s.io/v1
++kind: ClusterRoleBinding
++metadata:
++  name: {{ template "external-dns.fullname" . }}-listenersets
++  labels:
++    {{- include "external-dns.labels" . | nindent 4 }}
++roleRef:
++  apiGroup: rbac.authorization.k8s.io
++  kind: ClusterRole
++  name: {{ template "external-dns.fullname" . }}-listenersets
++subjects:
++  - kind: ServiceAccount
++    name: {{ template "external-dns.serviceAccountName" . }}
++    namespace: {{ include "external-dns.namespace" . }}
++{{- end }}
+ {{- end }}
+ {{- end }}

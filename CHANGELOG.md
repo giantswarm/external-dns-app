@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Fixed
+
+- Grant cluster-scoped read access to Gateway API `listenersets` when `enableGatewayListenerSets` is set together with `namespaced`. ExternalDNS always watches ListenerSets cluster-wide, so the namespaced `Role` was not enough and ExternalDNS failed to sync.
+
 ### Changed
 
 - Replace the allow-all egress NetworkPolicy with least-privilege rules. `ciliumNetworkPolicy.enabled`, which had no effect, now renders a CiliumNetworkPolicy instead of the NetworkPolicy, with rules overridable through `ciliumNetworkPolicy.egress` and `ciliumNetworkPolicy.ingress`.
