@@ -1,4 +1,4 @@
-suite: Gateway RBAC in namespaced mode
+suite: Cluster-scoped RBAC in namespaced mode
 templates:
   - templates/clusterrole.yaml
   - templates/clusterrolebinding.yaml
@@ -216,12 +216,12 @@ tests:
           value: t-external-dns-gateway
         template: templates/clusterrole.yaml
 
-  - it: namespaced install without Gateway sources creates no cluster-scoped RBAC
+  - it: namespaced install without Gateway or node-watching sources creates no cluster-scoped RBAC
     set:
       namespaced: true
       enableGatewayListenerSets: true
       sources:
-        - service
+        - crd
     asserts:
       - hasDocuments:
           count: 1
@@ -236,13 +236,13 @@ tests:
           of: RoleBinding
         template: templates/clusterrolebinding.yaml
 
-  - it: namespaced install without Gateway sources but with gatewayNamespace creates no cluster-scoped RBAC
+  - it: namespaced install without Gateway or node-watching sources but with gatewayNamespace creates no cluster-scoped RBAC
     set:
       namespaced: true
       enableGatewayListenerSets: true
       gatewayNamespace: gw
       sources:
-        - service
+        - crd
     asserts:
       - hasDocuments:
           count: 1
@@ -315,3 +315,78 @@ tests:
         documentSelector:
           path: metadata.name
           value: t-external-dns
+
+  - it: namespaced install with a node-watching source grants nodes cluster-wide
+    set:
+      namespaced: true
+      sources:
+        - service
+    asserts:
+      - hasDocuments:
+          count: 2
+        template: templates/clusterrole.yaml
+      - equal:
+          path: rules
+          value:
+            - apiGroups: [""]
+              resources: ["nodes"]
+              verbs: ["list", "watch"]
+        documentSelector:
+          path: metadata.name
+          value: t-external-dns-nodes
+        template: templates/clusterrole.yaml
+      - isKind:
+          of: ClusterRole
+        documentSelector:
+          path: metadata.name
+          value: t-external-dns-nodes
+        template: templates/clusterrole.yaml
+      - equal:
+          path: roleRef
+          value:
+            apiGroup: rbac.authorization.k8s.io
+            kind: ClusterRole
+            name: t-external-dns-nodes
+        documentSelector:
+          path: metadata.name
+          value: t-external-dns-nodes
+        template: templates/clusterrolebinding.yaml
+      - equal:
+          path: subjects
+          value:
+            - kind: ServiceAccount
+              name: t-external-dns
+              namespace: dns
+        documentSelector:
+          path: metadata.name
+          value: t-external-dns-nodes
+        template: templates/clusterrolebinding.yaml
+
+  - it: namespaced install grants nodes cluster-wide for the node and pod sources
+    set:
+      namespaced: true
+      sources:
+        - node
+        - pod
+    template: templates/clusterrole.yaml
+    asserts:
+      - containsDocument:
+          any: true
+          kind: ClusterRole
+          apiVersion: rbac.authorization.k8s.io/v1
+          name: t-external-dns-nodes
+
+  - it: cluster-scoped install keeps nodes in the main ClusterRole
+    set:
+      sources:
+        - service
+    template: templates/clusterrole.yaml
+    asserts:
+      - hasDocuments:
+          count: 1
+      - contains:
+          path: rules
+          content:
+            apiGroups: [""]
+            resources: ["nodes"]
+            verbs: ["list", "watch"]

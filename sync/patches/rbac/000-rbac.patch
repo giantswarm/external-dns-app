@@ -1,5 +1,5 @@
 diff --git a/helm/external-dns-app/templates/clusterrole.yaml b/helm/external-dns-app/templates/clusterrole.yaml
-index d2dd759..d94d3f9 100644
+index d2dd759..ae22e81 100644
 --- a/helm/external-dns-app/templates/clusterrole.yaml
 +++ b/helm/external-dns-app/templates/clusterrole.yaml
 @@ -72,7 +72,7 @@ rules:
@@ -62,7 +62,7 @@ index d2dd759..d94d3f9 100644
  ---
  apiVersion: rbac.authorization.k8s.io/v1
  kind: Role
-@@ -182,11 +192,23 @@ rules:
+@@ -182,11 +192,41 @@ rules:
    - apiGroups: ["gateway.networking.k8s.io"]
      resources: ["gateways"]
      verbs: ["get","watch","list"]
@@ -85,10 +85,27 @@ index d2dd759..d94d3f9 100644
      verbs: ["get","watch","list"]
  {{- end }}
  {{- end }}
++{{- /*
++     The node, pod and service sources watch Nodes cluster-wide, ignoring --namespace
++     (the service source unless --service-type-filter excludes NodePort), so they
++     need a ClusterRole for them.
++  */}}
++{{- if and .Values.rbac.create .Values.namespaced (or (has "node" .Values.sources) (has "pod" .Values.sources) (has "service" .Values.sources)) }}
++---
++apiVersion: rbac.authorization.k8s.io/v1
++kind: ClusterRole
++metadata:
++  name: {{ template "external-dns.fullname" . }}-nodes
++  labels:
++    {{- include "external-dns.labels" . | nindent 4 }}
++rules:
++  - apiGroups: [""]
++    resources: ["nodes"]
++    verbs: ["list","watch"]
  {{- end }}
--{{- end }}
+ {{- end }}
 diff --git a/helm/external-dns-app/templates/clusterrolebinding.yaml b/helm/external-dns-app/templates/clusterrolebinding.yaml
-index 64fb33a..6ed40f9 100644
+index 64fb33a..0536fec 100644
 --- a/helm/external-dns-app/templates/clusterrolebinding.yaml
 +++ b/helm/external-dns-app/templates/clusterrolebinding.yaml
 @@ -17,11 +17,6 @@ subjects:
@@ -129,7 +146,7 @@ index 64fb33a..6ed40f9 100644
  ---
  apiVersion: rbac.authorization.k8s.io/v1
  kind: RoleBinding
-@@ -56,5 +66,22 @@ subjects:
+@@ -56,5 +66,39 @@ subjects:
      name: {{ template "external-dns.serviceAccountName" . }}
      namespace: {{ include "external-dns.namespace" . }}
  {{- end }}
@@ -150,5 +167,22 @@ index 64fb33a..6ed40f9 100644
 +    name: {{ template "external-dns.serviceAccountName" . }}
 +    namespace: {{ include "external-dns.namespace" . }}
 +{{- end }}
++{{- end }}
++{{- if and .Values.rbac.create .Values.namespaced (or (has "node" .Values.sources) (has "pod" .Values.sources) (has "service" .Values.sources)) }}
++---
++apiVersion: rbac.authorization.k8s.io/v1
++kind: ClusterRoleBinding
++metadata:
++  name: {{ template "external-dns.fullname" . }}-nodes
++  labels:
++    {{- include "external-dns.labels" . | nindent 4 }}
++roleRef:
++  apiGroup: rbac.authorization.k8s.io
++  kind: ClusterRole
++  name: {{ template "external-dns.fullname" . }}-nodes
++subjects:
++  - kind: ServiceAccount
++    name: {{ template "external-dns.serviceAccountName" . }}
++    namespace: {{ include "external-dns.namespace" . }}
  {{- end }}
  {{- end }}

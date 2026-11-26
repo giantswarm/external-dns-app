@@ -247,6 +247,8 @@ triggerLoopOnEvent: false
 namespaceFilter: ""
 
 # -- if `true`, _ExternalDNS_ will run in a namespaced scope (`Role`` and `Rolebinding`` will be namespaced too).
+# The `node`, `pod` and `service` sources still list Nodes cluster-wide, so with any of them
+# a `ClusterRole` for `nodes` is created.
 namespaced: false
 
 # -- if `true`, the Gateway API ListenerSet flag will be enabled.

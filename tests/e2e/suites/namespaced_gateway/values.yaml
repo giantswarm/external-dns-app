@@ -1,8 +1,8 @@
-# Run ExternalDNS namespaced with a Gateway source and ListenerSets, the setup that
-# needs the cluster-scoped namespaces, gateways and listenersets ClusterRoles.
-# Only the Gateway source is enabled: in namespaced mode the service source also
-# lists Nodes cluster-wide, which the chart does not grant.
+# Run ExternalDNS namespaced with the service and Gateway sources and ListenerSets,
+# the setup that needs the cluster-scoped nodes, namespaces, gateways and
+# listenersets ClusterRoles.
 namespaced: true
 enableGatewayListenerSets: true
 sources:
+  - service
   - gateway-httproute

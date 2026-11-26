@@ -84,4 +84,21 @@ subjects:
     namespace: {{ include "external-dns.namespace" . }}
 {{- end }}
 {{- end }}
+{{- if and .Values.rbac.create .Values.namespaced (or (has "node" .Values.sources) (has "pod" .Values.sources) (has "service" .Values.sources)) }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: {{ template "external-dns.fullname" . }}-nodes
+  labels:
+    {{- include "external-dns.labels" . | nindent 4 }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: {{ template "external-dns.fullname" . }}-nodes
+subjects:
+  - kind: ServiceAccount
+    name: {{ template "external-dns.serviceAccountName" . }}
+    namespace: {{ include "external-dns.namespace" . }}
+{{- end }}
 {{- end }}

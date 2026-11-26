@@ -1,5 +1,5 @@
 diff --git a/vendor/external-dns/values.yaml b/helm/external-dns-app/values.yaml
-index a2c6967..9b7fb22 100644
+index a2c6967..aab01a5 100644
 --- a/vendor/external-dns/values.yaml
 +++ b/helm/external-dns-app/values.yaml
 @@ -2,23 +2,25 @@
@@ -222,7 +222,7 @@ index a2c6967..9b7fb22 100644
    # -- [Metric relabel configs](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#metric_relabel_configs) to apply to samples before ingestion.
    metricRelabelings: []
    # -- Provide target labels for the `ServiceMonitor`.
-@@ -213,20 +238,27 @@ logLevel: info  # @schema enum:[panic, debug, info, warning, error, fatal]; type
+@@ -213,20 +238,29 @@ logLevel: info  # @schema enum:[panic, debug, info, warning, error, fatal]; type
  logFormat: text  # @schema enum:["text", "json"]; type:string; default: "text"
  
  # -- Interval for DNS updates.
@@ -236,6 +236,8 @@ index a2c6967..9b7fb22 100644
 +namespaceFilter: ""
 +
  # -- if `true`, _ExternalDNS_ will run in a namespaced scope (`Role`` and `Rolebinding`` will be namespaced too).
++# The `node`, `pod` and `service` sources still list Nodes cluster-wide, so with any of them
++# a `ClusterRole` for `nodes` is created.
  namespaced: false
  
  # -- if `true`, the Gateway API ListenerSet flag will be enabled.
@@ -253,7 +255,7 @@ index a2c6967..9b7fb22 100644
  gatewayNamespace:  # @schema type:[string, null]; default: null
  
  # -- Source namespace to watch for Kubernetes resources other than Gateway API gateways.
-@@ -236,10 +268,10 @@ sourceNamespace:  # @schema type:[string, null]; default: null
+@@ -236,10 +270,10 @@ sourceNamespace:  # @schema type:[string, null]; default: null
  # -- _Kubernetes_ resources to monitor for DNS entries.
  sources:
    - service
@@ -266,7 +268,7 @@ index a2c6967..9b7fb22 100644
  
  # -- Specify the registry for storing ownership and labels.
  # Valid values are `txt`, `aws-sd`, `crd`, `dynamodb` & `noop`.
-@@ -263,13 +295,15 @@ excludeDomains: []
+@@ -263,13 +297,15 @@ excludeDomains: []
  labelFilter:  # @schema type: [string,null]; default: null
  
  # -- Filter resources queried for endpoints by annotation selector.
@@ -285,7 +287,7 @@ index a2c6967..9b7fb22 100644
  
  provider:  # @schema type: [object, string]
    # -- _ExternalDNS_ provider name; for the available providers and how to configure them see [README](https://github.com/kubernetes-sigs/external-dns/blob/master/charts/external-dns/README.md#providers).
-@@ -289,14 +323,14 @@ provider:  # @schema type: [object, string]
+@@ -289,14 +325,14 @@ provider:  # @schema type: [object, string]
      # -- Extra [volume mounts](https://kubernetes.io/docs/concepts/storage/volumes/) for the `webhook` container.
      extraVolumeMounts: []
      # -- [Resources](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/) for the `webhook` container.
@@ -304,7 +306,7 @@ index a2c6967..9b7fb22 100644
          path: /healthz  # @schema type:[string, null]; default: null
          port: http-webhook  # @schema type:[integer,string]; default: string
        initialDelaySeconds: 10  # @schema type:[integer, null]; default: null
-@@ -306,8 +340,8 @@ provider:  # @schema type: [object, string]
+@@ -306,8 +342,8 @@ provider:  # @schema type: [object, string]
        successThreshold: 1  # @schema type:[integer, null]; default: null
      # -- [Readiness probe](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/) configuration for the `webhook` container.
      # @default -- See _values.yaml_
@@ -315,7 +317,7 @@ index a2c6967..9b7fb22 100644
          path: /healthz  # @schema type:[string, null]; default: null
          port: http-webhook  # @schema type:[integer,string]; default: string
        initialDelaySeconds: 5  # @schema type:[integer, null]; default: null
-@@ -323,7 +357,7 @@ provider:  # @schema type: [object, string]
+@@ -323,7 +359,7 @@ provider:  # @schema type: [object, string]
      serviceMonitor:
        interval:  # @schema type:[string, null]; default: null
        scheme:  # @schema type:[string, null]; default: null
@@ -324,7 +326,7 @@ index a2c6967..9b7fb22 100644
        bearerTokenFile:  # @schema type:[string, null]; default: null
        scrapeTimeout:  # @schema type:[string, null]; default: null
        metricRelabelings: []
-@@ -331,7 +365,7 @@ provider:  # @schema type: [object, string]
+@@ -331,7 +367,7 @@ provider:  # @schema type: [object, string]
  
  # -- Extra arguments to provide to _ExternalDNS_.
  # An array or map can be used, with maps allowing for value overrides; maps also support slice values to use the same arg multiple times.
@@ -333,7 +335,7 @@ index a2c6967..9b7fb22 100644
  
  secretConfiguration:
    # -- If `true`, create a `Secret` to store sensitive provider configuration (**DEPRECATED**).
-@@ -341,7 +375,69 @@ secretConfiguration:
+@@ -341,7 +377,69 @@ secretConfiguration:
    # -- Sub-path for mounting the `Secret`, this can be templated.
    subPath:  # @schema type:[string, null]; default: null
    # -- `Secret` data.

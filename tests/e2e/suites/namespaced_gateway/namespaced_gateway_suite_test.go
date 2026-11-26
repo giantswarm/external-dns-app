@@ -65,7 +65,7 @@ func TestNamespacedGateway(t *testing.T) {
 			})
 		}).
 		Tests(func() {
-			It("creates cluster-scoped RBAC only for namespaces, gateways and listenersets", func() {
+			It("creates cluster-scoped RBAC only for nodes, namespaces, gateways and listenersets", func() {
 				wcClient, err := state.GetFramework().WC(state.GetCluster().Name)
 				Expect(err).NotTo(HaveOccurred())
 
@@ -74,13 +74,14 @@ func TestNamespacedGateway(t *testing.T) {
 
 				rulesBySuffix := map[string][]rbacv1.PolicyRule{}
 				for _, role := range clusterRoles.Items {
-					for _, suffix := range []string{"-namespaces", "-gateways", "-listenersets"} {
+					for _, suffix := range []string{"-nodes", "-namespaces", "-gateways", "-listenersets"} {
 						if strings.HasSuffix(role.Name, suffix) {
 							rulesBySuffix[suffix] = role.Rules
 						}
 					}
 				}
 				readOnly := []string{"get", "watch", "list"}
+				Expect(rulesBySuffix).To(HaveKeyWithValue("-nodes", ConsistOf(rbacv1.PolicyRule{APIGroups: []string{""}, Resources: []string{"nodes"}, Verbs: []string{"list", "watch"}})))
 				Expect(rulesBySuffix).To(HaveKeyWithValue("-namespaces", ConsistOf(rbacv1.PolicyRule{APIGroups: []string{""}, Resources: []string{"namespaces"}, Verbs: readOnly})))
 				Expect(rulesBySuffix).To(HaveKeyWithValue("-gateways", ConsistOf(rbacv1.PolicyRule{APIGroups: []string{gatewayv1.GroupName}, Resources: []string{"gateways"}, Verbs: readOnly})))
 				Expect(rulesBySuffix).To(HaveKeyWithValue("-listenersets", ConsistOf(rbacv1.PolicyRule{APIGroups: []string{gatewayv1.GroupName}, Resources: []string{"listenersets"}, Verbs: readOnly})))
