@@ -1,14 +1,112 @@
 diff --git a/helm/external-dns-app/templates/np.yaml b/helm/external-dns-app/templates/np.yaml
 new file mode 100644
-index 0000000..81ada4e
+index 0000000..82eef62
 --- /dev/null
 +++ b/helm/external-dns-app/templates/np.yaml
-@@ -0,0 +1,20 @@
+@@ -0,0 +1,159 @@
++{{- if not .Values.hostNetwork }}
++{{- $providerName := tpl (include "external-dns.providerName" .) $ }}
++{{- $namespace := include "external-dns.namespace" . }}
++{{- $azure := has $providerName (list "azure" "azure-private-dns") }}
++{{- $proxyPorts := list }}
++{{- range .Values.env }}
++{{- if and (has (upper .name) (list "HTTP_PROXY" "HTTPS_PROXY")) .value }}
++{{- $url := urlParse .value }}
++{{- $port := regexFind "[0-9]+$" $url.host | default (ternary "443" "80" (eq $url.scheme "https")) }}
++{{- $proxyPorts = append $proxyPorts $port }}
++{{- end }}
++{{- end }}
++{{- $proxyPorts = $proxyPorts | uniq }}
++{{- $needsDNS := not (has $namespace (list "kube-system" "giantswarm")) }}
++{{- if .Values.ciliumNetworkPolicy.enabled }}
++apiVersion: cilium.io/v2
++kind: CiliumNetworkPolicy
++metadata:
++  name: {{ .Release.Name }}
++  namespace: {{ $namespace }}
++  labels:
++    {{- include "external-dns.labels" . | nindent 4 }}
++spec:
++  endpointSelector:
++    matchLabels:
++      {{- include "external-dns.selectorLabels" . | nindent 6 }}
++  egress:
++  {{- with .Values.ciliumNetworkPolicy.egress }}
++    {{- toYaml . | nindent 4 }}
++  {{- else }}
++    # Watches the sources (Services, Ingresses, CRDs) for DNS records.
++    - toEntities:
++        - kube-apiserver
++    # DNS provider APIs (Route53, STS, Azure Resource Manager, Entra ID).
++    - toEntities:
++        - world
++      toPorts:
++        - ports:
++            - port: "443"
++              protocol: TCP
++    {{- if $azure }}
++    # Azure Instance Metadata Service, for managed identity tokens.
++    - toCIDR:
++        - 169.254.169.254/32
++      toPorts:
++        - ports:
++            - port: "80"
++              protocol: TCP
++    {{- end }}
++    {{- with $proxyPorts }}
++    # HTTP(S) proxy from the env values.
++    - toEntities:
++        - world
++      toPorts:
++        - ports:
++          {{- range . }}
++            - port: {{ . | quote }}
++              protocol: TCP
++          {{- end }}
++    {{- end }}
++    {{- if $needsDNS }}
++    - toEndpoints:
++        - matchLabels:
++            io.kubernetes.pod.namespace: kube-system
++            k8s-app: coredns
++        - matchLabels:
++            io.kubernetes.pod.namespace: kube-system
++            k8s-app: k8s-dns-node-cache
++        - matchLabels:
++            io.kubernetes.pod.namespace: kube-system
++            k8s-app: kube-dns
++      toPorts:
++        - ports:
++            - port: "53"
++              protocol: ANY
++            - port: "1053"
++              protocol: ANY
++    {{- end }}
++  {{- end }}
++  ingress:
++  {{- with .Values.ciliumNetworkPolicy.ingress }}
++    {{- toYaml . | nindent 4 }}
++  {{- else }}
++    - fromEndpoints:
++        - matchLabels:
++            io.kubernetes.pod.namespace: kube-system
++            app.kubernetes.io/name: alloy
++            app.kubernetes.io/instance: alloy-metrics
++      toPorts:
++        - ports:
++            - port: http
++              protocol: TCP
++            {{- if eq $providerName "webhook" }}
++            - port: http-webhook
++              protocol: TCP
++            {{- end }}
++  {{- end }}
++{{- else }}
 +kind: NetworkPolicy
 +apiVersion: networking.k8s.io/v1
 +metadata:
 +  name: {{ .Release.Name }}
-+  namespace: {{ include "external-dns.namespace" . }}
++  namespace: {{ $namespace }}
 +  labels:
 +    {{- include "external-dns.labels" . | nindent 4 }}
 +spec:
@@ -19,8 +117,49 @@ index 0000000..81ada4e
 +  - Ingress
 +  - Egress
 +  ingress:
-+  - ports:
-+    - port: {{ .Values.service.port }}
++  - from:
++    - namespaceSelector:
++        matchLabels:
++          kubernetes.io/metadata.name: kube-system
++      podSelector:
++        matchLabels:
++          app.kubernetes.io/name: alloy
++          app.kubernetes.io/instance: alloy-metrics
++    ports:
++    - port: http
 +      protocol: TCP
++    {{- if eq $providerName "webhook" }}
++    - port: http-webhook
++      protocol: TCP
++    {{- end }}
 +  egress:
-+  - {}
++  - ports:
++    - port: 443
++      protocol: TCP
++    - port: 6443
++      protocol: TCP
++    {{- range $proxyPorts }}
++    - port: {{ . }}
++      protocol: TCP
++    {{- end }}
++  {{- if $azure }}
++  - to:
++    - ipBlock:
++        cidr: 169.254.169.254/32
++    ports:
++    - port: 80
++      protocol: TCP
++  {{- end }}
++  {{- if $needsDNS }}
++  - ports:
++    - port: 53
++      protocol: UDP
++    - port: 53
++      protocol: TCP
++    - port: 1053
++      protocol: UDP
++    - port: 1053
++      protocol: TCP
++  {{- end }}
++{{- end }}
++{{- end }}

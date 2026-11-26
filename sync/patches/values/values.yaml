@@ -418,7 +418,14 @@ baseDomain: gigantic.io
 clusterID: en2jo
 
 ciliumNetworkPolicy:
+  # -- Render a CiliumNetworkPolicy. When false, a plain NetworkPolicy is rendered instead.
   enabled: false
+  # @schema item: object; itemAdditionalProperties: true
+  # -- Replaces the default CiliumNetworkPolicy egress rules when set.
+  egress: []
+  # @schema item: object; itemAdditionalProperties: true
+  # -- Replaces the default CiliumNetworkPolicy ingress rules when set.
+  ingress: []
 
 # Values for subchart kubectl-apply-job
 # for installing CRDs

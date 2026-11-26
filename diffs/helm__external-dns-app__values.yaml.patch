@@ -1,5 +1,5 @@
 diff --git a/vendor/external-dns/values.yaml b/helm/external-dns-app/values.yaml
-index a2c6967..14cf76d 100644
+index a2c6967..2a5bc79 100644
 --- a/vendor/external-dns/values.yaml
 +++ b/helm/external-dns-app/values.yaml
 @@ -2,23 +2,25 @@
@@ -318,7 +318,7 @@ index a2c6967..14cf76d 100644
  
  secretConfiguration:
    # -- If `true`, create a `Secret` to store sensitive provider configuration (**DEPRECATED**).
-@@ -341,7 +371,62 @@ secretConfiguration:
+@@ -341,7 +371,69 @@ secretConfiguration:
    # -- Sub-path for mounting the `Secret`, this can be templated.
    subPath:  # @schema type:[string, null]; default: null
    # -- `Secret` data.
@@ -370,7 +370,14 @@ index a2c6967..14cf76d 100644
 +clusterID: en2jo
 +
 +ciliumNetworkPolicy:
++  # -- Render a CiliumNetworkPolicy. When false, a plain NetworkPolicy is rendered instead.
 +  enabled: false
++  # @schema item: object; itemAdditionalProperties: true
++  # -- Replaces the default CiliumNetworkPolicy egress rules when set.
++  egress: []
++  # @schema item: object; itemAdditionalProperties: true
++  # -- Replaces the default CiliumNetworkPolicy ingress rules when set.
++  ingress: []
 +
 +# Values for subchart kubectl-apply-job
 +# for installing CRDs
