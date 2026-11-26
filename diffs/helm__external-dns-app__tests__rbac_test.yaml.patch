@@ -1,9 +1,9 @@
 diff --git a/helm/external-dns-app/tests/rbac_test.yaml b/helm/external-dns-app/tests/rbac_test.yaml
 new file mode 100644
-index 0000000..3ffc422
+index 0000000..1f464c7
 --- /dev/null
 +++ b/helm/external-dns-app/tests/rbac_test.yaml
-@@ -0,0 +1,180 @@
+@@ -0,0 +1,237 @@
 +suite: Gateway RBAC in namespaced mode
 +templates:
 +  - templates/clusterrole.yaml
@@ -37,18 +37,61 @@ index 0000000..3ffc422
 +            resources: ["namespaces"]
 +            verbs: ["get", "watch", "list"]
 +
-+  - it: namespaced install grants namespaces cluster-wide
++  - it: namespaced install grants namespaces and gateways cluster-wide
 +    set:
 +      namespaced: true
-+    template: templates/clusterrole.yaml
 +    asserts:
 +      - hasDocuments:
-+          count: 2
++          count: 3
++        template: templates/clusterrole.yaml
 +      - containsDocument:
 +          any: true
 +          kind: ClusterRole
 +          apiVersion: rbac.authorization.k8s.io/v1
 +          name: t-external-dns-namespaces
++        template: templates/clusterrole.yaml
++      - equal:
++          path: rules
++          value:
++            - apiGroups: ["gateway.networking.k8s.io"]
++              resources: ["gateways"]
++              verbs: ["get", "watch", "list"]
++        documentSelector:
++          path: metadata.name
++          value: t-external-dns-gateways
++        template: templates/clusterrole.yaml
++      - isKind:
++          of: ClusterRole
++        documentSelector:
++          path: metadata.name
++          value: t-external-dns-gateways
++        template: templates/clusterrole.yaml
++      - equal:
++          path: roleRef
++          value:
++            apiGroup: rbac.authorization.k8s.io
++            kind: ClusterRole
++            name: t-external-dns-gateways
++        documentSelector:
++          path: metadata.name
++          value: t-external-dns-gateways
++        template: templates/clusterrolebinding.yaml
++      - isKind:
++          of: ClusterRoleBinding
++        documentSelector:
++          path: metadata.name
++          value: t-external-dns-gateways
++        template: templates/clusterrolebinding.yaml
++      - notContains:
++          path: rules
++          content:
++            apiGroups: ["gateway.networking.k8s.io"]
++            resources: ["gateways"]
++            verbs: ["get", "watch", "list"]
++        documentSelector:
++          path: metadata.name
++          value: t-external-dns
++        template: templates/clusterrole.yaml
 +      - notContains:
 +          path: rules
 +          content:
@@ -58,6 +101,7 @@ index 0000000..3ffc422
 +        documentSelector:
 +          path: metadata.name
 +          value: t-external-dns
++        template: templates/clusterrole.yaml
 +
 +  - it: namespaced install with gatewayNamespace still grants namespaces cluster-wide
 +    set:
@@ -82,6 +126,19 @@ index 0000000..3ffc422
 +          apiVersion: rbac.authorization.k8s.io/v1
 +          name: t-external-dns-gateway
 +          namespace: gw
++        template: templates/clusterrole.yaml
++      - hasDocuments:
++          count: 3
++        template: templates/clusterrole.yaml
++      - notContains:
++          path: rules
++          content:
++            apiGroups: ["gateway.networking.k8s.io"]
++            resources: ["gateways"]
++            verbs: ["get", "watch", "list"]
++        documentSelector:
++          path: metadata.name
++          value: t-external-dns
 +        template: templates/clusterrole.yaml
 +
 +  - it: namespaced install with ListenerSets grants listenersets cluster-wide

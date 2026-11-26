@@ -206,7 +206,7 @@
                 "string",
                 "null"
             ],
-            "description": "_Gateway API_ gateway namespace to watch. When `namespaced=true`, setting this value grants Gateway access with a `Role` in that namespace instead of cluster-wide. _ExternalDNS_ still lists Namespaces (and ListenerSets, see `enableGatewayListenerSets`) cluster-wide, so a `ClusterRole` for them is always created."
+            "description": "_Gateway API_ gateway namespace to watch. When `namespaced=true`, setting this value grants Gateway access with a `Role` in that namespace; without it, _ExternalDNS_ lists Gateways cluster-wide and gets a `ClusterRole`. _ExternalDNS_ still lists Namespaces (and ListenerSets, see `enableGatewayListenerSets`) cluster-wide, so a `ClusterRole` for them is always created."
         },
         "gcpProject": {
             "type": "string"
