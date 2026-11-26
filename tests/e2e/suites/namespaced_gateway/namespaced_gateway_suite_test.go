@@ -23,6 +23,7 @@ import (
 
 	"github.com/giantswarm/apptest-framework/v5/pkg/state"
 	"github.com/giantswarm/apptest-framework/v5/pkg/suite"
+	"github.com/giantswarm/clustertest/v5/pkg/client"
 	"github.com/giantswarm/clustertest/v5/pkg/logger"
 
 	"e2e/internal/dnstest"
@@ -94,6 +95,11 @@ func TestNamespacedGateway(t *testing.T) {
 
 				wcClient, err := state.GetFramework().WC(state.GetCluster().Name)
 				Expect(err).NotTo(HaveOccurred())
+				DeferCleanup(func() {
+					if CurrentSpecReport().Failed() {
+						logExternalDNSPods(wcClient)
+					}
+				})
 
 				By("restarting ExternalDNS so it picks up Gateway API CRDs installed after it started")
 				Expect(wcClient.DeleteAllOf(ctx, &corev1.Pod{}, cr.InNamespace(namespace), cr.MatchingLabels{"app.kubernetes.io/name": "external-dns"})).To(Succeed())
@@ -181,6 +187,24 @@ func TestNamespacedGateway(t *testing.T) {
 			})
 		}).
 		Run(t, "Namespaced Gateway Test")
+}
+
+// logExternalDNSPods logs the ExternalDNS pods' recent output, so a failed run shows why
+// no record was published (for example a forbidden error) after the cluster is gone.
+func logExternalDNSPods(wcClient *client.Client) {
+	pods := &corev1.PodList{}
+	if err := wcClient.List(state.GetContext(), pods, cr.InNamespace(namespace), cr.MatchingLabels{"app.kubernetes.io/name": "external-dns"}); err != nil {
+		logger.Log("listing ExternalDNS pods: %v", err)
+		return
+	}
+	for i := range pods.Items {
+		logs, err := wcClient.GetLogs(state.GetContext(), &pods.Items[i], new(int64(200)))
+		if err != nil {
+			logger.Log("getting logs of %s: %v", pods.Items[i].Name, err)
+			continue
+		}
+		logger.Log("logs of ExternalDNS pod %s:\n%s", pods.Items[i].Name, logs)
+	}
 }
 
 // ensureGatewayAPICRDs installs the standard Gateway API CRDs unless the cluster already
