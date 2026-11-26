@@ -390,7 +390,15 @@ enabled:  # @schema type: [boolean, null]; description: No effect - reserved for
 
 # Configuration options for CRDs.
 crd:
+  # -- Install the CRDs with a pre-install and pre-upgrade hook Job.
   install: true
+  image:
+    # -- Registry of the CRD installer image. `image.registry` takes precedence when set.
+    registry: gsoci.azurecr.io
+    # -- Repository of the CRD installer image.
+    repository: giantswarm/external-dns-crds
+    # -- Tag of the CRD installer image. Defaults to the chart version.
+    tag:  # @schema type:[string, null]
 
 # hostNetwork
 hostNetwork: false
@@ -426,14 +434,3 @@ ciliumNetworkPolicy:
   # @schema item: object; itemAdditionalProperties: true
   # -- Replaces the default CiliumNetworkPolicy ingress rules when set.
   ingress: []
-
-# Values for subchart kubectl-apply-job
-# for installing CRDs
-kubectlApplyJob:
-  enabled: true
-  files:
-  - files/dnsendpoints.externaldns.k8s.io.yaml
-  - files/dnsrecords.externaldns.k8s.io.yaml
-
-# -- Values Helm merges in from the kubectl-apply-job subchart defaults. Configure the job through `kubectlApplyJob`.
-kubectl-apply-job: {}  # @schema skipProperties: true; additionalProperties: true

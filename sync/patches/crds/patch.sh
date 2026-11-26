@@ -12,11 +12,16 @@ cd "${repo_dir}"
 readonly script_dir_rel=".${script_dir#"${repo_dir}"}"
 
 set -x
-{ set +x; } 2>/dev/null
+rm -rf ./crds
+mkdir -p ./crds
+cp ./helm/external-dns-app/crds/*.yaml ./crds/
+rm -rf ./helm/external-dns-app/crds
 
-mv ./helm/external-dns-app/crds ./helm/external-dns-app/files
-cp -R "${script_dir_rel}/crds.yaml" ./helm/external-dns-app/templates
-
-set -x
+mkdir -p ./helm/external-dns-app/templates/crds
+cp "${script_dir_rel}/crds-helpers.tpl" ./helm/external-dns-app/templates/crds/_helpers.tpl
+cp "${script_dir_rel}/crds-serviceaccount.yaml" ./helm/external-dns-app/templates/crds/serviceaccount.yaml
+cp "${script_dir_rel}/crds-rbac.yaml" ./helm/external-dns-app/templates/crds/rbac.yaml
+cp "${script_dir_rel}/crds-networkpolicy.yaml" ./helm/external-dns-app/templates/crds/networkpolicy.yaml
+cp "${script_dir_rel}/crds-job.yaml" ./helm/external-dns-app/templates/crds/job.yaml
 
 { set +x; } 2>/dev/null

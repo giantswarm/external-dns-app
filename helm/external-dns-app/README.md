@@ -12,10 +12,6 @@ Configure external DNS servers for Kubernetes Ingresses and Services
 
 Kubernetes: `>=1.19.0-0`
 
-| Repository | Name | Version |
-|------------|------|---------|
-| oci://gsoci.azurecr.io/charts/giantswarm | kubectl-apply-job | 0.14.0 |
-
 ## Values
 
 | Key | Type | Default | Description |
@@ -126,7 +122,10 @@ Kubernetes: `>=1.19.0-0`
 | externalDNSIP | string | `nil` | No effect - accepted for compatibility with the cluster values cluster-apps-operator sets for private clusters. |
 | helm | object | `{}` | No effect - accepted for compatibility with the cluster values cluster-apps-operator sets for the management cluster. |
 | enabled | bool | `nil` | No effect - reserved for use in sub-charting. |
-| crd.install | bool | `true` |  |
+| crd.install | bool | `true` | Install the CRDs with a pre-install and pre-upgrade hook Job. |
+| crd.image.registry | string | `"gsoci.azurecr.io"` | Registry of the CRD installer image. `image.registry` takes precedence when set. |
+| crd.image.repository | string | `"giantswarm/external-dns-crds"` | Repository of the CRD installer image. |
+| crd.image.tag | string | `nil` | Tag of the CRD installer image. Defaults to the chart version. |
 | hostNetwork | bool | `false` |  |
 | serviceType | string | `"managed"` |  |
 | e2e | bool | `false` |  |
@@ -135,7 +134,3 @@ Kubernetes: `>=1.19.0-0`
 | ciliumNetworkPolicy.enabled | bool | `false` | Render a CiliumNetworkPolicy. When false, a plain NetworkPolicy is rendered instead. |
 | ciliumNetworkPolicy.egress | list | `[]` | Replaces the default CiliumNetworkPolicy egress rules when set. |
 | ciliumNetworkPolicy.ingress | list | `[]` | Replaces the default CiliumNetworkPolicy ingress rules when set. |
-| kubectlApplyJob.enabled | bool | `true` |  |
-| kubectlApplyJob.files[0] | string | `"files/dnsendpoints.externaldns.k8s.io.yaml"` |  |
-| kubectlApplyJob.files[1] | string | `"files/dnsrecords.externaldns.k8s.io.yaml"` |  |
-| kubectl-apply-job | object | `{}` | Values Helm merges in from the kubectl-apply-job subchart defaults. Configure the job through `kubectlApplyJob`. |

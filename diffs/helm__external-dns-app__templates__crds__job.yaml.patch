@@ -1,0 +1,73 @@
+diff --git a/helm/external-dns-app/templates/crds/job.yaml b/helm/external-dns-app/templates/crds/job.yaml
+new file mode 100644
+index 0000000..f307b33
+--- /dev/null
++++ b/helm/external-dns-app/templates/crds/job.yaml
+@@ -0,0 +1,67 @@
++{{- if .Values.crd.install }}
++apiVersion: batch/v1
++kind: Job
++metadata:
++  name: {{ include "external-dns.crdInstaller.name" . }}
++  namespace: {{ include "external-dns.namespace" . }}
++  annotations:
++    {{- include "external-dns.crdInstaller.annotations" . | nindent 4 }}
++    "helm.sh/hook-weight": "-1"
++  labels:
++    {{- include "external-dns.crdInstaller.labels" . | nindent 4 }}
++spec:
++  backoffLimit: 10
++  ttlSecondsAfterFinished: 3600
++  template:
++    metadata:
++      labels:
++        {{- include "external-dns.crdInstaller.labels" . | nindent 8 }}
++    spec:
++      serviceAccountName: {{ include "external-dns.crdInstaller.name" . }}
++      {{- with (default .Values.global.imagePullSecrets .Values.imagePullSecrets) }}
++      imagePullSecrets:
++        {{- toYaml . | nindent 8 }}
++      {{- end }}
++      securityContext:
++        runAsNonRoot: true
++        runAsUser: 1000
++        runAsGroup: 1000
++        seccompProfile:
++          type: RuntimeDefault
++      tolerations:
++      - key: node-role.kubernetes.io/master
++        operator: Exists
++        effect: NoSchedule
++      - key: node-role.kubernetes.io/control-plane
++        operator: Exists
++        effect: NoSchedule
++      containers:
++      - name: crd-installer
++        image: {{ .Values.image.registry | default .Values.crd.image.registry }}/{{ .Values.crd.image.repository }}:{{ .Values.crd.image.tag | default (.Chart.Version | splitList "+" | first) }}
++        imagePullPolicy: IfNotPresent
++        command:
++        - sh
++        - -c
++        - |
++          set -o errexit ; set -o xtrace ; set -o nounset
++          kubectl apply --server-side=true --field-manager='kubectl-client-side-apply' --force-conflicts -f /crds/ 2>&1
++        resources:
++          requests:
++            cpu: 100m
++            memory: 256Mi
++          limits:
++            cpu: 500m
++            memory: 512Mi
++        securityContext:
++          readOnlyRootFilesystem: true
++          runAsNonRoot: true
++          allowPrivilegeEscalation: false
++          capabilities:
++            drop:
++            - ALL
++          runAsUser: 1000
++          runAsGroup: 1000
++          seccompProfile:
++            type: RuntimeDefault
++      restartPolicy: Never
++{{- end }}
