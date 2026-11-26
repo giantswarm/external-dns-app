@@ -235,3 +235,83 @@ tests:
       - isKind:
           of: RoleBinding
         template: templates/clusterrolebinding.yaml
+
+  - it: namespaced install without Gateway sources but with gatewayNamespace creates no cluster-scoped RBAC
+    set:
+      namespaced: true
+      enableGatewayListenerSets: true
+      gatewayNamespace: gw
+      sources:
+        - service
+    asserts:
+      - hasDocuments:
+          count: 1
+        template: templates/clusterrole.yaml
+      - isKind:
+          of: Role
+        template: templates/clusterrole.yaml
+      - hasDocuments:
+          count: 1
+        template: templates/clusterrolebinding.yaml
+
+  - it: rbac.create=false creates no RBAC
+    set:
+      namespaced: true
+      enableGatewayListenerSets: true
+      rbac:
+        create: false
+    asserts:
+      - hasDocuments:
+          count: 0
+        template: templates/clusterrole.yaml
+      - hasDocuments:
+          count: 0
+        template: templates/clusterrolebinding.yaml
+
+  - it: cluster-scoped Gateway roles hold only their own rule, not additionalPermissions
+    set:
+      namespaced: true
+      enableGatewayListenerSets: true
+      rbac:
+        additionalPermissions:
+          - apiGroups: [""]
+            resources: ["secrets"]
+            verbs: ["get"]
+    template: templates/clusterrole.yaml
+    asserts:
+      - equal:
+          path: rules
+          value:
+            - apiGroups: [""]
+              resources: ["namespaces"]
+              verbs: ["get", "watch", "list"]
+        documentSelector:
+          path: metadata.name
+          value: t-external-dns-namespaces
+      - equal:
+          path: rules
+          value:
+            - apiGroups: ["gateway.networking.k8s.io"]
+              resources: ["gateways"]
+              verbs: ["get", "watch", "list"]
+        documentSelector:
+          path: metadata.name
+          value: t-external-dns-gateways
+      - equal:
+          path: rules
+          value:
+            - apiGroups: ["gateway.networking.k8s.io"]
+              resources: ["listenersets"]
+              verbs: ["get", "watch", "list"]
+        documentSelector:
+          path: metadata.name
+          value: t-external-dns-listenersets
+      - contains:
+          path: rules
+          content:
+            apiGroups: [""]
+            resources: ["secrets"]
+            verbs: ["get"]
+        documentSelector:
+          path: metadata.name
+          value: t-external-dns
