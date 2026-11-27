@@ -11,6 +11,7 @@ metadata:
     {{- include "external-dns.crdInstaller.labels" . | nindent 4 }}
 spec:
   backoffLimit: 10
+  ttlSecondsAfterFinished: 3600
   template:
     metadata:
       labels:

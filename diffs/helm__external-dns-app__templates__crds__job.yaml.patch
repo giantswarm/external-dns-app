@@ -1,9 +1,9 @@
 diff --git a/helm/external-dns-app/templates/crds/job.yaml b/helm/external-dns-app/templates/crds/job.yaml
 new file mode 100644
-index 0000000..4be1a90
+index 0000000..f307b33
 --- /dev/null
 +++ b/helm/external-dns-app/templates/crds/job.yaml
-@@ -0,0 +1,66 @@
+@@ -0,0 +1,67 @@
 +{{- if .Values.crd.install }}
 +apiVersion: batch/v1
 +kind: Job
@@ -17,6 +17,7 @@ index 0000000..4be1a90
 +    {{- include "external-dns.crdInstaller.labels" . | nindent 4 }}
 +spec:
 +  backoffLimit: 10
++  ttlSecondsAfterFinished: 3600
 +  template:
 +    metadata:
 +      labels:
