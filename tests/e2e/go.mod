@@ -8,7 +8,11 @@ require (
 	github.com/onsi/ginkgo/v2 v2.34.0
 	github.com/onsi/gomega v1.44.0
 	k8s.io/api v0.37.3
+	k8s.io/apiextensions-apiserver v0.37.2
 	k8s.io/apimachinery v0.37.3
+	sigs.k8s.io/controller-runtime v0.25.3
+	sigs.k8s.io/gateway-api v1.7.0
+	sigs.k8s.io/yaml v1.6.0
 )
 
 require (
@@ -166,7 +170,6 @@ require (
 	gopkg.in/warnings.v0 v0.1.2 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	helm.sh/helm/v4 v4.3.2 // indirect
-	k8s.io/apiextensions-apiserver v0.37.2 // indirect
 	k8s.io/apiserver v0.37.2 // indirect
 	k8s.io/cli-runtime v0.37.2 // indirect
 	k8s.io/client-go v0.37.2 // indirect
@@ -180,13 +183,10 @@ require (
 	oras.land/oras-go/v2 v2.7.0 // indirect
 	sigs.k8s.io/cluster-api v1.14.4 // indirect
 	sigs.k8s.io/cluster-api/api v1.14.4 // indirect
-	sigs.k8s.io/controller-runtime v0.25.3 // indirect
 	sigs.k8s.io/e2e-framework v0.7.0 // indirect
-	sigs.k8s.io/gateway-api v1.7.0 // indirect
 	sigs.k8s.io/json v0.0.0-20260909141634-11ed52e25bc5 // indirect
 	sigs.k8s.io/kustomize/api v0.21.2 // indirect
 	sigs.k8s.io/kustomize/kyaml v0.21.2 // indirect
 	sigs.k8s.io/randfill v1.0.0 // indirect
 	sigs.k8s.io/structured-merge-diff/v6 v6.4.2 // indirect
-	sigs.k8s.io/yaml v1.6.0 // indirect
 )

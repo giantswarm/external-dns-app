@@ -1,0 +1,8 @@
+# Run ExternalDNS namespaced with the service and Gateway sources and ListenerSets,
+# the setup that needs the cluster-scoped nodes, namespaces, gateways and
+# listenersets ClusterRoles.
+namespaced: true
+enableGatewayListenerSets: true
+sources:
+  - service
+  - gateway-httproute

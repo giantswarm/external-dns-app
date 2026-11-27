@@ -1,5 +1,5 @@
 diff --git a/vendor/external-dns/values.schema.json b/helm/external-dns-app/values.schema.json
-index e8324c6..c7f265e 100644
+index e8324c6..43c35d9 100644
 --- a/vendor/external-dns/values.schema.json
 +++ b/helm/external-dns-app/values.schema.json
 @@ -1,927 +1,1122 @@
@@ -488,7 +488,7 @@ index e8324c6..c7f265e 100644
 +        },
 +        "enableGatewayListenerSets": {
 +            "type": "boolean",
-+            "description": "if `true`, the Gateway API ListenerSet flag will be enabled."
++            "description": "if `true`, the Gateway API ListenerSet flag will be enabled. _ExternalDNS_ watches ListenerSets cluster-wide, so this always grants cluster-scoped read access to `listenersets`, also when `namespaced=true`."
 +        },
 +        "enabled": {
 +            "type": [
@@ -552,7 +552,7 @@ index e8324c6..c7f265e 100644
 +                "string",
 +                "null"
 +            ],
-+            "description": "_Gateway API_ gateway namespace to watch. When `namespaced=true`, setting this value avoids creating any cluster-scoped RBAC (no ClusterRole/ClusterRoleBinding) for Gateway sources."
++            "description": "_Gateway API_ gateway namespace to watch. When `namespaced=true`, setting this value grants Gateway access with a `Role` in that namespace; without it, _ExternalDNS_ lists Gateways cluster-wide and gets a `ClusterRole`. _ExternalDNS_ still lists Namespaces (and ListenerSets, see `enableGatewayListenerSets`) cluster-wide, so a `ClusterRole` for them is always created."
 +        },
 +        "gcpProject": {
 +            "type": "string"
@@ -831,7 +831,7 @@ index e8324c6..c7f265e 100644
 +        },
 +        "namespaced": {
 +            "type": "boolean",
-+            "description": "if `true`, _ExternalDNS_ will run in a namespaced scope (`Role`` and `Rolebinding`` will be namespaced too)."
++            "description": "if `true`, _ExternalDNS_ will run in a namespaced scope (`Role`` and `Rolebinding`` will be namespaced too). The `node`, `pod` and `service` sources still list Nodes cluster-wide, so with any of them a `ClusterRole` for `nodes` is created."
 +        },
 +        "nodeSelector": {
 +            "type": "object",

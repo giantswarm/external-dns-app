@@ -1,0 +1,106 @@
+diff --git a/vendor/external-dns/templates/clusterrole.yaml b/helm/external-dns-app/templates/clusterrole.yaml
+index d2dd759..ae22e81 100644
+--- a/vendor/external-dns/templates/clusterrole.yaml
++++ b/helm/external-dns-app/templates/clusterrole.yaml
+@@ -72,7 +72,7 @@ rules:
+     verbs: ["update"]
+ {{- end }}
+ {{- if include "external-dns.hasGatewaySources" . }}
+-{{- if or (not .Values.namespaced) (and .Values.namespaced (not .Values.gatewayNamespace)) }}
++{{- if not .Values.namespaced }}
+   - apiGroups: ["gateway.networking.k8s.io"]
+     resources: ["gateways"]
+     verbs: ["get","watch","list"]
+@@ -81,8 +81,6 @@ rules:
+     resources: ["listenersets"]
+     verbs: ["get","watch","list"]
+ {{- end }}
+-{{- end }}
+-{{- if not .Values.namespaced }}
+   - apiGroups: [""]
+     resources: ["namespaces"]
+     verbs: ["get","watch","list"]
+@@ -151,12 +149,9 @@ rules:
+ {{- end }}
+ {{- if and .Values.rbac.create .Values.namespaced (include "external-dns.hasGatewaySources" .) }}
+ {{- /*
+-     If namespaced=true and gatewayNamespace is NOT set, we need to list namespaces
+-     cluster-wide to discover Gateways across the cluster. In that case, create a
+-     ClusterRole to grant access to namespaces. If gatewayNamespace IS set, we are
+-     fully namespaced for both scopes and can skip cluster-wide RBAC.
+-  */ -}}
+-{{- if not .Values.gatewayNamespace }}
++     ExternalDNS always lists Namespaces cluster-wide for Gateway sources, also
++     when gatewayNamespace is set, so it needs a ClusterRole for them.
++  */}}
+ ---
+ apiVersion: rbac.authorization.k8s.io/v1
+ kind: ClusterRole
+@@ -168,8 +163,23 @@ rules:
+   - apiGroups: [""]
+     resources: ["namespaces"]
+     verbs: ["get","watch","list"]
+-{{- end }}
+-{{- if .Values.gatewayNamespace }}
++{{- /*
++     ExternalDNS lists Gateways in --gateway-namespace, ignoring --namespace. Without
++     gatewayNamespace it lists them cluster-wide, so it needs a ClusterRole for them.
++  */}}
++{{- if not .Values.gatewayNamespace }}
++---
++apiVersion: rbac.authorization.k8s.io/v1
++kind: ClusterRole
++metadata:
++  name: {{ template "external-dns.fullname" . }}-gateways
++  labels:
++    {{- include "external-dns.labels" . | nindent 4 }}
++rules:
++  - apiGroups: ["gateway.networking.k8s.io"]
++    resources: ["gateways"]
++    verbs: ["get","watch","list"]
++{{- else }}
+ ---
+ apiVersion: rbac.authorization.k8s.io/v1
+ kind: Role
+@@ -182,11 +192,41 @@ rules:
+   - apiGroups: ["gateway.networking.k8s.io"]
+     resources: ["gateways"]
+     verbs: ["get","watch","list"]
++{{- end }}
++{{- /*
++     ExternalDNS always watches ListenerSets cluster-wide, ignoring --namespace
++     and --gateway-namespace, so it needs a ClusterRole for them.
++  */ -}}
+ {{- if .Values.enableGatewayListenerSets }}
++---
++apiVersion: rbac.authorization.k8s.io/v1
++kind: ClusterRole
++metadata:
++  name: {{ template "external-dns.fullname" . }}-listenersets
++  labels:
++    {{- include "external-dns.labels" . | nindent 4 }}
++rules:
+   - apiGroups: ["gateway.networking.k8s.io"]
+     resources: ["listenersets"]
+     verbs: ["get","watch","list"]
+ {{- end }}
+ {{- end }}
++{{- /*
++     The node, pod and service sources watch Nodes cluster-wide, ignoring --namespace
++     (the service source unless --service-type-filter excludes NodePort), so they
++     need a ClusterRole for them.
++  */}}
++{{- if and .Values.rbac.create .Values.namespaced (or (has "node" .Values.sources) (has "pod" .Values.sources) (has "service" .Values.sources)) }}
++---
++apiVersion: rbac.authorization.k8s.io/v1
++kind: ClusterRole
++metadata:
++  name: {{ template "external-dns.fullname" . }}-nodes
++  labels:
++    {{- include "external-dns.labels" . | nindent 4 }}
++rules:
++  - apiGroups: [""]
++    resources: ["nodes"]
++    verbs: ["list","watch"]
+ {{- end }}
+ {{- end }}

@@ -87,9 +87,9 @@ Kubernetes: `>=1.19.0-0`
 | minEventSyncInterval | string | `"30s"` |  |
 | triggerLoopOnEvent | bool | `false` | If `true`, triggers run loop on create/update/delete events in addition of regular interval. |
 | namespaceFilter | string | `""` |  |
-| namespaced | bool | `false` | if `true`, _ExternalDNS_ will run in a namespaced scope (`Role`` and `Rolebinding`` will be namespaced too). |
-| enableGatewayListenerSets | bool | `false` | if `true`, the Gateway API ListenerSet flag will be enabled. |
-| gatewayNamespace | string | `nil` | _Gateway API_ gateway namespace to watch. When `namespaced=true`, setting this value avoids creating any cluster-scoped RBAC (no ClusterRole/ClusterRoleBinding) for Gateway sources. |
+| namespaced | bool | `false` | if `true`, _ExternalDNS_ will run in a namespaced scope (`Role`` and `Rolebinding`` will be namespaced too). The `node`, `pod` and `service` sources still list Nodes cluster-wide, so with any of them a `ClusterRole` for `nodes` is created. |
+| enableGatewayListenerSets | bool | `false` | if `true`, the Gateway API ListenerSet flag will be enabled. _ExternalDNS_ watches ListenerSets cluster-wide, so this always grants cluster-scoped read access to `listenersets`, also when `namespaced=true`. |
+| gatewayNamespace | string | `nil` | _Gateway API_ gateway namespace to watch. When `namespaced=true`, setting this value grants Gateway access with a `Role` in that namespace; without it, _ExternalDNS_ lists Gateways cluster-wide and gets a `ClusterRole`. _ExternalDNS_ still lists Namespaces (and ListenerSets, see `enableGatewayListenerSets`) cluster-wide, so a `ClusterRole` for them is always created. |
 | sourceNamespace | string | `nil` | Source namespace to watch for Kubernetes resources other than Gateway API gateways. Used only when `namespaced=true`. Defaults to Release.Namespace |
 | sources | list | `["service","crd"]` | _Kubernetes_ resources to monitor for DNS entries. |
 | policy | REQUIRED | `"sync"` | How DNS records are synchronized between sources and providers; must be set explicitly to one of `create-only`, `sync`, or `upsert-only`. |
