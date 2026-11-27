@@ -21,6 +21,53 @@ workflows:
           tags:
             only: /^v.*/
 
+    # Branch builds (opt-in): amd64 dev image to gsoci for PR validation,
+    # coupled with the branch chart push below. v9's push-to-registries always
+    # uses buildx; platforms is pinned to amd64 to keep branch builds fast.
+    - architect/push-to-registries:
+        context: architect
+        name: push-to-registries
+        image: giantswarm/external-dns-crds
+        platforms: linux/amd64
+        requires:
+        - pin-version
+        filters:
+          branches:
+            ignore:
+            - main
+            - /^release-v?[0-9]+(\.[0-9]+)?\.x$/
+
+    # Tag builds: push multi-arch image to gsoci + gsociprivate. Aliyun is
+    # handled by the sync-china-registry job below (orb's split-china-push
+    # mechanism), so the buildx push no longer crosses the Pacific.
+    - architect/push-to-registries:
+        context: architect
+        name: push-to-registries-release
+        image: giantswarm/external-dns-crds
+        split-china-push: true
+        requires:
+        - pin-version
+        filters:
+          tags:
+            only: /^v.*/
+          branches:
+            ignore: /.*/
+
+    # Mirror gsoci -> Aliyun via the in-China giantswarm/galaxy-runner. Runs
+    # in parallel with the chart catalog push; Aliyun mirror failures do NOT
+    # block the chart publish.
+    - architect/sync-china-registry:
+        context: architect
+        name: sync-china-registry
+        image: giantswarm/external-dns-crds
+        requires:
+        - push-to-registries-release
+        filters:
+          tags:
+            only: /^v.*/
+          branches:
+            ignore: /.*/
+
     # build-chart: package + lint via app-build-suite and persist the archive
     # (no push). Shared by the branch and tag paths -- branches get build + test
     # only by default.
@@ -41,6 +88,17 @@ workflows:
         # The version pin-version persisted (every chart job attaches the
         # workspace for it).
         attach_workspace: true
+        # app-build-suite fails a chart whose gsoci image references the registry
+        # does not carry. build-chart runs before this pipeline pushes its own
+        # image (a branch without branchPublish never pushes it), so that image
+        # at the version the chart is stamped with is exempt here; every other
+        # reference, the mirrored third-party images included, is resolved.
+        # push-chart and push-chart-release require the image job and resolve
+        # all of them.
+        pre-steps:
+        - run:
+            name: Exempt this pipeline's own image from the image reference check
+            command: echo 'export ABS_HELM_IMAGE_REFERENCE_VALIDATOR_OWN_IMAGE=gsoci.azurecr.io/giantswarm/external-dns-crds' >> "$BASH_ENV"
         requires:
         - pin-version
         filters:
@@ -68,6 +126,7 @@ workflows:
         requires:
         - pin-version
         - build-chart
+        - push-to-registries
         filters:
           branches:
             ignore:
@@ -92,6 +151,7 @@ workflows:
         requires:
         - pin-version
         - build-chart
+        - push-to-registries-release
         filters:
           tags:
             only: /^v.*/

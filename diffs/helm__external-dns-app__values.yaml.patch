@@ -1,5 +1,5 @@
 diff --git a/vendor/external-dns/values.yaml b/helm/external-dns-app/values.yaml
-index a2c6967..2a5bc79 100644
+index a2c6967..72c0452 100644
 --- a/vendor/external-dns/values.yaml
 +++ b/helm/external-dns-app/values.yaml
 @@ -2,23 +2,25 @@
@@ -318,7 +318,7 @@ index a2c6967..2a5bc79 100644
  
  secretConfiguration:
    # -- If `true`, create a `Secret` to store sensitive provider configuration (**DEPRECATED**).
-@@ -341,7 +371,69 @@ secretConfiguration:
+@@ -341,7 +371,66 @@ secretConfiguration:
    # -- Sub-path for mounting the `Secret`, this can be templated.
    subPath:  # @schema type:[string, null]; default: null
    # -- `Secret` data.
@@ -342,7 +342,15 @@ index a2c6967..2a5bc79 100644
 +
 +# Configuration options for CRDs.
 +crd:
++  # -- Install the CRDs with a pre-install and pre-upgrade hook Job.
 +  install: true
++  image:
++    # -- Registry of the CRD installer image. `image.registry` takes precedence when set.
++    registry: gsoci.azurecr.io
++    # -- Repository of the CRD installer image.
++    repository: giantswarm/external-dns-crds
++    # -- Tag of the CRD installer image. Defaults to the chart version.
++    tag:  # @schema type:[string, null]
 +
 +# hostNetwork
 +hostNetwork: false
@@ -378,14 +386,3 @@ index a2c6967..2a5bc79 100644
 +  # @schema item: object; itemAdditionalProperties: true
 +  # -- Replaces the default CiliumNetworkPolicy ingress rules when set.
 +  ingress: []
-+
-+# Values for subchart kubectl-apply-job
-+# for installing CRDs
-+kubectlApplyJob:
-+  enabled: true
-+  files:
-+  - files/dnsendpoints.externaldns.k8s.io.yaml
-+  - files/dnsrecords.externaldns.k8s.io.yaml
-+
-+# -- Values Helm merges in from the kubectl-apply-job subchart defaults. Configure the job through `kubectlApplyJob`.
-+kubectl-apply-job: {}  # @schema skipProperties: true; additionalProperties: true

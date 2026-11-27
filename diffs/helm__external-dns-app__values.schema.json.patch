@@ -1,8 +1,8 @@
 diff --git a/vendor/external-dns/values.schema.json b/helm/external-dns-app/values.schema.json
-index e8324c6..c7f265e 100644
+index e8324c6..8cae29c 100644
 --- a/vendor/external-dns/values.schema.json
 +++ b/helm/external-dns-app/values.schema.json
-@@ -1,927 +1,1122 @@
+@@ -1,927 +1,1124 @@
  {
 -  "$schema": "http://json-schema.org/draft-07/schema#",
 -  "type": "object",
@@ -395,8 +395,30 @@ index e8324c6..c7f265e 100644
 +            "type": "object",
 +            "additionalProperties": false,
 +            "properties": {
++                "image": {
++                    "type": "object",
++                    "additionalProperties": false,
++                    "properties": {
++                        "registry": {
++                            "type": "string",
++                            "description": "Registry of the CRD installer image. `image.registry` takes precedence when set."
++                        },
++                        "repository": {
++                            "type": "string",
++                            "description": "Repository of the CRD installer image."
++                        },
++                        "tag": {
++                            "type": [
++                                "string",
++                                "null"
++                            ],
++                            "description": "Tag of the CRD installer image. Defaults to the chart version."
++                        }
++                    }
++                },
 +                "install": {
-+                    "type": "boolean"
++                    "type": "boolean",
++                    "description": "Install the CRDs with a pre-install and pre-upgrade hook Job."
 +                }
              }
 -          }
@@ -667,26 +689,6 @@ index e8324c6..c7f265e 100644
 +        "interval": {
 +            "type": "string",
 +            "description": "Interval for DNS updates."
-+        },
-+        "kubectl-apply-job": {
-+            "type": "object",
-+            "description": "Values Helm merges in from the kubectl-apply-job subchart defaults. Configure the job through `kubectlApplyJob`.",
-+            "additionalProperties": true
-+        },
-+        "kubectlApplyJob": {
-+            "type": "object",
-+            "additionalProperties": false,
-+            "properties": {
-+                "enabled": {
-+                    "type": "boolean"
-+                },
-+                "files": {
-+                    "type": "array",
-+                    "items": {
-+                        "type": "string"
-+                    }
-+                }
-+            }
 +        },
 +        "labelFilter": {
 +            "type": [

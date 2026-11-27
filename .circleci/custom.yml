@@ -12,6 +12,7 @@ workflows:
         push_to_oci_registry: false
         requires:
         - build-chart
+        - push-to-registries-release
         filters:
           tags:
             only: /^v.*/

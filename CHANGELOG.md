@@ -12,6 +12,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 - Replace the allow-all egress NetworkPolicy with least-privilege rules. `ciliumNetworkPolicy.enabled`, which had no effect, now renders a CiliumNetworkPolicy instead of the NetworkPolicy, with rules overridable through `ciliumNetworkPolicy.egress` and `ciliumNetworkPolicy.ingress`.
 - Limit metrics ingress to `alloy-metrics`.
 - Render no network policy when `hostNetwork` is enabled.
+- **Breaking**: Install CRDs from the `giantswarm/external-dns-crds` image with a pre-install and pre-upgrade hook Job instead of the `kubectl-apply-job` subchart. The `kubectlApplyJob` values are removed and have to be dropped from user values.
 
 ## [3.7.2] - 2026-10-29
 
